@@ -59,7 +59,9 @@ npm test
 
 ## License
 
-UNLICENSED
+This project is released under the Apache License 2.0.
+
+For more details, please see [in the LICENSE file](./LICENSE).
 
 ## Developer
 
