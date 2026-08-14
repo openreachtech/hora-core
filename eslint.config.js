@@ -4,10 +4,4 @@ import {
 
 export default [
   ...openreachtechConfig,
-
-  {
-    ignores: [
-      './playground/**',
-    ],
-  },
 ]
