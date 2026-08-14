@@ -10,12 +10,4 @@ export default [
       './playground/**',
     ],
   },
-
-  {
-    languageOptions: {
-      globals: {
-        constructorSpy: 'readonly',
-      },
-    },
-  },
 ]
