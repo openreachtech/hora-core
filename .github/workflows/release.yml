@@ -1,14 +1,25 @@
 name: Create Semantic Version Tag and Release
 
+# When a pull request into main is merged, tag its merge commit with the version
+# in the title ("Release > Main as `x.x.x`") and publish a GitHub Release.
+#
+# NOTE: This workflow must work on both GitHub-hosted and self-hosted runners.
+# A self-hosted runner cannot be assumed to have gh or Python installed, so use
+# actions/github-script rather than depend on a binary being on PATH.
+
 on:
   pull_request:
     types: [closed]
     branches:
       - main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# ⚠️ Don't add concurrency: here, because cancelling a run between the tag and
+# the release would leave the tag without one. Each merge runs once, and both
+# steps skip on 422, so there is nothing for a group to protect.
+
+# Required to create the tag and the release.
+permissions:
+  contents: write
 
 jobs:
   tag-and-release:
@@ -17,96 +28,98 @@ jobs:
 
     runs-on: [self-hosted, light]
 
+    timeout-minutes: 5
+
     steps:
-      - name: 🛎 Checkout code
-        uses: actions/checkout@v4
+      - name: ✂️ Extract the version from the PR title, or the release branch name
+        id: extract_version
+        uses: actions/github-script@v9
         with:
-          fetch-depth: 0
+          script: |
+            /*
+             * Publishing targets npmjs, so only a bare x.x.x is accepted.
+             */
+            const CORE = /(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)/u.source
+            const pullRequest = context.payload.pull_request
 
-      - name: ✅️ Get latest tag
-        id: get_latest_tag
-        run: |
-          # Get the latest semantic version tag
-          LATEST_TAG=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)
-          if [ -z "$LATEST_TAG" ]; then
-            LATEST_TAG="0.0.0"
-          fi
-          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-          echo "Latest tag: $LATEST_TAG"
+            const titleMatch = pullRequest.title.match(new RegExp(`\`(${CORE})\``, 'u'))
 
-      - name: ✅️ Determine version bump type from PR title
-        id: bump_type
-        run: |
-          PR_TITLE=$(echo '${{ github.event.pull_request.title }}' | sed 's/`/\\`/g')
+            const [
+              ,
+              titleVersion = null,
+            ] = titleMatch ?? []
 
-          # Default to patch
-          echo "bump=none" >> $GITHUB_OUTPUT
-          echo "Bumping none (default)"
+            /*
+             * Fallback: a release/x.x.x branch name.
+             */
+            const branchMatch = pullRequest.head.ref.match(new RegExp(`^release/(${CORE})$`, 'u'))
 
-          if [[ "$PR_TITLE" == *"[patch]"* ]]; then
-            echo "bump=patch" >> $GITHUB_OUTPUT
-            echo "Bumping patch version (from PR title)"
-          fi
+            const [
+              ,
+              branchVersion = null,
+            ] = branchMatch ?? []
 
-          if [[ "$PR_TITLE" == *"[major]"* ]]; then
-            echo "bump=major" >> $GITHUB_OUTPUT
-            echo "Bumping major version (from PR title)"
-          fi
+            const version = titleVersion ?? branchVersion
 
-          if [[ "$PR_TITLE" == *"[minor]"* ]]; then
-            echo "bump=minor" >> $GITHUB_OUTPUT
-            echo "Bumping minor version (from PR title)"
-          fi
+            if (version) {
+              core.info(`Version: ${version}`)
+            } else {
+              core.info('No version found in the PR title or the branch name. Skipping the tag and release.')
+            }
 
-      - name: ✅️ Bump version
-        id: bump_version
-        run: |
-          # Get current version
-          CURRENT_VERSION=${{ steps.get_latest_tag.outputs.latest_tag }}
+            core.setOutput('version', version)
 
-          # Split version into components
-          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
-          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
-          PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+      - name: 🏷️ Create the version tag
+        if: steps.extract_version.outputs.version != ''
+        uses: actions/github-script@v9
+        env:
+          VERSION: ${{ steps.extract_version.outputs.version }}
+        with:
+          script: |
+            const { VERSION } = process.env
 
-          # Initialize
-          NEW_VERSION="$((MAJOR + 0)).$((MINOR + 0)).$((PATCH + 0))"
+            /*
+             * A 422 means the tag is already there, which is not a failure: a
+             * rerun of a merged release lands here.
+             */
+            await github.rest.git
+              .createRef({
+                ...context.repo,
+                ref: `refs/tags/${VERSION}`,
+                sha: context.payload.pull_request.merge_commit_sha,
+              })
+              .catch(error => {
+                if (error.status !== 422) {
+                  throw error
+                }
 
-          # Override if specified
-          if [ "${{ steps.bump_type.outputs.bump }}" == "patch" ]; then
-            NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
-          fi
-
-          if [ "${{ steps.bump_type.outputs.bump }}" == "minor" ]; then
-            NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
-          fi
-
-          if [ "${{ steps.bump_type.outputs.bump }}" == "major" ]; then
-            NEW_VERSION="$((MAJOR + 1)).0.0"
-          fi
-
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "New version: $NEW_VERSION"
-
-      - name: 🏷️ Create new version tag
-        if: steps.bump_type.outputs.bump != 'none'
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-          NEW_TAG=${{ steps.bump_version.outputs.new_version }}
-          git tag $NEW_TAG
-          git push origin $NEW_TAG
-          echo "Created and pushed tag: $NEW_TAG"
+                core.info(`Tag ${VERSION} already exists. Skipping.`)
+              })
 
       - name: 📢 Create GitHub Release
-        if: steps.bump_type.outputs.bump != 'none'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.bump_version.outputs.new_version }}
-          name: ${{ steps.bump_version.outputs.new_version }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
+        if: steps.extract_version.outputs.version != ''
+        uses: actions/github-script@v9
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.extract_version.outputs.version }}
+        with:
+          script: |
+            const { VERSION } = process.env
+
+            /*
+             * A 422 means the release is already there, which is not a failure:
+             * a rerun of a merged release lands here.
+             */
+            await github.rest.repos
+              .createRelease({
+                ...context.repo,
+                tag_name: VERSION,
+                name: VERSION,
+                generate_release_notes: true,
+              })
+              .catch(error => {
+                if (error.status !== 422) {
+                  throw error
+                }
+
+                core.info(`Release ${VERSION} already exists. Skipping.`)
+              })
