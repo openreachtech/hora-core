@@ -22,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openreachtech/hora.git"
+    "url": "git+https://github.com/openreachtech/hora-core.git"
   },
   "author": "Open Reach Tech Inc.",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/openreachtech/hora/issues"
+    "url": "https://github.com/openreachtech/hora-core/issues"
   },
-  "homepage": "https://github.com/openreachtech/hora#readme",
+  "homepage": "https://github.com/openreachtech/hora-core#readme",
   "dependencies": {
   },
   "devDependencies": {
