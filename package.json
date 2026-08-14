@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "files": [
+    "kit/",
     "lib/",
     "types/",
     "!types/env/**"
