@@ -3,14 +3,9 @@
   "version": "0.0.0",
   "description": "Hora Kit: a package that distributes AI skills, agents, and docs for AI-driven application development.",
   "type": "module",
-  "main": "index.js",
   "files": [
-    "kit/",
-    "lib/",
-    "types/",
-    "!types/env/**"
+    "kit/"
   ],
-  "types": "./types/index.d.ts",
   "keywords": [
     "hora",
     "hora-kit",
