@@ -18,13 +18,4 @@ export default [
       },
     },
   },
-
-  {
-    files: [
-      'tests/**/*.js',
-    ],
-    rules: {
-      'max-classes-per-file': 'off',
-    },
-  },
 ]
