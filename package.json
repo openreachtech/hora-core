@@ -1,7 +1,7 @@
 {
   "name": "@openreachtech/hora",
   "version": "0.0.0",
-  "description": "TODO: fulfill here",
+  "description": "Hora Kit: a package that distributes AI skills, agents, and docs for AI-driven application development.",
   "type": "module",
   "main": "index.js",
   "files": [
