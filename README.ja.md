@@ -59,7 +59,9 @@ npm test
 
 ## ライセンス
 
-UNLICENSED
+本プロジェクトは Apache License 2.0 で公開されています。
+
+詳細は [LICENSE ファイル](./LICENSE) を参照してください。
 
 ## 開発者
 
