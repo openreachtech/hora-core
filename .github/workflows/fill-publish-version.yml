@@ -6,10 +6,14 @@ name: Fill publish version
 #
 # NOTE: GitHub Actions run per-repository. Distribute this workflow to every
 # managed repository (it does not propagate from the org .github repo on its own).
+#
+# NOTE: This workflow must work on both GitHub-hosted and self-hosted runners.
+# A self-hosted runner cannot be assumed to have gh or Python installed, so use
+# actions/github-script rather than depend on a binary being on PATH.
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 permissions:
   issues: write
@@ -20,26 +24,57 @@ jobs:
 
     runs-on: [self-hosted, light]
 
+    timeout-minutes: 5
+
     steps:
       - name: 🤖 Replace vvvvvv with the version in the title
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BODY: ${{ github.event.issue.body }}
-          TITLE: ${{ github.event.issue.title }}
-          NUMBER: ${{ github.event.issue.number }}
-          REPO: ${{ github.repository }}
-        run: |
-          # Pick the first semver-like token in the title (e.g. 1.2.0, 1.2.0-rc.1).
-          version="$(printf '%s' "$TITLE" \
-            | grep -oE '[0-9]+\.[0-9]+\.[0-9]+([-+.][0-9A-Za-z.-]+)?' \
-            | head -n1)"
+        uses: actions/github-script@v9
+        with:
+          script: |
+            /*
+             * Read the issue live. context.payload holds a snapshot taken when
+             * the event fired, and writing that back reverts any edit made
+             * while this runs.
+             */
+            const { data: issue } = await github.rest.issues.get({
+              ...context.repo,
+              issue_number: context.issue.number,
+            })
 
-          if [ -z "$version" ]; then
-            echo "No version found in the title (still 'vvvvvv'?); skipping."
-            exit 0
-          fi
-          echo "Filling version: $version"
+            const body = issue.body ?? ''
 
-          gh issue edit "$NUMBER" --repo "$REPO" \
-            --title "${TITLE//vvvvvv/$version}" \
-            --body  "${BODY//vvvvvv/$version}"
+            /*
+             * Nothing left to fill. Without this, every later edit would
+             * rewrite the body from the copy read above.
+             */
+            if (!issue.title.includes('vvvvvv') && !body.includes('vvvvvv')) {
+              core.info('No vvvvvv placeholder left; skipping.')
+
+              return
+            }
+
+            /*
+             * The version lives in the backticks after `Publish`, and must be a
+             * bare x.x.x. Since npm strips build metadata and leading zeros on
+             * publish, those forms would tag a version never published.
+             */
+            const matchResult = issue.title.match(/Publish `((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))`/u)
+
+            const [
+              ,
+              version = null,
+            ] = matchResult ?? []
+
+            if (!version) {
+              core.info("No version found in the title (still 'vvvvvv'?); skipping.")
+
+              return
+            }
+            core.info(`Filling version: ${version}`)
+
+            await github.rest.issues.update({
+              ...context.repo,
+              issue_number: issue.number,
+              title: issue.title.replaceAll('vvvvvv', version),
+              body: body.replaceAll('vvvvvv', version),
+            })
