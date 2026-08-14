@@ -1,0 +1,45 @@
+name: Fill publish version
+
+# When a publish issue is opened, extract the version from its title
+# (e.g. "🚀 Publish `1.2.0`") and replace every `vvvvvv` placeholder in the
+# title and body with it.
+#
+# NOTE: GitHub Actions run per-repository. Distribute this workflow to every
+# managed repository (it does not propagate from the org .github repo on its own).
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  fill:
+    if: startsWith(github.event.issue.title, '🚀 Publish')
+
+    runs-on: [self-hosted, light]
+
+    steps:
+      - name: 🤖 Replace vvvvvv with the version in the title
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BODY: ${{ github.event.issue.body }}
+          TITLE: ${{ github.event.issue.title }}
+          NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Pick the first semver-like token in the title (e.g. 1.2.0, 1.2.0-rc.1).
+          version="$(printf '%s' "$TITLE" \
+            | grep -oE '[0-9]+\.[0-9]+\.[0-9]+([-+.][0-9A-Za-z.-]+)?' \
+            | head -n1)"
+
+          if [ -z "$version" ]; then
+            echo "No version found in the title (still 'vvvvvv'?); skipping."
+            exit 0
+          fi
+          echo "Filling version: $version"
+
+          gh issue edit "$NUMBER" --repo "$REPO" \
+            --title "${TITLE//vvvvvv/$version}" \
+            --body  "${BODY//vvvvvv/$version}"

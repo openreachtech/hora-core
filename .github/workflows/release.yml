@@ -1,0 +1,112 @@
+name: Create Semantic Version Tag and Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tag-and-release:
+    # Only run when PR is merged
+    if: github.event.pull_request.merged == true
+
+    runs-on: [self-hosted, light]
+
+    steps:
+      - name: 🛎 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ✅️ Get latest tag
+        id: get_latest_tag
+        run: |
+          # Get the latest semantic version tag
+          LATEST_TAG=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="0.0.0"
+          fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: ✅️ Determine version bump type from PR title
+        id: bump_type
+        run: |
+          PR_TITLE=$(echo '${{ github.event.pull_request.title }}' | sed 's/`/\\`/g')
+
+          # Default to patch
+          echo "bump=none" >> $GITHUB_OUTPUT
+          echo "Bumping none (default)"
+
+          if [[ "$PR_TITLE" == *"[patch]"* ]]; then
+            echo "bump=patch" >> $GITHUB_OUTPUT
+            echo "Bumping patch version (from PR title)"
+          fi
+
+          if [[ "$PR_TITLE" == *"[major]"* ]]; then
+            echo "bump=major" >> $GITHUB_OUTPUT
+            echo "Bumping major version (from PR title)"
+          fi
+
+          if [[ "$PR_TITLE" == *"[minor]"* ]]; then
+            echo "bump=minor" >> $GITHUB_OUTPUT
+            echo "Bumping minor version (from PR title)"
+          fi
+
+      - name: ✅️ Bump version
+        id: bump_version
+        run: |
+          # Get current version
+          CURRENT_VERSION=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          # Split version into components
+          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+          PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+
+          # Initialize
+          NEW_VERSION="$((MAJOR + 0)).$((MINOR + 0)).$((PATCH + 0))"
+
+          # Override if specified
+          if [ "${{ steps.bump_type.outputs.bump }}" == "patch" ]; then
+            NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+          fi
+
+          if [ "${{ steps.bump_type.outputs.bump }}" == "minor" ]; then
+            NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
+          fi
+
+          if [ "${{ steps.bump_type.outputs.bump }}" == "major" ]; then
+            NEW_VERSION="$((MAJOR + 1)).0.0"
+          fi
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: 🏷️ Create new version tag
+        if: steps.bump_type.outputs.bump != 'none'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          NEW_TAG=${{ steps.bump_version.outputs.new_version }}
+          git tag $NEW_TAG
+          git push origin $NEW_TAG
+          echo "Created and pushed tag: $NEW_TAG"
+
+      - name: 📢 Create GitHub Release
+        if: steps.bump_type.outputs.bump != 'none'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump_version.outputs.new_version }}
+          name: ${{ steps.bump_version.outputs.new_version }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
