@@ -10,6 +10,11 @@
     "!types/env/**"
   ],
   "types": "./types/index.d.ts",
+  "keywords": [
+    "hora",
+    "hora-kit",
+    "ai"
+  ],
   "scripts": {
     "l": "npm run lint",
     "lint": "eslint .",
