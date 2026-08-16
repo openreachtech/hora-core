@@ -14,8 +14,8 @@ on:
       - main
 
 # ⚠️ Don't add concurrency: here, because cancelling a run between the tag and
-# the release would leave the tag without one. Each merge runs once, and both
-# steps skip on 422, so there is nothing for a group to protect.
+# the release would leave the tag without one. Each merge runs once and is never
+# rerun, so there is nothing for a group to protect.
 
 # Required to create the tag and the release.
 permissions:
@@ -59,6 +59,17 @@ jobs:
               branchVersion = null,
             ] = branchMatch ?? []
 
+            /*
+             * Both names carry the version, and both are typed by hand. Two
+             * sources of one value are worth nothing unless they must agree, so
+             * a disagreement stops the run instead of picking a winner.
+             */
+            if (titleVersion && branchVersion && titleVersion !== branchVersion) {
+              core.setFailed(`Version mismatch: title \`${titleVersion}\` vs branch \`${branchVersion}\`.`)
+
+              return
+            }
+
             const version = titleVersion ?? branchVersion
 
             if (version) {
@@ -79,21 +90,15 @@ jobs:
             const { VERSION } = process.env
 
             /*
-             * A 422 means the tag is already there, which is not a failure: a
-             * rerun of a merged release lands here.
+             * Every failure here is a real one, so none is caught. A tag that
+             * is already there means the version was released before, which is
+             * a title left unbumped rather than a state to skip over.
              */
             await github.rest.git
               .createRef({
                 ...context.repo,
                 ref: `refs/tags/${VERSION}`,
                 sha: context.payload.pull_request.merge_commit_sha,
-              })
-              .catch(error => {
-                if (error.status !== 422) {
-                  throw error
-                }
-
-                core.info(`Tag ${VERSION} already exists. Skipping.`)
               })
 
       - name: 📢 Create GitHub Release
@@ -106,8 +111,9 @@ jobs:
             const { VERSION } = process.env
 
             /*
-             * A 422 means the release is already there, which is not a failure:
-             * a rerun of a merged release lands here.
+             * A step condition carrying no status function still requires every
+             * earlier step to have succeeded, so this runs only once the tag is
+             * in place and needs no guard of its own.
              */
             await github.rest.repos
               .createRelease({
@@ -115,11 +121,4 @@ jobs:
                 tag_name: VERSION,
                 name: VERSION,
                 generate_release_notes: true,
-              })
-              .catch(error => {
-                if (error.status !== 422) {
-                  throw error
-                }
-
-                core.info(`Release ${VERSION} already exists. Skipping.`)
               })
