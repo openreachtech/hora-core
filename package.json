@@ -36,7 +36,7 @@
     "@openreachtech/mentsu-rootpath": "^1.1.1",
     "@openreachtech/renchan-env": "^1.0.4",
     "@types/jest": "^30.0.0",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.5",
     "jest": "^30.2.0"
   }
 }
