@@ -4,7 +4,7 @@
   "description": "Hora Kit: a package that distributes AI skills, agents, and docs for AI-driven application development.",
   "type": "module",
   "files": [
-    "kit/"
+    "dist/"
   ],
   "keywords": [
     "hora",
@@ -15,6 +15,7 @@
     "build": "node .claude/skills/flatten/scripts/build.js",
     "l": "npm run lint",
     "lint": "eslint .",
+    "prepack": "npm run build",
     "test": "export NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\"; export NODE_ENV=development; jest"
   },
   "repository": {
