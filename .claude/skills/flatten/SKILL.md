@@ -1,6 +1,6 @@
 ---
 name: flatten
-description: "Repository-specific build convention: kit/ holds exactly two payload directories (agents/, skills/), the build copies kit/ into dist/ whole and unchanged, the test suite is what checks the layout, and dist/ — not kit/ — is what this package publishes. Use when rebuilding the dist/ output, or when adding, renaming or placing anything under kit/."
+description: "Repository-specific build convention: everything under kit/ is copied into dist/ whole and unchanged, kit/ today holds two payload directories (agents/, skills/), the test suite checks that dist/ mirrors kit/ byte for byte and that each name: matches its folder, and dist/ — not kit/ — is what this package publishes. Use when rebuilding the dist/ output, or when adding, renaming or placing anything under kit/."
 ---
 
 # Flatten
@@ -17,9 +17,9 @@ Here the answer is "nothing at all". That is a fact about today's `kit/`, not a 
 
 ## Source layout
 
-**This section is a convention, not something the build enforces.** The build copies whatever it finds; the test suite is what fails when the layout below stops holding.
+**Everything placed under `kit/` is published.** The build copies whatever it finds, and nothing restricts what may sit at `kit/`'s top level. So the layout below describes what `kit/` holds today; it is not a rule that would stop something else from being added. Add a directory here and it is in the published package.
 
-`kit/` contains exactly two directories, and nothing else:
+`kit/` currently holds two payload directories:
 
 | Payload directory | Installs to | What it holds |
 |---|---|---|
@@ -64,7 +64,9 @@ It deletes `dist/` outright and copies `kit/` in whole: `dist/` is a function of
 
 Everything under `kit/` is copied **byte for byte**, whatever it is. Nothing is filtered, and nothing is rewritten: no `name:` is adjusted, no source note is appended, no path is rewritten. A file that differs between `kit/` and `dist/`, or that exists in one and not the other, is a bug in this script.
 
-**The build checks nothing.** It has no idea what a skill is; it copies a directory. The layout above is a convention, and what holds the convention up is the test suite (`tests/__tests__/kit/build.js`), which runs the build and then asserts that `dist/` matches `kit/` file for file and byte for byte, and that every skill and agent declares a `name:` equal to its folder or file name. CI runs `npm test` on every pull request, so a break is caught at the merge gate rather than at pack time.
+**The build checks nothing.** It has no idea what a skill is; it copies a directory. The test suite (`tests/__tests__/kit/build.js`) runs the build and then asserts three things: that `dist/` holds exactly the paths `kit/` holds, that every one of those files matches byte for byte, and that every skill and agent declares a `name:` equal to its folder or file name. CI runs `npm test` on every pull request, so a break there is caught at the merge gate rather than at pack time.
+
+What no test asserts is which directories `kit/` may hold. Anything added at its top level — a local settings file, a scratch note — passes the suite and ships, because copying `kit/` whole is the point rather than an oversight. Keeping the published payload to what belongs in it is a review question, not an automated one.
 
 That division is deliberate for now: the build stays trivial while `kit/` needs no transformation, and the checking lives where it can grow without making the publish path conditional.
 
