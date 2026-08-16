@@ -14,6 +14,9 @@ permissions:
 
 jobs:
   ci:
+    # ⚠️ Keep this name fixed. Required status checks are configured per-organization
+    # by check name, so renaming the job here silently exempts this repository
+    # from the merge gate.
     name: CI Test
 
     runs-on: [self-hosted, light]
@@ -33,6 +36,9 @@ jobs:
           # npm ci, can finish in 5s instead of 7s.
           cache: ${{ runner.environment == 'github-hosted' && 'npm' || '' }}
           package-manager-cache: false
+          # A floating LTS alias keeps every repository current without a scheduled
+          # sweep to bump a pinned major across all of them. Pin a concrete version
+          # here only in a repository that genuinely needs one.
           node-version: lts/*
 
       - name: 🖨️ Print runtime versions
