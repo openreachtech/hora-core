@@ -12,6 +12,8 @@ kit/
 
 `kit/` is named after what it holds rather than after any one tool, so the same payload can be delivered to whichever agent tool a repository uses. The target documented here is Claude Code, whose configuration directory is `.claude/`.
 
+What npm publishes is `dist/`, built from `kit/` on every pack. The two trees are identical, so the layout above is also the layout of the installed package.
+
 How Hora itself works — the method this kit carries — is documented with the boilerplate: [openreachtech/hora-boilerplate](https://github.com/openreachtech/hora-boilerplate).
 
 ## Installation
@@ -32,14 +34,14 @@ The package ships instructions for AI agents only. There is no JavaScript to imp
 
 ## Usage
 
-Once installed, `kit/` is cloned into the project's `.claude/` — the directory an agent tool reads its skills and agents from. The boilerplate's setup does this for you. In a project set up some other way, copy it in:
+Once installed, `dist/` is cloned into the project's `.claude/` — the directory an agent tool reads its skills and agents from. The boilerplate's setup does this for you. In a project set up some other way, copy it in:
 
 ```sh
 mkdir -p .claude
-cp -R node_modules/@openreachtech/hora/kit/. .claude/
+cp -R node_modules/@openreachtech/hora/dist/. .claude/
 ```
 
-`kit/agents/` lands at `.claude/agents/` and `kit/skills/` at `.claude/skills/`, which is where skill discovery looks — a package's own directory is never on that path, so the clone is what makes the kit visible. Repeat it after every upgrade of this package.
+`dist/agents/` lands at `.claude/agents/` and `dist/skills/` at `.claude/skills/`, which is where skill discovery looks — a package's own directory is never on that path, so the clone is what makes the kit visible. Repeat it after every upgrade of this package.
 
 The skills are then invocable as slash commands for the rest of the session.
 
