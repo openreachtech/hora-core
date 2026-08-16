@@ -29,7 +29,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@openreachtech/eslint-config": "^4.4.0",
+    "@openreachtech/eslint-config": "^4.5.0",
     "@openreachtech/jest-constructor-spy": "^1.1.2",
     "@openreachtech/jest-deep-containing": "^1.0.2",
     "@openreachtech/jest-expect-each": "^1.0.3",
