@@ -34,7 +34,13 @@ the test code                                  whether the behavior is actually 
 
 When you are handed **checkpoint 8, the security audit**, run the skills `/hora-build` handed you for it — invoke each by the name you were given, through the ordinary `Skill` tool — and report what they produce. **Their checks and their finding criteria are the audit — do not substitute your own judgment for them, and do not stop early because the first few checks came back clean.** A name that matches nothing under `.claude/skills/` is reported, not replaced with one you went looking for.
 
+You are also handed the change set to audit — this feature's changes standing in the working tree, not the whole repository. **Run every check the audit skills define, but read them over that set only.** Report only findings attributable to the handed set; a problem you happen to notice outside it is not this feature's finding.
+
 That skill is read-only by design, which is why it is yours. **Fixing a finding is not.** Report the findings; an implementer fixes them and the audit runs again.
+
+**On a re-audit, you are handed the prior findings and the files the fix touched.** Judge two things and nothing else: is each prior finding actually resolved, and does the fix introduce a new finding under the same checks — in the files it edited **and in any shared surface it reached** (a rewired contract caller, a moved guard). Do not re-scan the parts of the feature the fix did not touch — on the first run they either passed or were accepted, and nothing since has changed them.
+
+**Handed no fix, you are not on that path.** Checkpoint 8 is re-entered whenever a later gate sends the run back into the checkpoints before it, and there the change set is this feature's own, exactly as on the first run.
 
 ## "A test exists" is not enough to pass
 
@@ -98,7 +104,7 @@ met              whether the checkpoint's exit condition holds
 unmet            what falls short of it, and the grounds for that
 missingTests     acceptance criteria that exist but are not backed by a test
 weakenedTests    a test that no longer asserts what it was written to assert
-findings         for checkpoint 8: what the audit skills produced, unedited
+findings         for checkpoint 8: what the audit skills produced over the handed set, unedited
 contractDrift    any place that deviates from the contract
 specIssues       a problem in specs/ that makes something unmeetable under any reading
 specAssumptions  an ambiguous criterion you resolved by assuming one reading, and what you assumed

@@ -72,6 +72,17 @@ Report the decision in one line before starting work — "building #attendance, 
           feature's bank-id prefix
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
+          AND the change set to audit: this feature's changes as they stand
+          in this checkpoint's repository, plus the operations and endpoints
+          it declares in .hora/contracts/<version>/. Take the changes from
+          the working tree, never from a commit range — the backend commits
+          do not land until the gate after 9, so a range is empty, or
+          part-filled where a hotfix catch-up already saved some of the work,
+          which is the worse of the two. From inside that repository:
+            base=$(git merge-base release/<version> HEAD)
+            git diff --name-only "$base"             # tracked, since the point
+            git ls-files --others --exclude-standard # the new files, untracked
+          The audit skills run over that set, never the whole repository
           (below)
 6. Gather the units: regenerate every aggregation file their registrations
    name, then handle whatever else they reported that is not code (below) —
@@ -248,7 +259,7 @@ Report the decision in one line before starting work — "building #attendance, 
 | `met` | writes `[x]` and moves on |
 | `unmet`, with `sendBackTo` | clears the checkpoints from `sendBackTo` on and re-enters there. **`sendBackTo` is required whenever anything is unmet**; a report missing it goes back to the verifier, never into a guess |
 | `missingTests` / `weakenedTests` | the checkpoint is not passed — back to an implementer agent, with the shortfall named |
-| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again. An accepted finding is recorded as a question, never left as a silent pass |
+| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files the fix reported touching (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
 | `contractDrift` | raises a `contradiction` question (`blocking: yes`). **Never edits the contract** |
 | `specIssues` | takes it to checkpoint 1's procedure, or raises a question |
 | `specAssumptions` | records each as a `spec-assumption` question (`blocking: no`) |
