@@ -3,21 +3,19 @@
   "version": "0.0.0",
   "description": "Hora Kit: a package that distributes AI skills, agents, and docs for AI-driven application development.",
   "type": "module",
-  "main": "index.js",
   "files": [
-    "lib/",
-    "types/",
-    "!types/env/**"
+    "dist/"
   ],
-  "types": "./types/index.d.ts",
   "keywords": [
     "hora",
     "hora-kit",
     "ai"
   ],
   "scripts": {
+    "build": "node .claude/skills/flatten/scripts/build.js",
     "l": "npm run lint",
     "lint": "eslint .",
+    "prepack": "npm run build",
     "test": "export NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\"; export NODE_ENV=development; jest"
   },
   "repository": {
@@ -25,7 +23,7 @@
     "url": "git+https://github.com/openreachtech/hora-core.git"
   },
   "author": "Open Reach Tech Inc.",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/openreachtech/hora-core/issues"
   },
@@ -33,14 +31,14 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@openreachtech/eslint-config": "^4.4.0",
+    "@openreachtech/eslint-config": "^4.5.0",
     "@openreachtech/jest-constructor-spy": "^1.1.2",
     "@openreachtech/jest-deep-containing": "^1.0.2",
     "@openreachtech/jest-expect-each": "^1.0.3",
     "@openreachtech/mentsu-rootpath": "^1.1.1",
     "@openreachtech/renchan-env": "^1.0.4",
     "@types/jest": "^30.0.0",
-    "eslint": "^9.39.2",
-    "jest": "^30.2.0"
+    "eslint": "^9.39.5",
+    "jest": "^30.4.2"
   }
 }
