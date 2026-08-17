@@ -245,6 +245,7 @@ Report the decision in one line before starting work — "building #attendance, 
 | `contractDrift` | raises a `contradiction` question (`blocking: yes`). **Never edits the contract** |
 | `registrations` | regenerates that aggregation file from its folder, and records where insertion was the only option |
 | `reinvention` | raises a `reinvention` question (`blocking: no`) |
+| `upstreamDefect` | raises an `upstream-defect` question (`blocking: no`), naming what would let the workaround be removed again. Where the workaround reaches files this feature does not own, it goes on an `update/` branch like any conflict-proof change; where a newer version of the package is the answer instead, on an `update/<package-name>-to-<version>` branch |
 | `specIssues` | takes it to checkpoint 1's procedure, or raises a question |
 | `missingSkill` | records the gap against the checkpoint in the feature file, continues without it, and names it in the closing report. **Never substitutes a different skill** |
 

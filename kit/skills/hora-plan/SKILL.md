@@ -320,6 +320,7 @@ whether an extension point should be left in place.
 | `inferred-annotation` | reporting that `id` / `target` / `depends` was inferred | no |
 | `spec-assumption` | an ambiguous criterion was still meetable under some reading; one was assumed and judged against | no |
 | `reinvention` | checking whether an existing package already does what is about to be written | no |
+| `upstream-defect` | a defect in a framework or a package, worked around in this project's own code rather than by editing the dependency, and what would let the workaround be removed again | no |
 | `orphan` | a file that nothing links to from `spec.md` | no |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |

@@ -72,6 +72,12 @@ specs/<version>/               your feature's section: its use cases and accepta
 
 **Use the glossary's identifiers.** When a new concept gets a name, do not append it to the glossary yourself — **report it in your return value**. `@openreachtech/eslint-config` strictly forbids certain identifier names — suffixes, words and syntax — and a naive name fails. **Read the rules from the package itself, under your repository's `node_modules/@openreachtech/eslint-config/`; they are deliberately not copied here**, because the denylist is the package's to grow and a copy would still read as authoritative after it had. Once a workaround name is chosen, report that too.
 
+### A defect in something this project did not write is not yours to edit
+
+A framework, a package from the catalog, anything resolved under `node_modules/` — **an edit there is not a fix.** The next install erases it and nothing records that it was ever there. Forking the package, reimplementing what it does and patching it at runtime each end the same way: this project owning code somebody else maintains.
+
+**Work around it in this project's own code instead**, following the skills you were handed that cover how a defect in a dependency is worked around, and **report it under `upstreamDefect`** — what is wrong, what you did instead, and what would let the workaround be removed again. A workaround nobody wrote a removal condition for is permanent by default.
+
 ### Do not install anything
 
 **Never run `npm install` / `npm uninstall`.** A dependency goes on its own branch, committed as a `package.json` / `package-lock.json` pair, by `/hora` itself — mixing one into a checkpoint's own work buries a few lines of intent in thousands of generated ones. **Report it under `dependencies`** and `/hora-build` installs it, then hands the checkpoint back to you to continue.
@@ -136,6 +142,7 @@ conflictProof    a change needed to a conflict-proof file (`.env.development`, t
 contractDrift    a place where you wanted to change a contract (and that you did not)
 missingSkill     a name you were handed that matched nothing under .claude/skills/
 reinvention      something that looked like it matched the catalog but you were not confident about
+upstreamDefect   a defect you found in a framework or a package, and the extension you wrote for it
 specIssues       a problem you found in specs/ (and that you did not fix it)
 exitConditionMet whether your checkpoint's exit condition now holds. If not, why
 ```

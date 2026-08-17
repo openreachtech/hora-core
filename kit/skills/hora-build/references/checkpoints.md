@@ -177,6 +177,7 @@ The catalog is `@openreachtech/hora-ecosystem`, a devDependency of the hora repo
 - An identifier whose name starts with `Base` is used by extending it, not directly
 - **The spec overrides this.** When `specs/` states a particular way to implement something, follow that and implement it fresh
 - When something looks close but there is no confidence, record it as `reinvention` (`blocking: no`) and proceed with your own implementation
+- **A package that does the right thing but does it wrong is not a reason to write your own.** Match the skills covering how a defect in a dependency is worked around, and hand them to the unit that hit it
 
 ### Explicit row ids come from this feature's `bank-id` prefix
 
