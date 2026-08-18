@@ -151,7 +151,7 @@ Report the decision in one line before starting work — "building #attendance, 
 
 ```
 1. Read the installed version from
-   node_modules/@openreachtech/ai-agent-skills/package.json
+   node_modules/@openreachtech/hora-skills/package.json
 2. For each skill matched above, use .hora/digests/<skill-name>.md while its
    header names that version
 3. For the rest, start hora-digester — one agent per skill, all in one
