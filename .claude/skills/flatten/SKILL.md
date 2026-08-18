@@ -1,11 +1,13 @@
 ---
 name: flatten
-description: "Repository-specific build convention: everything under kit/ is copied into dist/ whole and unchanged, kit/ today holds two payload directories (agents/, skills/), the test suite checks that dist/ mirrors kit/ byte for byte and that each name: matches its folder, and dist/ — not kit/ — is what this package publishes. Use when rebuilding the dist/ output, or when adding, renaming or placing anything under kit/."
+description: "Repository-specific build convention: everything under kit/ is copied into dist/ whole and unchanged, kit/ holds one directory per thing .claude/ accepts (agents/, skills/ today), the test suite checks that dist/ mirrors kit/ byte for byte and that each name: matches its folder, and dist/ — not kit/ — is both what this package publishes and what its installer mirrors into a consuming repository. Use when rebuilding the dist/ output, or when adding, renaming or placing anything under kit/."
 ---
 
 # Flatten
 
 `kit/` is what this repository's maintainers author. `dist/` is what npm publishes. The build is the only thing that connects them, and it runs from `prepack`, so every publish rebuilds `dist/` from the current `kit/`.
+
+`dist/` is read twice over: npm packs it, and `lib/equip/` mirrors it into a consuming repository's `.claude/` (see the README). So what lands under `kit/` does not merely ship — it is written into someone else's repository.
 
 ## Why this skill is called `flatten`
 
@@ -17,7 +19,7 @@ Here the answer is "nothing at all". That is a fact about today's `kit/`, not a 
 
 ## Source layout
 
-**Everything placed under `kit/` is published.** The build copies whatever it finds, and nothing restricts what may sit at `kit/`'s top level. So the layout below describes what `kit/` holds today; it is not a rule that would stop something else from being added. Add a directory here and it is in the published package.
+**Everything placed under `kit/` is published, and then installed.** The build copies whatever it finds, and the installer carries each directory of `dist/` into the directory of the same name under `.claude/`. So the layout below describes what `kit/` holds today; it is not a rule that would stop another directory from being added. **Anything `.claude/` accepts, `kit/` may carry** — `commands/`, `hooks/`, `output-styles/` — and neither the build nor the installer needs a change to take it.
 
 `kit/` currently holds two payload directories:
 
@@ -25,6 +27,12 @@ Here the answer is "nothing at all". That is a fact about today's `kit/`, not a 
 |---|---|---|
 | `agents/` | `.claude/agents/` | One Markdown file per agent |
 | `skills/` | `.claude/skills/` | One directory per skill, each with a `SKILL.md` |
+
+### Nothing sits at the top level but a directory
+
+**Never place a file directly under `kit/`.** A payload directory is merged into its counterpart, entry by entry, so an installed skill never disturbs one the consuming repository authored. A file at the top level has no such unit: it would land at `.claude/`'s own root, where the names are already taken by files that repository owns.
+
+`settings.json` and `settings.local.json` are the concrete case. Both are the consuming repository's own — permissions and hooks it decided on — and mirroring either would overwrite that decision wholesale. Project-level configuration belongs to the boilerplate the project was created from, never to this package. **This is a rule about what may be authored here, not a filter in the installer**: the installer mirrors `dist/` as it finds it.
 
 Every skill is at exactly this depth:
 
@@ -66,7 +74,7 @@ Everything under `kit/` is copied **byte for byte**, whatever it is. Nothing is 
 
 **The build checks nothing.** It has no idea what a skill is; it copies a directory. The test suite (`tests/__tests__/kit/build.js`) runs the build and then asserts three things: that `dist/` holds exactly the paths `kit/` holds, that every one of those files matches byte for byte, and that every skill and agent declares a `name:` equal to its folder or file name. CI runs `npm test` on every pull request, so a break there is caught at the merge gate rather than at pack time.
 
-What no test asserts is which directories `kit/` may hold. Anything added at its top level — a local settings file, a scratch note — passes the suite and ships, because copying `kit/` whole is the point rather than an oversight. Keeping the published payload to what belongs in it is a review question, not an automated one.
+What no test asserts is what `kit/` may hold. Anything added at its top level — a settings file, a scratch note — passes the suite, ships, and is written into every repository that installs this package, because copying `kit/` whole is the point rather than an oversight. Keeping the payload to what belongs in it is a review question, not an automated one.
 
 That division is deliberate for now: the build stays trivial while `kit/` needs no transformation, and the checking lives where it can grow without making the publish path conditional.
 
