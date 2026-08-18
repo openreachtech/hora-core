@@ -221,14 +221,16 @@ A seeder written here, or a test fixture written later, that carries an explicit
 
 | | |
 |---|---|
-| **Delegate to** | the skills covering a read-only, repo-wide security audit — what kinds of defect exist and how they are found |
+| **Delegate to** | the skills covering a read-only security audit — what kinds of defect exist and how they are found |
 | **Runs in** | **a verifier agent — read-only.** The audit finds; it does not fix |
 | **Exit condition** | the audit produces no finding against this feature's code, or every finding it produced has been fixed or explicitly accepted and recorded |
 | **Not applicable when** | never, for a feature that wrote backend code |
 
-**Fixing a finding is a separate act**, done by an implementer agent afterwards, followed by re-running the audit. An accepted finding is recorded as a question, never left as a silent pass.
+**Fixing a finding is a separate act**, done by an implementer agent afterwards, followed by re-running the audit. **The re-run is scoped to the fix, not repeated whole**: confirm each prior finding is resolved, and re-audit the files the fix touched — plus the shared surface it reached, since moving a guard or changing a shared caller can raise a finding in a file the fix did not itself edit. The standard is unchanged; only the surface is. An accepted finding is recorded as a question, never left as a silent pass.
 
-**Run it against this feature's code, not the whole repository.** Scoping it here keeps the finding list attributable to the work that just happened.
+**Run it against this feature's changes, not the whole repository** — the changes this feature has standing in this checkpoint's repository, together with the operations and endpoints it declares in `.hora/contracts/<version>/`. **The change set is read from the working tree, never from a commit range**: the backend commits do not land until the gate boundary after checkpoint 9, so a range here is empty — or, where a hotfix catch-up already saved part of the work, part-filled, which reads as a change set and is not one. The declared surface is included on purpose: a new caller wired to existing, unchanged code is still audited for auth and exposure, which the changed files alone would miss. Scoping it here keeps the finding list attributable to the work that just happened.
+
+**Only a re-run that follows a fix is scoped to that fix.** Checkpoint 8 is also re-entered when checkpoint 9 sends the run back into 3–7; those checkpoints changed underneath it, there is no fix to scope to, and the change set is this feature's, exactly as on the first run.
 
 ## 9. Verify the use cases again, against the built API
 
