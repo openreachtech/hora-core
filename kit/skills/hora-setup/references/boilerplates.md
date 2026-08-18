@@ -130,18 +130,6 @@ ignores: [
 
 **Write the entry exactly as declared, with no wildcard around it.** The two built-in patterns cover a family of generated names; a declared directory is one literal name.
 
-### 5. Equip the skills `@openreachtech/ai-agent-skills` ships
-
-**This does not wait on any row being cloned.** Run the script from the repository root — `ai-agent-skills` is this repository's own devDependency.
-
-Skill discovery only looks at the session's own `.claude/skills/`, and a package's skills live under `node_modules/`. Without this step, everything the package ships stays invisible for the rest of the session.
-
-The package ships its skills flattened under `dist/skills/`, so the script clones them into `.claude/skills/` as-is. **Safe to re-run** — it synchronizes rather than overlays: every package-equipped directory is removed first, then copied fresh, so a skill the package renamed or dropped does not linger as a match candidate. This repository's own skills are named back in `.gitignore` and are never touched.
-
-```bash
-.claude/skills/hora-setup/scripts/equip-skills.sh
-```
-
 ### 6. Rewrite `package.json`'s `name` / `description`
 
 A boilerplate arrives with `"name": "TODO: fulfill here ❌️"`.
@@ -277,7 +265,7 @@ An implementation repository is its own independent git repo, and a standalone c
 cp -r .claude/skills/bank-id <myproject>-backend/.claude/skills/bank-id
 ```
 
-**Unlike step 5, never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `ai-agent-skills`: it has to be reachable, and safely editable, from a session working there directly.
+**Never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `ai-agent-skills`: it has to be reachable, and safely editable, from a session working there directly.
 
 ### 13. Make an initial commit
 

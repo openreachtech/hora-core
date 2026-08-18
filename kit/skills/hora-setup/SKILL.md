@@ -14,7 +14,6 @@ Read `../hora/references/structure.md` first — the repository layout, where a 
 ```
 1. Create only the repositories that are missing, from the declaration
 2. Fill in the values that carry this project's name
-3. Equip the skills @openreachtech/ai-agent-skills ships
 4. Read what was cloned, in place, and record what was read
 ```
 
@@ -87,22 +86,6 @@ When this step finishes, make an initial commit in each repository it created, o
 
 ---
 
-## 2. Equip the skills `@openreachtech/ai-agent-skills` ships
-
-```bash
-.claude/skills/hora-setup/scripts/equip-skills.sh
-```
-
-It copies every skill that package ships into this repository's own `.claude/skills/` — **skill discovery only looks at the session's own `.claude/skills/`, and a package's skills live under `node_modules/`.**
-
-**This does not wait on any declared row being cloned.** Run it on every invocation: the package may have been updated, and the script synchronizes rather than overlays, so a re-run leaves nothing stale behind.
-
-**Everything `/hora-build` and `/hora-accept` delegate to comes from here** (`../hora/references/structure.md`, "The division of labor"). Without this step, every one of those delegations has nothing to reach.
-
-Report what was equipped, by count, and **name anything a later checkpoint will look for and not find.**
-
----
-
 ## 3. Read what was cloned, in place
 
 **This skill does not bake in knowledge of the boilerplates' conventions.** The newest tag is always cloned, so anything written down here would eventually disagree with the real thing.
@@ -164,6 +147,5 @@ Write it to `.hora/tree/<repository>.md`, with the tag at the top:
 | File | Content |
 |---|---|
 | `references/boilerplates.md` | the detailed procedure. Which boilerplate to choose, and what to fill in where |
-| `scripts/equip-skills.sh` | copies `@openreachtech/ai-agent-skills`' skills into `.claude/skills/` |
 | `../hora/references/structure.md` | the layout, the per-repository command rule, the invariants |
 | `../hora/references/commits.md` | the branch each created repository starts on |
