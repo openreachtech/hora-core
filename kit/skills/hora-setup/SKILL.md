@@ -14,7 +14,7 @@ Read `../hora/references/structure.md` first — the repository layout, where a 
 ```
 1. Create only the repositories that are missing, from the declaration
 2. Fill in the values that carry this project's name
-4. Read what was cloned, in place, and record what was read
+3. Read what was cloned, in place, and record what was read
 ```
 
 **It is idempotent, and it re-evaluates on every version.** Repositories arrive in later versions, so passing this once is not the end of it. Anything already there is passed over.
@@ -86,7 +86,7 @@ When this step finishes, make an initial commit in each repository it created, o
 
 ---
 
-## 3. Read what was cloned, in place
+## 2. Read what was cloned, in place
 
 **This skill does not bake in knowledge of the boilerplates' conventions.** The newest tag is always cloned, so anything written down here would eventually disagree with the real thing.
 
@@ -136,7 +136,7 @@ Write it to `.hora/tree/<repository>.md`, with the tag at the top:
 | Baking the boilerplate into the template (vendoring) | upstream is updated piecemeal over time. It would also contradict the parent's `.gitignore` |
 | Keeping `.git` and holding an upstream remote | mixes somebody else's commits into the product repo's history |
 | Turning it into a submodule | the consistency gained is not worth the added complexity |
-| Baking the boilerplate's conventions into this file | they will disagree with the real thing eventually. Step 3 reads it in place instead |
+| Baking the boilerplate's conventions into this file | they will disagree with the real thing eventually. Step 2 reads it in place instead |
 | `npm update` / bumping a dependency's version | following upstream is a human's deliberate action |
 | Starting the middleware (`./docker.sh start`) | a human does that when they want it. `/hora-accept` is where an environment becomes a prerequisite, and it says so rather than acting |
 
