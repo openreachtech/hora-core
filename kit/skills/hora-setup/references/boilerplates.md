@@ -19,7 +19,7 @@ The detailed procedure behind `/hora-setup`'s step 1.
 
 **Rows with origin `furo` are often more than one.** Clone one per row. There is only ever one row with origin `renchan`; if a second is declared, stop with a question.
 
-### Stack (a rough guide before step 3 reads the real thing — do not write conventions here)
+### Stack (a rough guide before step 2 reads the real thing — do not write conventions here)
 
 | | Main dependencies |
 |---|---|
@@ -86,7 +86,7 @@ git -C <myproject>-frontend-admin commit --allow-empty -m "Release <version>"
 
 **The `checkout -b` right after `init` matters.** `HEAD` is unborn at that point, and `checkout -b` on an unborn `HEAD` points the next commit at the named branch instead of `git init`'s configured default — often literally `main`, which is the one branch the commit rules say never to commit straight to (`../../hora/references/commits.md`, "Where work lands").
 
-**The `commit --allow-empty` right after that is the branch's opening marker.** `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 13's initial commit is the second commit.
+**The `commit --allow-empty` right after that is the branch's opening marker.** `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 12's initial commit is the second commit.
 
 **Skip this step entirely for a row whose directory already exists.** Do not clone into it, and do not touch its `.git`. A human commonly places it there themselves when the boilerplate is private and a non-interactive `git clone` has no credentials. The remaining steps still run for that row — each is checked on its own.
 
@@ -130,19 +130,7 @@ ignores: [
 
 **Write the entry exactly as declared, with no wildcard around it.** The two built-in patterns cover a family of generated names; a declared directory is one literal name.
 
-### 5. Equip the skills `@openreachtech/ai-agent-skills` ships
-
-**This does not wait on any row being cloned.** Run the script from the repository root — `ai-agent-skills` is this repository's own devDependency.
-
-Skill discovery only looks at the session's own `.claude/skills/`, and a package's skills live under `node_modules/`. Without this step, everything the package ships stays invisible for the rest of the session.
-
-The package ships its skills flattened under `dist/skills/`, so the script clones them into `.claude/skills/` as-is. **Safe to re-run** — it synchronizes rather than overlays: every package-equipped directory is removed first, then copied fresh, so a skill the package renamed or dropped does not linger as a match candidate. This repository's own skills are named back in `.gitignore` and are never touched.
-
-```bash
-.claude/skills/hora-setup/scripts/equip-skills.sh
-```
-
-### 6. Rewrite `package.json`'s `name` / `description`
+### 5. Rewrite `package.json`'s `name` / `description`
 
 A boilerplate arrives with `"name": "TODO: fulfill here ❌️"`.
 
@@ -155,7 +143,7 @@ A boilerplate arrives with `"name": "TODO: fulfill here ❌️"`.
 
 **`"version": "0.0.0"` and `"private": true` are left as they are.**
 
-### 7. Fill in `.env.development`
+### 6. Fill in `.env.development`
 
 `renchan-boilerplate`'s `.env.development` ships with **keys only, values empty**. Make the values match `docker-compose.development.yml` and CI (`test-with-mariadb.yml`).
 
@@ -172,7 +160,7 @@ DATABASE_PORT=3306
 
 Follow the keys the real boilerplate ships — the above is a guide.
 
-### 8. Place `docker.sh` and `docker-compose.development.yml`
+### 7. Place `docker.sh` and `docker-compose.development.yml`
 
 **`/hora` writes these while upstream does not ship them.** None of the three boilerplates ships a docker or compose file. What they ship is startup scripts (`db:setup` / `db:seed:dev` / `db:refresh` / `dev`) — **what is missing is the middleware.**
 
@@ -215,7 +203,7 @@ The verbs are `start` / `stop`, not Docker's `up` / `down`. `--wait` waits for t
 
 Do not name it `compose.yaml`. **A name must not claim to be the tool** — every existing file names its own (`eslint.config.js` / `jest.config.js` / `pm2.config.cjs`). It is not an npm script either: a `.sh` runs even before `npm install`.
 
-### 9. Write the compose file "everything included, off by default via `profiles`"
+### 8. Write the compose file "everything included, off by default via `profiles`"
 
 Get it into a state where what is needed **is already written**, so image names, versions and environment variables never have to be looked up again. Use **`profiles`, not commenting things out.**
 
@@ -249,7 +237,7 @@ services:
 
 Use the version written in the spec's manual-verification section, matching CI's `test-with-mariadb.yml`. **This avoids passing locally and failing in CI.**
 
-### 10. Write `COMPOSE_PROFILES` into `.env.development`
+### 9. Write `COMPOSE_PROFILES` into `.env.development`
 
 Decide which profiles to turn on from the spec's manual-verification section.
 
@@ -261,7 +249,7 @@ Using object storage → turn on `minio`. A search platform marked "not introduc
 
 **Never write this into `.env`.** Run `docker compose config` here to confirm `COMPOSE_PROFILES` takes effect, and report the result. If it does not, change `docker.sh` to take a profile as an argument instead.
 
-### 11. `npm install`
+### 10. `npm install`
 
 Run it in each repository that was created.
 
@@ -269,7 +257,7 @@ Run it in each repository that was created.
 
 An implementation repository is its own independent git repo, and a standalone checkout has no parent `node_modules`. **The catalog is reference material for development, not a product dependency.**
 
-### 12. Copy the `bank-id` skill into the backend row
+### 11. Copy the `bank-id` skill into the backend row
 
 **Backend only.**
 
@@ -277,9 +265,9 @@ An implementation repository is its own independent git repo, and a standalone c
 cp -r .claude/skills/bank-id <myproject>-backend/.claude/skills/bank-id
 ```
 
-**Unlike step 5, never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `ai-agent-skills`: it has to be reachable, and safely editable, from a session working there directly.
+**Never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `ai-agent-skills`: it has to be reachable, and safely editable, from a session working there directly.
 
-### 13. Make an initial commit
+### 12. Make an initial commit
 
 In each repository that was created, on the `release/<version>` branch checked out in step 4 — never on whatever branch `git init` defaulted to. Keep the boilerplate's own files separate from the values `/hora` filled in.
 
@@ -297,7 +285,7 @@ Fulfill project values for <myproject>
 | Baking the boilerplate into the template (vendoring) | upstream is updated piecemeal over time. It would also contradict the parent's `.gitignore` |
 | Keeping `.git` and holding an upstream remote | mixes somebody else's commits into the product repo's history |
 | Turning it into a submodule | the consistency gained is not worth the added complexity |
-| Baking the boilerplate's conventions into SKILL.md | they will disagree with the real thing eventually. Step 3 reads it in place instead |
+| Baking the boilerplate's conventions into SKILL.md | they will disagree with the real thing eventually. Step 2 reads it in place instead |
 | `npm update` / bumping a dependency's version | following upstream is a human's deliberate action |
 
 ---
@@ -308,8 +296,8 @@ Fulfill project values for <myproject>
 
 | Repository | What is missing | `/hora`'s stopgap |
 |---|---|---|
-| `renchan-boilerplate` | `CLAUDE.md` | read it in place in step 3 |
+| `renchan-boilerplate` | `CLAUDE.md` | read it in place in step 2 |
 | `renchan-boilerplate` | `docker.sh` / `docker-compose.development.yml` | `/hora` writes them |
-| `furo-boilerplate-nuxt` | `CLAUDE.md` | read it in place in step 3 |
+| `furo-boilerplate-nuxt` | `CLAUDE.md` | read it in place in step 2 |
 
 The right place for `CLAUDE.md` is each boilerplate's own repository. **The step that reads the real thing stays even after `CLAUDE.md` is** — the real thing outranks any assumption.
