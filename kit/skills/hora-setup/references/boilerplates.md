@@ -265,7 +265,7 @@ An implementation repository is its own independent git repo, and a standalone c
 cp -r .claude/skills/bank-id <myproject>-backend/.claude/skills/bank-id
 ```
 
-**Never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `ai-agent-skills`: it has to be reachable, and safely editable, from a session working there directly.
+**Never overwrite an existing copy** — skip this step entirely if the destination exists. A human may have customized `bank-id` inside their own backend repository. This is also why it lands directly in the backend row's own `.claude/skills/` rather than coming from `hora-skills`: it has to be reachable, and safely editable, from a session working there directly.
 
 ### 12. Make an initial commit
 

@@ -6,7 +6,7 @@
 
 ## The boundary this file sits on
 
-Hora Kit holds no procedure and no pass/fail criterion that `@openreachtech/ai-agent-skills` already holds (`../../hora/references/structure.md`, "The division of labor"). The line runs like this:
+Hora Kit holds no procedure and no pass/fail criterion that `@openreachtech/hora-skills` already holds (`../../hora/references/structure.md`, "The division of labor"). The line runs like this:
 
 | | Owns | Example |
 |---|---|---|

@@ -13,7 +13,7 @@ Read `../hora/references/structure.md` and `../hora-spec/references/principles.m
 
 **Offer numbers as options, never as a blank.** "How many users?" produces a shrug; `200 / 2,000 / 20,000`, with today's row count named alongside, produces an answer in one exchange (`../hora/references/asking.md`).
 
-**Nothing in `@openreachtech/ai-agent-skills` owns this stage, and nothing could.** No skill states what a project's user count or availability target should be. What is written below is which questions to ask; every answer is the requester's.
+**Nothing in `@openreachtech/hora-skills` owns this stage, and nothing could.** No skill states what a project's user count or availability target should be. What is written below is which questions to ask; every answer is the requester's.
 
 ---
 

@@ -15,11 +15,11 @@
 | which repositories exist, and what fills them | Hora Kit | `/hora-setup` |
 | which version is being built, and which features it holds | Hora Kit | `/hora-plan` |
 | **the order of the checkpoints, and each one's exit condition** | Hora Kit | `/hora-build` |
-| **how to write a resolver, a migration, a component, a test** | **`@openreachtech/ai-agent-skills`** | that package's own skills |
-| **how to shape a table, an SDL, a job, a screen** | **`@openreachtech/ai-agent-skills`** | whichever of its skills covers that work |
-| **what an acceptance review looks at, and what it fails on** | **`@openreachtech/ai-agent-skills`** | whichever of its skills covers that work |
+| **how to write a resolver, a migration, a component, a test** | **`@openreachtech/hora-skills`** | that package's own skills |
+| **how to shape a table, an SDL, a job, a screen** | **`@openreachtech/hora-skills`** | whichever of its skills covers that work |
+| **what an acceptance review looks at, and what it fails on** | **`@openreachtech/hora-skills`** | whichever of its skills covers that work |
 
-**Never write a procedure, a convention or a pass/fail criterion into a hora skill when a skill in `ai-agent-skills` already holds it.** State the work and delegate it. A copy disagrees with the original the first time the package is updated, and nothing announces that it has.
+**Never write a procedure, a convention or a pass/fail criterion into a hora skill when a skill in `hora-skills` already holds it.** State the work and delegate it. A copy disagrees with the original the first time the package is updated, and nothing announces that it has.
 
 ### No hora file ever names one of those skills
 

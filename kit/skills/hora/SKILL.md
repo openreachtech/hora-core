@@ -154,7 +154,7 @@ Report the decision in one line before starting work — for example, "continuin
 
 ## Where the procedures live
 
-**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in `@openreachtech/ai-agent-skills`, equipped under this repository's own `.claude/skills/`.
+**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in `@openreachtech/hora-skills`, equipped under this repository's own `.claude/skills/`.
 
 **Never write one of those procedures into a hora skill** (`references/structure.md`, "The division of labor").
 
