@@ -142,7 +142,7 @@ conflictProof    a change needed to a conflict-proof file (`.env.development`, t
 contractDrift    a place where you wanted to change a contract (and that you did not)
 missingSkill     a name you were handed that matched nothing under .claude/skills/
 reinvention      something that looked like it matched the catalog but you were not confident about
-upstreamDefect   a defect you found in a framework or a package, and the extension you wrote for it
+upstreamDefect   a defect you found in a framework or a package, and the workaround you wrote for it
 specIssues       a problem you found in specs/ (and that you did not fix it)
 exitConditionMet whether your checkpoint's exit condition now holds. If not, why
 ```
