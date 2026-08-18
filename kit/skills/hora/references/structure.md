@@ -37,7 +37,7 @@
 
 ### How the match is made
 
-Every skill the package ships sits under this repository's own `.claude/skills/`. They are then invocable through the ordinary `Skill` tool.
+**What sits under this repository's own `.claude/skills/` is what can be matched** — whatever is there at the time, however it was put there. Those are invocable through the ordinary `Skill` tool. `/hora` stops before reaching any of this when nothing is equipped at all (`../SKILL.md`, "Whether hora can start at all").
 
 ```
 1. The checkpoint, stage or acceptance step states the kind of work
