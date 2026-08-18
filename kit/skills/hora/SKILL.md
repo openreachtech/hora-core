@@ -39,9 +39,29 @@ Read `references/structure.md` before anything else — the repository layout, w
 
 ---
 
+## Whether hora can start at all
+
+**The procedures `/hora` orders are not in this repository**, and `/hora` never puts them in place itself. They arrive as skills of their own, alongside these, and this is the one thing to confirm before deciding anything else.
+
+```
+Is there at least one skill under .claude/skills/ whose name carries an
+hb- / hf- / hc- prefix?
+                             if not → stop. Report that the implementation
+                                      skills are not equipped, and ask for
+                                      them to be equipped before rerunning
+```
+
+**Nothing here checks the hora skills themselves.** `/hora` is one of them, so a session that reached this line has already proved they are equipped. What cannot be known from the inside is the other package's state, and that is the whole of what this section asks.
+
+**A partial set is not a failure.** Which of them a repository equips is its own decision, and a checkpoint that finds nothing covering its work says so and carries on (`references/structure.md`, "How the match is made"). Only the empty case stops, because there nothing is covered at all.
+
+**How they are equipped is not this file's business.** Say what is missing, not what command to run — the route differs by repository, and naming one of them here would be wrong wherever the other is used.
+
+---
+
 ## Deciding where you are
 
-Do this first, every time — a fresh start and a restart alike.
+With that settled, do this every time — a fresh start and a restart alike.
 
 ```
 0. git fetch origin --prune, for the hora repository and every declared row
@@ -134,7 +154,7 @@ Report the decision in one line before starting work — for example, "continuin
 
 ## Where the procedures live
 
-**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in `@openreachtech/ai-agent-skills`, which `/hora-setup` equips into this repository's own `.claude/skills/`.
+**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in `@openreachtech/ai-agent-skills`, equipped under this repository's own `.claude/skills/`.
 
 **Never write one of those procedures into a hora skill** (`references/structure.md`, "The division of labor").
 

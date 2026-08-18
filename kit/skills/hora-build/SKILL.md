@@ -159,6 +159,8 @@ Report the decision in one line before starting work — "building #attendance, 
 4. Hand those paths to the agent, alongside the skill names
 ```
 
+**Nothing matched, nothing digested.** When the match above came back empty, this step is skipped whole — there is no version to read and no digest to take — and the checkpoint runs on what it stated itself.
+
 **The version in the header is what keeps a digest honest.** It holds only while it names the version it came from, so a package update leaves every digest to be rewritten before it is read again.
 
 **A digest names the skill it came from, and the agent reads that skill whenever a question stays open** (`../../agents/hora-digester.md`), so a convention a digest states too thinly costs one read.

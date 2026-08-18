@@ -37,7 +37,7 @@
 
 ### How the match is made
 
-`/hora-setup` runs `.claude/skills/hora-setup/scripts/equip-skills.sh`, which copies every skill the package ships into this repository's `.claude/skills/`. They are then invocable through the ordinary `Skill` tool.
+**What sits under this repository's own `.claude/skills/` is what can be matched** — whatever is there at the time, however it was put there. Those are invocable through the ordinary `Skill` tool. A run entered through `/hora` stops before reaching any of this when nothing is equipped at all (`../SKILL.md`, "Whether hora can start at all"). A skill invoked directly does not, and matches against whatever it finds.
 
 ```
 1. The checkpoint, stage or acceptance step states the kind of work
