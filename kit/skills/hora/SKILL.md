@@ -61,7 +61,7 @@ hb- / hf- / hc- prefix?
 
 ## Deciding where you are
 
-Do this first, every time — a fresh start and a restart alike.
+With that settled, do this every time — a fresh start and a restart alike.
 
 ```
 0. git fetch origin --prune, for the hora repository and every declared row
