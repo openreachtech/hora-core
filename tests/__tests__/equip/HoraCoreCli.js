@@ -4,7 +4,6 @@ import path from 'node:path'
 import HoraCoreCli from '../../../lib/equip/HoraCoreCli.js'
 
 import CommandLineArguments from '../../../lib/equip/CommandLineArguments.js'
-import ConsumerPackageConfig from '../../../lib/equip/ConsumerPackageConfig.js'
 import HoraCoreInstaller from '../../../lib/equip/HoraCoreInstaller.js'
 
 describe('HoraCoreCli', () => {
@@ -33,7 +32,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('args: $input.commandLineArguments.args', ({ input }) => {
           const args = {
             commandLineArguments: input.commandLineArguments,
-            packageConfig: null,
             workingDirectoryPath: '',
             logger: null,
           }
@@ -42,39 +40,6 @@ describe('HoraCoreCli', () => {
 
           expect(cli)
             .toHaveProperty('commandLineArguments', input.commandLineArguments)
-        })
-      })
-
-      describe('#packageConfig', () => {
-        const cases = [
-          {
-            input: {
-              packageConfig: ConsumerPackageConfig.create({
-                directoryPath: '/consumer',
-              }),
-            },
-          },
-          {
-            input: {
-              packageConfig: ConsumerPackageConfig.create({
-                directoryPath: '/tmp',
-              }),
-            },
-          },
-        ]
-
-        test.each(cases)('filePath: $input.packageConfig.filePath', ({ input }) => {
-          const args = {
-            commandLineArguments: null,
-            packageConfig: input.packageConfig,
-            workingDirectoryPath: '',
-            logger: null,
-          }
-
-          const cli = new HoraCoreCli(args)
-
-          expect(cli)
-            .toHaveProperty('packageConfig', input.packageConfig)
         })
       })
 
@@ -97,7 +62,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('workingDirectoryPath: $input.workingDirectoryPath', ({ input, expected }) => {
           const args = {
             commandLineArguments: null,
-            packageConfig: null,
             workingDirectoryPath: input.workingDirectoryPath,
             logger: null,
           }
@@ -129,7 +93,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('logger: $input.logger', ({ input }) => {
           const args = {
             commandLineArguments: null,
-            packageConfig: null,
             workingDirectoryPath: '',
             logger: input.logger,
           }
@@ -172,36 +135,6 @@ describe('HoraCoreCli', () => {
       })
     })
 
-    describe('should hand the working directory to the package config', () => {
-      const cases = [
-        {
-          input: {
-            workingDirectoryPath: '/consumer',
-          },
-          expected: '/consumer/package.json',
-        },
-        {
-          input: {
-            workingDirectoryPath: '/tmp/consumer',
-          },
-          expected: '/tmp/consumer/package.json',
-        },
-      ]
-
-      test.each(cases)('workingDirectoryPath: $input.workingDirectoryPath', ({ input, expected }) => {
-        const args = {
-          args: [],
-          workingDirectoryPath: input.workingDirectoryPath,
-        }
-
-        const cli = HoraCoreCli.create(args)
-        const received = cli.packageConfig.filePath
-
-        expect(received)
-          .toBe(expected)
-      })
-    })
-
     describe('should fill default workingDirectoryPath', () => {
       test('when omitted', () => {
         const args = {
@@ -231,296 +164,6 @@ describe('HoraCoreCli', () => {
 })
 
 describe('HoraCoreCli', () => {
-  describe('.runPostinstall()', () => {
-    describe('should equip a consuming repository', () => {
-      test('when the repository is not this package', () => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockReturnValue(false)
-
-        const runSpy = jest.spyOn(HoraCoreCli.prototype, 'run')
-          .mockReturnValue(0)
-
-        const received = HoraCoreCli.runPostinstall({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: () => {},
-          },
-        })
-
-        expect(runSpy)
-          .toHaveBeenCalledWith()
-        expect(received)
-          .toBe(0)
-      })
-    })
-
-    describe('should equip nothing in this package itself', () => {
-      test('when the repository is this package', () => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockReturnValue(true)
-
-        const runSpy = jest.spyOn(HoraCoreCli.prototype, 'run')
-          .mockReturnValue(0)
-
-        const received = HoraCoreCli.runPostinstall({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: () => {},
-          },
-        })
-
-        expect(runSpy)
-          .not
-          .toHaveBeenCalled()
-        expect(received)
-          .toBe(0)
-      })
-    })
-
-    describe('should end successfully on a failed install', () => {
-      const cases = [
-        {
-          override: {
-            exitCode: 1,
-          },
-        },
-      ]
-
-      test.each(cases)('exitCode: $override.exitCode', ({ override }) => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockReturnValue(false)
-        jest.spyOn(HoraCoreCli.prototype, 'run')
-          .mockReturnValue(override.exitCode)
-
-        const errorSpy = jest.fn()
-
-        const received = HoraCoreCli.runPostinstall({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: errorSpy,
-          },
-        })
-
-        expect(received)
-          .toBe(0)
-        expect(errorSpy)
-          .toHaveBeenCalledWith('The kit was not installed. Run `npx hora-core install` once the above is settled.')
-      })
-    })
-
-    describe('should end successfully on a raised failure', () => {
-      const cases = [
-        {
-          override: {
-            error: new Error('ENOTDIR: not a directory, scandir \'/consumer/.claude/agents\''),
-          },
-          expected: 'The kit was not installed. Run `npx hora-core install` once the above is settled.',
-        },
-      ]
-
-      test.each(cases)('error: $override.error.message', ({ override, expected }) => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockReturnValue(false)
-        jest.spyOn(HoraCoreCli.prototype, 'run')
-          .mockImplementation(() => {
-            throw override.error
-          })
-
-        const errorSpy = jest.fn()
-
-        const received = HoraCoreCli.runPostinstall({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: errorSpy,
-          },
-        })
-
-        expect(received)
-          .toBe(0)
-        expect(errorSpy)
-          .toHaveBeenCalledWith(expected)
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.createForPostinstall()', () => {
-    describe('should install into the repository npm exports', () => {
-      const cases = [
-        {
-          input: {
-            env: {
-              npm_config_local_prefix: '/consumer',
-            },
-          },
-          expected: '/consumer',
-        },
-        {
-          input: {
-            env: {
-              INIT_CWD: '/elsewhere',
-            },
-          },
-          expected: '/elsewhere',
-        },
-      ]
-
-      test.each(cases)('env: $input.env', ({ input, expected }) => {
-        const cli = HoraCoreCli.createForPostinstall({
-          env: input.env,
-          logger: {
-            log: () => {},
-            error: () => {},
-          },
-        })
-
-        expect(cli)
-          .toHaveProperty('workingDirectoryPath', expected)
-      })
-    })
-
-    describe('should run the install command', () => {
-      test('when created as is', () => {
-        const cli = HoraCoreCli.createForPostinstall({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: () => {},
-          },
-        })
-
-        const received = cli.commandLineArguments.extractCommand()
-
-        expect(received)
-          .toBe('install')
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.extractConsumerDirectoryPath()', () => {
-    describe('should prefer the local prefix over the initial directory', () => {
-      const cases = [
-        {
-          input: {
-            env: {
-              npm_config_local_prefix: '/consumer',
-              INIT_CWD: '/elsewhere',
-            },
-          },
-          expected: '/consumer',
-        },
-        {
-          input: {
-            env: {
-              INIT_CWD: '/elsewhere',
-            },
-          },
-          expected: '/elsewhere',
-        },
-        {
-          input: {
-            env: {
-              npm_config_local_prefix: '',
-              INIT_CWD: '/elsewhere',
-            },
-          },
-          expected: '/elsewhere',
-        },
-      ]
-
-      test.each(cases)('env: $input.env', ({ input, expected }) => {
-        const received = HoraCoreCli.extractConsumerDirectoryPath(input)
-
-        expect(received)
-          .toBe(expected)
-      })
-    })
-
-    describe('should fall back to the working directory', () => {
-      test('when npm exported neither', () => {
-        const received = HoraCoreCli.extractConsumerDirectoryPath({
-          env: {},
-        })
-
-        expect(received)
-          .toBe(process.cwd())
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.get:ownPackageName', () => {
-    describe('when called as is', () => {
-      test('should be fixed value', () => {
-        const received = HoraCoreCli.ownPackageName
-
-        expect(received)
-          .toBe('@openreachtech/hora')
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.isOwnRepository()', () => {
-    describe('should tell this package apart from a consuming repository', () => {
-      const cases = [
-        {
-          override: {
-            name: '@openreachtech/hora',
-          },
-          expected: true,
-        },
-        {
-          override: {
-            name: 'alpha-app',
-          },
-          expected: false,
-        },
-        {
-          override: {
-            name: null,
-          },
-          expected: false,
-        },
-      ]
-
-      test.each(cases)('name: $override.name', ({ override, expected }) => {
-        jest.spyOn(ConsumerPackageConfig.prototype, 'extractName')
-          .mockReturnValue(override.name)
-
-        const received = HoraCoreCli.isOwnRepository({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-        })
-
-        expect(received)
-          .toBe(expected)
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
   describe('.get:CommandLineArgumentsCtor', () => {
     describe('when called as is', () => {
       test('should be fixed value', () => {
@@ -528,19 +171,6 @@ describe('HoraCoreCli', () => {
 
         expect(received)
           .toBe(CommandLineArguments) // same reference
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.get:ConsumerPackageConfigCtor', () => {
-    describe('when called as is', () => {
-      test('should be fixed value', () => {
-        const received = HoraCoreCli.ConsumerPackageConfigCtor
-
-        expect(received)
-          .toBe(ConsumerPackageConfig) // same reference
       })
     })
   })
@@ -1140,80 +770,6 @@ describe('HoraCoreCli', () => {
 
         expect(received)
           .toBe('?')
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.runPostinstallCommand()', () => {
-    describe('should report what building or running the command raises', () => {
-      const cases = [
-        {
-          override: {
-            error: new Error('EACCES: permission denied, open \'/consumer/package.json\''),
-          },
-          expected: 'EACCES: permission denied, open \'/consumer/package.json\'',
-        },
-      ]
-
-      test.each(cases)('error: $override.error.message', ({ override, expected }) => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockImplementation(() => {
-            throw override.error
-          })
-
-        const errorSpy = jest.fn()
-
-        const received = HoraCoreCli.runPostinstallCommand({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: errorSpy,
-          },
-        })
-
-        expect(received)
-          .toBe(1)
-        expect(errorSpy)
-          .toHaveBeenCalledWith(expected)
-      })
-    })
-
-    describe('should be the exit code of the command', () => {
-      const cases = [
-        {
-          override: {
-            exitCode: 0,
-          },
-        },
-        {
-          override: {
-            exitCode: 1,
-          },
-        },
-      ]
-
-      test.each(cases)('exitCode: $override.exitCode', ({ override }) => {
-        jest.spyOn(HoraCoreCli, 'isOwnRepository')
-          .mockReturnValue(false)
-        jest.spyOn(HoraCoreCli.prototype, 'run')
-          .mockReturnValue(override.exitCode)
-
-        const received = HoraCoreCli.runPostinstallCommand({
-          env: {
-            npm_config_local_prefix: '/consumer',
-          },
-          logger: {
-            log: () => {},
-            error: () => {},
-          },
-        })
-
-        expect(received)
-          .toBe(override.exitCode)
       })
     })
   })

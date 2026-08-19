@@ -19,7 +19,6 @@
     "build": "node .claude/skills/flatten/scripts/build.js",
     "l": "npm run lint",
     "lint": "eslint .",
-    "postinstall": "node lib/equip/postinstall.js",
     "prepack": "npm run build",
     "test": "export NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\"; export NODE_ENV=development; jest"
   },
