@@ -56,7 +56,7 @@ Every directory of `dist/` is carried into the directory of the same name, and w
 
 ### Directories, not links
 
-`.claude/`, and the payload directories inside it, have to be directories of your repository rather than symbolic links. An installation verifies every step it is reached through, and finding a link at any of them it writes nothing and removes nothing.
+`.claude/`, and the payload directories inside it, have to be directories of your repository rather than symbolic links. An installation verifies every step it is reached through, and finding a link at any of them it writes nothing and removes nothing. `.hora/equip-core.json`, the record of what was installed, is verified the same way: a link there would send the write to whatever it stands for and overwrite it.
 
 The hook keeps `npm install` successful whether or not the kit arrives, and npm shows nothing a script that succeeded printed. Where the kit is missing, `npx hora-core install` is what tells you why.
 
