@@ -20,7 +20,7 @@ Hora 自体の仕組み — このキットが運ぶ手法 — はボイラー�
 
 ## インストール
 
-Node.js の現行 LTS が必要です（CI がビルド対象とするバージョン）。
+Node.js 20.0.0 以降が必要です（`package.json` の `engines` が宣言している下限）。CI は現行の LTS でビルドしています。
 
 ```sh
 npm install -D @openreachtech/hora
