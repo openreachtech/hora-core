@@ -54,6 +54,16 @@ The kit lands in your repository's `.claude/`, the directory an agent tool reads
 
 Every directory of `dist/` is carried into the directory of the same name, and what that directory already holds is left in place. A skill your own repository authored sits beside the installed ones, untouched, as long as its name is not one this package distributes.
 
+### Directories, not links
+
+`.claude/`, and the payload directories inside it, have to be directories of your repository rather than symbolic links. An installation verifies every step it is reached through, and finding a link at any of them it writes nothing and removes nothing. `.hora/equip-core.json`, the record of what was installed, is verified the same way: a link there would send the write to whatever it stands for and overwrite it.
+
+The hook keeps `npm install` successful whether or not the kit arrives, and npm shows nothing a script that succeeded printed. Where the kit is missing, `npx hora-core install` is what tells you why.
+
+A link is content of the repository rather than an instruction of whoever runs the command, so following one would let the repository decide where entries are written and, worse, where the entries of the previous run are removed from.
+
+Where `.claude/` as a whole points at a directory shared between repositories, name that directory instead — `npx hora-core install --dir <the directory it resolves to>` reaches the same state, and the link still makes the kit visible at `.claude/`. Where a single payload directory is the link, no arrangement installs into it: `--dir` names the directory holding the payloads, never one of them. Replace it with a directory of its own.
+
 ### Keeping the installation current
 
 The installed kit is this package's build output rather than source of your repository, so ignore it, and name your own back in:
