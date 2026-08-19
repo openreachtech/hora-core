@@ -4,7 +4,7 @@
 
 **Stage 0 is numbered 0 because it does not renumber anything.** It gathers what already exists so that the seven stages have something to correct instead of something to dictate. On a new project it passes in a sentence.
 
-**This file holds the order and the exit conditions. It holds no design rule.** How a table is shaped, how an SDL is named, where a background job belongs and what a screen must account for all live in `@openreachtech/ai-agent-skills` (`../../hora/references/structure.md`, "The division of labor").
+**This file holds the order and the exit conditions. It holds no design rule.** How a table is shaped, how an SDL is named, where a background job belongs and what a screen must account for all live in `@openreachtech/hora-skills` (`../../hora/references/structure.md`, "The division of labor").
 
 **No stage below names a package skill, and none ever may.** Each **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions when it enters the stage (`../../hora/references/structure.md`, "No hora file ever names one of those skills").
 

@@ -26,7 +26,7 @@ the scope         the repository to work in, and this feature's bank-id prefix
 
 ## Follow the skills you were handed
 
-**You were handed the names of skills from `@openreachtech/ai-agent-skills`, and those skills hold how the work is actually done.** `/hora-build` holds the order and the exit condition; it deliberately holds no procedure.
+**You were handed the names of skills from `@openreachtech/hora-skills`, and those skills hold how the work is actually done.** `/hora-build` holds the order and the exit condition; it deliberately holds no procedure.
 
 **Each name arrives with a digest — `.hora/digests/<skill-name>.md` — and the digest is where to start.** **Invoke the skill itself through the `Skill` tool the moment a question stays open**: when the digest points you there, when it covers your case thinly, or when what you are about to write is not obviously the thing it describes.
 

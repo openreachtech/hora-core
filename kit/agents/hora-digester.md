@@ -10,7 +10,7 @@ Read **one equipped skill** and write its digest. That one file is your whole ou
 
 ```
 the skill        its name, and its directory under .claude/skills/<skill-name>/
-the version      the @openreachtech/ai-agent-skills version now installed
+the version      the @openreachtech/hora-skills version now installed
 the destination  .hora/digests/<skill-name>.md
 ```
 
@@ -57,7 +57,7 @@ the destination  .hora/digests/<skill-name>.md
 
 ```markdown
 # <skill-name>
-<!-- ai-agent-skills <version> -->
+<!-- hora-skills <version> -->
 <!-- source: .claude/skills/<skill-name>/ -->
 
 **Read the source above whenever this leaves a question open.**
