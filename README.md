@@ -38,7 +38,7 @@ This package ships no install script of its own, so adding it as a dependency in
 
 A project's own scripts are outside what npm holds back from v12 on, so this asks nothing of whoever clones the repository. `npx` is not needed here either: a lifecycle script runs with `node_modules/.bin` on its PATH.
 
-Where the kit is wanted once, or the repository is not yours to add a hook to, run the command yourself:
+The hook you just declared takes effect from the next `npm install` on, so run the command by hand for the first placement — and for a one-off, or a repository that is not yours to add a hook to:
 
 ```sh
 npx hora-core install
