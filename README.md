@@ -26,8 +26,6 @@ Requires Node.js 20.0.0 or newer, the floor `engines` declares. The CI builds ag
 npm install -D @openreachtech/hora
 ```
 
-A project created from the Hora boilerplate already declares this package as a development dependency, so `npm install` in that project brings the kit in.
-
 This package ships no install script of its own, so adding it as a dependency installs the package and places nothing. Declare the command as your own project's `postinstall`, and `npm install` alone equips the repository:
 
 ```json
