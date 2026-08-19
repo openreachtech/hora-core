@@ -20,7 +20,7 @@ How Hora itself works — the method this kit carries — is documented with the
 
 ## Installation
 
-Requires the current Node.js LTS (the version the CI builds against).
+Requires Node.js 20.0.0 or newer, the floor `engines` declares. The CI builds against the current LTS.
 
 ```sh
 npm install -D @openreachtech/hora
