@@ -312,6 +312,89 @@ describe('HoraCoreInstaller', () => {
 })
 
 describe('HoraCoreInstaller', () => {
+  describe('.isPlainEntryName()', () => {
+    describe('should be true for an entry of the installation directory', () => {
+      const cases = [
+        {
+          input: {
+            entryName: 'hora-plan',
+          },
+        },
+        {
+          input: {
+            entryName: 'hora-verifier.md',
+          },
+        },
+        {
+          input: {
+            entryName: '.hidden-skill',
+          },
+        },
+        {
+          input: {
+            entryName: 'skill with space',
+          },
+        },
+      ]
+
+      test.each(cases)('entryName: $input.entryName', ({ input }) => {
+        const received = HoraCoreInstaller.isPlainEntryName(input)
+
+        expect(received)
+          .toBe(true)
+      })
+    })
+
+    describe('should be false for an entry name reaching outside the installation directory', () => {
+      const cases = [
+        {
+          input: {
+            entryName: '..',
+          },
+        },
+        {
+          input: {
+            entryName: '.',
+          },
+        },
+        {
+          input: {
+            entryName: '',
+          },
+        },
+        {
+          input: {
+            entryName: '../../../canary',
+          },
+        },
+        {
+          input: {
+            entryName: 'hora-plan/SKILL.md',
+          },
+        },
+        {
+          input: {
+            entryName: '/etc/hosts',
+          },
+        },
+        {
+          input: {
+            entryName: '..\\..\\canary',
+          },
+        },
+      ]
+
+      test.each(cases)('entryName: $input.entryName', ({ input }) => {
+        const received = HoraCoreInstaller.isPlainEntryName(input)
+
+        expect(received)
+          .toBe(false)
+      })
+    })
+  })
+})
+
+describe('HoraCoreInstaller', () => {
   describe('#get:fs', () => {
     describe('when called as is', () => {
       test('should be fixed value', () => {
@@ -611,6 +694,49 @@ describe('HoraCoreInstaller', () => {
           .toEqual(expected)
       })
     })
+
+    describe('should never remove outside the installation directory', () => {
+      const cases = [
+        {
+          override: {
+            recordedEntryNames: [
+              '../../../canary',
+              'hora-plan',
+            ],
+          },
+          expected: [
+            [
+              '/consumer/.claude/skills/hora-plan',
+              {
+                recursive: true,
+                force: true,
+              },
+            ],
+          ],
+        },
+      ]
+
+      test.each(cases)('recordedEntryNames: $override.recordedEntryNames', ({ override, expected }) => {
+        const installer = HoraCoreInstaller.create({
+          workingDirectoryPath: '/consumer',
+          targetDirectoryPath: '/consumer/.claude/skills',
+          sourceDirectoryPath: '/package/dist/skills',
+        })
+
+        jest.spyOn(installer.manifestFile, 'loadEntryNames')
+          .mockReturnValue(override.recordedEntryNames)
+
+        const rmSyncSpy = jest.spyOn(fs, 'rmSync')
+          .mockReturnValue()
+
+        installer.removeInstalledEntries()
+
+        expect(rmSyncSpy)
+          .toHaveBeenCalledTimes(1)
+        expect(rmSyncSpy)
+          .toHaveBeenNthCalledWith(1, ...expected[0])
+      })
+    })
   })
 })
 
@@ -660,6 +786,57 @@ describe('HoraCoreInstaller', () => {
             targetEntryNames: [
               'hora-own-skill',
             ],
+          },
+          expected: [],
+        },
+      ]
+
+      test.each(cases)('recordedEntryNames: $override.recordedEntryNames', ({ override, expected }) => {
+        const installer = HoraCoreInstaller.create({
+          workingDirectoryPath: '/consumer',
+          targetDirectoryPath: '/consumer/.claude/skills',
+          sourceDirectoryPath: '/package/dist/skills',
+        })
+
+        jest.spyOn(installer.manifestFile, 'loadEntryNames')
+          .mockReturnValue(override.recordedEntryNames)
+        jest.spyOn(installer, 'collectDistributedEntryNames')
+          .mockReturnValue(override.distributedEntryNames)
+        jest.spyOn(installer, 'collectEntryNames')
+          .mockReturnValue(override.targetEntryNames)
+
+        const received = installer.collectRemovableEntryNames()
+
+        expect(received)
+          .toEqual(expected)
+      })
+    })
+
+    describe('should drop a recorded entry name that is not a plain entry name', () => {
+      const cases = [
+        {
+          override: {
+            recordedEntryNames: [
+              'hora-plan',
+              '../../../canary',
+            ],
+            distributedEntryNames: [],
+            targetEntryNames: [],
+          },
+          expected: [
+            'hora-plan',
+          ],
+        },
+        {
+          override: {
+            recordedEntryNames: [
+              '..',
+              '.',
+              '',
+              'hora-plan/SKILL.md',
+            ],
+            distributedEntryNames: [],
+            targetEntryNames: [],
           },
           expected: [],
         },

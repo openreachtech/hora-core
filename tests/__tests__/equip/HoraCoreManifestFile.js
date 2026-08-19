@@ -289,6 +289,109 @@ describe('HoraCoreManifestFile', () => {
           .toEqual([])
       })
     })
+
+    describe('should be empty when the recorded entryNames is not an array', () => {
+      const cases = [
+        {
+          override: {
+            entryNames: 'hora-plan',
+          },
+        },
+        {
+          override: {
+            entryNames: 1,
+          },
+        },
+        {
+          override: {
+            entryNames: null,
+          },
+        },
+        {
+          override: {
+            entryNames: {
+              0: 'hora-plan',
+            },
+          },
+        },
+      ]
+
+      test.each(cases)('entryNames: $override.entryNames', ({ override }) => {
+        const manifestFile = HoraCoreManifestFile.create({
+          filePath: '/tmp/app/.hora/equip-core.json',
+          installationPath: '.claude/skills',
+        })
+
+        jest.spyOn(manifestFile, 'load')
+          .mockReturnValue({
+            version: '0.0.1',
+            installations: {
+              '.claude/skills': {
+                entryNames: override.entryNames,
+              },
+            },
+          })
+
+        const received = manifestFile.loadEntryNames()
+
+        expect(received)
+          .toEqual([])
+      })
+    })
+
+    describe('should keep only the recorded entry names that are strings', () => {
+      const cases = [
+        {
+          override: {
+            entryNames: [
+              'hora-plan',
+              1,
+              'hora-spec',
+            ],
+          },
+          expected: [
+            'hora-plan',
+            'hora-spec',
+          ],
+        },
+        {
+          override: {
+            entryNames: [
+              null,
+              {
+                entryName: 'hora-plan',
+              },
+              [
+                'hora-plan',
+              ],
+            ],
+          },
+          expected: [],
+        },
+      ]
+
+      test.each(cases)('entryNames: $override.entryNames', ({ override, expected }) => {
+        const manifestFile = HoraCoreManifestFile.create({
+          filePath: '/tmp/app/.hora/equip-core.json',
+          installationPath: '.claude/skills',
+        })
+
+        jest.spyOn(manifestFile, 'load')
+          .mockReturnValue({
+            version: '0.0.1',
+            installations: {
+              '.claude/skills': {
+                entryNames: override.entryNames,
+              },
+            },
+          })
+
+        const received = manifestFile.loadEntryNames()
+
+        expect(received)
+          .toEqual(expected)
+      })
+    })
   })
 })
 
