@@ -33,6 +33,9 @@
     "url": "https://github.com/openreachtech/hora-core/issues"
   },
   "homepage": "https://github.com/openreachtech/hora-core#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
   },
   "devDependencies": {
