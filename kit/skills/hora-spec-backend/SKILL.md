@@ -9,7 +9,7 @@ description: Stage 4 of /hora-spec. Declare the repositories and servers, then d
 
 Read `../hora/references/structure.md` and `../hora-spec/references/principles.md` first. `../hora-spec/references/stages.md` is the authority on this stage's exit condition, `../hora/references/spec-format.md` on the format of every table written here, and `../hora/references/asking.md` on how anything is put to a person.
 
-**This stage holds no design rule of its own.** How a table is shaped, how an SDL is named, where a job belongs and how a queue is tuned all live in `@openreachtech/ai-agent-skills`. Invoke the skills the delegates table names and read them — never restate one of their rules here.
+**This stage holds no design rule of its own.** How a table is shaped, how an SDL is named, where a job belongs and how a queue is tuned all live in `@openreachtech/hora-skills`. Invoke the skills the delegates table names and read them — never restate one of their rules here.
 
 ## What this stage reads
 

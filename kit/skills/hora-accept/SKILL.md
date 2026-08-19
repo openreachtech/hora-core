@@ -13,7 +13,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ## What this skill does not contain
 
-**The content of an acceptance review, and the criteria it passes or fails on, are not in this file and must never be written into it.** They live in `@openreachtech/ai-agent-skills`, and this skill delegates the work.
+**The content of an acceptance review, and the criteria it passes or fails on, are not in this file and must never be written into it.** They live in `@openreachtech/hora-skills`, and this skill delegates the work.
 
 | What is needed | Whose it is |
 |---|---|
@@ -22,6 +22,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 | the durable list of scenarios, and how coverage is derived from the API surface | the skills covering end-to-end test specification |
 | UX, interaction, accessibility and consent findings, with severity | the skills covering the UI/UX audit |
 | the project context those two read (users, scope, tokens, rules) | the skills covering the shared UI/UX project context |
+| the kinds of defect a read-only security audit finds, and how it finds them | the skills covering a read-only security audit |
 | driving a failing suite to green without weakening it | the skills covering test execution |
 | where a backend test lives, and how its run order is guaranteed | the skills covering backend test placement |
 | how a unit test for a class is written | the skills covering how a unit test is written |
@@ -42,10 +43,12 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **Two invocations, two reaches — and the unit suites are the one thing that never shrinks.**
 
-| Invoked as | Unit suites (step 2) | Review scope (steps 3–5) | Written to |
+| Invoked as | Unit suites (step 2) | Review scope (steps 3–6) | Written to |
 |---|---|---|---|
 | checkpoint 18 of `/hora-build` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review is **skipped unless explicitly requested, or unless this run is paying a listed feature's deferred acceptance** (below) | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
+
+**Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
 
 **"Explicitly requested" means a person asked for it, in the run.** That is the only widening there is, and the run records it with the requester named. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
 
@@ -79,7 +82,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **Deriving the exclusion rather than writing a rule for it is the point.** A rule would have to hold at two reaches, three invocation forms and every version after this one, and the first place somebody forgot it would put a feature with no acceptance criteria in front of the review skills — which can only report that nothing failed. The checkbox is absent once, in the plan, and every reach reads the same absence.
 
-**Where the plan collapsed a version into a single adoption sweep**, that sweep is one invocation with every adopted feature in scope, standing in for each one's checkpoint 18. It runs the same five steps as any sweep — only the number of repetitions shrinks. Its findings route to checkpoints per feature, and a feature a finding reopens gets its checkpoints back for real.
+**Where the plan collapsed a version into a single adoption sweep**, that sweep is one invocation with every adopted feature in scope, standing in for each one's checkpoint 18. It runs the same six steps as any sweep — only the number of repetitions shrinks. Its findings route to checkpoints per feature, and a feature a finding reopens gets its checkpoints back for real.
 
 **A feature whose acceptance was deferred by a listing runs at full live reach when it is finally accepted, whatever the invocation form.** It is decided mechanically, from two facts together: **no `.hora/acceptance/*/<feature-id>.md` holds a block whose verdict is a pass, in any version, and an earlier version's `_plan.md` names this feature under `## Not accepted`.** Such a run is the only acceptance this code will ever have had, so a live-skipped pass would stand as the whole of what was ever said about it.
 
@@ -134,6 +137,16 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 5. UX findings — at the sweep, or on explicit request; a gate run skips this
      the skills covering the UI/UX audit, against the context the shared
      UI/UX context skills produced
+
+6. Security audit — at the sweep, or on explicit request; a gate run skips it
+     the skills covering a read-only security audit
+     Checkpoint 8 already ran this per feature, over that feature's change
+     set. The sweep points the same audit at the whole repository — what
+     differs is the target, not the skill or its checks — to catch what no
+     single feature's change could show: accumulated exposure, a dependency
+     that decayed, an authorization two features contradict. A gate run
+     skips it; checkpoint 8 covered that feature already, scoped. Findings
+     route like any other ("What a failure does", below)
 ```
 
 **Step 1 is a gate for any run that drives the product, not a warm-up.** A live review signs in as each role, completes flows to their success condition, and stops dependencies on purpose to watch what the screen says. None of that means anything against a stub. What a gate run does instead is not a weaker version of the same claim: it keeps the static checks, gives up the driven-browser ones, and its capability note bounds every claim it makes.
@@ -190,6 +203,7 @@ failed
 | review | `<the names you matched>` | 2 findings |
 | version criteria | — | not in scope (gate) |
 | UX | `<the names you matched>` | 1 finding (minor) |
+| security | — | not in scope (gate) |
 
 ### Findings
 
@@ -274,8 +288,9 @@ failed
 | **a version acceptance criterion did not hold** | the named checkpoints are cleared in the features its `spans:` names — **the earliest one where a finding could land in more than one** — and rebuilt through a `retake/` branch |
 | **a version criterion failed in the part it `rests on:`** — the behavior of a feature the spec only listed | **there is no checkpoint to clear**, so the finding names the debt: pay it in this version, or change the criterion through `/hora-spec`. **Both readings recorded, neither recommended**, as a `contradiction` question (`blocking: yes`) |
 | a real finding the project decides to live with | an `acceptance-finding` question, recording the decision and who made it |
+| **a finding in a conflict-proof file or in a dependency**, which no feature's checkpoint owns | its own `update/` branch (`../hora/references/commits.md`) — planned growth of something shared, not a redo of a feature. **The run records which branch it named** |
 
-**The rested-on row is the one destination in this table that is not a checkpoint, and it has to be, because a listed feature has none.** Re-scheduling the feature to make one would hand code already serving users to `/hora-build` from checkpoint 1.
+**Two rows name a destination that is not a checkpoint, and both have to.** The rested-on row, because a listed feature has none — re-scheduling the feature to make one would hand code already serving users to `/hora-build` from checkpoint 1. The shared-code row, because a conflict-proof file and a dependency belong to every feature and to none, so clearing one feature's checkpoint would name the wrong owner.
 
 **Which of the two readings holds cannot be settled here.** Either the inherited code does not do what the criterion claimed, or the criterion claimed something about inherited behavior nobody ever stated. **That is the price of the criterion having been allowed to rest on unstated behavior.**
 

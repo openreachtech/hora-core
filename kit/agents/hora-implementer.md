@@ -26,7 +26,7 @@ the scope         the repository to work in, and this feature's bank-id prefix
 
 ## Follow the skills you were handed
 
-**You were handed the names of skills from `@openreachtech/ai-agent-skills`, and those skills hold how the work is actually done.** `/hora-build` holds the order and the exit condition; it deliberately holds no procedure.
+**You were handed the names of skills from `@openreachtech/hora-skills`, and those skills hold how the work is actually done.** `/hora-build` holds the order and the exit condition; it deliberately holds no procedure.
 
 **Each name arrives with a digest — `.hora/digests/<skill-name>.md` — and the digest is where to start.** **Invoke the skill itself through the `Skill` tool the moment a question stays open**: when the digest points you there, when it covers your case thinly, or when what you are about to write is not obviously the thing it describes.
 
@@ -71,6 +71,12 @@ specs/<version>/               your feature's section: its use cases and accepta
 ```
 
 **Use the glossary's identifiers.** When a new concept gets a name, do not append it to the glossary yourself — **report it in your return value**. `@openreachtech/eslint-config` strictly forbids certain identifier names — suffixes, words and syntax — and a naive name fails. **Read the rules from the package itself, under your repository's `node_modules/@openreachtech/eslint-config/`; they are deliberately not copied here**, because the denylist is the package's to grow and a copy would still read as authoritative after it had. Once a workaround name is chosen, report that too.
+
+### A defect in something this project did not write is not yours to edit
+
+A framework, a package from the catalog, anything resolved under `node_modules/` — **an edit there is not a fix.** The next install erases it and nothing records that it was ever there. Forking the package, reimplementing what it does and patching it at runtime each end the same way: this project owning code somebody else maintains.
+
+**Work around it in this project's own code instead**, following the skills you were handed that cover how a defect in a dependency is worked around, and **report it under `upstreamDefect`** — what is wrong, what you did instead, and what would let the workaround be removed again. A workaround nobody wrote a removal condition for is permanent by default.
 
 ### Do not install anything
 
@@ -136,6 +142,7 @@ conflictProof    a change needed to a conflict-proof file (`.env.development`, t
 contractDrift    a place where you wanted to change a contract (and that you did not)
 missingSkill     a name you were handed that matched nothing under .claude/skills/
 reinvention      something that looked like it matched the catalog but you were not confident about
+upstreamDefect   a defect you found in a framework or a package, and the workaround you wrote for it
 specIssues       a problem you found in specs/ (and that you did not fix it)
 exitConditionMet whether your checkpoint's exit condition now holds. If not, why
 ```
