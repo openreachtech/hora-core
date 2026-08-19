@@ -28,21 +28,19 @@ npm install -D @openreachtech/hora
 
 A project created from the Hora boilerplate already declares this package as a development dependency, so `npm install` in that project brings the kit in.
 
-Installing this package is the request to equip the repository with the kit, so its `postinstall` places it into `.claude/` for you.
-
-npm turns install scripts off by default from v12 on, and warns about them before that, so the hook only runs where you have allowed it. Add this package to the whitelist in your package.json:
+This package ships no install script of its own, so adding it as a dependency installs the package and places nothing. Declare the command as your own project's `postinstall`, and `npm install` alone equips the repository:
 
 ```json
 {
-  "allowScripts": {
-    "@openreachtech/hora": true
+  "scripts": {
+    "postinstall": "hora-core install"
   }
 }
 ```
 
-`npm install-scripts approve @openreachtech/hora` writes the same entry, and `npm install-scripts ls` lists what is still waiting for a decision.
+A project's own scripts are outside what npm holds back from v12 on, so this asks nothing of whoever clones the repository. `npx` is not needed here either: a lifecycle script runs with `node_modules/.bin` on its PATH.
 
-Where you would rather not allow the hook, run the command yourself instead — it does exactly what the hook does:
+Where the kit is wanted once, or the repository is not yours to add a hook to, run the command yourself:
 
 ```sh
 npx hora-core install
@@ -58,7 +56,7 @@ Every directory of `dist/` is carried into the directory of the same name, and w
 
 `.claude/`, and the payload directories inside it, have to be directories of your repository rather than symbolic links. An installation verifies every step it is reached through, and finding a link at any of them it writes nothing and removes nothing. `.hora/equip-core.json`, the record of what was installed, is verified the same way: a link there would send the write to whatever it stands for and overwrite it.
 
-The hook keeps `npm install` successful whether or not the kit arrives, and npm shows nothing a script that succeeded printed. Where the kit is missing, `npx hora-core install` is what tells you why.
+An installation that carries nothing says why and ends with a failing exit code. Where the command runs as your project's own `postinstall`, that is what `npm install` reports; run on its own, `npx hora-core install` tells you the same.
 
 A link is content of the repository rather than an instruction of whoever runs the command, so following one would let the repository decide where entries are written and, worse, where the entries of the previous run are removed from.
 
@@ -77,7 +75,7 @@ The installed kit is this package's build output rather than source of your repo
 
 Matching on the whole directory rather than on a name prefix is deliberate: what this package distributes changes with every release, and a pattern written against today's names goes stale without saying so.
 
-Updating this package re-runs the hook, so the kit follows along. Without the hook, run the command again yourself:
+Updating this package re-runs your project's `postinstall`, so the kit follows along. Without a hook, run the command again yourself:
 
 ```sh
 npx hora-core install
