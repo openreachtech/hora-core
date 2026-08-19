@@ -26,8 +26,6 @@ Requires Node.js 20.0.0 or newer, the floor `engines` declares. The CI builds ag
 npm install -D @openreachtech/hora
 ```
 
-A project created from the Hora boilerplate already declares this package as a development dependency, so `npm install` in that project brings the kit in.
-
 This package ships no install script of its own, so adding it as a dependency installs the package and places nothing. Declare the command as your own project's `postinstall`, and `npm install` alone equips the repository:
 
 ```json
@@ -40,7 +38,7 @@ This package ships no install script of its own, so adding it as a dependency in
 
 A project's own scripts are outside what npm holds back from v12 on, so this asks nothing of whoever clones the repository. `npx` is not needed here either: a lifecycle script runs with `node_modules/.bin` on its PATH.
 
-Where the kit is wanted once, or the repository is not yours to add a hook to, run the command yourself:
+The hook you just declared takes effect from the next `npm install` on, so run the command by hand for the first placement — and for a one-off, or a repository that is not yours to add a hook to:
 
 ```sh
 npx hora-core install
@@ -75,7 +73,7 @@ The installed kit is this package's build output rather than source of your repo
 
 Matching on the whole directory rather than on a name prefix is deliberate: what this package distributes changes with every release, and a pattern written against today's names goes stale without saying so.
 
-Updating this package re-runs your project's `postinstall`, so the kit follows along. Without a hook, run the command again yourself:
+An `npm install` with no arguments re-runs your project's `postinstall`, so the kit follows along. Naming the package on the command line — `npm install @openreachtech/hora@latest` — does not, and neither does a repository without a hook. Run the command again yourself:
 
 ```sh
 npx hora-core install
