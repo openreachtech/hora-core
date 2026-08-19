@@ -4,7 +4,6 @@ import path from 'node:path'
 import HoraCoreCli from '../../../lib/equip/HoraCoreCli.js'
 
 import CommandLineArguments from '../../../lib/equip/CommandLineArguments.js'
-import ConsumerPackageConfig from '../../../lib/equip/ConsumerPackageConfig.js'
 import HoraCoreInstaller from '../../../lib/equip/HoraCoreInstaller.js'
 
 describe('HoraCoreCli', () => {
@@ -33,7 +32,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('args: $input.commandLineArguments.args', ({ input }) => {
           const args = {
             commandLineArguments: input.commandLineArguments,
-            packageConfig: null,
             workingDirectoryPath: '',
             logger: null,
           }
@@ -42,39 +40,6 @@ describe('HoraCoreCli', () => {
 
           expect(cli)
             .toHaveProperty('commandLineArguments', input.commandLineArguments)
-        })
-      })
-
-      describe('#packageConfig', () => {
-        const cases = [
-          {
-            input: {
-              packageConfig: ConsumerPackageConfig.create({
-                directoryPath: '/consumer',
-              }),
-            },
-          },
-          {
-            input: {
-              packageConfig: ConsumerPackageConfig.create({
-                directoryPath: '/tmp',
-              }),
-            },
-          },
-        ]
-
-        test.each(cases)('filePath: $input.packageConfig.filePath', ({ input }) => {
-          const args = {
-            commandLineArguments: null,
-            packageConfig: input.packageConfig,
-            workingDirectoryPath: '',
-            logger: null,
-          }
-
-          const cli = new HoraCoreCli(args)
-
-          expect(cli)
-            .toHaveProperty('packageConfig', input.packageConfig)
         })
       })
 
@@ -97,7 +62,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('workingDirectoryPath: $input.workingDirectoryPath', ({ input, expected }) => {
           const args = {
             commandLineArguments: null,
-            packageConfig: null,
             workingDirectoryPath: input.workingDirectoryPath,
             logger: null,
           }
@@ -129,7 +93,6 @@ describe('HoraCoreCli', () => {
         test.each(cases)('logger: $input.logger', ({ input }) => {
           const args = {
             commandLineArguments: null,
-            packageConfig: null,
             workingDirectoryPath: '',
             logger: input.logger,
           }
@@ -172,36 +135,6 @@ describe('HoraCoreCli', () => {
       })
     })
 
-    describe('should hand the working directory to the package config', () => {
-      const cases = [
-        {
-          input: {
-            workingDirectoryPath: '/consumer',
-          },
-          expected: '/consumer/package.json',
-        },
-        {
-          input: {
-            workingDirectoryPath: '/tmp/consumer',
-          },
-          expected: '/tmp/consumer/package.json',
-        },
-      ]
-
-      test.each(cases)('workingDirectoryPath: $input.workingDirectoryPath', ({ input, expected }) => {
-        const args = {
-          args: [],
-          workingDirectoryPath: input.workingDirectoryPath,
-        }
-
-        const cli = HoraCoreCli.create(args)
-        const received = cli.packageConfig.filePath
-
-        expect(received)
-          .toBe(expected)
-      })
-    })
-
     describe('should fill default workingDirectoryPath', () => {
       test('when omitted', () => {
         const args = {
@@ -238,19 +171,6 @@ describe('HoraCoreCli', () => {
 
         expect(received)
           .toBe(CommandLineArguments) // same reference
-      })
-    })
-  })
-})
-
-describe('HoraCoreCli', () => {
-  describe('.get:ConsumerPackageConfigCtor', () => {
-    describe('when called as is', () => {
-      test('should be fixed value', () => {
-        const received = HoraCoreCli.ConsumerPackageConfigCtor
-
-        expect(received)
-          .toBe(ConsumerPackageConfig) // same reference
       })
     })
   })
