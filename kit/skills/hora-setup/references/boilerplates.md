@@ -222,12 +222,14 @@ profiles                elasticsearch / kafka / qdrant / minio
 
 **Write values in directly. Do not reference `.env`.** It is gitignored and is guaranteed not to exist right after a clone, so a referenced value would come out empty. Fix the host to localhost and fix the port.
 
+**Publish every port on `127.0.0.1`.** `'3306:3306'` binds every interface on the machine, so a database whose password is `password` becomes reachable from whatever network the laptop is attached to — a cafe or a coworking LAN. `'127.0.0.1:3306:3306'` reaches this machine and nowhere else, and the application, the tooling and CI all connect over loopback anyway. The same holds for every service a profile turns on.
+
 ```yaml
 services:
   mariadb:
     image: mariadb:10.5.12          # the same version as CI
     ports:
-      - '3306:3306'
+      - '127.0.0.1:3306:3306'   # loopback only: never every interface
     environment:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
