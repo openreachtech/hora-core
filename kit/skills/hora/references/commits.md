@@ -11,15 +11,14 @@ Every hora skill that touches git follows this file. **Every git operation runs 
 - **Never commit straight to `main`.** Work on `release/<version>` — the version whose `spec.md` is currently being worked on (`main-guard.yml` restricts PRs into main to `release/*`, `hotfix/*`, `dev` and `env`). This applies to the hora repository and to every declared row, under the same branch name
 - **A feature's implementation commits go on a `feature/<feature-id>` branch first** (below), cut from `release/<version>`'s tip in each repository that feature touches. `install`/`update`/`retake` commit to `release/<version>` directly
 - **Create the branch when it does not exist yet.** `git fetch origin --prune`, then branch from `origin/main` if `release/<version>` is still missing. For a row `/hora-setup` just set up with a fresh `git init`, branch from the current `HEAD` instead
-- **The first commit on a newly created `release/<version>` is an empty marker**: `git commit --allow-empty -m "Release <version>"`. This is a deliberate exception to the package's own convention, whose branch-opening marker begins with `Start`
-- **`hotfix/xxxx` skips the opening marker entirely.** It exists to move fast on one emergency fix
+- **`hotfix/xxxx` takes no branch-opening marker**, unlike every other trunk this project's git conventions ask one of. It exists to move fast on one emergency fix
 - **That exemption holds only as long as `hotfix/xxxx` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/x.x.+x` instead
 
 ---
 
 ## Per-change branches
 
-Six kinds of change each get their own branch — cut from `release/<version>`'s current tip, merged back with `--no-ff`, deleted once merged. **These branch names are deliberately descriptive**, unlike the merge message, because the name is what a reader scans `git branch` for while the work is in flight.
+Six kinds of change each get their own branch, cut from `release/<version>`'s current tip and merged back into it. **These branch names are deliberately descriptive**, unlike the merge message, because the name is what a reader scans `git branch` for while the work is in flight.
 
 | Kind | Name | Example |
 |---|---|---|
@@ -55,19 +54,20 @@ A feature's checkpoints cross repositories. **Each repository gets its own `feat
 
 ## Commit messages
 
+**What goes into one commit, and how its subject is worded, are not `/hora`'s to state.** The granularity of a commit, which changes are split apart, and whether this repository's subjects are imperative or Conventional Commits are its git conventions, held by an equipped skill and matched at run time (`structure.md`). Below is only what `/hora` adds on top of them.
+
 - **Stamp the spec ID into the commit message.** It is the only way to follow one change across every declared repository
 
 ```
-Add RpaFlow model and rpa_flows migration
+Declare the RpaFlow model
 
 spec: 1.0.0#data-model
 ```
 
-- **Split per kind. One kind per commit.** Messages are short and imperative
-- **`package.json` and `package-lock.json` always go in separate commits**, `package.json` first. The first is intent written by a human, the second is generated output
+- **`package.json` is committed before `package-lock.json`.** Which of them a change belongs to is settled by the convention that splits generated output from what a human wrote; the order between the two is `/hora`'s
 - **The `package-lock.json` commit message is always `Update package-lock.json after npm install`** (or `... after npm uninstall`). The diff is not meant to be read
 - A dependency left in `package.json` after its feature was dropped is not worth a cleanup commit
-- **A dependency update can break `npm test` / `npm run lint`.** A fix commit right after the `package-lock.json` commit is fine — **but only when the fix is dependency-specific**. When the identical fix would have applied before the update too, commit it on its own, before the `package.json` commit
+- **A dependency update can break `npm test` / `npm run lint`.** A fix commit right after the `package-lock.json` commit is fine — **but only when the fix is dependency-specific**. When the identical fix would have applied before the update too, it is not part of the update: commit it on its own, before the `package.json` commit
 - **A conflict-proof change (`.env.development`, `docker-compose.development.yml`, the `Base` class) gets its own commit**, one per file, never mixed into a feature's own commit
 
 ---
@@ -97,22 +97,9 @@ spec: 1.0.0#attendance
 
 ## Merging into a trunk branch
 
-A trunk branch is one other branches are cut from and merged back into — `main`, and `release/<version>`. Three more grow from `main` and count as one: **`env`** (initial environment setup), **`dev`** (the older development style predating `/hora`), and **`hotfix/xxxx`**.
+**The merge itself is not `/hora`'s to state.** Which branches hold the trunk role and how it nests, whether the merge fast-forwards, what its commit's subject says, what becomes of the branch afterwards, and how a rebase preserves the merges inside it are this project's git conventions, held by an equipped skill and matched at run time (`structure.md`). Below is only what `/hora` adds on top of them.
 
-**This role is relative, not a fixed list.** Any branch becomes a trunk the moment something is cut from it, and the rules below apply there too.
-
-- **Always `--no-ff`, never fast-forward.** A fast-forward merge leaves no commit a human can point at
-- **The merge commit's message is `Local-merge: <what merged> [<id>]`** (`[<id1>, <id2>, ...]` for several features) — the equivalent of GitHub's own merge message, for a merge with no PR behind it. **Never the branch name.** This is a second exception to the package's "no type prefix" rule, alongside `Start …`
-  ```
-  Local-merge: Build the attendance API through the backend gate [attendance]
-  ```
-- **Delete the branch once it is merged**, including `hotfix/*`, `dev` and `env` merged into `main`
-- **When two branches were cut from the same commit on a trunk, whichever merges second rebases onto the trunk's new tip first**
-- **Every rebase in this scheme uses `-r` (`--rebase-merges`):**
-  ```bash
-  git rebase -r --onto <trunk's new tip> <the commit this branch was cut from> <branch>
-  ```
-  Without `-r`, `git rebase` drops every merge commit it replays, losing what `--no-ff` exists to keep
+- **The branches `/hora` itself opens as trunks are `release/<version>` and `hotfix/xxxx`**, both merging into `main`. `hotfix/xxxx` is the one branch the role must never reach beyond that: nothing is cut from it (above)
 - **Immediately after merging anything into `release/<version>`, run the check in "Keeping `release/<version>` current" again.** `/hora` has no scheduler, so a merge is the next-best occasion to notice `origin/main` moved
 
 ---
@@ -129,7 +116,9 @@ git merge-base --is-ancestor origin/main release/<version>   # 0 = nothing new l
 
 A `1` means `origin/main` holds a commit `release/<version>` does not — ordinarily only possible through a `hotfix/*` merge.
 
-**If this check runs while `feature/<feature-id>` holds uncommitted work, commit that work first, as a single commit.** Use `saving-YYYYMMDD-HHii` as the message (today's date and the current time) — a plain save point, not split per kind.
+**If this check runs while `feature/<feature-id>` holds uncommitted work, commit that work first, as a single commit.** Use `saving-YYYYMMDD-HHii` as the message (today's date and the current time) — one save point, left undivided.
+
+**This is a deliberate exception to the commit conventions**, which call a commit whose message records that time passed an anti-pattern and answer it with `git stash`. Here the branch itself is about to be rebased, and a stash sits outside the branch: the work would have to be popped back afterwards, onto a base it was not taken from. A commit travels with the branch and comes out of the rebase already on the new base. It is also exempt from the message conventions, and from the granularity ones: the commit is undone in the next step and never reaches a pull request, so no reader ever meets its subject or weighs what it holds.
 
 **Once the rebase lands, `git reset --soft` that commit away and continue.** `--soft` keeps every change staged, as if the commit had never happened.
 
@@ -161,8 +150,8 @@ Never rewrite `release/<version>` directly. Build the caught-up result on a disp
      disposable line branched from temp, cherry-picking B's own commits
      (git log M^1..M^2) onto it one at a time, aborting and redoing (below)
      wherever one conflicts. Once every one of B's commits has landed, merge
-     that line into temp the same way any branch merges into a trunk (above:
-     --no-ff, message Local-merge: <what B was for> [<id>]) and discard it.
+     that line into temp the same way any branch merges into a trunk, and
+     discard it.
 6. Retry the bulk form for whatever remains after the stretch just handled:
      git rebase -r --onto temp temp <original release/<version> tip>
    Success → done. Conflict → go back to step 3, walking back from here instead
