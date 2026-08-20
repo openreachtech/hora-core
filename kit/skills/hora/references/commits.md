@@ -12,7 +12,7 @@ Every hora skill that touches git follows this file. **Every git operation runs 
 - **A feature's implementation commits go on a `feature/<feature-id>` branch first** (below), cut from `release/<version>`'s tip in each repository that feature touches. `install`/`update`/`retake` commit to `release/<version>` directly
 - **Create the branch when it does not exist yet.** `git fetch origin --prune`, then branch from `origin/main` if `release/<version>` is still missing. For a row `/hora-setup` just set up with a fresh `git init`, branch from the current `HEAD` instead
 - **`hotfix/xxxx` takes no branch-opening marker**, unlike every other trunk this project's git conventions ask one of. It exists to move fast on one emergency fix
-- **That exemption holds only as long as `hotfix/xxxx` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/x.x.+x` instead
+- **That exemption holds only as long as `hotfix/xxxx` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/<version>` instead
 
 ---
 
