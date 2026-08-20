@@ -11,6 +11,7 @@ Every hora skill that touches git follows this file. **Every git operation runs 
 - **Never commit straight to `main`.** Work on `release/<version>` — the version whose `spec.md` is currently being worked on (`main-guard.yml` restricts PRs into main to `release/*`, `hotfix/*`, `dev` and `env`). This applies to the hora repository and to every declared row, under the same branch name
 - **A feature's implementation commits go on a `feature/<feature-id>` branch first** (below), cut from `release/<version>`'s tip in each repository that feature touches. `install`/`update`/`retake` commit to `release/<version>` directly
 - **Create the branch when it does not exist yet.** `git fetch origin --prune`, then branch from `origin/main` if `release/<version>` is still missing. For a row `/hora-setup` just set up with a fresh `git init`, branch from the current `HEAD` instead
+- **The marker opening a `release/<version>` branch is `Release <version>`** — the version whose `spec.md` is being worked on, matching the branch name, never a version taken from anywhere else
 - **`hotfix/xxxx` takes no branch-opening marker**, unlike every other trunk this project's git conventions ask one of. It exists to move fast on one emergency fix
 - **That exemption holds only as long as `hotfix/xxxx` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/<version>` instead
 
