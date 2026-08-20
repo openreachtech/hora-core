@@ -119,7 +119,7 @@ A `1` means `origin/main` holds a commit `release/<version>` does not — ordina
 
 **If this check runs while `feature/<feature-id>` holds uncommitted work, commit that work first, as a single commit.** Use `saving-YYYYMMDD-HHii` as the message (today's date and the current time) — one save point, left undivided.
 
-**This is a deliberate exception to the commit conventions**, which call a commit whose message records that time passed an anti-pattern and answer it with `git stash`. Here the branch itself is about to be rebased, and a stash sits outside the branch: the work would have to be popped back afterwards, onto a base it was not taken from. A commit travels with the branch and comes out of the rebase already on the new base. It is also exempt from the message conventions, and from the granularity ones: the commit is undone in the next step and never reaches a pull request, so no reader ever meets its subject or weighs what it holds.
+**A commit, not a stash.** The branch itself is about to be rebased, and a stash sits outside the branch: the work would have to be popped back afterwards, onto a base it was not taken from. A commit travels with the branch and comes out of the rebase already on the new base.
 
 **Once the rebase lands, `git reset --soft` that commit away and continue.** `--soft` keeps every change staged, as if the commit had never happened.
 
