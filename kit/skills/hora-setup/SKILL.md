@@ -47,7 +47,7 @@ Read `references/boilerplates.md` for the detailed procedure. The essentials for
 1. git ls-remote --tags to find the newest tag
 2. git clone --depth 1 --branch <newest tag> ... <that directory>
 3. rm -rf <dir>/.git && git -C <dir> init && git -C <dir> checkout -b release/<version>
-4. git -C <dir> commit --allow-empty -m "Release <version>" (the branch's opening marker)
+4. git -C <dir> commit --allow-empty -m "Release <version>" (the branch's opening marker — see ../hora/references/commits.md)
 5. Rewrite name / description in package.json with the project's name
 6. Fill in the values in .env.development (renchan-boilerplate ships keys with empty values)
 7. Place docker.sh / docker-compose.development.yml and decide profiles from the spec

@@ -86,7 +86,7 @@ git -C <myproject>-frontend-admin commit --allow-empty -m "Release <version>"
 
 **The `checkout -b` right after `init` matters.** `HEAD` is unborn at that point, and `checkout -b` on an unborn `HEAD` points the next commit at the named branch instead of `git init`'s configured default — often literally `main`, which is the one branch the commit rules say never to commit straight to (`../../hora/references/commits.md`, "Where work lands").
 
-**The `commit --allow-empty` right after that is the branch's opening marker.** `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 12's initial commit is the second commit.
+**The `commit --allow-empty` right after that is the branch's opening marker** (`../../hora/references/commits.md`, "Where work lands"). `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 12's initial commit is the second commit.
 
 **Skip this step entirely for a row whose directory already exists.** Do not clone into it, and do not touch its `.git`. A human commonly places it there themselves when the boilerplate is private and a non-interactive `git clone` has no credentials. The remaining steps still run for that row — each is checked on its own.
 
