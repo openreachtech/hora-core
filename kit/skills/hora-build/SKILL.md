@@ -354,7 +354,7 @@ the Base class (or equivalent)  a getter/method meant for every derived class
 
 More may turn up in the real tree — the question above decides it, not this list.
 
-**Report the change needed; do not make it yourself.** State what the file needs, under `conflictProof`. This skill applies it on an `update/` branch and **commits it on its own**, one commit per file.
+**Report the change needed; do not make it yourself.** State what the file needs, under `conflictProof`. This skill applies it on an `update/` branch and commits it there (`../hora/references/commits.md`, "Commit messages").
 
 ---
 

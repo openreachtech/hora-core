@@ -86,7 +86,7 @@ git -C <myproject>-frontend-admin commit --allow-empty -m "Release <version>"
 
 **The `checkout -b` right after `init` matters.** `HEAD` is unborn at that point, and `checkout -b` on an unborn `HEAD` points the next commit at the named branch instead of `git init`'s configured default — often literally `main`, which is the one branch the commit rules say never to commit straight to (`../../hora/references/commits.md`, "Where work lands").
 
-**The `commit --allow-empty` right after that is the branch's opening marker.** `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 12's initial commit is the second commit.
+**The `commit --allow-empty` right after that is the branch's opening marker** (`../../hora/references/commits.md`, "Where work lands"). `<version>` here is the hora project's own version (`1.0.0`, matching the branch name), not the boilerplate's tag fetched two lines above. Step 12's initial commit is the second commit.
 
 **Skip this step entirely for a row whose directory already exists.** Do not clone into it, and do not touch its `.git`. A human commonly places it there themselves when the boilerplate is private and a non-interactive `git clone` has no credentials. The remaining steps still run for that row — each is checked on its own.
 
@@ -222,12 +222,14 @@ profiles                elasticsearch / kafka / qdrant / minio
 
 **Write values in directly. Do not reference `.env`.** It is gitignored and is guaranteed not to exist right after a clone, so a referenced value would come out empty. Fix the host to localhost and fix the port.
 
+**Publish every port on `127.0.0.1`.** `'3306:3306'` binds every interface on the machine, so a database whose password is `password` becomes reachable from whatever network the laptop is attached to — a cafe or a coworking LAN. `'127.0.0.1:3306:3306'` reaches this machine and nowhere else, and the application, the tooling and CI all connect over loopback anyway. The same holds for every service a profile turns on.
+
 ```yaml
 services:
   mariadb:
     image: mariadb:10.5.12          # the same version as CI
     ports:
-      - '3306:3306'
+      - '127.0.0.1:3306:3306'   # loopback only: never every interface
     environment:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
