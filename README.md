@@ -46,6 +46,8 @@ npx --no hora-core install
 
 **`--no` stops npx before it downloads**: the name is still resolved against the registry, but nothing is fetched, so neither the install script nor the bin of a stranger's package ever runs. Without it, a bin that is not installed becomes a fetch of whatever has been published under `hora-core`, an unscoped name this package does not hold.
 
+Where the package is not a dependency at all — a one-off, or a repository that is not yours to add a hook to — name it in full instead: `npx --package=@openreachtech/hora hora-core install`. What is fetched is then a scoped name nobody else can publish under, which is the guarantee the unscoped bin name never carried.
+
 ## Usage
 
 The kit lands in your repository's `.claude/`, the directory an agent tool reads from — `dist/agents/` at `.claude/agents/`, `dist/skills/` at `.claude/skills/`. A package's own directory is never on that path, so this clone is what makes the kit visible. The skills are then invocable as slash commands, `/hora`, `/hora-plan`, `/hora-build`.
