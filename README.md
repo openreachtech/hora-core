@@ -41,7 +41,7 @@ A project's own scripts are outside what npm holds back from v12 on, so this ask
 The hook you just declared takes effect from the next `npm install` on, so run the command by hand for the first placement — and for a one-off, or a repository that is not yours to add a hook to:
 
 ```sh
-npx hora-core install
+npx --no hora-core install
 ```
 
 ## Usage
@@ -54,11 +54,11 @@ Every directory of `dist/` is carried into the directory of the same name, and w
 
 `.claude/`, and the payload directories inside it, have to be directories of your repository rather than symbolic links. An installation verifies every step it is reached through, and finding a link at any of them it writes nothing and removes nothing. `.hora/equip-core.json`, the record of what was installed, is verified the same way: a link there would send the write to whatever it stands for and overwrite it.
 
-An installation that carries nothing says why and ends with a failing exit code. Where the command runs as your project's own `postinstall`, that is what `npm install` reports; run on its own, `npx hora-core install` tells you the same.
+An installation that carries nothing says why and ends with a failing exit code. Where the command runs as your project's own `postinstall`, that is what `npm install` reports; run on its own, `npx --no hora-core install` tells you the same.
 
 A link is content of the repository rather than an instruction of whoever runs the command, so following one would let the repository decide where entries are written and, worse, where the entries of the previous run are removed from.
 
-Where `.claude/` as a whole points at a directory shared between repositories, name that directory instead — `npx hora-core install --dir <the directory it resolves to>` reaches the same state, and the link still makes the kit visible at `.claude/`. Where a single payload directory is the link, no arrangement installs into it: `--dir` names the directory holding the payloads, never one of them. Replace it with a directory of its own.
+Where `.claude/` as a whole points at a directory shared between repositories, name that directory instead — `npx --no hora-core install --dir <the directory it resolves to>` reaches the same state, and the link still makes the kit visible at `.claude/`. Where a single payload directory is the link, no arrangement installs into it: `--dir` names the directory holding the payloads, never one of them. Replace it with a directory of its own.
 
 ### Keeping the installation current
 
@@ -76,7 +76,7 @@ Matching on the whole directory rather than on a name prefix is deliberate: what
 An `npm install` with no arguments re-runs your project's `postinstall`, so the kit follows along. Naming the package on the command line — `npm install @openreachtech/hora@latest` — does not, and neither does a repository without a hook. Run the command again yourself:
 
 ```sh
-npx hora-core install
+npx --no hora-core install
 ```
 
 `install` is repeatable: it removes what the previous run installed — recorded in `.hora/equip-core.json` — along with anything named after an entry this package distributes, before copying the current kit. A renamed or dropped skill therefore leaves nothing behind, and a repository that had copied `dist/` by hand is tidied up on its first run.
