@@ -59,6 +59,8 @@ Planning is a conversation with whoever wrote the spec, and asking that person t
 
 **If the target version's `spec.md` is empty or missing, hand the run to `/hora-spec`** and stop. **Never write the first spec of a version here** — writing it without those stages means writing use cases nothing ever walked against a design.
 
+**A version whose `.hora/spec/<version>/_stages.md` holds a split handoff not marked consumed is handed over the same way.** A hand-written spec satisfies the test above while the moved criteria sit unread; the handoff's presence is as mechanical a test as the emptiness (`../hora-spec-horizon/SKILL.md`, "Splitting a version under way").
+
 ### Resolve the diffs first
 
 Sort the version directories in ascending semver order and **apply them in turn, each overwriting the last.** The lowest version is complete; every one after it is **a diff against the version immediately before it.**
@@ -656,6 +658,7 @@ Reconcile the set of sections in the resolved document against the feature files
 | a section that vanished with no annotation | **do not delete anything.** The intent is unknown, so ask (`blocking: no`) |
 | a `.hora/hotfix/<hotfix-id>.md` whose `debt:` reads open | **pay it** (below), then write `debt: closed` in that record |
 | a collapsed version whose `_sweep.md` has a newest block reading a pass, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
+| the implementation scope carries a `Reconsider <version>'s scope when:` line naming the version being planned, whose condition now holds | **raise it once, in conversation, as a proposal to re-run stage 2** — naming the condition, what in the plan satisfies it, and the `scope` question that recorded the original decline — and **record the outcome as a question naming the line**: declined lands as `spec-proposal` (`blocking: no`, the category that exists so a declined proposal is not re-raised every run); taken hands the run to `/hora-spec` at stage 2. **The recorded question is the record that it fired** — the walk raises nothing where one already names this line |
 
 A digest only detects changes to sections an existing feature points at. **A new section has no feature pointing at it, so this reconciliation is the only way to detect one.**
 
@@ -679,6 +682,8 @@ A digest only detects changes to sections an existing feature points at. **A new
 **Have withdrawal stated with `kicked: yes`. Never have the section deleted.** Under the diff scheme every unchanged section is "absent", so **absent cannot be told from deleted**.
 
 **Removing a task does not remove the code.** The model, the resolver, the tests and the migration all stay.
+
+**A split needs no reconciliation rules of its own.** The `kicked:` row above moves its entries, the `Version acceptance criteria` digest row re-derives the sweep, and the removal rule covers an implemented mover. Build nothing new for it (`../hora-spec-horizon/SKILL.md`, "Splitting a version under way").
 
 **A section that gains `baseline: inventoried` almost always arrives with checkpoints already marked — up to seventeen of them — and every one of those comes off.** A not-applicable mark is cleared the moment its reason stops holding (`../hora-build/references/checkpoints.md`). The reason here was `built:` expanded into marks, and listing makes `built:` a value recorded and acted on nowhere.
 
