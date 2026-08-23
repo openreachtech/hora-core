@@ -236,8 +236,9 @@ Which features the changed files belong to is a label, so it may be worked out f
 
 the next /hora-plan  for each id on the touches: line, if that feature has an
                      entry in this version's _plan.md, clear its checkpoint 18
-                     back to [ ]. Where it has none, add what the sweep rests
-                     on to the ## Acceptance entry. Where a
+                     back to [ ], and that entry's own box with it. Where it
+                     has none, add what the sweep rests on to the
+                     ## Acceptance entry. Where a
                      schema-contract-debt line stands, carry it in as work for
                      this version. Then write debt: closed
 ```
