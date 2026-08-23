@@ -2,7 +2,7 @@
 
 # 既存プロジェクトへの Hora Kit 適用
 
-Hora Kit は通常「そこから始めるテンプレート」として出会います。こちらはもう一方の場合です — renchan のバックエンドと furo のフロントエンドが既にあり、動くコードを持っていて、その周りにキットを被せたい。
+Hora Kit は通常「そこから始めるテンプレート」として出会います。こちらはもう一方の場合です — スタックのバックエンドとフロントエンドのリポジトリが既にあり、動くコードを持っていて、その周りにキットを被せたい。
 
 **既存リポジトリは何ひとつ奪われません。** 履歴もブランチも設定もコードもそのままです。Hora Kit はそれらの**外側**に立ち、仕様書と計画と記録を持つリポジトリです。
 
@@ -59,8 +59,8 @@ Hora Kit は通常「そこから始めるテンプレート」として出会�
 
 | | |
 |---|---|
-| **リポジトリが renchan / furo 系であること** | 関所は renchan と Furo の規約を述べたスキルに委譲します。別スタックのリポジトリでも順序と関所は効きますが、委譲される手順はすべて「それではないもの」を説明することになります |
-| **バックエンドは1つ、DB システムも1つ** | 方針は `1 DB システム = 1 リポジトリ`。0個または2個以上は止まって尋ねます |
+| **リポジトリがこの boilerplate のスタックに合っていること**（スタック・ハンドブックの origin カタログ、[`docs/stack/`](./stack/README.ja.md)） | 関所はそのスタックの規約を述べたスキルに委譲します。別スタックのリポジトリでも順序と関所は効きますが、委譲される手順はすべて「それではないもの」を説明することになります |
+| **リポジトリ数が各 origin の範囲内であること** | 各 origin をいくつ宣言できるかはカタログが定めます。範囲の外の数は止まって尋ねます |
 | **Node と npm**（キット自身の `npm install` 用） | これがキットを配置します。スキルはパッケージから来るもので、このテンプレートのツリーには入っていません |
 | **Claude Code** | |
 
@@ -213,14 +213,14 @@ cp specs/skeleton/spec.md specs/1.0.0/spec.md
 
 | Repository | Origin | Role | Directory |
 |---|---|---|---|
-| `myproject-backend` | renchan | the API and jobs (holds the DB) | `legacy-api` |
-| `myproject-frontend-admin` | furo | the admin screens | `admin-console` |
+| `myproject-backend` | `<a backend origin>` | the API and jobs (holds the DB) | `legacy-api` |
+| `myproject-frontend-admin` | `<a frontend origin>` | the admin screens | `admin-console` |
 
 ### 2.1 Servers
 
 | Server | protocol | consumer |
 |---|---|---|
-| `admin-graphql` | GraphQL | `frontend-admin` |
+| `admin-api` | (the default style) | `frontend-admin` |
 | `worker` | — | an API server in the same repository (no contract needed) |
 ```
 
@@ -301,8 +301,8 @@ Authority: as-built — what these repositories do is what 1.0.0 is
 | 最新タグの取得、clone、`.git` の破棄 | **丸ごと飛ばす** |
 | **除外リストへのディレクトリ登録** | **`.gitignore` と `eslint.config.js` の両方に追記される**（後述） |
 | `package.json` の name/description | **プレースホルダのままの場合だけ**埋める |
-| `.env.development` | **キーが空のままの箇所だけ**埋める |
-| `docker.sh` / `docker-compose.development.yml` | **絶対に上書きしない。** 既にあれば読み、仕様書の手動検証表との差分を報告する |
+| origin 文書が挙げる環境変数の値 | **空のままの箇所だけ**埋める |
+| origin 文書が置くと定めるファイル | **絶対に上書きしない。** 既にあれば読み、仕様書の手動検証表との差分を報告する |
 | `npm install` | 実行する。その `postinstall` が両 hora パッケージからキットを配置する |
 | スタック・ハンドブックが宣言するスキルの backend へのコピー | **それぞれ、まだ無い場合だけ** |
 | 実物ツリーの読み取り | 実行し、読んだ時点の boilerplate タグとともに `.hora/tree/` に控える |

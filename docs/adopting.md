@@ -2,7 +2,7 @@
 
 # Adopting Hora Kit onto a project that already exists
 
-Hora Kit is usually met as a template you start from. This is the other case: a renchan backend and a furo frontend already exist, already hold working code, and you want the kit around them.
+Hora Kit is usually met as a template you start from. This is the other case: the stack's backend and frontend repositories already exist, already hold working code, and you want the kit around them.
 
 **Nothing about the existing repositories is taken over.** Their history, their branches, their configs and their code stay theirs. Hora Kit is a repository that sits *outside* them and holds the spec, the plan and the record.
 
@@ -59,8 +59,8 @@ After that, new features go through the full eighteen, one at a time.
 
 | | |
 |---|---|
-| **The repositories are renchan / furo based** | the checkpoints delegate to skills that describe renchan and Furo conventions specifically. A repository on a different stack will get the order and the gates, but every delegated procedure will describe something it is not |
-| **One backend, holding one DB system** | the policy is `one DB system = one repository`. Zero, or two or more, stops and asks |
+| **The repositories match this boilerplate's stack** (the stack handbook's origin catalog, [`docs/stack/`](./stack/README.md)) | the checkpoints delegate to skills that describe that stack's conventions specifically. A repository on a different stack will get the order and the gates, but every delegated procedure will describe something it is not |
+| **A repository count inside each origin's bounds** | the catalog states how many of each origin a layout may declare. A count outside the bounds stops and asks |
 | **Node and npm**, for the kit's own `npm install` | it is what places the kit — the skills come from packages, not from this template's tree |
 | **Claude Code** | |
 
@@ -213,14 +213,14 @@ Two stages earn their keep more here than anywhere else:
 
 | Repository | Origin | Role | Directory |
 |---|---|---|---|
-| `myproject-backend` | renchan | the API and jobs (holds the DB) | `legacy-api` |
-| `myproject-frontend-admin` | furo | the admin screens | `admin-console` |
+| `myproject-backend` | `<a backend origin>` | the API and jobs (holds the DB) | `legacy-api` |
+| `myproject-frontend-admin` | `<a frontend origin>` | the admin screens | `admin-console` |
 
 ### 2.1 Servers
 
 | Server | protocol | consumer |
 |---|---|---|
-| `admin-graphql` | GraphQL | `frontend-admin` |
+| `admin-api` | (the default style) | `frontend-admin` |
 | `worker` | — | an API server in the same repository (no contract needed) |
 ```
 
@@ -301,8 +301,8 @@ It works out that repositories are declared but not all set up, and runs `/hora-
 | finding the newest tag, cloning, discarding `.git` | **skipped entirely** |
 | **registering the directory in the exclusion lists** | **`.gitignore` and `eslint.config.js` both get an entry** (below) |
 | `package.json` name/description | filled in **only if still a placeholder** |
-| `.env.development` | filled in **only where a key is still empty** |
-| `docker.sh` / `docker-compose.development.yml` | **never overwritten.** If yours exist, they are read, and any difference from the spec's manual-verification table is reported |
+| the environment values the origin document lists | filled in **only where one is still empty** |
+| the files the origin document places | **never overwritten.** If yours exist, they are read, and any difference from the spec's manual-verification table is reported |
 | `npm install` | run, and its `postinstall` equips the kit from both hora packages |
 | copying the skills the stack handbook declares into the backend | **each only if not already there** |
 | reading the real tree | run, and cached in `.hora/tree/` with the boilerplate tag it was read at |
