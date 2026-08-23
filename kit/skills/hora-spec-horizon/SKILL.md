@@ -57,6 +57,43 @@ which use case is impossible without this?
 
 **If the answer is still "all of it", record it and carry on.** State it once, propose the narrowing, and if the decision stands, write a `scope` question naming what was proposed and who declined it. **The decision belongs to whoever asked for the product; saying nothing does not.**
 
+### A narrowing that was declined names when it gets read again
+
+**"Never nothing" is this stage's rule about deferred items. It applies to this
+stage's own decisions too.** A `scope` question records what was proposed and
+who declined it, and that is where the record stops today: nothing states when
+the decision would be worth reading again, and nothing reads it.
+
+**The condition does not go in the question.** A condition is a decision, and
+`.hora/` holds no decisions (`../hora/references/structure.md`, "Where a lever
+lives"). It goes into the implementation scope, in the owner's own words, shown
+and approved like every other line of that section
+(`../hora/references/spec-format.md`, "4. Implementation scope"):
+
+```markdown
+### Built this time (1.0.0)
+
+- ... the features ...
+
+Reconsider 1.0.0's scope when: milestone 1 closes with more than four features
+unaccepted, or any one feature is sent back twice.
+```
+
+**Three properties make it a condition rather than a wish. It names the version
+it binds** — the reach a lever states where it is declared
+(`../hora/references/structure.md`, "Where a lever lives"): this version alone,
+dead the moment a later scope section is written. **It is measurable against
+what `.hora/` already records** — the plan's boxes read with §14's milestones
+("milestone 1 closes" is every feature §14 places there standing `[x]`), the
+blocks in `.hora/acceptance/`, the question file. And **somebody reads it**:
+`/hora-plan` walks the line on re-entry and raises it once
+(`../hora-plan/SKILL.md`, "6. Reconcile on re-entry"). "If 1.0.0 overruns" has
+none of the three.
+
+**Propose it; do not write it unasked.** Where the owner names no condition,
+record that too — a declined narrowing with no re-reading is a decision
+somebody made with their eyes open.
+
 ---
 
 ## The three lists are three lists
@@ -184,6 +221,140 @@ If nothing equipped covers it, say so by the work it names, carry on, and record
 **Every criterion carries `spans:`, and `none` is written where the version has none.** Both are the format's requirements, and both are the difference between a sweep that can route a finding and one that cannot.
 
 **A criterion that reaches a feature the spec only listed carries `rests on: #<id> (not accepted)`.** That line is what keeps a pass from hiding what it rested on, and it is approved as part of the section's text like everything else (`../hora/references/spec-format.md`, "`baseline`").
+
+### The second number
+
+**Say it once the plan and the version's own criteria stand.** The first
+number counts features and is said during the narrowing; this one cannot be,
+because its inputs are this stage's own later work — the implementation plan's
+boundaries and the version's own block. So it is the stage's last act: take
+**this version's own `###` block alone** — criteria carried over from earlier
+versions belong to products already shipped — walk the implementation plan's
+order, and count the criteria whose `spans:` are satisfied by the features
+built by each milestone boundary.
+
+Two readings are findings rather than numbers, and each re-opens the narrowing
+above:
+
+    every criterion waits for the last milestone
+        -> propose where the version could be cut ("Splitting a version under
+           way", below), and name what the cut would let somebody ship
+    the plan has one milestone
+        -> that is the finding itself. Nothing in this version can be shown to
+           work until all of it does
+
+**A version whose own block reads `none` reports `none`, and nothing else is
+computed.** Record both numbers in `.hora/spec/<version>/_stages.md`, whatever
+they say — the number nobody wrote down is the one nobody argued with.
+
+---
+
+## Splitting a version under way
+
+**A version that cannot finish is not the same as a version that was scoped
+wrong, and only one of them is fixed here.** This section is for the second:
+the features already accepted make a product somebody could use, and the rest
+are holding it.
+
+ 1. **Only an unreleased version is split** — judged by the tag in the hora
+    repository, the same test `/hora-plan` already applies. A released one is
+    left alone and the work goes into the next version.
+
+ 2. **The cut is at the last accepted feature, and nothing unaccepted stays on
+    the release's side of it.** Every unaccepted feature moves — and each one
+    holding any implementation (one under way, or one an acceptance finding
+    sent back) is one question, asked with what each answer costs: **move it**
+    — its code raises a removal task this version pays before it releases, and
+    the next version rebuilds it from checkpoint 1 — or **finish it first**,
+    and the split waits for its gate and cuts after it. There is no third
+    answer: a cut that kept an unaccepted feature would tag work nobody
+    accepted.
+
+ 3. **Walk `depends` before anything is annotated.** Every remaining feature
+    whose `depends` names a moving one is a finding: either it moves too, or
+    the edge was wrong. **One at a time, and never decided here** — a `depends`
+    that describes the design goes back to stage 4.
+
+ 4. Each moving feature gets `kicked: yes`, in this version's own file — it is
+    unreleased, so it is editable (1.). **Nothing is deleted** — absent cannot
+    be told from deleted under the diff scheme — **and nothing is written on
+    the next version's side.** The revival travels in the handoff (9.).
+
+ 5. **The implementation scope says why**, because `kicked` forbids the body
+    saying it (`../hora/references/spec-format.md`, "`kicked`"). Every moving
+    feature becomes an "out of scope for now" entry naming the version it lands
+    in and the seam it needs kept open, and §14's "fine to leave for later"
+    is brought into correspondence with it in the same pass.
+
+ 6. **A seam written here constrains versions to come, and nothing on this
+    side.** At the cut nothing is under way (2.), the code the seam would have
+    shaped is already accepted, and no digest of the scope section reaches a
+    feature's checkpoints (`../hora-plan/SKILL.md`, section 6). The one work
+    left on this side is removal (2.), which builds nothing a seam could bind.
+    Raise no rework against an accepted feature for a seam this split invented.
+
+ 7. **The version's own criteria are re-cut, and this is the body of the
+    procedure.** A criterion whose `spans:` names only moving features moves
+    with them. One that spans both sides is either moved whole or split in
+    two, **decided one criterion at a time, through show-the-text-and-wait**.
+    A half left on this side is still checked by every later sweep, because
+    these criteria accumulate. One that spans a feature dropped outright (9.)
+    is re-cut the same way, and nothing of it is handed off.
+
+ 8. Re-derive §14, and the build order with it.
+
+ 9. **What moves travels as the handoff, and the handoff is the whole of what
+    leaves this version.** Into `.hora/spec/<next>/_stages.md` go the moving
+    features' ids — the revival lines to be — and each moved criterion,
+    verbatim: the same shape as stage 1's held-back list, in the same file
+    this stage already reads ("The version's own acceptance criteria", above),
+    across a version boundary — which is inside that file's own charter, "what
+    one stage handed to a later one" (`../hora/references/structure.md`, "What
+    lives in `.hora/`"). **Write the handoff before the first `kicked: yes`
+    lands.** A run that dies between the two then errs toward a handoff naming
+    features nobody kicked — which the next version's approval catches — never
+    toward a defer that silently became a drop. **A handoff decides nothing**:
+    stage 2 of the next version shows each revival line and each criterion and
+    waits, like any section, and **marks the handoff consumed in the same file
+    once the last of it has been settled** — landed or declined. A revival
+    declined there leaves the feature kicked, which is drop, arrived at later,
+    with its criteria re-cut the same way. A feature the owner drops outright
+    at the split is `kicked: yes` with no handoff entry — the third of the
+    three ways out, taken during the fourth.
+
+10. **Create `specs/<next>/` empty — the drop-off directories and no
+    `spec.md` — and write no spec text into it.** The next version's number is
+    the owner's, asked once here and validated later by `/hora-plan`'s
+    versioning check like any other. The emptiness is the routing: `/hora`'s
+    step 1 and `/hora-plan`'s own rule both hand a version with no spec to
+    `/hora-spec`, whose stage 2 consumes the handoff. **The next version's
+    spec is written by `/hora-spec`, never here and never by `/hora-plan`**
+    (`../hora-plan/SKILL.md`, "Never write the first spec of a version here").
+    Stage 1 carries over where the split adds no feature and no actor.
+
+11. **Run stage 7's mechanical pass on the resolved document before the split
+    is done.** A stage re-entered re-runs the review
+    (`../hora-spec-review/SKILL.md`), and the checks that matter here are
+    mechanical: no criterion left on this side whose `spans:` names a moved
+    feature, §4 and §14 in correspondence, every remaining `depends`
+    satisfied behind its feature.
+
+12. **Record the split in this version's `_stages.md`** — the cut, what moved,
+    each disposition and who decided it. "Decided in conversation, and not
+    visible in `spec.md`" is the section that exists for exactly this.
+
+13. **The rest is `/hora-plan`'s existing reconciliation, and no new machinery
+    is built for it**: entries move to `## Withdrawn`, the sweep's
+    `Version criteria:` line is re-derived, and a moving feature that was
+    implemented raises a removal task under the rule that already covers one.
+    **A removal task carries a checkbox** — it is built and swept like any
+    work, before this version releases.
+
+**A split does not reduce what gets verified.** The unit suites still run whole
+repositories at every gate, and the next version's sweep still reaches every
+`[x]` feature of every earlier version in ascending order
+(`../hora-accept/SKILL.md`, "What is in scope"). What moves is the release
+point, not the cost — and that is the whole of what this section claims.
 
 ---
 

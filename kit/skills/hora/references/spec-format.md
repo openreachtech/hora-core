@@ -638,6 +638,14 @@ Read the first as the second and the structure cannot take it later. Read the se
 
 Write "for now" entries with what unblocks them (`<feature C> → planned for 1.1.0`).
 
+**A scope kept over a proposed narrowing may name when it gets read again.**
+One line, in the owner's words, at the end of "Built this time":
+`Reconsider <version>'s scope when: <a condition measurable against what
+.hora/ records>`. It binds the version it names and no other — the reach
+stated where the lever is declared — and `/hora-plan` walks it on re-entry,
+raising it once (`../../hora-spec-horizon/SKILL.md`, "A narrowing that was
+declined names when it gets read again").
+
 ### 5. Existing assets
 
 ```markdown
@@ -757,6 +765,12 @@ Writing the SDL directly is the most reliable option.
 
 **These are the project's own milestones**, unrelated to `/hora-build`'s checkpoints.
 
+**A milestone boundary is a place this version could have been cut.** Nothing
+releases at one — versions run serially and only a version is released — but
+the question stage 2 asks against each boundary is what makes the plan more
+than an order: how much of this version could be shown to work if it ended
+here (`../../hora-spec-horizon/SKILL.md`, "The second number").
+
 **Check that "fine to leave for later" matches the scope section's "out of scope for now".** `/hora` stops with a question if the two do not clearly correspond.
 
 ### 15. Version acceptance criteria
@@ -782,6 +796,15 @@ Writing the SDL directly is the most reliable option.
 **One `###` per version, each with its own `id`.** The diff rule keys on `id`, so a subsection nobody rewrote carries over untouched. Written as one `##` body instead, a version adding a single criterion would have to restate every criterion the product has ever had.
 
 **So these criteria accumulate, and every later sweep checks all of them.** A behavior that spanned three features in 1.0.0 is still supposed to hold in 1.4.0.
+
+**A criterion moves version with the features it spans.** Where a version is
+split, a criterion whose `spans:` names only moved features moves with them —
+through the split's handoff, landing in the next version's own block when its
+spec is written — and one that spans both sides is moved whole or split in
+two, **decided one criterion at a time by whoever owns the product**
+(`../../hora-spec-horizon/SKILL.md`, "Splitting a version under way"). A half
+left behind is not a half-verified behavior: these criteria accumulate, so
+every later sweep checks both halves.
 
 **A criterion may reach a feature the spec only listed, and it says so where it is written** (`baseline`, above).
 

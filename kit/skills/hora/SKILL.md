@@ -222,9 +222,13 @@ Remaining: #payroll #bonus #year-end
   build it        → just run /hora again
   drop it         → mark the section kicked: yes in specs/1.0.0/spec.md
   defer it        → kicked: yes in 1.0.0, kicked: no on the specs/1.1.0/ side
+  split it        → cut the release at the last accepted feature: kicked: yes
+                    on everything past the cut, the rest handed to the next
+                    version through /hora-spec
+                    (/hora-spec-horizon, "Splitting a version under way")
 ```
 
-**A listed feature is never one of the remaining ones, and it is never offered these three ways out.** It is running code nobody has specified yet, and the way out is a later version writing its two blocks (`references/spec-format.md`, "`baseline`").
+**A listed feature is never one of the remaining ones, and it is never offered these ways out.** It is running code nobody has specified yet, and the way out is a later version writing its two blocks (`references/spec-format.md`, "`baseline`").
 
 **`/hora` only lays out the choices; it does not decide.**
 
