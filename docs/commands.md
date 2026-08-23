@@ -2,7 +2,7 @@
 
 # What each command does
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/bank-id` (at the end of this page), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
 **In normal use you only ever type `/hora`.** It decides which of the others to run. **The one it never starts is `/hora-hotfix`** — whether something is an emergency is a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
@@ -418,17 +418,6 @@ One failing test, the full unit suites in every repository, lint on the files it
 The record names the features the fix touched. On the next run, `/hora` reports the open debt and `/hora-plan` clears checkpoint 18 for each of those features. From there the normal route takes over — `/hora-build` picks them up, `/hora-accept` accepts them at their real reach, and **the version cannot be done until it passes.**
 
 **Its verdict word is `landed`, never `passed`.** `/hora-accept` owns that word, and a hotfix record may not be mistaken for an acceptance.
-
----
-
-## `/bank-id`
-
-**A supporting skill, not a phase.** Hands out an exclusive row-id prefix inside one backend repository, so two writers never pick the same explicit `id`.
-
-| | |
-|---|---|
-| **Called by** | checkpoint 5, before writing an explicit `id` into a seeder or a test fixture |
-| **Also usable** | by a person working in the backend repository directly — `/hora-setup` copies it in there for exactly that reason |
 
 ---
 
