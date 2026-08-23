@@ -13,11 +13,11 @@ This document is about that boundary: why it exists, how the skills reach the se
 Two documents describing the same convention will disagree. **The question is only when, and whether anybody notices.**
 
 ```
-hora-skills       "a stub resolver lives under server/graphql/resolvers/<audience>/stub/"
+hora-skills       "a stub implementation lives under server/<area>/<audience>/stub/"
                        │
                        │  the package is updated. The path changes.
                        ▼
-Hora Kit          "a stub resolver lives under server/graphql/resolvers/<audience>/stub/"
+Hora Kit          "a stub implementation lives under server/<area>/<audience>/stub/"
                        ↑
                   still there, still confident, now wrong
 ```
@@ -129,7 +129,7 @@ The domain is `hora-skills`' own, and a repository can install a subset of them 
 
 **`hc-` is the `core` domain, not the `hora-core` package.** Both names are in play here and they name different things: `hora-core` is the command that installs `@openreachtech/hora`, which distributes no `hc-` skill at all.
 
-So which surface a skill serves is visible before anything else. **Everything after the prefix is a label, not a classification** — one skill in this package covers operation clients in the frontend app and another covers SDL for the backend server, and their names differ by no more than a word. **The description is the only thing that says which is which**, and matching on what a name sounds like is how the wrong one gets invoked.
+So which surface a skill serves is visible before anything else. **Everything after the prefix is a label, not a classification** — one skill in this package covers operation clients in the frontend app and another covers API schemas for the backend server, and their names differ by no more than a word. **The description is the only thing that says which is which**, and matching on what a name sounds like is how the wrong one gets invoked.
 
 This is also why the exclusion lists above are allowlists rather than `hb-*`/`hf-*`/`hc-*` patterns: a denylist that stops matching says nothing when it stops.
 
@@ -145,12 +145,12 @@ ls .claude/skills/
 
 And the authoritative statement of **what work** each checkpoint delegates is [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md); for a spec stage it is [`stages.md`](../.claude/skills/hora-spec/references/stages.md). **Neither is repeated here, deliberately** — a second copy of either would be exactly the drift this whole document is about.
 
-### `hb-` — backend (renchan)
+### `hb-` — backend
 
 | Area | Covers |
 |---|---|
 | **Database** | logical schema design, migrations, models, seeders, named subqueries |
-| **GraphQL** | SDL and per-audience schemas, the server engine, query / mutation / subscription resolvers, input validators, the shared resolver container, **stub resolvers** |
+| **API schemas and operations** | per-audience schemas, the server engine, operation resolvers, input validators, the shared resolver container, **stub resolvers** |
 | **REST** | the RESTful renderer architecture |
 | **Execution placement** | deciding whether work belongs in the request path, in a post-worker, or in a background job — then implementing it |
 | **Types and constants** | `.d.ts` declaration files, and the constant convention |
@@ -160,14 +160,14 @@ And the authoritative statement of **what work** each checkpoint delegates is [`
 | **Security** | a read-only, repo-wide audit that produces findings and fixes nothing |
 | **Testing** | where a test goes, how its run order is guaranteed, and the local E2E container stack |
 
-### `hf-` — frontend (Furo / Nuxt)
+### `hf-` — frontend
 
 | Area | Covers |
 |---|---|
-| **Framework** | Nuxt/Furo structure, environment variables, context patterns, utility modules as classes |
+| **Framework** | app structure, environment variables, context patterns, utility modules as classes |
 | **Components** | a family covering buttons, dialogs, tables, selects, tabs, toasts, steppers, editors and more — plus what must **not** be built |
 | **Style** | CSS conventions, layers, units, custom properties, property order, `z-index`, margins, animation |
-| **API clients** | GraphQL operations and generated types; the RESTful client trio |
+| **API clients** | API operations and generated types; the RESTful client trio |
 | **Error handling** | mapping backend error codes to user-facing messages |
 | **UI/UX** | the project context file, generating UI that is correct by construction, and auditing existing output |
 | **Acceptance** | **the acceptance review**, and the durable end-to-end scenario specification |
