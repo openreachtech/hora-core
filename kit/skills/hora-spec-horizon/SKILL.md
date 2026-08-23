@@ -185,6 +185,31 @@ If nothing equipped covers it, say so by the work it names, carry on, and record
 
 **A criterion that reaches a feature the spec only listed carries `rests on: #<id> (not accepted)`.** That line is what keeps a pass from hiding what it rested on, and it is approved as part of the section's text like everything else (`../hora/references/spec-format.md`, "`baseline`").
 
+### The second number
+
+**Say it once the plan and the version's own criteria stand.** The first
+number counts features and is said during the narrowing; this one cannot be,
+because its inputs are this stage's own later work — the implementation plan's
+boundaries and the version's own block. So it is the stage's last act: take
+**this version's own `###` block alone** — criteria carried over from earlier
+versions belong to products already shipped — walk the implementation plan's
+order, and count the criteria whose `spans:` are satisfied by the features
+built by each milestone boundary.
+
+Two readings are findings rather than numbers, and each re-opens the narrowing
+above:
+
+    every criterion waits for the last milestone
+        -> propose where the version could be cut ("Splitting a version under
+           way", below), and name what the cut would let somebody ship
+    the plan has one milestone
+        -> that is the finding itself. Nothing in this version can be shown to
+           work until all of it does
+
+**A version whose own block reads `none` reports `none`, and nothing else is
+computed.** Record both numbers in `.hora/spec/<version>/_stages.md`, whatever
+they say — the number nobody wrote down is the one nobody argued with.
+
 ---
 
 ## Splitting a version under way

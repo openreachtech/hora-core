@@ -761,7 +761,7 @@ Writing the SDL directly is the most reliable option.
 releases at one — versions run serially and only a version is released — but
 the question stage 2 asks against each boundary is what makes the plan more
 than an order: how much of this version could be shown to work if it ended
-here (`../../hora-spec-horizon/SKILL.md`, "The narrowing").
+here (`../../hora-spec-horizon/SKILL.md`, "The second number").
 
 **Check that "fine to leave for later" matches the scope section's "out of scope for now".** `/hora` stops with a question if the two do not clearly correspond.
 
