@@ -719,7 +719,9 @@ A digest only detects changes to sections an existing feature points at. **A new
 ```
 for each id on the record's touches: line
     the id has an entry in this version's _plan.md  -> clear its checkpoint 18
-                                                       back to [ ], and say so
+                                                       back to [ ], AND its
+                                                       _plan.md entry with it,
+                                                       and say so
     it has no entry here                            -> add what the sweep now
                                                        rests on to the
                                                        ## Acceptance entry
@@ -731,6 +733,8 @@ a schema-contract-debt: line stands                 -> it is work this version
                                                        through /hora-spec
 then write debt: closed in the record
 ```
+
+**Both boxes come off together.** A `_plan.md` entry left `[x]` over a feature file holding an open checkpoint 18 is a feature `/hora` step 5 will never pick up, so the debt would never be collected.
 
 **Only checkpoint 18 is cleared, and only in the version being planned.** The hotfix changed code that was already accepted, so what has gone stale is the acceptance, not the build. **No released version's `_plan.md` is ever rewritten** (section 1).
 
