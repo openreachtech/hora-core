@@ -233,7 +233,7 @@ Work through the resolved document and check every one of these.
 | **An order that puts every feature after the features it depends on** | `/hora-build` silently builds them in a different order than the document states | **yes** |
 | The implementation scope, split into "for now" and "permanently" | the design cannot tell an extension point from a dead abstraction | yes |
 | Whether existing assets may be used | "reimplement" is implied, but whether the code is visible is unknown | yes |
-| Unknown fields in an SDL or a REST payload | it would mean inventing the shape of an API | yes |
+| Unknown fields in an API schema or a REST payload | it would mean inventing the shape of an API | yes |
 | A contradiction in the text | there is no way to choose between them | yes |
 | `baseline: inventoried` under `Baseline: verified` | the permission was never granted | yes |
 | `baseline: inventoried` with no `built:` | nothing makes "this code exists" checkable | yes |
@@ -317,7 +317,7 @@ whether an extension point should be left in place.
 | `contradiction` | a contradiction in the text | yes |
 | `dependency-install` | a declared dependency failed to install, or a conflict-proof change failed to apply | yes |
 | `lacked-environment` | something failed for a reason no code change could fix | yes |
-| `undefined-detail` | undefined types, SDL, zod definitions, seed values and the like | depends |
+| `undefined-detail` | undefined types, schema or validation definitions, seed values and the like | depends |
 | `common-file` | undocumented handwritten content mixed into a file several features share | depends |
 | `inferred-annotation` | reporting that `id` / `target` / `depends` was inferred | no |
 | `spec-assumption` | an ambiguous criterion was still meetable under some reading; one was assumed and judged against | no |
@@ -338,7 +338,7 @@ Write them into `.hora/contracts/<version>/`.
 
 **The largest risk of having split into repositories is contract drift.** Let each repository derive its schema from the spec independently and they will disagree. Derive once before implementing, pin it, and have every side read that.
 
-The spec's GraphQL / REST tables usually already carry schema names, inputs and results. **When there is no actual SDL:**
+The spec's API tables usually already carry schema names, inputs and results. **When there is no actual schema definition:**
 
 ```
 RpaFlowsInput(pagination)    the contents are indicated in parentheses
@@ -357,16 +357,18 @@ RpaFlowsInput                the fields are unknown
 
 ```
 .hora/contracts/1.0.0/
-  employee-graphql.graphql
-  admin-graphql.graphql
-  public-rest.md
+  employee-api.<ext>
+  admin-api.<ext>
+  public-rest.<ext>
 ```
+
+**The file form of each contract — its extension and what it holds — is the stack handbook's** (`docs/stack/artifacts.md`, "The contract a server's consumers read"), decided by the server's protocol.
 
 **A contract is only made for a server whose consumer is in another repository or outside.** The declaration's `consumer` column decides it.
 
 | Server | Consumer | Contract |
 |---|---|---|
-| `employee-graphql` | `frontend-employee` (another repository) | **needed** |
+| `employee-api` | `frontend-employee` (another repository) | **needed** |
 | `public-rest` | the phone app (outside) | **needed** |
 | `worker` | an API server in the same repository | **not needed** |
 
@@ -523,7 +525,7 @@ Twenty sections carry `built:` and three of them are listed, so seventeen entrie
 <!-- spec: attendance @ sha256:abc123... -->
 <!-- repositories: backend, frontend-employee -->
 
-Constraint: this will be reindexed into Elasticsearch later (#search-infra).
+Constraint: this will be reindexed into a search platform later (#search-infra).
             leave room for a hook when a record is saved
 
 Conflict: appends to scalars/index.js. Two other features carry the same mark

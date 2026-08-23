@@ -50,7 +50,7 @@ what each screen shows when there is nothing, when it is waiting, when it
 | a new operation | **stage 4.** A screen that needs one sends the run back there |
 | a table | stage 4 |
 | who may open a screen, as a permission | **stage 6.** This stage writes which actor a screen is for; stage 6 writes what happens to everybody else |
-| a component, a token, a CSS class, a Vue file | **`/hora-build`**, at checkpoints 12 to 16 |
+| a component, a token, a CSS class, a component file | **`/hora-build`**, at checkpoints 12 to 16 |
 | anything about how a screen is built | the package's own frontend skills |
 
 **A screen list is not a design.** What makes this stage worth a gate is the mapping — which use case passes through which screens, and which operations each screen calls. Without it, checkpoint 11 has nothing to verify against.
@@ -128,7 +128,7 @@ If nothing equipped covers a row, say so by the work it names, carry on, and rec
 ## 13. Screens
 <!-- id: screens -->
 <!-- target: frontend-employee -->
-<!-- depends: graphql -->
+<!-- depends: api -->
 
 ### 13.1 The month's attendance
 
