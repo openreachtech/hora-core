@@ -322,6 +322,7 @@ whether an extension point should be left in place.
 | `reinvention` | checking whether an existing package already does what is about to be written | no |
 | `upstream-defect` | a defect in a framework or a package, worked around in this project's own code rather than by editing the dependency, and what would let the workaround be removed again | no |
 | `orphan` | a file that nothing links to from `spec.md` | no |
+| `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
 
@@ -653,6 +654,7 @@ Reconcile the set of sections in the resolved document against the feature files
 | a section that **lost** `baseline: inventoried` | **the debt is being paid** (below). Do not plan it for building until `built:` has been restated and confirmed, or `authority: to-spec` declared |
 | the `Version acceptance criteria` section's digest does not match | **clear the `## Acceptance` sweep entry, and nothing else** (below). Re-derive the entry's `Version criteria:` line in the same write |
 | a section that vanished with no annotation | **do not delete anything.** The intent is unknown, so ask (`blocking: no`) |
+| a `.hora/hotfix/<hotfix-id>.md` whose `debt:` reads open | **pay it** (below), then write `debt: closed` in that record |
 | a collapsed version whose `_sweep.md` has a newest block reading a pass, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
 
 A digest only detects changes to sections an existing feature points at. **A new section has no feature pointing at it, so this reconciliation is the only way to detect one.**
@@ -709,6 +711,36 @@ A digest only detects changes to sections an existing feature points at. **A new
 **No released version's task files or `_plan.md` are ever rewritten** (section 1). **The version that caused the re-earning is the version that schedules it**, which is also the version whose closing report somebody is going to read.
 
 **One payment can reopen a dozen acceptances, and that has to be visible before it happens.** `depends` is followed transitively, so a feature three hops away is reopened as surely as a direct dependent. **Name every feature the clearing will reach, and what each one now owes, before clearing anything** — then clear.
+
+### Paying a hotfix's debt
+
+**A `/hora-hotfix` run put code on `main` without an acceptance review** (`../hora-hotfix/SKILL.md`). Its record says which features it touched. **Turn that into work the ordinary gates already handle.**
+
+```
+for each id on the record's touches: line
+    the id has an entry in this version's _plan.md  -> clear its checkpoint 18
+                                                       back to [ ], AND its
+                                                       _plan.md entry with it,
+                                                       and say so
+    it has no entry here                            -> add what the sweep now
+                                                       rests on to the
+                                                       ## Acceptance entry
+touches: none                                       -> the ## Acceptance entry
+                                                       alone
+a schema-contract-debt: line stands                 -> it is work this version
+                                                       owes. Raise it, and have
+                                                       the section written
+                                                       through /hora-spec
+then write debt: closed in the record
+```
+
+**Both boxes come off together.** A `_plan.md` entry left `[x]` over a feature file holding an open checkpoint 18 is a feature `/hora` step 5 will never pick up, so the debt would never be collected.
+
+**Only checkpoint 18 is cleared, and only in the version being planned.** The hotfix changed code that was already accepted, so what has gone stale is the acceptance, not the build. **No released version's `_plan.md` is ever rewritten** (section 1).
+
+**A hotfix that touched code no feature owns still clears something.** `touches: none` means the sweep is the only run that can reach it, so the sweep entry is what carries it.
+
+**Name every feature this reopens before clearing anything**, the same way a listed feature's payment is named.
 
 ---
 
