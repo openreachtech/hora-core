@@ -57,6 +57,43 @@ which use case is impossible without this?
 
 **If the answer is still "all of it", record it and carry on.** State it once, propose the narrowing, and if the decision stands, write a `scope` question naming what was proposed and who declined it. **The decision belongs to whoever asked for the product; saying nothing does not.**
 
+### A narrowing that was declined names when it gets read again
+
+**"Never nothing" is this stage's rule about deferred items. It applies to this
+stage's own decisions too.** A `scope` question records what was proposed and
+who declined it, and that is where the record stops today: nothing states when
+the decision would be worth reading again, and nothing reads it.
+
+**The condition does not go in the question.** A condition is a decision, and
+`.hora/` holds no decisions (`../hora/references/structure.md`, "Where a lever
+lives"). It goes into the implementation scope, in the owner's own words, shown
+and approved like every other line of that section
+(`../hora/references/spec-format.md`, "4. Implementation scope"):
+
+```markdown
+### Built this time (1.0.0)
+
+- ... the features ...
+
+Reconsider 1.0.0's scope when: milestone 1 closes with more than four features
+unaccepted, or any one feature is sent back twice.
+```
+
+**Three properties make it a condition rather than a wish. It names the version
+it binds** — the reach a lever states where it is declared
+(`../hora/references/structure.md`, "Where a lever lives"): this version alone,
+dead the moment a later scope section is written. **It is measurable against
+what `.hora/` already records** — the plan's boxes read with §14's milestones
+("milestone 1 closes" is every feature §14 places there standing `[x]`), the
+blocks in `.hora/acceptance/`, the question file. And **somebody reads it**:
+`/hora-plan` walks the line on re-entry and raises it once
+(`../hora-plan/SKILL.md`, "6. Reconcile on re-entry"). "If 1.0.0 overruns" has
+none of the three.
+
+**Propose it; do not write it unasked.** Where the owner names no condition,
+record that too — a declined narrowing with no re-reading is a decision
+somebody made with their eyes open.
+
 ---
 
 ## The three lists are three lists
