@@ -53,6 +53,7 @@
 | the RESTful API section, omitted where no server is REST | `spec-format.md`, "9 onward — the feature sections" |
 | the background jobs section, omitted where nothing runs outside a request | `spec-format.md`, "9 onward — the feature sections" |
 | the diff rule — a section this version does not write | `spec-format.md`, "From the second version on, write a diff" |
+| a version cut short at the last accepted feature, the rest deferred whole | `../../hora-spec-horizon/SKILL.md`, "Splitting a version under way" |
 
 ## In an annotation
 

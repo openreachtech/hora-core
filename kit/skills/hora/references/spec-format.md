@@ -757,6 +757,12 @@ Writing the SDL directly is the most reliable option.
 
 **These are the project's own milestones**, unrelated to `/hora-build`'s checkpoints.
 
+**A milestone boundary is a place this version could have been cut.** Nothing
+releases at one — versions run serially and only a version is released — but
+the question stage 2 asks against each boundary is what makes the plan more
+than an order: how much of this version could be shown to work if it ended
+here (`../../hora-spec-horizon/SKILL.md`, "The narrowing").
+
 **Check that "fine to leave for later" matches the scope section's "out of scope for now".** `/hora` stops with a question if the two do not clearly correspond.
 
 ### 15. Version acceptance criteria
@@ -782,6 +788,15 @@ Writing the SDL directly is the most reliable option.
 **One `###` per version, each with its own `id`.** The diff rule keys on `id`, so a subsection nobody rewrote carries over untouched. Written as one `##` body instead, a version adding a single criterion would have to restate every criterion the product has ever had.
 
 **So these criteria accumulate, and every later sweep checks all of them.** A behavior that spanned three features in 1.0.0 is still supposed to hold in 1.4.0.
+
+**A criterion moves version with the features it spans.** Where a version is
+split, a criterion whose `spans:` names only moved features moves with them —
+through the split's handoff, landing in the next version's own block when its
+spec is written — and one that spans both sides is moved whole or split in
+two, **decided one criterion at a time by whoever owns the product**
+(`../../hora-spec-horizon/SKILL.md`, "Splitting a version under way"). A half
+left behind is not a half-verified behavior: these criteria accumulate, so
+every later sweep checks both halves.
 
 **A criterion may reach a feature the spec only listed, and it says so where it is written** (`baseline`, above).
 
