@@ -17,7 +17,7 @@ the checkpoint    its number, its exit condition, the names of the skills
 the unit          the slice of that checkpoint you own — one table, one module,
                   one operation, one component — and, where the checkpoint runs
                   whole, the assignment names no unit
-the scope         the repository to work in, and this feature's bank-id prefix
+the scope         the repository to work in, and this feature's row-id prefix
 ```
 
 **Do exactly what you were handed.** Where your assignment names a unit, sibling agents hold the other units and `/hora-build` gathers all of them; where it names none, the checkpoint is yours whole. The checkpoint after this one has its own agent and its own verification, so work that leaks forward is work nobody checked.
@@ -54,7 +54,7 @@ Report what you did **in your return value.** `/hora-build` reads it, acts on it
 
 You are started at the outer root, which holds no application code. **Every command that acts on a repository runs with that repository as its working directory** — `cd <repository> && <command>`, as one command, with every path relative to it.
 
-This is not a list of particular commands. What decides it is whether the command reads or writes anything belonging to a repository: its config (`eslint.config.js`, `jest.config.js`, `pm2.config.cjs`, `jsconfig.json`), its `package.json` and `node_modules/`, its `.env.development` and `docker-compose.development.yml`, its migrations, seeders and generated output, its own source. A script you find in the real tree (`./docker.sh`, a `db:*` npm script, whatever else it ships) is covered by this the moment you find it.
+This is not a list of particular commands. What decides it is whether the command reads or writes anything belonging to a repository: its config (`eslint.config.js`, `jest.config.js`, `jsconfig.json`, whatever else the row ships), its `package.json` and `node_modules/`, its `.env.development` and `docker-compose.development.yml`, its migrations, seeders and generated output, its own source. A script you find in the real tree (`./docker.sh`, a `db:*` npm script, whatever else it ships) is covered by this the moment you find it.
 
 **Run one from the outer root and it does not reliably tell you so** — the root's own `eslint.config.js` ignores every implementation repository, so lint there passes without reading a line, and `npm install` there writes the dependency into the wrong `package.json`.
 
@@ -120,7 +120,7 @@ Two things are yours regardless of which convention applies.
 
 **Those are your feature's own criteria, and nothing else's.** A criterion you cannot test without a feature that does not exist yet is not yours to build around: report it under `specIssues` and leave it. **Building the other feature is outside your scope, and weakening the test until it passes is the one failure this whole arrangement is built to prevent** (`../skills/hora/references/spec-format.md`, "A criterion is checked at its own feature's gate").
 
-**Before writing an explicit `id` anywhere** — in a seeder, or in a test creating its own fixture — build it from the `bank-id` prefix your assignment carries. Derive an id from that prefix alone, in any table, and leave another requester's rows unread.
+**Before writing an explicit `id` anywhere** — in a seeder, or in a test creating its own fixture — build it from the row-id prefix your assignment carries. Derive an id from that prefix alone, in any table, and leave another requester's rows unread.
 
 ### Do not run lint, and do not run the tests
 

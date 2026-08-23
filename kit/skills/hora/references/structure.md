@@ -38,7 +38,7 @@
 
 **Stack names are the same copy too.** A boilerplate, a framework, a database, a queue — written anywhere in a hora file, even as an example — is a fact the handbook already owns, and it goes stale the same silent way. Examples in hora files use roles (`backend`, `frontend-admin`) and kinds of work, never stacks.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `bank-id`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
