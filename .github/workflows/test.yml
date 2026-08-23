@@ -19,16 +19,18 @@ jobs:
     # from the merge gate.
     name: CI Test
 
-    runs-on: [self-hosted, light]
+    # private repository: self-hosted
+    # public repository: github-hosted
+    runs-on: ${{ fromJSON(github.event.repository.private && '["self-hosted", "light"]' || '["ubuntu-latest"]') }}
 
     timeout-minutes: 60
 
     steps:
       - name: 🛎️ Checkout repository code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🏗️ Use Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           # ⚠️ The npm cache only pays off where ~/.npm is discarded between jobs.
           # On a persistent [self-hosted] runner it re-ships what is already on disk,
@@ -41,10 +43,14 @@ jobs:
           # here only in a repository that genuinely needs one.
           node-version: lts/*
 
-      - name: 🖨️ Print runtime versions
+      - name: 🖨️ Print environment
+        env:
+          RUNNER_ENVIRONMENT: ${{ runner.environment }}
         run: |
-          node -v
-          npm -v
+          echo
+          echo "runner: $RUNNER_ENVIRONMENT"
+          echo "node  : $(node -v)"
+          echo "npm   : $(npm -v)"
 
       - name: 📦 Install packages
         run: npm ci
