@@ -12,8 +12,9 @@ Every hora skill that touches git follows this file. **Every git operation runs 
 - **A feature's implementation commits go on a `feature/<feature-id>` branch first** (below), cut from `release/<version>`'s tip in each repository that feature touches. `install`/`update`/`retake` commit to `release/<version>` directly
 - **Create the branch when it does not exist yet.** `git fetch origin --prune`, then branch from `origin/main` if `release/<version>` is still missing. For a row `/hora-setup` just set up with a fresh `git init`, branch from the current `HEAD` instead
 - **The marker opening a `release/<version>` branch is `Release <version>`** — the version whose `spec.md` is being worked on, matching the branch name, never a version taken from anywhere else
-- **`hotfix/xxxx` takes no branch-opening marker**, unlike every other trunk this project's git conventions ask one of. It exists to move fast on one emergency fix
-- **That exemption holds only as long as `hotfix/xxxx` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/<version>` instead
+- **`hotfix/<hotfix-id>` takes no branch-opening marker**, unlike every other trunk this project's git conventions ask one of. It exists to move fast on one emergency fix
+- **That exemption holds only as long as `hotfix/<hotfix-id>` never becomes a trunk branch** — never cut a sub-hotfix or sub-feature branch from it. A fix that would need one is not a **hot**fix: do it as a patch-bumped `release/<version>` instead
+- **`/hora-hotfix` is the skill that runs one** (`../../hora-hotfix/SKILL.md`). It owns which fixes are admitted onto this branch, and what a run that skipped acceptance has to record
 
 ---
 
@@ -100,7 +101,7 @@ spec: 1.0.0#attendance
 
 **The merge itself is not `/hora`'s to state.** Which branches hold the trunk role and how it nests, whether the merge fast-forwards, what its commit's subject says, what becomes of the branch afterwards, and how a rebase preserves the merges inside it are this project's git conventions, held by an equipped skill and matched at run time (`structure.md`). Below is only what `/hora` adds on top of them.
 
-- **The branches `/hora` itself opens as trunks are `release/<version>` and `hotfix/xxxx`**, both merging into `main`. `hotfix/xxxx` is the one branch the role must never reach beyond that: nothing is cut from it (above)
+- **The branches `/hora` itself opens as trunks are `release/<version>` and `hotfix/<hotfix-id>`**, both merging into `main`. `hotfix/<hotfix-id>` is the one branch the role must never reach beyond that: nothing is cut from it (above)
 - **Immediately after merging anything into `release/<version>`, run the check in "Keeping `release/<version>` current" again.** `/hora` has no scheduler, so a merge is the next-best occasion to notice `origin/main` moved
 
 ---
@@ -170,6 +171,7 @@ Never hand-resolve a conflict textually. Redo means reproducing the same intent 
 |---|---|
 | a feature's implementation commit (carries a `spec: <id>` trailer) | trace `<id>`, clear the checkpoints in `.hora/tasks/<version>/<id>.md` that produced it, and run them again through `/hora-build` against the tree as it stands |
 | a `package.json`/`package-lock.json` commit | **stop instead of redoing it, if the commits being caught up on also touch this file.** Re-running `npm install` would silently pick some resolution, with no conflict to surface the disagreement. Report it and wait for a human. Otherwise re-run the same `npm install`/`npm uninstall` against the tree as it stands |
+| a migration commit | **stop instead of redoing it, if the commits being caught up on touch the same table.** The file order and the history order disagree after a rebase, so which migration lands first differs per environment. Report it and wait for a human. Otherwise cherry-pick it unchanged |
 | a conflict-proof file commit | the same distinction: stop and ask if the hotfix side also touches this file; otherwise re-apply the change fresh |
 | the branch's own empty opening marker | never conflicts — it carries no diff |
 
