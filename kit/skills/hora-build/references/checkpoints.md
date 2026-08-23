@@ -4,7 +4,7 @@
 
 **This file holds the order and the exit conditions. It holds no procedure.** How to write a migration, a resolver, a component or a test lives in `@openreachtech/hora-skills`, and each checkpoint states the *work* that skill covers (`../../hora/references/structure.md`, "The division of labor").
 
-**No checkpoint below names a package skill, and none ever may.** Each checkpoint's **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions at run time (`../../hora/references/structure.md`, "No hora file ever names one of those skills"). **Skills Hora Kit itself ships — `/hora-accept`, `bank-id` — are named here freely.**
+**No checkpoint below names a package skill, and none ever may.** Each checkpoint's **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions at run time (`../../hora/references/structure.md`, "No hora file ever names one of those skills"). **Skills Hora Kit itself ships — `/hora-accept` — are named here freely.**
 
 ---
 
@@ -122,16 +122,9 @@ Walk each use case end to end, on paper, against the spec. **Look for the case t
 | **Exit condition** | the migration, the model, the declaration files and the API surface all exist and agree with `.hora/contracts/<version>/` |
 | **Not applicable when** | this feature adds no table and no operation (rare — usually a feature that only composes existing ones) |
 
-**The API surface branches on the kind of each operation, and the kind comes from the spec — never from inference** (`../../hora/references/structure.md`, invariant 2):
+**The API surface branches on the kind of each operation** — the kind comes from the spec, never from inference (`../../hora/references/structure.md`, invariant 2) — **and what each kind requires designing is the stack handbook's** (`docs/stack/artifacts.md`, "At schema design").
 
-| Kind | What has to be designed |
-|---|---|
-| GraphQL query | the SDL for the operation |
-| GraphQL mutation | the SDL for the operation |
-| GraphQL subscription | the SDL, plus the schema half of a subscription resolver |
-| REST | the renderer's route and version |
-
-**Type interfaces and constants belong here, not with the modules at checkpoint 5.** A `.d.ts` under `types/resolvers/` and an enum-like constant are the schema expressed as types — the stub at checkpoint 4 already needs both. Checkpoint 5 gathers the material the real implementation runs on.
+**Type interfaces and constants belong here, not with the modules at checkpoint 5.** Declaration files and enum-like constants are the schema expressed as types — the stub at checkpoint 4 already needs both. Checkpoint 5 gathers the material the real implementation runs on.
 
 **A constant file two operations both add to is this checkpoint's shared file, and it belongs to one unit.** Give it to the unit that owns it, or run this checkpoint whole (`../SKILL.md`, "Step 5 — splitting a checkpoint into units").
 
@@ -179,7 +172,7 @@ The catalog is `@openreachtech/hora-ecosystem`, a devDependency of the hora repo
 - When something looks close but there is no confidence, record it as `reinvention` (`blocking: no`) and proceed with your own implementation
 - **A package that does the right thing but does it wrong is not a reason to write your own.** Match the skills covering how a defect in a dependency is worked around, and hand them to the unit that hit it
 
-### Explicit row ids come from this feature's `bank-id` prefix
+### Explicit row ids come from this feature's allocated prefix
 
 A seeder written here, or a test fixture written later, that carries an explicit `id` **builds it from the prefix `/hora-build` allocated for this feature** (`../SKILL.md`, "Where to start"), in any table. Derive an id from that prefix alone, and leave another requester's rows unread.
 
@@ -192,12 +185,7 @@ A seeder written here, or a test fixture written later, that carries an explicit
 | **Exit condition** | the real implementation exists under the same class name and interface as its stub, its input is validated, and the unit tests covering this feature's acceptance criteria pass |
 | **Not applicable when** | this feature adds no API operation |
 
-| Kind | What has to be implemented |
-|---|---|
-| GraphQL query | a query resolver |
-| GraphQL mutation | a mutation resolver |
-| GraphQL subscription | a subscription resolver |
-| REST | the renderer itself |
+**What each kind requires implementing is the stack handbook's** (`docs/stack/artifacts.md`, "At the actual implementation") — the real thing behind the operation, under the same class name and interface as its stub.
 
 **Write a test for each acceptance criterion, and run it.** Where a backend test lives, how it is named, how its run order is guaranteed, and how a failing suite is driven to green without weakening it are all the package's. **A test that is loosened, skipped or deleted to make the suite pass fails this checkpoint** — the exit condition is the criteria being backed, not the command exiting 0.
 
@@ -296,7 +284,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Exit condition** | logic used by more than one component or page exists as a class under the app's modules folder, and this feature's backend error codes map to user-facing messages |
 | **Not applicable when** | nothing in this feature is shared between two places, and it introduces no new error code. State which of the two, do not assume both |
 
-**Furo is OOP: shared logic is a class, not a function and not a composable.**
+**The form shared logic takes — a class, a function, something else — is the stack handbook's** (`docs/stack/artifacts.md`, "Shared frontend logic"); how it is written is the equipped skills'.
 
 **Error mapping is part of this checkpoint, not of the UI checkpoint.** A backend error code with no locale entry surfaces as a raw dotted string, and checkpoint 18's review fails it under "does it tell the truth when something goes wrong".
 
@@ -309,11 +297,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Exit condition** | a client exists for every operation this feature uses, matching `.hora/contracts/<version>/` exactly, and it works against the stub from checkpoint 4 |
 | **Not applicable when** | this feature's screen calls no API |
 
-| Kind | What has to be built |
-|---|---|
-| GraphQL query / mutation | a GraphQL operation client |
-| GraphQL subscription | a GraphQL operation client, its subscription side |
-| REST | a RESTful client |
+**What has to be built for each kind is the stack handbook's** (`docs/stack/artifacts.md`, "At the frontend's API client").
 
 **The contract is authoritative for both sides.** Wanting to change it here means raising a question, not changing it.
 
@@ -336,7 +320,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 
 | | |
 |---|---|
-| **Delegate to** | the skills covering the frontend's context patterns, its GraphQL operation clients, and how a frontend test is written and placed |
+| **Delegate to** | the skills covering the frontend's context patterns, its API operation clients, and how a frontend test is written and placed |
 | **Runs in** | an implementer agent |
 | **Exit condition** | the screen shows real data from the **actual** API, not the stub, its loading and error paths are driven by real responses, and the unit tests covering this feature's frontend acceptance criteria pass |
 | **Not applicable when** | this feature's screen calls no API |

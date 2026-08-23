@@ -21,9 +21,9 @@ Read `../hora/references/structure.md` (the layout, the invariants, where a comm
 
 ## Where to start
 
-**If a backend row is declared, clear its `bank-id` lock unconditionally before touching any checkpoint** (`.claude/skills/bank-id/SKILL.md`, "Clearing a stale lock"). Nothing holds that lock across invocations, so one still standing at the start of a run is leftover.
+**If a backend row is declared, and an equipped skill covers exclusive row-id allocation, clear that allocator's lock unconditionally before touching any checkpoint** (its own file describes clearing a stale lock). Nothing holds that lock across invocations, so one still standing at the start of a run is leftover.
 
-**Then allocate this feature's id prefix once, before its first implementing checkpoint, and hand that same prefix to every agent that works in the backend row.** `bank-id` returns the same prefix for the same requester however often it is asked, so allocating here costs one call and leaves the lock free — where several units run at once, asking for themselves would queue them behind each other's `mkdir`.
+**Then allocate this feature's id prefix once through that skill, before its first implementing checkpoint, and hand that same prefix to every agent that works in the backend row.** The allocator returns the same prefix for the same requester however often it is asked, so allocating here costs one call and leaves the lock free — where several units run at once, asking for themselves would queue them behind each other's lock.
 
 ```
 1. Read .hora/tasks/<version>/_plan.md
@@ -69,7 +69,7 @@ Report the decision in one line before starting work — "building #attendance, 
        -> hora-implementer, one agent per unit of this checkpoint's work,
           started together (below), each given that checkpoint's exit
           condition, the skill names and digest paths from step 3, and this
-          feature's bank-id prefix
+          feature's row-id prefix
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
           AND the change set to audit: this feature's changes as they stand
@@ -190,7 +190,7 @@ Report the decision in one line before starting work — "building #attendance, 
 | | |
 |---|---|
 | an aggregation file | regenerated once at step 6, from the folder scan and the units' `registrations` |
-| this feature's `bank-id` prefix | allocated once, with the feature's `id` as the requester, and handed to every unit working in the backend row |
+| this feature's row-id prefix | allocated once through the equipped allocator skill, with the feature's `id` as the requester, and handed to every unit working in the backend row |
 | lint, and the tests | steps 7 and 8, run once over every file the units touched together |
 
 **Each unit is handed the slice of step 3's match its own work needs.** At 12 the matched set is a family — one skill per existing component — so handing all of it to every unit puts twenty-odd digests in each context. **Record the full set against the checkpoint as always, and name which unit received which subset.**

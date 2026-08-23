@@ -121,7 +121,7 @@ When all three hold, the migration can be applied first and the code after it, s
 
 Match the equipped skills covering the code being changed, and hand the work to an implementer agent. Run lint from inside that repository, on the files it touched (`../hora/references/structure.md`, "Where a per-repository command runs").
 
-**If a test fixture needs an explicit row id, clear any stale `bank-id` lock, allocate one prefix, and use it.** Nothing holds that lock across invocations, so one still standing at the start of a run is leftover.
+**If a test fixture needs an explicit row id, use the equipped skill covering exclusive row-id allocation: clear its stale lock, allocate one prefix, and use it.** Nothing holds that lock across invocations, so one still standing at the start of a run is leftover.
 
 ---
 
