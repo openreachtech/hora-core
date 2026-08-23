@@ -26,7 +26,9 @@ jobs:
     # Only run when PR is merged
     if: github.event.pull_request.merged == true
 
-    runs-on: [self-hosted, light]
+    # private repository: self-hosted
+    # public repository: github-hosted
+    runs-on: ${{ fromJSON(github.event.repository.private && '["self-hosted", "light"]' || '["ubuntu-latest"]') }}
 
     timeout-minutes: 5
 
