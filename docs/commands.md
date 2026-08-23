@@ -381,7 +381,7 @@ When a verification gate fails it clears the checkpoints it invalidates and the 
 
 ## `/hora-hotfix`
 
-**One urgent defect, straight to `main`.** Six gates instead of eighteen checkpoints. It gives up the acceptance review and writes down what it gave up, so the next version has to pay it back.
+**One urgent defect, straight to `main`.** Six gates instead of eighteen checkpoints. [`hotfix.md`](./hotfix.md) walks the whole route; this is the summary. It gives up the acceptance review and writes down what it gave up, so the next version has to pay it back.
 
 | | |
 |---|---|
@@ -513,6 +513,7 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 
 | | |
 |---|---|
+| the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
 | the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
