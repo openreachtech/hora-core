@@ -102,7 +102,7 @@ use cases ──> horizon ──> non-functional ──> data / API / jobs ─�
 | `specs/skeleton/spec.md` | **copied from, never written to.** This skill does the copying, **and only for the first version** |
 | `specs/<version>/request/` | **read, never written to and never tidied up.** It stays as they wrote it |
 | `specs/<older version>/` | **never.** Past versions are frozen |
-| `.hora/spec/<version>/_stages.md` | this skill's own record of where it got to |
+| `.hora/spec/<version>/_stages.md` | this skill's own record of where it got to. **One that already exists is added to, never replaced** — a split of the previous version may have left a handoff in it (`../hora-spec-horizon/SKILL.md`, "Splitting a version under way") |
 | `.hora/spec/<version>/_assets.md` | what stage 0 read, where from, and at what commit (`references/investigation.md`) |
 | `.hora/spec/<version>/_divergence.md` | where the documents and the code disagree. **Stage 0 writes the rows, unrouted; the stage that owns a row's subject writes its `Routed to`** (`references/investigation.md`) |
 | `.hora/questions/<version>/open.md` | appended to, like any other skill |
