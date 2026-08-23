@@ -225,3 +225,4 @@ description で突き合わせることは、改名の問題を消しますが�
 | 境界の規則としての記述 | [`structure.md`](../.claude/skills/hora/references/structure.md) の "The division of labor" と "No hora file ever names one of those skills" |
 | なぜこの設計なのか | [`architecture.ja.md`](./architecture.ja.md) |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
+| 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |

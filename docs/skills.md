@@ -225,3 +225,4 @@ Matching against descriptions removes the rename problem, not the *dropped* one.
 | the boundary, stated as a rule | [`structure.md`](../.claude/skills/hora/references/structure.md), "The division of labor" and "No hora file ever names one of those skills" |
 | why the design is shaped this way | [`architecture.md`](./architecture.md) |
 | what each command does | [`commands.md`](./commands.md) |
+| the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
