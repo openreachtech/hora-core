@@ -638,6 +638,14 @@ Read the first as the second and the structure cannot take it later. Read the se
 
 Write "for now" entries with what unblocks them (`<feature C> → planned for 1.1.0`).
 
+**A scope kept over a proposed narrowing may name when it gets read again.**
+One line, in the owner's words, at the end of "Built this time":
+`Reconsider <version>'s scope when: <a condition measurable against what
+.hora/ records>`. It binds the version it names and no other — the reach
+stated where the lever is declared — and `/hora-plan` walks it on re-entry,
+raising it once (`../../hora-spec-horizon/SKILL.md`, "A narrowing that was
+declined names when it gets read again").
+
 ### 5. Existing assets
 
 ```markdown

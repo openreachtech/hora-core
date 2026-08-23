@@ -658,6 +658,7 @@ Reconcile the set of sections in the resolved document against the feature files
 | a section that vanished with no annotation | **do not delete anything.** The intent is unknown, so ask (`blocking: no`) |
 | a `.hora/hotfix/<hotfix-id>.md` whose `debt:` reads open | **pay it** (below), then write `debt: closed` in that record |
 | a collapsed version whose `_sweep.md` has a newest block reading a pass, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
+| the implementation scope carries a `Reconsider <version>'s scope when:` line naming the version being planned, whose condition now holds | **raise it once, in conversation, as a proposal to re-run stage 2** — naming the condition, what in the plan satisfies it, and the `scope` question that recorded the original decline — and **record the outcome as a question naming the line**: declined lands as `spec-proposal` (`blocking: no`, the category that exists so a declined proposal is not re-raised every run); taken hands the run to `/hora-spec` at stage 2. **The recorded question is the record that it fired** — the walk raises nothing where one already names this line |
 
 A digest only detects changes to sections an existing feature points at. **A new section has no feature pointing at it, so this reconciliation is the only way to detect one.**
 
