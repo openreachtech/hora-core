@@ -197,6 +197,8 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **依存が専用ブランチを持つ理由：** `package-lock.json` は2つの変更が同時にきれいに編集できないファイルです。「1度に1つ、次を始める前にマージ」が人間のチームが衝突を避ける方法であり、ここでも同じです。
 
+**hotfix だけは `release/<version>` から生えない幹です。** `/hora-hotfix` は `hotfix/<hotfix-id>` を `main` から切り、`main` へ戻します。そこから枝は決して切りません — 枝が要る修正はもう hotfix ではありません。その後 `/hora` が、開いている `release/<version>` を新しい `main` に追従させます（[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix`）。
+
 ---
 
 ## なぜ直列なのか

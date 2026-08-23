@@ -199,6 +199,8 @@ Every git operation happens in the main session — `/hora` itself, or a skill i
 
 **Why a dependency gets its own branch:** `package-lock.json` is the file two changes cannot both edit cleanly. One change at a time, merged before the next starts, is how a human team avoids that conflict, and it is how this does too.
 
+**A hotfix is the one trunk that does not come from `release/<version>`.** `/hora-hotfix` cuts `hotfix/<hotfix-id>` from `main` and merges it back into `main`, and nothing is ever cut from it — a fix needing a branch of its own is not a hotfix. `/hora` then rebases any open `release/<version>` onto the new `main` ([`commands.md`](./commands.md), `/hora-hotfix`).
+
 ---
 
 ## Why it is serial
