@@ -135,15 +135,16 @@ And the rest as non-functional requirements, since they constrain every feature:
 ```markdown
 | Item | Requirement |
 |---|---|
-| Authentication | staff and managers share one login on `employee-graphql`, switched on
-                   role. Administrators authenticate separately on `admin-graphql` |
+| Authentication | staff and managers share one login on `employee-api`, switched on
+                   role. Administrators authenticate separately on `admin-api` |
 | Authorization | every operation states its caller in its own table. An operation
                   reached by anybody else is refused with `not-allowed`, never
                   with a silent empty result |
 | Personal data | `staffs.email`, `staffs.name`, every `attendances` row. Never
                   written to a log, never included in an error message |
 | Rate limiting | sign-in only, at 1.0.0 |
-| Exposure | only the two GraphQL servers are reachable. MariaDB and Redis are not |
+| Exposure | only the two API servers are reachable. The data store and the queue's
+             store are not |
 ```
 
 ### The acceptance criteria this stage adds
