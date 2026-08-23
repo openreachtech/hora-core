@@ -360,6 +360,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../.cla
 | | |
 |---|---|
 | what each command does, step by step | [`commands.md`](./commands.md) |
+| the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) |

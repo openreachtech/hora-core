@@ -358,6 +358,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 | | |
 |---|---|
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
+| 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 関所が委譲するスキル群 | [`skills.ja.md`](./skills.ja.md) |
 | 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
 | 18の関所そのもの | [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) |
