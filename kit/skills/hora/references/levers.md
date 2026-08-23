@@ -98,6 +98,7 @@
 | a listed feature never entered, and never resumed from its eighteen empty boxes | `../../hora-build/SKILL.md`, "Where to start" |
 | a collapsed version's features not taken individually, the sweep closing them | `../../hora-build/SKILL.md`, "Where to start"; `../../hora-plan/SKILL.md`, "collapses to one sweep" |
 | `/hora-setup` invoked only where a declared row is missing | `../SKILL.md`, "Deciding where you are" |
+| checkpoint 18 cleared for the features a hotfix touched | `../../hora-plan/SKILL.md`, "Paying a hotfix's debt" |
 
 ## In the invocation, and that run's record
 
@@ -112,6 +113,10 @@
 | a listed feature's deferred acceptance — the run that pays it is never browser-less | `../../hora-accept/SKILL.md`, "What is in scope" |
 | a finding the project decides to live with | `../../hora-accept/SKILL.md`, "What a failure does" |
 | a proposal declined or deferred | `asking.md` |
+| the acceptance review a hotfix run gives up, and the debt it writes instead | `../../hora-hotfix/SKILL.md`, "What this skill is" |
+| the reproducing test standing in for a feature's acceptance criteria | `../../hora-hotfix/SKILL.md`, "H2. Reproduce" |
+| `suites: partial` — the unit suites narrowed under a stated reason | `../../hora-hotfix/SKILL.md`, "H4. Blast radius" |
+| a person choosing one of H1's three ways forward | `../../hora-hotfix/SKILL.md`, "H1. Admit" |
 | a sub-command invoked directly instead of `/hora` | `../SKILL.md`, "The shape of a run" |
 | one `/hora-spec-*` stage invoked alone | `../../hora-spec/references/stages.md` |
 

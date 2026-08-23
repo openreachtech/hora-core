@@ -1,6 +1,6 @@
 # What every hora skill assumes
 
-`/hora`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build` and `/hora-accept` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+`/hora`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept` and `/hora-hotfix` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
 
 ---
 
@@ -33,7 +33,7 @@
 
 **This applies to every hora file** — `checkpoints.md`, `stages.md`, an agent definition, a `docs/` page. A name written "just as an example" is the same copy.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `bank-id`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `bank-id`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
@@ -159,7 +159,7 @@ These three must not be broken.
 
 **`specs/skeleton/spec.md` is written to by nobody, and is not a version.** It is the blank spec copied to `specs/1.0.0/spec.md`, **for the first version only** (`spec-format.md`). `/hora` reads only the directories under `specs/` whose name is a semver version, so the skeleton is never planned, implemented, or counted as unfinished.
 
-**Every other skill — `/hora-setup`, `/hora-build`, `/hora-accept`, and every agent — is strictly read-only on `specs/`.** They report a problem there; they never fix it. A typo and a broken layout are treated the same.
+**Every other skill — `/hora-setup`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, and every agent — is strictly read-only on `specs/`.** They report a problem there; they never fix it. A typo and a broken layout are treated the same.
 
 **`/hora-build`'s checkpoint 1 is where the routing happens, not an exception.** A design hole goes to `/hora-spec` at the stage that owns it, a one-line hole to `/hora-plan`'s propose-and-approve procedure (`../../hora-build/references/checkpoints.md`, checkpoint 1).
 
@@ -324,6 +324,9 @@ Q4  missing-authorization  blocking: yes
   acceptance/<version>/
     <feature-id>.md             every acceptance run for one feature, one appended block each
     _sweep.md                   the whole-version sweep
+  hotfix/<hotfix-id>.md         one urgent fix that went straight to main: what it changed,
+                                what it skipped, and whether that debt is still open.
+                                /hora-hotfix writes it; /hora-plan closes it
   glossary.md                   append-only, not split per version
 ```
 
