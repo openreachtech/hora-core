@@ -117,12 +117,15 @@ Write it to `.hora/tree/<repository>.md`, with the fetched boilerplate and versi
 ```markdown
 # myproject-backend
 <!-- boilerplate: <name> <fetched version> -->
+<!-- test cache: wired by <the names you matched> | not equipped, skipped -->
 
 ## Directory layout
 ...
 ```
 
 **Re-read and rewrite it whenever the recorded version no longer matches the row's own.** Otherwise, trust what is recorded.
+
+**Step 4's outcome is one line in this file, per row, and it is written either way** — the names that were matched, or that nothing equipped covered it. A delegation that went unfilled records having gone unfilled; a line left out is indistinguishable from a run in which nobody looked.
 
 **This is a cache, not a source.** It exists because `/hora-build` crosses many sessions. **On any disagreement, the tree wins**, and the record gets rewritten from it.
 
