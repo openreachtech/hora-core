@@ -191,6 +191,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 <!-- reach: full | scoped -->
 <!-- scope: attendance (rests on #payroll, not accepted), sign-up, sign-in -->
 <!-- live: yes | no (skipped at the gate) -->
+<!-- reuse: none | <the steps that reused, and what backed them> -->
 <!-- not-accepted: payroll, legacy-import | none -->
 <!-- version-criteria: 4 of 4 | not in scope (gate) | none declared -->
 <!-- environment: e2e/docker, seeded 2026-08-10 -->
@@ -205,7 +206,7 @@ failed
 | Step | Delegate | Result |
 |---|---|---|
 | environment | `<the names you matched>` | ready |
-| unit (backend) | `<the names you matched>` | 214 passed |
+| unit (backend) | `<the names you matched>` | 214 passed (reused; backed as the delegate reported) |
 | unit (frontend-employee) | `<the names you matched>` | 51 passed |
 | scenarios | `<the names you matched>` | 12 scenarios, 12 covered |
 | review | `<the names you matched>` | 2 findings |
@@ -239,6 +240,8 @@ passed over 1 of 20 features; 2 not accepted
 **Run 1 stays exactly as it was written.** It is the record that the finding was real, that it was routed, and that the code changed because of it — which is what makes the retake's pass mean anything.
 
 **The `Delegate` column is written with the real names, resolved at run time.** It is a placeholder here because this is a hora file. That column is what makes an acceptance run re-derivable.
+
+**A step that reused a recorded result says so in its `Result`, beside whatever the delegate reported as backing that reuse.** Transcribe what the tool printed — never paraphrase it, and never write counts a reused run did not report. A reuse recorded with nothing beside it is indistinguishable from a step nobody ran, which is the one thing this record exists to rule out.
 
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
