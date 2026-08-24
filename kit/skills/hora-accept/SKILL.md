@@ -24,6 +24,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 | the project context those two read (users, scope, tokens, rules) | the skills covering the shared UI/UX project context |
 | the kinds of defect a read-only security audit finds, and how it finds them | the skills covering a read-only security audit |
 | driving a failing suite to green without weakening it | the skills covering test execution |
+| whether a recorded result may stand in for an execution, and what a reused result must be reported with | the skills covering test caching |
 | where a backend test lives, and how its run order is guaranteed | the skills covering backend test placement |
 | how a unit test for a class is written | the skills covering how a unit test is written |
 
