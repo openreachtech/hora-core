@@ -136,6 +136,7 @@ Write it to `.hora/tree/<repository>.md`, with the fetched boilerplate and versi
 | Keeping `.git` and holding an upstream remote | mixes somebody else's commits into the product repo's history |
 | Turning it into a submodule | the consistency gained is not worth the added complexity |
 | Restating the handbook's contents in this file | the boilerplate owns them, and a copy here goes stale the first time it moves |
+| Authoring a test cache's own declaration | its shape belongs to whichever equipped skill covers caching, and a copy here goes stale the first time that moves |
 | Baking the boilerplate's conventions into this file | they will disagree with the real thing eventually. Step 2 reads it in place instead |
 | Bumping a dependency's version | following upstream is a human's deliberate action |
 | Starting the middleware | a human does that when they want it. `/hora-accept` is where an environment becomes a prerequisite, and it says so rather than acting |
