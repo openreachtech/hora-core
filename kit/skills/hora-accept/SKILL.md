@@ -161,6 +161,8 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **Never weaken a test to make step 2 pass.** No test skipped, deleted, loosened or waited out. The skills covering test execution are the authority; it is stated twice because "make the suite green" is exactly the instruction that produces a suite that no longer checks anything.
 
+**A reused result is not a skipped test — and the sweep does not accept one.** A command that recognises its inputs as unchanged skips a second execution, not a suite, so a feature gate may stand on it provided the record says it did. **The whole-version sweep may not**: a version's verdict rests on suites executed for real in that run, so the sweep runs them in whatever mode the skills covering test caching state forces execution. Where nothing equipped covers caching, there is nothing to force and nothing to record.
+
 ---
 
 ## Recording the result
