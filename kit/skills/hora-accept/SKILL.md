@@ -117,6 +117,11 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      the skills covering backend test placement and run order, how a unit
      test is written, and driving a failing suite to green
      cd <repository> && <that repository's own test command>
+     That command may itself reuse a result recorded for unchanged inputs.
+     It is not a weakened suite and not a skipped test — where the equipped
+     skills cover test caching, they own when a reuse may stand and what it
+     must be reported with, so match them like any other delegate. Where
+     nothing covers it, run the command as it is
 
 3. The scenario list
      the skills covering end-to-end test specification
