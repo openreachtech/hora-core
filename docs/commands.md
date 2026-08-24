@@ -185,6 +185,7 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 1. Create only what is missing, per the declaration      (idempotent)
 2. Fill in the values that carry this project's name
 3. Read what was cloned, in place, and record it in .hora/tree/
+4. Wire test caching over the rows it created            (only where a skill covers it)
 ```
 
 **It re-evaluates on every version.** Repositories arrive later — a project starts as an API for a phone app and gains an admin screen — so passing this once is not the end of it.
@@ -192,6 +193,8 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 **Equipping the skills is no longer a step here.** `npm install` places them, through this repository's `postinstall` ([`skills.md`](./skills.md)), so there is nothing for `/hora-setup` to do about it and nothing for a half-finished run to leave undone. `npm run hora:init` re-equips on demand.
 
 **Step 3 does not bake anything in.** The newest tag is always cloned, so any convention written into Hora Kit would eventually disagree with the real thing. What it reads is cached in `.hora/tree/<repository>.md` with the tag it was read at, and re-read when that tag changes. **On any disagreement, the tree wins.**
+
+**Step 4 runs only where something equipped covers test caching, and it hands over nothing but the list of verification units** — one per created row, with the test command already recorded. What a cache declaration looks like belongs to that skill, never to this command, and `.hora/tree/<repository>.md` says per row whether it was wired or skipped for want of a skill.
 
 ### What it never does
 
@@ -363,6 +366,8 @@ When a verification gate fails it clears the checkpoints it invalidates and the 
 **Step 1 is a gate, not a warm-up.** The review signs in as each role, completes flows to their success condition, and stops dependencies on purpose to watch what the screen says. None of that means anything against a frontend served on its own, and a review run that way reports a pass it has not earned.
 
 **Step 2 comes before the review on purpose.** A unit suite is cheap and its failures are precise; finding the same defect through an end-to-end flow costs far more to localize.
+
+**A repository's own test command may reuse a result it recorded for unchanged inputs, and a feature gate may stand on one** — that is a skipped second execution, not a skipped test, and the record says which steps reused and what backed them. **The whole-version sweep executes for real**: a version's verdict is a claim about suites that actually ran in that run.
 
 ### Every finding names where it sends the run back to
 
