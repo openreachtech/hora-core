@@ -17,7 +17,11 @@ Read `../hora/references/structure.md` first — the repository layout, where a 
 1. Create only the repositories that are missing, from the declaration and the handbook
 2. Fill in the values that carry this project's name
 3. Read what was fetched, in place, and record what was read
+4. Where the equipped skills cover test caching, wire it over the rows that
+   were created — and where nothing covers it, skip it and say so
 ```
+
+**Step 4 owns nothing but the list.** Which directories are verification units is this skill's own knowledge — one per created row, each with the test command already recorded in `.hora/tree/<repository>.md` — and that list is the whole of what it hands over. What a cache declaration looks like, where it lives, and what git must ignore for it belong to the skills covering test caching, matched at run time by description like any other delegate. **Nothing here authors that declaration itself**, and a project with no such skill equipped is fully set up without one.
 
 **It is idempotent, and it re-evaluates on every version.** Repositories arrive in later versions, so passing this once is not the end of it. Anything already there is passed over.
 
