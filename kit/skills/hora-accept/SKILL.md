@@ -305,6 +305,8 @@ failed
 
 **Which of the two readings holds cannot be settled here.** Either the inherited code does not do what the criterion claimed, or the criterion claimed something about inherited behavior nobody ever stated. **That is the price of the criterion having been allowed to rest on unstated behavior.**
 
+**A tool that reports its own result as untrustworthy is not a test failure.** It is a defect of the measuring instrument, so the run stops and reports it as blocking (`unreliable-measurement`), and the record says no verdict was reached. Do not re-run it until it agrees, and do not record a pass on the strength of what it reported before it said so.
+
 **A finding is never resolved by deciding it is acceptable inside this skill.** That decision belongs to a person, and it goes into the question file with their name on it.
 
 **Every question this run raised is reported by name, with a link to the file** (`../hora/references/structure.md`, "Citing a question in a report"). **Never a count.**
