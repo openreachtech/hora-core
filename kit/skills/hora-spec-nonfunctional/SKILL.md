@@ -114,13 +114,14 @@ which middleware the project needs, and at which server version
 
 | Middleware | Version | profile | Purpose |
 |---|---|---|---|
-| MariaDB | 10.5.12 | (default) | the primary data store |
-| Redis | 7.4 | (default) | BullMQ |
-| MinIO | latest | `minio` | S3-compatible object storage |
+| <the data store> | <the server's version> | (default) | the primary data store |
+| <the queue's store> | <the server's version> | (default) | the queue |
+| <object storage> | latest | `<its profile>` | S3-compatible object storage |
 ```
 
+- **Start from the stack handbook's default middleware table** (`docs/stack/middleware.md`) and declare what this project actually uses
 - **Write the server's version, not a driver's.** An npm dependency does not indicate the server version, and without it `/hora` has to guess
-- **Redis cannot be left out of a project with any background job** (BullMQ needs it). Where stage 3 already knows a job is coming, declare it now
+- **The queue's store cannot be left out of a project with any background job** (the handbook's middleware rules). Where stage 3 already knows a job is coming, declare it now
 - **`profile` and `COMPOSE_PROFILES` are what `/hora-setup` derives from this table** — a middleware the table omits is one that never comes up, and acceptance stops rather than reviewing something that is not really running
 
 ---

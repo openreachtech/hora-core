@@ -53,6 +53,7 @@
 | the RESTful API section, omitted where no server is REST | `spec-format.md`, "9 onward — the feature sections" |
 | the background jobs section, omitted where nothing runs outside a request | `spec-format.md`, "9 onward — the feature sections" |
 | the diff rule — a section this version does not write | `spec-format.md`, "From the second version on, write a diff" |
+| a version cut short at the last accepted feature, the rest deferred whole | `../../hora-spec-horizon/SKILL.md`, "Splitting a version under way" |
 
 ## In an annotation
 
@@ -86,7 +87,7 @@
 | the verifier skipped where a passing suite already proves the exit condition | `../../hora-build/SKILL.md`, "Step 9 — when the suite is the verification (checkpoints 6 and 16)" |
 | a checkpoint's units taken by one agent each, sharing the gate's one commit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |
 | a matched skill read through a digest pinned to the package version | `../../hora-build/SKILL.md`, "Step 3 — the digest each matched skill is read through"; `structure.md`, "How the match is made" |
-| one `bank-id` prefix allocated per feature and handed to every unit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |
+| one row-id prefix allocated per feature and handed to every unit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |
 | `eslint --fix` before an agent round trip, and the fix loop's limit | `../../hora-build/SKILL.md`, "Running one checkpoint" |
 | a retry abandoned on a failure no retry can fix | `../../hora-build/SKILL.md`, "Running one checkpoint", step 8 |
 | `blocking: no` — the run continues with the question open | `../../hora-plan/SKILL.md`, "Categories" |
@@ -98,6 +99,7 @@
 | a listed feature never entered, and never resumed from its eighteen empty boxes | `../../hora-build/SKILL.md`, "Where to start" |
 | a collapsed version's features not taken individually, the sweep closing them | `../../hora-build/SKILL.md`, "Where to start"; `../../hora-plan/SKILL.md`, "collapses to one sweep" |
 | `/hora-setup` invoked only where a declared row is missing | `../SKILL.md`, "Deciding where you are" |
+| checkpoint 18 cleared for the features a hotfix touched | `../../hora-plan/SKILL.md`, "Paying a hotfix's debt" |
 
 ## In the invocation, and that run's record
 
@@ -112,6 +114,10 @@
 | a listed feature's deferred acceptance — the run that pays it is never browser-less | `../../hora-accept/SKILL.md`, "What is in scope" |
 | a finding the project decides to live with | `../../hora-accept/SKILL.md`, "What a failure does" |
 | a proposal declined or deferred | `asking.md` |
+| the acceptance review a hotfix run gives up, and the debt it writes instead | `../../hora-hotfix/SKILL.md`, "What this skill is" |
+| the reproducing test standing in for a feature's acceptance criteria | `../../hora-hotfix/SKILL.md`, "H2. Reproduce" |
+| `suites: partial` — the unit suites narrowed under a stated reason | `../../hora-hotfix/SKILL.md`, "H4. Blast radius" |
+| a person choosing one of H1's three ways forward | `../../hora-hotfix/SKILL.md`, "H1. Admit" |
 | a sub-command invoked directly instead of `/hora` | `../SKILL.md`, "The shape of a run" |
 | one `/hora-spec-*` stage invoked alone | `../../hora-spec/references/stages.md` |
 

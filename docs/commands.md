@@ -2,9 +2,9 @@
 
 # What each command does
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/bank-id` (at the end of this page), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
-**In normal use you only ever type `/hora`.** It decides which of the others to run. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
+**In normal use you only ever type `/hora`.** It decides which of the others to run. **The one it never starts is `/hora-hotfix`** — whether something is an emergency is a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
 **Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
 
@@ -47,7 +47,7 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 ### What it never does
 
-- **decide scope.** When a version cannot proceed it lays out the choices (build it / drop it / defer it) and waits
+- **decide scope.** When a version cannot proceed it lays out the choices (build it / drop it / defer it / split it) and waits
 - **write `specs/`.** Only `/hora-spec` may, a section at a time, and `/hora-plan`, an edit at a time — both with your approval on the exact text
 - **run manual verification for you.** It is yours to run whenever you want, with the commands `/hora-setup` recorded in `.hora/tree/<repository>.md`
 
@@ -379,14 +379,45 @@ When a verification gate fails it clears the checkpoints it invalidates and the 
 
 ---
 
-## `/bank-id`
+## `/hora-hotfix`
 
-**A supporting skill, not a phase.** Hands out an exclusive row-id prefix inside one backend repository, so two writers never pick the same explicit `id`.
+**One urgent defect, straight to `main`.** Six gates instead of eighteen checkpoints. [`hotfix.md`](./hotfix.md) walks the whole route; this is the summary. It gives up the acceptance review and writes down what it gave up, so the next version has to pay it back.
 
 | | |
 |---|---|
-| **Called by** | checkpoint 5, before writing an explicit `id` into a seeder or a test fixture |
-| **Also usable** | by a person working in the backend repository directly — `/hora-setup` copies it in there for exactly that reason |
+| **Reads** | the broken code, the test suites, `git` state, and any open `release/<version>` |
+| **Writes** | the fix, one test, and `.hora/hotfix/<hotfix-id>.md`. **`specs/` is read-only, as it is for every skill but `/hora-spec` and `/hora-plan`** |
+| **Stops when** | the fix has a property that stops a hotfix and the person has not chosen a way forward; the unit suites fail; a schema change turns out not to be backward compatible |
+| **Run it directly** | always. `/hora` never starts it — an emergency is a person's call |
+
+### The six gates
+
+```
+H1  Admit          can this be a hotfix at all, and what does "fixed" mean?
+H2  Reproduce      a test that fails, and fails for this defect
+H3  Fix            the smallest change that turns it green
+H4  Blast radius   the full unit suites, plus whatever the touched surface forces
+H5  Record         .hora/hotfix/<hotfix-id>.md
+H6  Land           merge into main, hand the catch-up to /hora
+```
+
+**H2 comes before H3 on purpose.** Without a test that failed first, "the unit tests pass" says nothing about the bug — and that one test is what makes skipping the whole acceptance review defensible.
+
+### It does not refuse; it shows you the choices
+
+Six properties stop a hotfix: a schema change that is not backward compatible, a schema change racing an open `release/<version>`'s own migration, a contract change, a dependency change, a new operation or screen or job, and work that will not fit one branch.
+
+**When one of them holds, the run works out a real alternative for your defect and puts three options to you** — ship a code-only fix now, do it as a patch-bumped release, or (for a destructive schema change only) do it outside hora and have the record say who decided. **It never picks for you.**
+
+### What it never gives up
+
+One failing test, the full unit suites in every repository, lint on the files it touched, the git rules, and the record. **The unit suites are cheap and they are the only regression net this run has**, so narrowing them takes a stated reason and is forbidden where the fix touched shared code.
+
+### The debt comes back as ordinary work
+
+The record names the features the fix touched. On the next run, `/hora` reports the open debt and `/hora-plan` clears checkpoint 18 for each of those features. From there the normal route takes over — `/hora-build` picks them up, `/hora-accept` accepts them at their real reach, and **the version cannot be done until it passes.**
+
+**Its verdict word is `landed`, never `passed`.** `/hora-accept` owns that word, and a hotfix record may not be mistaken for an acceptance.
 
 ---
 
@@ -471,6 +502,7 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 
 | | |
 |---|---|
+| the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
 | the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |

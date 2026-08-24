@@ -17,6 +17,8 @@ description: Implement an application from its spec. Decides where a project sta
 | **`/hora-build`** | takes one feature through the eighteen checkpoints | **once per feature** |
 | **`/hora-accept`** | runs the full unit suites every time, and the acceptance review at the invocation's reach | at each feature's checkpoint 18 (scoped), and once as a whole-version sweep (full) |
 
+**An emergency fix is not one of the five.** `/hora-hotfix` takes one defect to `main` on its own, gives up the acceptance review, and records what it gave up as a debt. `/hora` reports that debt; `/hora-plan` turns it back into work (`../hora-hotfix/SKILL.md`).
+
 Read `references/structure.md` before anything else — the repository layout, where a per-repository command runs, and the three invariants all come from there. `references/commits.md` holds every git rule.
 
 ---
@@ -66,7 +68,8 @@ With that settled, do this every time — a fresh start and a restart alike.
 ```
 0. git fetch origin --prune, for the hora repository and every declared row
    that already exists. Then check for a hotfix that landed on main
-   (references/commits.md, "Keeping release/<version> current")
+   (references/commits.md, "Keeping release/<version> current"), and read
+   .hora/hotfix/ for any record whose debt: still reads open
 
 1. Does the target version have a spec at all — a specs/<version>/spec.md with
    content in it?                             if not → /hora-spec.
@@ -112,6 +115,8 @@ With that settled, do this every time — a fresh start and a restart alike.
 ```
 
 **Step 0 is also what catches `release/<version>` up with a `hotfix/*`.** `/hora` has no scheduler: this fetch and the one right after every merge into `release/<version>` are the only two occasions it gets to notice one landed on `main`.
+
+**An open hotfix debt is reported here, never acted on here.** Step 3's `/hora-plan` is what turns it back into work (`../hora-hotfix/SKILL.md`, "Paying the debt back").
 
 **`/hora` does not ask before running this check, or before acting on an ordinary result.** It stops and asks once the check turns up something it cannot resolve on its own.
 
@@ -185,6 +190,8 @@ every open question — its Q<n> id, its category, its blocking value, one line
 the last acceptance verdict, and what it sent back
 every feature this version listed rather than accepted — by id, never a count,
   and with what rests on each one
+every open hotfix debt — its <hotfix-id>, the features it touched, and a link
+  to its record. Never a bare count
 git status for every repository, including the branch (state it explicitly if
   anything is uncommitted, or if a branch is not release/<version>)
 what the next run of /hora will start from
@@ -215,9 +222,13 @@ Remaining: #payroll #bonus #year-end
   build it        → just run /hora again
   drop it         → mark the section kicked: yes in specs/1.0.0/spec.md
   defer it        → kicked: yes in 1.0.0, kicked: no on the specs/1.1.0/ side
+  split it        → cut the release at the last accepted feature: kicked: yes
+                    on everything past the cut, the rest handed to the next
+                    version through /hora-spec
+                    (/hora-spec-horizon, "Splitting a version under way")
 ```
 
-**A listed feature is never one of the remaining ones, and it is never offered these three ways out.** It is running code nobody has specified yet, and the way out is a later version writing its two blocks (`references/spec-format.md`, "`baseline`").
+**A listed feature is never one of the remaining ones, and it is never offered these ways out.** It is running code nobody has specified yet, and the way out is a later version writing its two blocks (`references/spec-format.md`, "`baseline`").
 
 **`/hora` only lays out the choices; it does not decide.**
 
@@ -243,6 +254,7 @@ Remaining: #payroll #bonus #year-end
 | `../hora-build/SKILL.md` | one feature through the checkpoints |
 | `../hora-build/references/checkpoints.md` | the eighteen checkpoints themselves |
 | `../hora-accept/SKILL.md` | acceptance |
+| `../hora-hotfix/SKILL.md` | one urgent defect to `main`, the six gates it runs, and the debt that pays for the acceptance it skipped |
 
 **When a human asks how to write a spec, run `/hora-spec`.** `specs/1.0.0/spec.md` ships empty, and that skill reads whatever already exists at stage 0, copies the skeleton, asks its way through seven stages, and writes each section once it has been approved.
 

@@ -44,7 +44,7 @@ This document explains the design. It is not the authority on any rule — each 
 
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
-**The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a GraphQL resolver, a Sequelize migration or a Vue component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../.claude/skills/hora/references/structure.md), "The division of labor", and [`skills.md`](./skills.md).
+**The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../.claude/skills/hora/references/structure.md), "The division of labor", and [`skills.md`](./skills.md).
 
 ---
 
@@ -198,6 +198,8 @@ Every git operation happens in the main session — `/hora` itself, or a skill i
 **Checkpoint 17 is the one that falls outside the table.** The local end-to-end environment lives in the backend row, whose feature branch merged eight checkpoints earlier — so its changes go on their own `update/e2e-<what>-for-<feature-id>` branch, cut and merged like any other `update/` ([`commits.md`](../.claude/skills/hora/references/commits.md)).
 
 **Why a dependency gets its own branch:** `package-lock.json` is the file two changes cannot both edit cleanly. One change at a time, merged before the next starts, is how a human team avoids that conflict, and it is how this does too.
+
+**A hotfix is the one trunk that does not come from `release/<version>`.** `/hora-hotfix` cuts `hotfix/<hotfix-id>` from `main` and merges it back into `main`, and nothing is ever cut from it — a fix needing a branch of its own is not a hotfix. `/hora` then rebases any open `release/<version>` onto the new `main` ([`commands.md`](./commands.md), `/hora-hotfix`).
 
 ---
 
@@ -358,6 +360,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../.cla
 | | |
 |---|---|
 | what each command does, step by step | [`commands.md`](./commands.md) |
+| the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) |

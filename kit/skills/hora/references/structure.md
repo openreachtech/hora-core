@@ -1,6 +1,6 @@
 # What every hora skill assumes
 
-`/hora`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build` and `/hora-accept` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+`/hora`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept` and `/hora-hotfix` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
 
 ---
 
@@ -15,11 +15,14 @@
 | which repositories exist, and what fills them | Hora Kit | `/hora-setup` |
 | which version is being built, and which features it holds | Hora Kit | `/hora-plan` |
 | **the order of the checkpoints, and each one's exit condition** | Hora Kit | `/hora-build` |
-| **how to write a resolver, a migration, a component, a test** | **`@openreachtech/hora-skills`** | that package's own skills |
-| **how to shape a table, an SDL, a job, a screen** | **`@openreachtech/hora-skills`** | whichever of its skills covers that work |
+| **how to write, shape and review the work itself** — an operation, a table, a job, a screen, a test | **`@openreachtech/hora-skills`** | that package's own skills |
 | **what an acceptance review looks at, and what it fails on** | **`@openreachtech/hora-skills`** | whichever of its skills covers that work |
+| **which boilerplate fills a declared row, what gets filled in, and what to read once it arrived** | **the stack handbook** | `docs/stack/` at the project root, shipped by the boilerplate (`../../hora-setup/references/handbook.md`) |
+| **the stack's structural facts** — its origins and their bounds, its middleware and defaults, its default API style, what an API kind produces | **the stack handbook** | whichever of its files covers that answer |
 
 **Never write a procedure, a convention or a pass/fail criterion into a hora skill when a skill in `hora-skills` already holds it.** State the work and delegate it. A copy disagrees with the original the first time the package is updated, and nothing announces that it has.
+
+**The same holds for the stack.** Never write a stack's answer — a boilerplate's name, a framework, a middleware, a default — into a hora file. The stack handbook is where those answers live, found at its fixed place and read at run time; a hora file states the kind of answer it needs, and a missing answer is a stop-and-ask, never a guess.
 
 ### No hora file ever names one of those skills
 
@@ -33,7 +36,9 @@
 
 **This applies to every hora file** — `checkpoints.md`, `stages.md`, an agent definition, a `docs/` page. A name written "just as an example" is the same copy.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `bank-id`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Stack names are the same copy too.** A boilerplate, a framework, a database, a queue — written anywhere in a hora file, even as an example — is a fact the handbook already owns, and it goes stale the same silent way. Examples in hora files use roles (`backend`, `frontend-admin`) and kinds of work, never stacks.
+
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
@@ -78,16 +83,16 @@ One project is made of several git repositories. The outer one is the hora repos
 
 ```
 myproject-app/                     ← cwd. Holds specs/, .hora/ and .claude/. Holds no application code
-  myproject-backend/               ← from renchan. Contains several servers. Is gitignored
-  myproject-frontend-employee/     ← from furo
-  myproject-frontend-admin/        ← from furo
+  myproject-backend/               ← from the catalog's backend origin. Contains several servers. Is gitignored
+  myproject-frontend-employee/     ← from its frontend origin
+  myproject-frontend-admin/        ← from its frontend origin
 ```
 
 **The spec declares the layout. No hora skill may assume one.**
 
-- **One backend repository.** Keep `one DB system = one repository`. **If a second one is declared, stop and ask** (`blocking: yes`)
-- **One backend holds several servers.** An employee GraphQL server, an admin GraphQL server, a REST-API, a JSON-RPC and a Worker can live side by side in separate folders. **An API server and a Worker that share a DB belong in one repository**
-- **Frontends do not come in pairs, and there may be several.** furo cannot hold more than one Nuxt app per repository, so repositories split along groups of screens
+- **How many rows of each origin a layout may declare is the catalog's** (the stack handbook's entry point). **A count outside an origin's stated bounds is a stop and ask** (`blocking: yes`)
+- **One backend repository holds several servers**, side by side in separate folders — an employee-facing API server, an admin API server, a Worker. **An API server and a Worker that share a DB belong in one repository**
+- **Frontends do not come in pairs, and there may be several.** Where the catalog says one repository cannot hold more than one app, repositories split along groups of screens
 - **Names read `<myproject>-<role>-<purpose>`** — `myproject-frontend-admin`, not `myproject-admin-frontend`. Role first keeps repositories of the same role adjacent and makes `app` → `backend` → `frontend-*` the order of implementation
 - **A repository that already existed before Hora Kit rarely follows that name, and is not renamed to.** The layout declaration's optional `Directory` column says where such a row actually sits. **The `Repository` column is still what `target` is derived from**, so a directory is only ever a place on disk
 - **More arrive in later versions**
@@ -106,7 +111,7 @@ Every hora skill runs at the outer root, but **every command that acts on a repo
 cd myproject-backend && npx eslint app/... server/...
 ```
 
-**This is a rule about commands in general, not a list of three.** What decides it is whether the command reads or writes anything belonging to a repository: its config (`eslint.config.js`, `jest.config.js`, `pm2.config.cjs`, `jsconfig.json`), its `package.json` and `node_modules/`, its `.env.development` and `docker-compose.development.yml`, its migrations, seeders and generated output, its own git history, its own source. Whatever `/hora-setup` turns up in the real tree — `./docker.sh`, a `test.sh`, a `db:*` npm script, an `e2e/docker/` stack — is covered from the moment it is found.
+**This is a rule about commands in general, not a list of three.** What decides it is whether the command reads or writes anything belonging to a repository: its config (`eslint.config.js`, `jest.config.js`, `jsconfig.json`, whatever else the row ships), its `package.json` and `node_modules/`, its `.env.development` and `docker-compose.development.yml`, its migrations, seeders and generated output, its own git history, its own source. Whatever `/hora-setup` turns up in the real tree — `./docker.sh`, a `test.sh`, a `db:*` npm script, an `e2e/docker/` stack — is covered from the moment it is found.
 
 **`git -C <repository>` is the same rule spelled with git's own option**, and is the form these skills use. An option counts only where it relocates the working directory the way `cd` does.
 
@@ -159,7 +164,7 @@ These three must not be broken.
 
 **`specs/skeleton/spec.md` is written to by nobody, and is not a version.** It is the blank spec copied to `specs/1.0.0/spec.md`, **for the first version only** (`spec-format.md`). `/hora` reads only the directories under `specs/` whose name is a semver version, so the skeleton is never planned, implemented, or counted as unfinished.
 
-**Every other skill — `/hora-setup`, `/hora-build`, `/hora-accept`, and every agent — is strictly read-only on `specs/`.** They report a problem there; they never fix it. A typo and a broken layout are treated the same.
+**Every other skill — `/hora-setup`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, and every agent — is strictly read-only on `specs/`.** They report a problem there; they never fix it. A typo and a broken layout are treated the same.
 
 **`/hora-build`'s checkpoint 1 is where the routing happens, not an exception.** A design hole goes to `/hora-spec` at the stage that owns it, a one-line hole to `/hora-plan`'s propose-and-approve procedure (`../../hora-build/references/checkpoints.md`, checkpoint 1).
 
@@ -324,6 +329,9 @@ Q4  missing-authorization  blocking: yes
   acceptance/<version>/
     <feature-id>.md             every acceptance run for one feature, one appended block each
     _sweep.md                   the whole-version sweep
+  hotfix/<hotfix-id>.md         one urgent fix that went straight to main: what it changed,
+                                what it skipped, and whether that debt is still open.
+                                /hora-hotfix writes it; /hora-plan closes it
   glossary.md                   append-only, not split per version
 ```
 

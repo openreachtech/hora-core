@@ -58,18 +58,13 @@ Hora Kit holds no procedure and no pass/fail criterion that `@openreachtech/hora
 
 ---
 
-## 4. GraphQL is the default. REST is a choice with a reason
+## 4. The boilerplates' own API style is the default. Another is a choice with a reason
 
-**On renchan and Furo, GraphQL is what the boilerplates are built around**, so a spec that says nothing has said GraphQL.
+**The stack handbook names the API style the boilerplates are built around** (`docs/stack/middleware.md`), so a spec that says nothing has said that.
 
-**REST is available, and choosing it needs a stated reason.** Reasons that count:
+**Another style is available, and choosing it needs a stated reason.** The reasons that count are the handbook's too — a consumer that already exists and already speaks it, a third party that cannot speak the default, a transfer the default is a poor fit for, a public surface whose fixed URL shape is part of the contract.
 
-- a consumer that already exists and already speaks REST
-- a third party that cannot speak GraphQL — a webhook, a callback, a device
-- a transfer GraphQL is a poor fit for: a file download, a redirect, a raw payload
-- a public surface where a fixed URL shape is part of the contract
-
-**Both may exist in one backend, per server, and the server table is where that is declared.** What belongs to the spec is which servers exist, who consumes each, and why.
+**Several styles may exist in one backend, per server, and the server table is where that is declared.** What belongs to the spec is which servers exist, who consumes each, and why.
 
 ---
 

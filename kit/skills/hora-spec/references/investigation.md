@@ -185,7 +185,7 @@ What was read, where it was read from, and when. **A cache and an audit trail â€
 
 | Row | Directory | Read at | What it holds |
 |---|---|---|---|
-| backend | `legacy-api` | `a1b2c3d` | 14 GraphQL operations, 9 tables, 2 jobs, 118 tests |
+| backend | `legacy-api` | `a1b2c3d` | 14 API operations, 9 tables, 2 jobs, 118 tests |
 | frontend-admin | `admin-console` | `e4f5g6h` | 11 pages, 6 of them behind a role check |
 
 ## Documents

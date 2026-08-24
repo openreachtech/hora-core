@@ -44,7 +44,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 
-**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は GraphQL resolver や Sequelize migration や Vue コンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../.claude/skills/hora/references/structure.md) の "The division of labor" と [`skills.ja.md`](./skills.ja.md) を参照してください。
+**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../.claude/skills/hora/references/structure.md) の "The division of labor" と [`skills.ja.md`](./skills.ja.md) を参照してください。
 
 ---
 
@@ -196,6 +196,8 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 **関所17だけはこの表の外にあります。** ローカルの E2E 環境はバックエンド行にあり、その機能ブランチは8関所前（関所9）で既にマージ済みです。だからその変更は専用の `update/e2e-<what>-for-<feature-id>` ブランチに載り、他の `update/` と同じように切られてマージされます（[`commits.md`](../.claude/skills/hora/references/commits.md)）。
 
 **依存が専用ブランチを持つ理由：** `package-lock.json` は2つの変更が同時にきれいに編集できないファイルです。「1度に1つ、次を始める前にマージ」が人間のチームが衝突を避ける方法であり、ここでも同じです。
+
+**hotfix だけは `release/<version>` から生えない幹です。** `/hora-hotfix` は `hotfix/<hotfix-id>` を `main` から切り、`main` へ戻します。そこから枝は決して切りません — 枝が要る修正はもう hotfix ではありません。その後 `/hora` が、開いている `release/<version>` を新しい `main` に追従させます（[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix`）。
 
 ---
 
@@ -356,6 +358,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 | | |
 |---|---|
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
+| 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 関所が委譲するスキル群 | [`skills.ja.md`](./skills.ja.md) |
 | 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
 | 18の関所そのもの | [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) |

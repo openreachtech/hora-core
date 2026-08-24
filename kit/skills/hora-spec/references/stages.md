@@ -4,7 +4,7 @@
 
 **Stage 0 is numbered 0 because it does not renumber anything.** It gathers what already exists so that the seven stages have something to correct instead of something to dictate. On a new project it passes in a sentence.
 
-**This file holds the order and the exit conditions. It holds no design rule.** How a table is shaped, how an SDL is named, where a background job belongs and what a screen must account for all live in `@openreachtech/hora-skills` (`../../hora/references/structure.md`, "The division of labor").
+**This file holds the order and the exit conditions. It holds no design rule.** How a table is shaped, how an API schema is named, where a background job belongs and what a screen must account for all live in `@openreachtech/hora-skills` (`../../hora/references/structure.md`, "The division of labor").
 
 **No stage below names a package skill, and none ever may.** Each **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions when it enters the stage (`../../hora/references/structure.md`, "No hora file ever names one of those skills").
 
@@ -131,8 +131,8 @@ A stage is **a gate with one exit condition**, exactly like a checkpoint. Passin
 | **Exit condition** | three separate lists exist — built this time, out of scope for now, permanently out of scope — every "for now" entry names what unblocks it, and every one that needs the design kept open names the seam to keep replaceable; **the build order puts every feature after the features it depends on**; and **the version's own acceptance criteria are written, `none` where there are none, every criterion carrying `spans:`** |
 | **Not applicable when** | never |
 | **Carried over when** | **effectively never on a version that adds anything.** Adding a feature *is* a change of horizon. **"Built this time" always names this version's own contents** |
-| **Writes** | `Implementation scope`, in three parts, `Implementation plan`, and **`Version acceptance criteria`** |
-| **Reads** | nothing new. **What to build next is a decision, and no repository holds one.** The one thing it reads is what stage 1 held back: the criteria that reached past the feature they were drafted for |
+| **Writes** | `Implementation scope`, in three parts, `Implementation plan`, and **`Version acceptance criteria`** — and, in a split of a version under way, the moving sections' `kicked:` lines, on both versions across the handoff (`../../hora-spec-horizon/SKILL.md`, "Splitting a version under way") |
+| **Reads** | nothing new. **What to build next is a decision, and no repository holds one.** The one thing it reads is what stage 1 held back: the criteria that reached past the feature they were drafted for — and, where a split of the previous version left one, its handoff in the same file |
 
 **The two kinds of out-of-scope are not a formality.** "For now" makes `/hora` leave an extension point; "permanently" makes it exclude the thing from the design.
 
@@ -165,12 +165,12 @@ A stage is **a gate with one exit condition**, exactly like a checkpoint. Passin
 | | |
 |---|---|
 | **Skill** | `/hora-spec-backend` |
-| **Delegate to** | the skills covering each of: the logical shape of a table (what to normalize, how to hold a status, a time, a history); SDL, type and field naming, nullability, enums, pagination; a REST renderer's route and version; whether work belongs in the request path, in a post-worker or in a background job; a queue, a schedule, a retry; a side effect after the response; what an endpoint is and what its auth filter does |
+| **Delegate to** | the skills covering each of: the logical shape of a table (what to normalize, how to hold a status, a time, a history); API schema, type and field naming, nullability, enums, pagination; a REST renderer's route and version; whether work belongs in the request path, in a post-worker or in a background job; a queue, a schedule, a retry; a side effect after the response; what an endpoint is and what its auth filter does |
 | **Exit condition** | the repository layout and the server table are declared; every use case from stage 1 can be walked against the data model and the operation list, step by step, without a gap; every operation states its kind; and every write states whether it completes inside the request or runs as a job |
 | **Not applicable when** | never. A version with no backend row still has to declare that |
 | **Carried over when** | **this version adds no table, no operation and no job.** Otherwise it runs **on the new ones alone**, reading the existing model as context. **A new repository row or a new server is never a carry-over** |
-| **Writes** | `Repository layout` and its server table, `Data model`, `GraphQL`, `RESTful API`, `Background jobs`, and `Key file map` where anything about placement is known — with the `<!-- acceptance -->` blocks those sections carry |
-| **Reads** | **deeply** — migrations, models, SDL, REST routes, job definitions and the entry points. The whole existing data model and operation list can go out as one check per area |
+| **Writes** | `Repository layout` and its server table, `Data model`, the API sections (one per protocol the server table declares), `Background jobs`, and `Key file map` where anything about placement is known — with the `<!-- acceptance -->` blocks those sections carry |
+| **Reads** | **deeply** — migrations, models, API schemas, REST routes, job definitions and the entry points. The whole existing data model and operation list can go out as one check per area |
 
 **Walking the use cases is the exit condition, not a review step.** A data model that is internally tidy and cannot represent one stated use case passes every other check in this document. Stage 7 walks them again; this stage walks them first, while changing a table still costs a sentence.
 

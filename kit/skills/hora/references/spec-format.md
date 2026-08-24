@@ -563,16 +563,16 @@ The skeleton's sections 9 onward are **examples of feature sections, not a fixed
 ```markdown
 | Repository | Origin | Role |
 |---|---|---|
-| `<myproject>-backend` | renchan | the API and jobs (holds the DB) |
-| `<myproject>-frontend-employee` | furo | the employee-facing screens |
-| `<myproject>-frontend-admin` | furo | the admin screens |
+| `<myproject>-backend` | `<a backend origin>` | the API and jobs (holds the DB) |
+| `<myproject>-frontend-employee` | `<a frontend origin>` | the employee-facing screens |
+| `<myproject>-frontend-admin` | `<a frontend origin>` | the admin screens |
 
 ### 2.1 Servers
 
 | Server | protocol | consumer |
 |---|---|---|
-| `employee-graphql` | GraphQL | `frontend-employee` |
-| `admin-graphql` | GraphQL | `frontend-admin` |
+| `employee-api` | (the default style) | `frontend-employee` |
+| `admin-api` | (the default style) | `frontend-admin` |
 | `public-rest` | REST | the phone app |
 | `worker` | — | an API server in the same repository (no contract needed) |
 ```
@@ -580,12 +580,13 @@ The skeleton's sections 9 onward are **examples of feature sections, not a fixed
 **`/hora-setup` reads this table to decide which repositories to clone. Without it, it stops.**
 
 - **This section belongs in the entry point.** The layout applies to the whole version
-- **The backend is exactly one.** One DB system = one repository, so `/hora` stops with a question at zero, or at two or more
-- **Frontends are zero or more, freely.** `furo` cannot hold more than one Nuxt app per repository, so repositories split along groups of screens
-- **One backend holds several servers side by side.** **The server table is the unit contracts are derived from, so it must always be written**, and its `consumer` column says which frontend looks at which contract
+- **`Origin` is one of the values the stack handbook's catalog lists** (`docs/stack/README.md` at the project root). A value the catalog does not list is not an origin
+- **How many rows of each origin may be declared is also the catalog's.** A count outside an origin's stated bounds — a second backend, say — stops `/hora` with a question: it is an architectural decision, not a row to add
+- **Frontends are zero or more, freely.** Where the catalog says one repository cannot hold more than one app, repositories split along groups of screens
+- **One backend holds several servers side by side.** **The server table is the unit contracts are derived from, so it must always be written**, and its `consumer` column says which frontend looks at which contract. A `protocol` left as the default is the handbook's default API style
 - **Adding a row in a later version** makes `/hora-setup` create that repository when the version is planned
 - **Names read `<myproject>-<role>-<purpose>`** — `<myproject>-frontend-admin`, not `<myproject>-admin-frontend`
-- **`Origin` is either `renchan` (backend) or `furo` (frontend).** `<myproject>-app` is not written here — it always exists
+- **`<myproject>-app` is not written here** — it always exists
 - **`target`'s value is this table's repository name with `<myproject>-` removed**
 
 #### `Directory` — for a repository that already exists under another name
@@ -595,7 +596,7 @@ The skeleton's sections 9 onward are **examples of feature sections, not a fixed
 ```markdown
 | Repository | Origin | Role | Directory |
 |---|---|---|---|
-| `acme-backend` | renchan | the API and jobs (holds the DB) | `legacy-api` |
+| `acme-backend` | `<a backend origin>` | the API and jobs (holds the DB) | `legacy-api` |
 ```
 
 | The column is | What `/hora-setup` does |
@@ -637,6 +638,14 @@ permanently out of scope                  → /hora does not abstract it.
 Read the first as the second and the structure cannot take it later. Read the second as the first and an abstraction layer gets built that nobody uses.
 
 Write "for now" entries with what unblocks them (`<feature C> → planned for 1.1.0`).
+
+**A scope kept over a proposed narrowing may name when it gets read again.**
+One line, in the owner's words, at the end of "Built this time":
+`Reconsider <version>'s scope when: <a condition measurable against what
+.hora/ records>`. It binds the version it names and no other — the reach
+stated where the lever is declared — and `/hora-plan` walks it on re-entry,
+raising it once (`../../hora-spec-horizon/SKILL.md`, "A narrowing that was
+declined names when it gets read again").
 
 ### 5. Existing assets
 
@@ -692,14 +701,14 @@ Produces no feature of its own, **but becomes a design constraint on every one o
 ```markdown
 | Middleware | Version | profile | Purpose |
 |---|---|---|---|
-| MariaDB | 10.5.12 | (default) | the primary data store |
-| Redis | 7.4 | (default) | BullMQ |
-| MinIO | latest | `minio` | S3-compatible object storage |
+| <the data store> | <the server's version> | (default) | the primary data store |
+| <the queue's store> | <the server's version> | (default) | the queue |
+| <object storage> | latest | `<its profile>` | S3-compatible object storage |
 ```
 
-What `/hora-setup` uses to decide `docker-compose.development.yml`'s profiles and `.env.development`'s `COMPOSE_PROFILES`.
+**Start from the stack handbook's default middleware table** (`docs/stack/middleware.md`) and declare what this project actually uses. This is what `/hora-setup` uses to decide which optional local services get turned on.
 
-**Write the server's version.** An npm dependency does not indicate the server's version. **Redis cannot be dropped in a project with any Job (BullMQ).**
+**Write the server's version.** An npm dependency does not indicate the server's version. **A middleware the handbook marks as required by another declaration — the queue's store, in a project with any background job — cannot be dropped.**
 
 ### 9 onward — the feature sections
 
@@ -707,7 +716,7 @@ Each one carries its annotations, then its content, then its `<!-- usecases -->`
 
 **A data model section is the one that carries acceptance criteria without use cases of its own.** A table has no user-facing use case; the features built on it do.
 
-**An API table must state the kind of every operation**, and the kind is never inferred (`structure.md`, invariant 2). `/hora-build` branches on the value at three separate checkpoints. Leave it out and `/hora-plan` stops with `undefined-api-kind` (`blocking: yes`).
+**An API table must state the kind of every operation**, and the kind is never inferred (`structure.md`, invariant 2). **The set of kinds a spec may write, and what each one produces, is the stack handbook's** (`docs/stack/artifacts.md`). `/hora-build` branches on the value at three separate checkpoints. Leave it out and `/hora-plan` stops with `undefined-api-kind` (`blocking: yes`).
 
 **It must also state who may call every operation**, in the same table. An operation whose caller was never stated gets implemented with whatever filter its neighbours had. Leave it out and `/hora-plan` stops with `missing-authorization` (`blocking: yes`).
 
@@ -730,7 +739,7 @@ RpaFlowsInput              fields unknown
                            → stops with blocking: yes
 ```
 
-Writing the SDL directly is the most reliable option.
+Writing the schema definition directly, in the form the handbook names for the server's protocol, is the most reliable option.
 
 **The RESTful API section is written only when the repository layout declares a REST server**, and a project with none leaves it out. The same rules apply, and **the renderer's own name is what gets implemented and what the frontend's client is built against.**
 
@@ -740,7 +749,7 @@ Writing the SDL directly is the most reliable option.
 | `GET` | `/v1/rpa-flows` | `GetRpaFlowsRenderer` | `?page=&limit=` | `RpaFlowsResponse` | the phone app, with a device token |
 ```
 
-**A background-jobs section states what does not run inside a request, and why not.** It is written only where something does, and a project with any row must also declare Redis in the manual verification table.
+**A background-jobs section states what does not run inside a request, and why not.** It is written only where something does, and a project with any row must also declare the queue's store in the manual verification table (the handbook's middleware rules).
 
 ```markdown
 | Job | Trigger | Queue | Payload | Why not in the request path |
@@ -756,6 +765,12 @@ Writing the SDL directly is the most reliable option.
 `/hora-plan` extracts the order of `_plan.md` from this. **It does not derive an order of its own.**
 
 **These are the project's own milestones**, unrelated to `/hora-build`'s checkpoints.
+
+**A milestone boundary is a place this version could have been cut.** Nothing
+releases at one — versions run serially and only a version is released — but
+the question stage 2 asks against each boundary is what makes the plan more
+than an order: how much of this version could be shown to work if it ended
+here (`../../hora-spec-horizon/SKILL.md`, "The second number").
 
 **Check that "fine to leave for later" matches the scope section's "out of scope for now".** `/hora` stops with a question if the two do not clearly correspond.
 
@@ -782,6 +797,15 @@ Writing the SDL directly is the most reliable option.
 **One `###` per version, each with its own `id`.** The diff rule keys on `id`, so a subsection nobody rewrote carries over untouched. Written as one `##` body instead, a version adding a single criterion would have to restate every criterion the product has ever had.
 
 **So these criteria accumulate, and every later sweep checks all of them.** A behavior that spanned three features in 1.0.0 is still supposed to hold in 1.4.0.
+
+**A criterion moves version with the features it spans.** Where a version is
+split, a criterion whose `spans:` names only moved features moves with them —
+through the split's handoff, landing in the next version's own block when its
+spec is written — and one that spans both sides is moved whole or split in
+two, **decided one criterion at a time by whoever owns the product**
+(`../../hora-spec-horizon/SKILL.md`, "Splitting a version under way"). A half
+left behind is not a half-verified behavior: these criteria accumulate, so
+every later sweep checks both halves.
 
 **A criterion may reach a feature the spec only listed, and it says so where it is written** (`baseline`, above).
 

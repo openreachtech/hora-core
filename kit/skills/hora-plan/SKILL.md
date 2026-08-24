@@ -59,6 +59,8 @@ Planning is a conversation with whoever wrote the spec, and asking that person t
 
 **If the target version's `spec.md` is empty or missing, hand the run to `/hora-spec`** and stop. **Never write the first spec of a version here** — writing it without those stages means writing use cases nothing ever walked against a design.
 
+**A version whose `.hora/spec/<version>/_stages.md` holds a split handoff not marked consumed is handed over the same way.** A hand-written spec satisfies the test above while the moved criteria sit unread; the handoff's presence is as mechanical a test as the emptiness (`../hora-spec-horizon/SKILL.md`, "Splitting a version under way").
+
 ### Resolve the diffs first
 
 Sort the version directories in ascending semver order and **apply them in turn, each overwriting the last.** The lowest version is complete; every one after it is **a diff against the version immediately before it.**
@@ -231,7 +233,7 @@ Work through the resolved document and check every one of these.
 | **An order that puts every feature after the features it depends on** | `/hora-build` silently builds them in a different order than the document states | **yes** |
 | The implementation scope, split into "for now" and "permanently" | the design cannot tell an extension point from a dead abstraction | yes |
 | Whether existing assets may be used | "reimplement" is implied, but whether the code is visible is unknown | yes |
-| Unknown fields in an SDL or a REST payload | it would mean inventing the shape of an API | yes |
+| Unknown fields in an API schema or a REST payload | it would mean inventing the shape of an API | yes |
 | A contradiction in the text | there is no way to choose between them | yes |
 | `baseline: inventoried` under `Baseline: verified` | the permission was never granted | yes |
 | `baseline: inventoried` with no `built:` | nothing makes "this code exists" checkable | yes |
@@ -315,13 +317,14 @@ whether an extension point should be left in place.
 | `contradiction` | a contradiction in the text | yes |
 | `dependency-install` | a declared dependency failed to install, or a conflict-proof change failed to apply | yes |
 | `lacked-environment` | something failed for a reason no code change could fix | yes |
-| `undefined-detail` | undefined types, SDL, zod definitions, seed values and the like | depends |
+| `undefined-detail` | undefined types, schema or validation definitions, seed values and the like | depends |
 | `common-file` | undocumented handwritten content mixed into a file several features share | depends |
 | `inferred-annotation` | reporting that `id` / `target` / `depends` was inferred | no |
 | `spec-assumption` | an ambiguous criterion was still meetable under some reading; one was assumed and judged against | no |
 | `reinvention` | checking whether an existing package already does what is about to be written | no |
 | `upstream-defect` | a defect in a framework or a package, worked around in this project's own code rather than by editing the dependency, and what would let the workaround be removed again | no |
 | `orphan` | a file that nothing links to from `spec.md` | no |
+| `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
 
@@ -335,7 +338,7 @@ Write them into `.hora/contracts/<version>/`.
 
 **The largest risk of having split into repositories is contract drift.** Let each repository derive its schema from the spec independently and they will disagree. Derive once before implementing, pin it, and have every side read that.
 
-The spec's GraphQL / REST tables usually already carry schema names, inputs and results. **When there is no actual SDL:**
+The spec's API tables usually already carry schema names, inputs and results. **When there is no actual schema definition:**
 
 ```
 RpaFlowsInput(pagination)    the contents are indicated in parentheses
@@ -354,16 +357,18 @@ RpaFlowsInput                the fields are unknown
 
 ```
 .hora/contracts/1.0.0/
-  employee-graphql.graphql
-  admin-graphql.graphql
-  public-rest.md
+  employee-api.<ext>
+  admin-api.<ext>
+  public-rest.<ext>
 ```
+
+**The file form of each contract — its extension and what it holds — is the stack handbook's** (`docs/stack/artifacts.md`, "The contract a server's consumers read"), decided by the server's protocol.
 
 **A contract is only made for a server whose consumer is in another repository or outside.** The declaration's `consumer` column decides it.
 
 | Server | Consumer | Contract |
 |---|---|---|
-| `employee-graphql` | `frontend-employee` (another repository) | **needed** |
+| `employee-api` | `frontend-employee` (another repository) | **needed** |
 | `public-rest` | the phone app (outside) | **needed** |
 | `worker` | an API server in the same repository | **not needed** |
 
@@ -520,7 +525,7 @@ Twenty sections carry `built:` and three of them are listed, so seventeen entrie
 <!-- spec: attendance @ sha256:abc123... -->
 <!-- repositories: backend, frontend-employee -->
 
-Constraint: this will be reindexed into Elasticsearch later (#search-infra).
+Constraint: this will be reindexed into a search platform later (#search-infra).
             leave room for a hook when a record is saved
 
 Conflict: appends to scalars/index.js. Two other features carry the same mark
@@ -653,7 +658,9 @@ Reconcile the set of sections in the resolved document against the feature files
 | a section that **lost** `baseline: inventoried` | **the debt is being paid** (below). Do not plan it for building until `built:` has been restated and confirmed, or `authority: to-spec` declared |
 | the `Version acceptance criteria` section's digest does not match | **clear the `## Acceptance` sweep entry, and nothing else** (below). Re-derive the entry's `Version criteria:` line in the same write |
 | a section that vanished with no annotation | **do not delete anything.** The intent is unknown, so ask (`blocking: no`) |
+| a `.hora/hotfix/<hotfix-id>.md` whose `debt:` reads open | **pay it** (below), then write `debt: closed` in that record |
 | a collapsed version whose `_sweep.md` has a newest block reading a pass, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
+| the implementation scope carries a `Reconsider <version>'s scope when:` line naming the version being planned, whose condition now holds | **raise it once, in conversation, as a proposal to re-run stage 2** — naming the condition, what in the plan satisfies it, and the `scope` question that recorded the original decline — and **record the outcome as a question naming the line**: declined lands as `spec-proposal` (`blocking: no`, the category that exists so a declined proposal is not re-raised every run); taken hands the run to `/hora-spec` at stage 2. **The recorded question is the record that it fired** — the walk raises nothing where one already names this line |
 
 A digest only detects changes to sections an existing feature points at. **A new section has no feature pointing at it, so this reconciliation is the only way to detect one.**
 
@@ -677,6 +684,8 @@ A digest only detects changes to sections an existing feature points at. **A new
 **Have withdrawal stated with `kicked: yes`. Never have the section deleted.** Under the diff scheme every unchanged section is "absent", so **absent cannot be told from deleted**.
 
 **Removing a task does not remove the code.** The model, the resolver, the tests and the migration all stay.
+
+**A split needs no reconciliation rules of its own.** The `kicked:` row above moves its entries, the `Version acceptance criteria` digest row re-derives the sweep, and the removal rule covers an implemented mover. Build nothing new for it (`../hora-spec-horizon/SKILL.md`, "Splitting a version under way").
 
 **A section that gains `baseline: inventoried` almost always arrives with checkpoints already marked — up to seventeen of them — and every one of those comes off.** A not-applicable mark is cleared the moment its reason stops holding (`../hora-build/references/checkpoints.md`). The reason here was `built:` expanded into marks, and listing makes `built:` a value recorded and acted on nowhere.
 
@@ -709,6 +718,36 @@ A digest only detects changes to sections an existing feature points at. **A new
 **No released version's task files or `_plan.md` are ever rewritten** (section 1). **The version that caused the re-earning is the version that schedules it**, which is also the version whose closing report somebody is going to read.
 
 **One payment can reopen a dozen acceptances, and that has to be visible before it happens.** `depends` is followed transitively, so a feature three hops away is reopened as surely as a direct dependent. **Name every feature the clearing will reach, and what each one now owes, before clearing anything** — then clear.
+
+### Paying a hotfix's debt
+
+**A `/hora-hotfix` run put code on `main` without an acceptance review** (`../hora-hotfix/SKILL.md`). Its record says which features it touched. **Turn that into work the ordinary gates already handle.**
+
+```
+for each id on the record's touches: line
+    the id has an entry in this version's _plan.md  -> clear its checkpoint 18
+                                                       back to [ ], AND its
+                                                       _plan.md entry with it,
+                                                       and say so
+    it has no entry here                            -> add what the sweep now
+                                                       rests on to the
+                                                       ## Acceptance entry
+touches: none                                       -> the ## Acceptance entry
+                                                       alone
+a schema-contract-debt: line stands                 -> it is work this version
+                                                       owes. Raise it, and have
+                                                       the section written
+                                                       through /hora-spec
+then write debt: closed in the record
+```
+
+**Both boxes come off together.** A `_plan.md` entry left `[x]` over a feature file holding an open checkpoint 18 is a feature `/hora` step 5 will never pick up, so the debt would never be collected.
+
+**Only checkpoint 18 is cleared, and only in the version being planned.** The hotfix changed code that was already accepted, so what has gone stale is the acceptance, not the build. **No released version's `_plan.md` is ever rewritten** (section 1).
+
+**A hotfix that touched code no feature owns still clears something.** `touches: none` means the sweep is the only run that can reach it, so the sweep entry is what carries it.
+
+**Name every feature this reopens before clearing anything**, the same way a listed feature's payment is named.
 
 ---
 
