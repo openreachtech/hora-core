@@ -17,7 +17,11 @@ Read `../hora/references/structure.md` first — the repository layout, where a 
 1. Create only the repositories that are missing, from the declaration and the handbook
 2. Fill in the values that carry this project's name
 3. Read what was fetched, in place, and record what was read
+4. Where the equipped skills cover test caching, wire it over the rows that
+   were created — and where nothing covers it, skip it and say so
 ```
+
+**Step 4 owns nothing but the list.** Which directories are verification units is this skill's own knowledge — one per created row, each with the test command already recorded in `.hora/tree/<repository>.md` — and that list is the whole of what it hands over. What a cache declaration looks like, where it lives, and what git must ignore for it belong to the skills covering test caching, matched at run time by description like any other delegate. **Nothing here authors that declaration itself**, and a project with no such skill equipped is fully set up without one.
 
 **It is idempotent, and it re-evaluates on every version.** Repositories arrive in later versions, so passing this once is not the end of it. Anything already there is passed over.
 
@@ -113,12 +117,15 @@ Write it to `.hora/tree/<repository>.md`, with the fetched boilerplate and versi
 ```markdown
 # myproject-backend
 <!-- boilerplate: <name> <fetched version> -->
+<!-- test cache: wired by <the names you matched> | not equipped, skipped -->
 
 ## Directory layout
 ...
 ```
 
 **Re-read and rewrite it whenever the recorded version no longer matches the row's own.** Otherwise, trust what is recorded.
+
+**Step 4's outcome is one line in this file, per row, and it is written either way** — the names that were matched, or that nothing equipped covered it. A delegation that went unfilled records having gone unfilled; a line left out is indistinguishable from a run in which nobody looked.
 
 **This is a cache, not a source.** It exists because `/hora-build` crosses many sessions. **On any disagreement, the tree wins**, and the record gets rewritten from it.
 
@@ -132,6 +139,7 @@ Write it to `.hora/tree/<repository>.md`, with the fetched boilerplate and versi
 | Keeping `.git` and holding an upstream remote | mixes somebody else's commits into the product repo's history |
 | Turning it into a submodule | the consistency gained is not worth the added complexity |
 | Restating the handbook's contents in this file | the boilerplate owns them, and a copy here goes stale the first time it moves |
+| Authoring a test cache's own declaration | its shape belongs to whichever equipped skill covers caching, and a copy here goes stale the first time that moves |
 | Baking the boilerplate's conventions into this file | they will disagree with the real thing eventually. Step 2 reads it in place instead |
 | Bumping a dependency's version | following upstream is a human's deliberate action |
 | Starting the middleware | a human does that when they want it. `/hora-accept` is where an environment becomes a prerequisite, and it says so rather than acting |

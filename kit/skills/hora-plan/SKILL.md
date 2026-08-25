@@ -388,7 +388,7 @@ A server with no consumer, and a frontend with no server to match it, are both e
 | Term | Identifier | Kind | Used in | Notes |
 |---|---|---|---|---|
 | Flow | `RpaFlow` | entity | backend / frontend | table: `rpa_flows` |
-| Random string | `RandomTextGenerator` | existing package | backend | `@openreachtech/mentsu-random-text-generator`. Do not reimplement |
+| Random string | `RandomTextGenerator` | existing package | backend | `<the package the handbook names for it>`. Do not reimplement |
 
 ## Names avoided, and why
 | The naive name | Why it fails | What was used |
