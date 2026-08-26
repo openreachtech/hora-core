@@ -24,6 +24,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 | the project context those two read (users, scope, tokens, rules) | the skills covering the shared UI/UX project context |
 | the kinds of defect a read-only security audit finds, and how it finds them | the skills covering a read-only security audit |
 | driving a failing suite to green without weakening it | the skills covering test execution |
+| whether a recorded result may stand in for an execution, and what a reused result must be reported with | the skills covering test caching |
 | where a backend test lives, and how its run order is guaranteed | the skills covering backend test placement |
 | how a unit test for a class is written | the skills covering how a unit test is written |
 
@@ -116,6 +117,11 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      the skills covering backend test placement and run order, how a unit
      test is written, and driving a failing suite to green
      cd <repository> && <that repository's own test command>
+     That command may itself reuse a result recorded for unchanged inputs.
+     It is not a weakened suite and not a skipped test — where the equipped
+     skills cover test caching, they own when a reuse may stand and what it
+     must be reported with, so match them like any other delegate. Where
+     nothing covers it, run the command as it is
 
 3. The scenario list
      the skills covering end-to-end test specification
@@ -155,6 +161,8 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **Never weaken a test to make step 2 pass.** No test skipped, deleted, loosened or waited out. The skills covering test execution are the authority; it is stated twice because "make the suite green" is exactly the instruction that produces a suite that no longer checks anything.
 
+**A reused result is not a skipped test — and the sweep does not accept one.** A command that recognises its inputs as unchanged skips a second execution, not a suite, so a feature gate may stand on it provided the record says it did. **The whole-version sweep may not**: a version's verdict rests on suites executed for real in that run, so the sweep runs them in whatever mode the skills covering test caching state forces execution. Where nothing equipped covers caching, there is nothing to force and nothing to record.
+
 ---
 
 ## Recording the result
@@ -183,6 +191,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 <!-- reach: full | scoped -->
 <!-- scope: attendance (rests on #payroll, not accepted), sign-up, sign-in -->
 <!-- live: yes | no (skipped at the gate) -->
+<!-- reuse: none | <the steps that reused, and what backed them> -->
 <!-- not-accepted: payroll, legacy-import | none -->
 <!-- version-criteria: 4 of 4 | not in scope (gate) | none declared -->
 <!-- environment: e2e/docker, seeded 2026-08-10 -->
@@ -197,7 +206,7 @@ failed
 | Step | Delegate | Result |
 |---|---|---|
 | environment | `<the names you matched>` | ready |
-| unit (backend) | `<the names you matched>` | 214 passed |
+| unit (backend) | `<the names you matched>` | 214 passed (reused; backed as the delegate reported) |
 | unit (frontend-employee) | `<the names you matched>` | 51 passed |
 | scenarios | `<the names you matched>` | 12 scenarios, 12 covered |
 | review | `<the names you matched>` | 2 findings |
@@ -231,6 +240,8 @@ passed over 1 of 20 features; 2 not accepted
 **Run 1 stays exactly as it was written.** It is the record that the finding was real, that it was routed, and that the code changed because of it — which is what makes the retake's pass mean anything.
 
 **The `Delegate` column is written with the real names, resolved at run time.** It is a placeholder here because this is a hora file. That column is what makes an acceptance run re-derivable.
+
+**A step that reused a recorded result says so in its `Result`, beside whatever the delegate reported as backing that reuse.** Transcribe what the tool printed — never paraphrase it, and never write counts a reused run did not report. A reuse recorded with nothing beside it is indistinguishable from a step nobody ran, which is the one thing this record exists to rule out.
 
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
@@ -293,6 +304,8 @@ failed
 **Two rows name a destination that is not a checkpoint, and both have to.** The rested-on row, because a listed feature has none — re-scheduling the feature to make one would hand code already serving users to `/hora-build` from checkpoint 1. The shared-code row, because a conflict-proof file and a dependency belong to every feature and to none, so clearing one feature's checkpoint would name the wrong owner.
 
 **Which of the two readings holds cannot be settled here.** Either the inherited code does not do what the criterion claimed, or the criterion claimed something about inherited behavior nobody ever stated. **That is the price of the criterion having been allowed to rest on unstated behavior.**
+
+**A tool that reports its own result as untrustworthy is not a test failure.** It is a defect of the measuring instrument, so the run stops and reports it as blocking (`unreliable-measurement`), and the record says no verdict was reached. Do not re-run it until it agrees, and do not record a pass on the strength of what it reported before it said so.
 
 **A finding is never resolved by deciding it is acceptable inside this skill.** That decision belongs to a person, and it goes into the question file with their name on it.
 

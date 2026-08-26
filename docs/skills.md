@@ -180,6 +180,7 @@ And the authoritative statement of **what work** each checkpoint delegates is [`
 | **Requirements** | turning a rough request into a verifiable requirement document |
 | **Progress** | keeping an in-flight implementation's state visible and truthful |
 | **Testing** | writing Jest tests, and driving a suite to green **without weakening it** |
+| **Test caching** | reusing a result recorded for unchanged inputs, and what a reused result must be reported with |
 | **Git** | commit conventions |
 | **Documentation** | READMEs, docs, licenses, and updating skills themselves |
 

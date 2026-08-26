@@ -24,6 +24,11 @@ const sourceRoot = join(repoRoot, 'kit')
  * Each entry is a word the kit has no business knowing. Patterns carry word
  * boundaries where the token collides with an ordinary English fragment;
  * "express" is left out entirely because the bare verb is legitimate prose.
+ *
+ * The same line holds for a tool the kit delegates to rather than names: a
+ * test cache's own vocabulary — its package, its state file — belongs to
+ * whichever equipped skill covers caching, so the kit states only the kind of
+ * answer it needs and matches on descriptions at run time.
  */
 const forbiddenTokens = [
   { token: 'renchan', pattern: /renchan/iu },
@@ -43,6 +48,8 @@ const forbiddenTokens = [
   { token: 'elasticsearch', pattern: /elasticsearch/iu },
   { token: 'kafka', pattern: /kafka/iu },
   { token: 'qdrant', pattern: /qdrant/iu },
+  { token: 'mentsu', pattern: /mentsu/iu },
+  { token: 'hora-cache', pattern: /hora-cache/iu },
 ]
 
 /*
