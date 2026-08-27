@@ -69,9 +69,9 @@
 
 | Prefix | Applies to |
 |---|---|
-| `hb-` (hora-backend) | the backend repository |
-| `hf-` (hora-frontend) | a frontend repository |
-| `hc-` (hora-core) | either |
+| `hor-` | the backend repository |
+| `hof-` | a frontend repository |
+| `hoc-` | either |
 
 If nothing equipped covers the work, **say so and continue without it.** Guessing at a substitute is worse than proceeding and reporting the gap.
 

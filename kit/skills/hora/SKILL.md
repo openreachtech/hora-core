@@ -47,7 +47,7 @@ Read `references/structure.md` before anything else — the repository layout, w
 
 ```
 Is there at least one skill under .claude/skills/ whose name carries an
-hb- / hf- / hc- prefix?
+hoc- / hor- / hof- prefix?
                              if not → stop. Report that the implementation
                                       skills are not equipped, and ask for
                                       them to be equipped before rerunning
