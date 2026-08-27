@@ -2,7 +2,7 @@
 
 **The authority on the checkpoint list.** `/hora-plan` copies the list from here into each feature file; `/hora-build` runs a feature through it.
 
-**This file holds the order and the exit conditions. It holds no procedure.** How to write a migration, a resolver, a component or a test lives in `@openreachtech/hora-skills`, and each checkpoint states the *work* that skill covers (`../../hora/references/structure.md`, "The division of labor").
+**This file holds the order and the exit conditions. It holds no procedure.** How to write a migration, a resolver, a component or a test lives in the `@openreachtech/hora-skills-ort-*` packages, and each checkpoint states the *work* that skill covers (`../../hora/references/structure.md`, "The division of labor").
 
 **No checkpoint below names a package skill, and none ever may.** Each checkpoint's **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions at run time (`../../hora/references/structure.md`, "No hora file ever names one of those skills"). **Skills Hora Kit itself ships — `/hora-accept` — are named here freely.**
 
