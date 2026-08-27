@@ -13,7 +13,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ## What this skill does not contain
 
-**The content of an acceptance review, and the criteria it passes or fails on, are not in this file and must never be written into it.** They live in `@openreachtech/hora-skills`, and this skill delegates the work.
+**The content of an acceptance review, and the criteria it passes or fails on, are not in this file and must never be written into it.** They live in the `@openreachtech/hora-skills-ort-*` packages, and this skill delegates the work.
 
 | What is needed | Whose it is |
 |---|---|
