@@ -13,7 +13,7 @@ description: "Repository-specific build convention: everything under kit/ is cop
 
 **Nothing is flattened here.** `kit/` is already the shape consuming repositories install, and this build copies it through unchanged.
 
-The name is borrowed from `@openreachtech/hora-skills`, whose build genuinely does flatten — its `kit/skills/` is grouped into `_core/`, `backend/` and `frontend/` domain directories, and the build drops that level to produce `dist/skills/`. Both repositories distribute a skill set, both build `kit/` into `dist/` under `prepack`, and both put that build behind a skill of this name. **One name across the two repositories means one thing to learn**: whichever you open, `flatten` is where the publish payload is produced, and the answer to "what does this repository do to its skills before shipping them?" is on this page.
+The name is borrowed from the `@openreachtech/hora-skills-ort-*` packages, whose builds genuinely do flatten — each one’s `kit/skills/` holds the single domain directory of that package, and the build drops that level to produce `dist/skills/`. Those repositories distribute a skill set too, both build `kit/` into `dist/` under `prepack`, and both put that build behind a skill of this name. **One name across the two repositories means one thing to learn**: whichever you open, `flatten` is where the publish payload is produced, and the answer to "what does this repository do to its skills before shipping them?" is on this page.
 
 Here the answer is "nothing at all". That is a fact about today's `kit/`, not a promise — the seam exists so a transformation can be added on one side without the other side's reader having to relearn where to look.
 
@@ -58,9 +58,9 @@ kit/agents/hora-verifier.md   name: hora-verifier   →   dist/agents/hora-verif
 
 ### No prefix rule
 
-Unlike `hora-skills`, this repository enforces no prefix. Its skills are named `hora-*` by convention because they are Hora Kit's own commands, but that is a convention, not a checked rule.
+Unlike those packages, this repository enforces no prefix. Its skills are named `hora-*` by convention because they are Hora Kit's own commands, but that is a convention, not a checked rule.
 
-`bank-id` is the one name outside it, deliberately: it is to be moved into `hora-skills` as `hb-bank-id` later, and renaming it here first would only be undone by that move.
+`bank-id` is the one name outside it, deliberately: it is to be moved into `hora-skills-ort-renchan` as `hor-bank-id` later, and renaming it here first would only be undone by that move.
 
 ## The build
 
