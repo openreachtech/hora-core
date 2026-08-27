@@ -318,7 +318,7 @@ Q4  missing-authorization  blocking: yes
                                 refuses to pass while a row is unrouted
   tree/<repository>.md          what /hora-setup read in the real tree, and the tag it read it at
   digests/<skill-name>.md       one equipped skill's conventions in short form, and the
-                                hora-skills version they were derived from.
+                                package and version they were derived from.
                                 hora-digester writes it. A cache; the skill stays the authority
   tasks/<version>/
     _plan.md                    the feature order, and the acceptance tasks. /hora-plan writes it

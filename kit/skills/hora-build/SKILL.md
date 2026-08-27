@@ -126,13 +126,13 @@ Report the decision in one line before starting work — "building #attendance, 
 3. Pick every one whose description covers that work, on the surface this
    checkpoint's repository requires (hb- backend, hf- frontend, hc- either)
 4. Take a digest of each one (below)
-5. Write the names, and the version those digests were derived from, into
-   the feature file against this checkpoint
+5. Write the names, and the package and version those digests were derived
+   from, into the feature file against this checkpoint
 6. Hand the names and the digest paths to the agent, in its assignment
 ```
 
 ```markdown
-- [x] 15. UI  <!-- skills: <every name you matched, comma-separated>; digests: <package version> -->
+- [x] 15. UI  <!-- skills: <every name you matched, comma-separated>; digests: <the package and version each came from> -->
 ```
 
 **The example above carries no real name on purpose.** This is a hora file, so the rule it states applies to it too.
@@ -150,10 +150,11 @@ Report the decision in one line before starting work — "building #attendance, 
 **A matched skill can run to thousands of lines, and it stays resident in the agent's context for every turn.** A checkpoint's cost is close to that resident size multiplied by its turn count. `.hora/digests/<skill-name>.md` is the short form.
 
 ```
-1. Read the installed version from
-   node_modules/@openreachtech/hora-skills/package.json
+1. For each matched skill, find the record under .hora/ that names it. There is
+   one record per equipped skills package, the file is named after the package,
+   and its version: is the version of that package now installed
 2. For each skill matched above, use .hora/digests/<skill-name>.md while its
-   header names that version
+   header names that package and that version
 3. For the rest, start hora-digester — one agent per skill, all in one
    message — and use the files they write
 4. Hand those paths to the agent, alongside the skill names
@@ -161,7 +162,7 @@ Report the decision in one line before starting work — "building #attendance, 
 
 **Nothing matched, nothing digested.** When the match above came back empty, this step is skipped whole — there is no version to read and no digest to take — and the checkpoint runs on what it stated itself.
 
-**The version in the header is what keeps a digest honest.** It holds only while it names the version it came from, so a package update leaves every digest to be rewritten before it is read again.
+**The package and version in the header are what keep a digest honest.** A digest holds only while it names what it came from, so updating one package leaves that package's digests to be rewritten before they are read again — and leaves the others alone.
 
 **A digest names the skill it came from, and the agent reads that skill whenever a question stays open** (`../../agents/hora-digester.md`), so a convention a digest states too thinly costs one read.
 
