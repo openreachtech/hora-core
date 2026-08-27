@@ -15,12 +15,12 @@
 | which repositories exist, and what fills them | Hora Kit | `/hora-setup` |
 | which version is being built, and which features it holds | Hora Kit | `/hora-plan` |
 | **the order of the checkpoints, and each one's exit condition** | Hora Kit | `/hora-build` |
-| **how to write, shape and review the work itself** — an operation, a table, a job, a screen, a test | **`@openreachtech/hora-skills`** | that package's own skills |
-| **what an acceptance review looks at, and what it fails on** | **`@openreachtech/hora-skills`** | whichever of its skills covers that work |
+| **how to write, shape and review the work itself** — an operation, a table, a job, a screen, a test | **the `@openreachtech/hora-skills-ort-*` packages** | those packages' own skills |
+| **what an acceptance review looks at, and what it fails on** | **the `@openreachtech/hora-skills-ort-*` packages** | whichever of their skills covers that work |
 | **which boilerplate fills a declared row, what gets filled in, and what to read once it arrived** | **the stack handbook** | `docs/stack/` at the project root, shipped by the boilerplate (`../../hora-setup/references/handbook.md`) |
 | **the stack's structural facts** — its origins and their bounds, its middleware and defaults, its default API style, what an API kind produces | **the stack handbook** | whichever of its files covers that answer |
 
-**Never write a procedure, a convention or a pass/fail criterion into a hora skill when a skill in `hora-skills` already holds it.** State the work and delegate it. A copy disagrees with the original the first time the package is updated, and nothing announces that it has.
+**Never write a procedure, a convention or a pass/fail criterion into a hora skill when a skill in the `hora-skills-ort-*` packages already holds it.** State the work and delegate it. A copy disagrees with the original the first time the package is updated, and nothing announces that it has.
 
 **The same holds for the stack.** Never write a stack's answer — a boilerplate's name, a framework, a middleware, a default — into a hora file. The stack handbook is where those answers live, found at its fixed place and read at run time; a hora file states the kind of answer it needs, and a missing answer is a stop-and-ask, never a guess.
 
