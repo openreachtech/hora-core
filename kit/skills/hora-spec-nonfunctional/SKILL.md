@@ -152,4 +152,4 @@ The four numbers written, as numbers or as stated assumptions; availability, ret
 | `../hora-spec/references/stages.md` | this stage's exit condition |
 | `../hora-spec/references/principles.md` | "Scale is a number, or it is nothing" |
 | `../hora/references/spec-format.md` | "Non-functional requirements", "Manual verification" |
-| `../hora-setup/SKILL.md` | what it does with the middleware table |
+| `/hora-setup`, as the project's boilerplate ships it | what it does with the middleware table |
