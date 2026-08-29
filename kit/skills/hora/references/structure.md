@@ -72,6 +72,7 @@
 | `hor-` | the backend repository |
 | `hof-` | a frontend repository |
 | `hoc-` | either |
+| `hos-` | either, and the work around them — explaining, documenting |
 
 If nothing equipped covers the work, **say so and continue without it.** Guessing at a substitute is worse than proceeding and reporting the gap.
 

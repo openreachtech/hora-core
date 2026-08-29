@@ -33,14 +33,14 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 ## 4つの層
 
-![4つの層：/hora、5つの skill、ステージ skill と2つのエージェント、そして3つのスキルパッケージ](./images/layers.ja.svg)
+![4つの層：/hora、5つの skill、ステージ skill と2つのエージェント、そして4つのスキルパッケージ](./images/layers.ja.svg)
 
 | 層 | 決めること | 決してしないこと | 配布元 |
 |---|---|---|---|
 | `/hora` | 次にどの段階が来るか。すべてのブランチ・コミット・マージ | 作業の中身に関する一切 | `@openreachtech/hora` |
 | 5つの skill | 作業の順序と、各関所の終了条件 | その書き方 | `@openreachtech/hora`。ただし `/hora-setup` はプロジェクトの boilerplate が配布 |
 | ステージ skill と2つの agent | 仕様書の1節、あるいは1関所ぶんのコードや判定 | 順序上の位置。git に関する一切 | `@openreachtech/hora` |
-| 3つのスキルパッケージ | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills-ort-core`・`-ort-renchan`・`-ort-furo` |
+| 4つのスキルパッケージ | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills-ort-core`・`-ort-renchan`・`-ort-furo`・`-ort-support` |
 
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 

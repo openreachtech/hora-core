@@ -33,14 +33,14 @@ This document explains the design. It is not the authority on any rule — each 
 
 ## Four layers
 
-![Four layers: /hora, the five skills, the stage skills and the two agents, and the three skills packages](./images/layers.svg)
+![Four layers: /hora, the five skills, the stage skills and the two agents, and the four skills packages](./images/layers.svg)
 
 | Layer | What it decides | What it never decides | Ships in |
 |---|---|---|---|
 | `/hora` | which phase comes next; every branch, commit and merge | anything about the work itself | `@openreachtech/hora` |
 | the five skills | the order of the work, and each gate's exit condition | how any of it is written | `@openreachtech/hora`, except `/hora-setup`, which the project's boilerplate ships |
 | the stage skills and the two agents | one section of the spec, or one checkpoint's code or verdict | where they run in the order; anything about git | `@openreachtech/hora` |
-| the three skills packages | **every procedure and every pass/fail criterion** | when it is invoked | `@openreachtech/hora-skills-ort-core`, `-ort-renchan`, `-ort-furo` |
+| the four skills packages | **every procedure and every pass/fail criterion** | when it is invoked | `@openreachtech/hora-skills-ort-core`, `-ort-renchan`, `-ort-furo`, `-ort-support` |
 
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
