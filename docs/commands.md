@@ -172,6 +172,8 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 
 **Code setup.** Creates the repositories the spec declares, fills in this project's values, and reads the real tree that arrived.
 
+**This one command is not in Hora Kit.** What it does is one stack from beginning to end — which repositories exist, what fills them, what to read once they arrived — so the boilerplate that knows that stack writes it and equips it. `/hora` orders it like the other four, and stops before step 2 when it is not equipped.
+
 | | |
 |---|---|
 | **Reads** | the spec's repository layout and project name; the real tree of every repository |
