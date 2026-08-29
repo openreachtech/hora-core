@@ -51,7 +51,14 @@ hoc- / hor- / hof- prefix?
                              if not → stop. Report that the implementation
                                       skills are not equipped, and ask for
                                       them to be equipped before rerunning
+
+Is /hora-setup under .claude/skills/ too?
+                             if not → stop. Report that code setup is not
+                                      equipped, and ask for it before
+                                      rerunning
 ```
+
+**`/hora-setup` is asked for here because it is not in this package either.** What it does is one stack from beginning to end — which repositories exist, what fills them, what to read once they arrived — so it is written by the boilerplate that knows that stack, and equipped from there. `/hora` orders it like the rest, and a project whose boilerplate has not put it in place cannot get past step 2.
 
 **Nothing here checks the hora skills themselves.** `/hora` is one of them, so a session that reached this line has already proved they are equipped. What cannot be known from the inside is the other package's state, and that is the whole of what this section asks.
 
