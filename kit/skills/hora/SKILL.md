@@ -256,7 +256,7 @@ Remaining: #payroll #bonus #year-end
 | `../hora-spec/references/stages.md` | stage 0, then the seven stages, and each one's exit condition |
 | `../hora-spec/references/investigation.md` | what stage 0 reads, and the line between a fact and an intent |
 | `../hora-spec/references/principles.md` | the thinking a spec is written with |
-| `../hora-setup/SKILL.md` | code setup |
+| `/hora-setup`, as the project's boilerplate ships it | code setup |
 | `../hora-plan/SKILL.md` | the planner |
 | `../hora-build/SKILL.md` | one feature through the checkpoints |
 | `../hora-build/references/checkpoints.md` | the eighteen checkpoints themselves |
