@@ -124,7 +124,7 @@ Report the decision in one line before starting work — "building #attendance, 
 1. Take the work the checkpoint's "Delegate to" row states
 2. Read the descriptions of the skills equipped under .claude/skills/
 3. Pick every one whose description covers that work, on the surface this
-   checkpoint's repository requires (hor- backend, hof- frontend, hoc- either)
+   checkpoint's repository requires (hor- backend, hof- frontend, hoc- and hos- either)
 4. Take a digest of each one (below)
 5. Write the names, and the package and version those digests were derived
    from, into the feature file against this checkpoint
