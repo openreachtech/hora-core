@@ -38,7 +38,7 @@ This document explains the design. It is not the authority on any rule — each 
 | Layer | What it decides | What it never decides | Ships in |
 |---|---|---|---|
 | `/hora` | which phase comes next; every branch, commit and merge | anything about the work itself | `@openreachtech/hora` |
-| the five skills | the order of the work, and each gate's exit condition | how any of it is written | `@openreachtech/hora` |
+| the five skills | the order of the work, and each gate's exit condition | how any of it is written | `@openreachtech/hora`, except `/hora-setup`, which the project's boilerplate ships |
 | the stage skills and the two agents | one section of the spec, or one checkpoint's code or verdict | where they run in the order; anything about git | `@openreachtech/hora` |
 | the three skills packages | **every procedure and every pass/fail criterion** | when it is invoked | `@openreachtech/hora-skills-ort-core`, `-ort-renchan`, `-ort-furo` |
 
