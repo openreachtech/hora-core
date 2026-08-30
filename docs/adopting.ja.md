@@ -431,6 +431,7 @@ Authority: as-built — what these repositories do is what 1.0.0 is
 |---|---|
 | 各コマンドの詳細 | [`commands.ja.md`](./commands.ja.md) |
 | なぜこの設計なのか | [`architecture.ja.md`](./architecture.ja.md) |
+| 緊急対応の経路（全体） | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 関所が委譲するスキル群 | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | 仕様書の書式 | [`spec-format.md`](../kit/skills/hora/references/spec-format.md) |
 | ステージ0と、仕様書を書く7つのステージ | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |
