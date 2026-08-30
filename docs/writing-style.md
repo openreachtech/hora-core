@@ -6,7 +6,7 @@ Every file the two hora packages distribute — every skill and every agent — 
 
 This document is the style those files are held to. It is about wording, never about what the rules say.
 
-**They are not authored here.** The hora skills and agents are written in [`hora-core`](https://github.com/openreachtech/hora-core), the procedures they delegate to in the skills package of their domain — [`hora-skills-ort-core`](https://github.com/openreachtech/hora-skills-ort-core), [`hora-skills-ort-renchan`](https://github.com/openreachtech/hora-skills-ort-renchan) or [`hora-skills-ort-furo`](https://github.com/openreachtech/hora-skills-ort-furo) or [`hora-skills-ort-support`](https://github.com/openreachtech/hora-skills-ort-support); this repository only receives them, under `.claude/`. The style lives with the method, which is documented here.
+**The hora skills and the agents are written here**, and the procedures they delegate to are written in the skills package of their domain — one package per domain, each carrying its own catalog. This page is the style the ones written here are held to, and it lives with the method for that reason.
 
 ---
 
