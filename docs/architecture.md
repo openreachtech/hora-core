@@ -42,6 +42,8 @@ This document explains the design. It is not the authority on any rule — each 
 | the stage skills and the two agents | one section of the spec, or one checkpoint's code or verdict | where they run in the order; anything about git | `@openreachtech/hora` |
 | the four skills packages | **every procedure and every pass/fail criterion** | when it is invoked | `@openreachtech/hora-skills-ort-core`, `-ort-renchan`, `-ort-furo`, `-ort-support` |
 
+**One skill sits outside all four, and it is the only one `/hora` never starts: `/hora-hotfix`.** It decides neither the order of the work nor a gate's exit condition, because whether something is an emergency is a person's call. It is invoked directly, it works on `main` rather than on a release line, and `/hora` rebases the open release lines onto what it produced. It ships in `@openreachtech/hora` like the rest. See [`commands.md`](./commands.md), `/hora-hotfix`, and [`hotfix.md`](./hotfix.md) for the whole route.
+
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
 **The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).

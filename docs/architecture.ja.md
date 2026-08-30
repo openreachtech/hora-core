@@ -42,6 +42,8 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 | ステージ skill と2つの agent | 仕様書の1節、あるいは1関所ぶんのコードや判定 | 順序上の位置。git に関する一切 | `@openreachtech/hora` |
 | 4つのスキルパッケージ | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills-ort-core`・`-ort-renchan`・`-ort-furo`・`-ort-support` |
 
+**4つの層のどれにも属さない skill が1つだけあり、それは `/hora` が決して起動しない唯一の skill です — `/hora-hotfix`。** 作業の順序も、関所の終了条件も決めません。何を緊急とするかは人が決めることだからです。直接呼ばれ、release ラインではなく `main` の上で動き、その結果の上に `/hora` が開いている release ライン群を rebase します。配布元は他と同じ `@openreachtech/hora` です。[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix` と、経路全体を書いた [`hotfix.ja.md`](./hotfix.ja.md) を参照してください。
+
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 
 **驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../kit/skills/hora/references/structure.md) の "The division of labor" と [`structure.md`](../kit/skills/hora/references/structure.md) を参照してください。
