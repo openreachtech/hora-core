@@ -65,4 +65,4 @@
 
 ## 論拠の置き場所
 
-`docs/` が、設計を人に説明する場所です（[architecture](./architecture.ja.md)、[skills](./skills.ja.md)、[adopting](./adopting.ja.md)）。実行時には誰も読まないので、論拠を置いても費用はかかりません。スキルファイルに置くと、毎回かかります。
+`docs/` が、設計を人に説明する場所です（[architecture](./architecture.ja.md)、[skills](./skills.ja.md)）。実行時には誰も読まないので、論拠を置いても費用はかかりません。スキルファイルに置くと、毎回かかります。

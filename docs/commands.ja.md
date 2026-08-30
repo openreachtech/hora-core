@@ -88,7 +88,7 @@
 
 **ステージ0 が、動いている製品を口述させずに済ませる仕組みです。** リポジトリと文書を読み、そこに現れているものを草案に起こし、あなたが訂正できる形で返します。読むものが何も無いプロジェクトでは、その旨を記録して次へ進みます（[`investigation.md`](../kit/skills/hora-spec/references/investigation.md)）。
 
-**コードのあるプロジェクトでは、1つの宣言がこの対話の量を決めます：`Authority:`** — `as-built`（今動いているものがこの版。質問は数個に減り、ユースケースはシステムから草案されてあなたが訂正する）か `to-spec`（仕様が正。コードが関所を通って追いつく）か。ステージ1で1回だけ尋ねられ、機能ごとに上書きでき、必須です — 手順の全体は [`adopting.ja.md`](./adopting.ja.md) の「最初に、2つの適用のどちらかを決める」にあります。
+**コードのあるプロジェクトでは、1つの宣言がこの対話の量を決めます：`Authority:`** — `as-built`（今動いているものがこの版。質問は数個に減り、ユースケースはシステムから草案されてあなたが訂正する）か `to-spec`（仕様が正。コードが関所を通って追いつく）か。ステージ1で1回だけ尋ねられ、機能ごとに上書きでき、必須です — 手順の全体は `hora-boilerplate` の [`adopting.ja.md`](https://github.com/openreachtech/hora-boilerplate/blob/main/docs/adopting.ja.md) の「最初に、2つの適用のどちらかを決める」にあります。
 
 ### 出した版に機能を足すとき
 
@@ -506,4 +506,4 @@ hora  #payroll の関所18。対象: 5機能。
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | なぜこの形なのか | [`architecture.ja.md`](./architecture.ja.md) |
 | 関所が委譲するスキル群 | [`skills.ja.md`](./skills.ja.md) |
-| 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
+| 既存プロジェクトへの適用 | `hora-boilerplate` の [`adopting.ja.md`](https://github.com/openreachtech/hora-boilerplate/blob/main/docs/adopting.ja.md) |
