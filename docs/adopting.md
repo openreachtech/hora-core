@@ -59,7 +59,7 @@ After that, new features go through the full eighteen, one at a time.
 
 | | |
 |---|---|
-| **The repositories match this boilerplate's stack** (the stack handbook's origin catalog, [`docs/stack/`](https://github.com/openreachtech/hora-boilerplate/blob/main/docs/stack/README.md)) | the checkpoints delegate to skills that describe that stack's conventions specifically. A repository on a different stack will get the order and the gates, but every delegated procedure will describe something it is not |
+| **The repositories match this boilerplate's stack** (the stack handbook's origin catalog, under `docs/stack/` in the kit repository) | the checkpoints delegate to skills that describe that stack's conventions specifically. A repository on a different stack will get the order and the gates, but every delegated procedure will describe something it is not |
 | **A repository count inside each origin's bounds** | the catalog states how many of each origin a layout may declare. A count outside the bounds stops and asks |
 | **Node and npm**, for the kit's own `npm install` | it is what places the kit — the skills come from packages, not from this template's tree |
 | **Claude Code** | |
