@@ -364,7 +364,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
-| putting this on a project that already exists | [`adopting.md`](https://github.com/openreachtech/hora-boilerplate/blob/main/docs/adopting.md) in `hora-boilerplate` |
+| putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
 | stage 0, then the seven stages a spec is written through | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |
 | what stage 0 may read, and what no reading settles | [`investigation.md`](../kit/skills/hora-spec/references/investigation.md) |
