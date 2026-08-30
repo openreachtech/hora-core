@@ -44,7 +44,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 
-**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../kit/skills/hora/references/structure.md) の "The division of labor" と [`skills.ja.md`](./skills.ja.md) を参照してください。
+**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../kit/skills/hora/references/structure.md) の "The division of labor" と [`structure.md`](../kit/skills/hora/references/structure.md) を参照してください。
 
 ---
 
@@ -361,7 +361,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 |---|---|
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
-| 関所が委譲するスキル群 | [`skills.ja.md`](./skills.ja.md) |
+| 関所が委譲するスキル群 | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
 | 18の関所そのもの | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
 | ステージ0と、仕様書を書く7つのステージ | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |

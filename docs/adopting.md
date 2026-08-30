@@ -435,7 +435,7 @@ The workflows under `.github/workflows/` follow the repository's visibility: a p
 |---|---|
 | what each command does, in detail | [`commands.md`](./commands.md) |
 | why the design is shaped this way | [`architecture.md`](./architecture.md) |
-| the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
+| the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | the format of a spec | [`spec-format.md`](../kit/skills/hora/references/spec-format.md) |
 | stage 0, then the seven stages a spec is written through | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |
 | what stage 0 may read, and what no reading settles | [`investigation.md`](../kit/skills/hora-spec/references/investigation.md) |
