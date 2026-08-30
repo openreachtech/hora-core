@@ -65,4 +65,4 @@ These are read by matching on the exact string, so a clearer wording breaks them
 
 ## Where the reasoning goes instead
 
-`docs/` is where a design is explained to a person: [architecture](./architecture.md), [skills](./skills.md), [adopting](./adopting.md). It is read by nobody at run time, so an argument costs nothing there and costs every run in a skill file.
+`docs/` is where a design is explained to a person: [architecture](./architecture.md), [skills](./skills.md). It is read by nobody at run time, so an argument costs nothing there and costs every run in a skill file.
