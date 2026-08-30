@@ -16,7 +16,7 @@ What npm publishes is `dist/`, built from `kit/` on every pack. The two trees ar
 
 Alongside it the package carries one executable, and its only job is to place that payload into a repository. There is nothing here to `import`.
 
-How Hora itself works — the method this kit carries — is documented with the boilerplate: [openreachtech/hora-boilerplate](https://github.com/openreachtech/hora-boilerplate).
+How Hora itself works — the method this kit carries — is documented under [`docs/`](./docs): what each command does, how the orchestrator runs, putting it on a repository that already exists, the emergency route, and the writing style these documents are held to.
 
 ## Installation
 
