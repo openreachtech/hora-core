@@ -44,7 +44,7 @@ This document explains the design. It is not the authority on any rule — each 
 
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
-**The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`skills.md`](./skills.md).
+**The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
 
 ---
 
@@ -363,7 +363,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 |---|---|
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
-| the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
+| the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
 | stage 0, then the seven stages a spec is written through | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |

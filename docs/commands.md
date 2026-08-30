@@ -192,7 +192,7 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 
 **It re-evaluates on every version.** Repositories arrive later — a project starts as an API for a phone app and gains an admin screen — so passing this once is not the end of it.
 
-**Equipping the skills is no longer a step here.** `npm install` places them, through this repository's `postinstall` ([`skills.md`](./skills.md)), so there is nothing for `/hora-setup` to do about it and nothing for a half-finished run to leave undone. `npm run hora:init` re-equips on demand.
+**Equipping the skills is no longer a step here.** `npm install` places them, through this repository's `postinstall` ([`structure.md`](../kit/skills/hora/references/structure.md)), so there is nothing for `/hora-setup` to do about it and nothing for a half-finished run to leave undone. `npm run hora:init` re-equips on demand.
 
 **Step 3 does not bake anything in.** The newest tag is always cloned, so any convention written into Hora Kit would eventually disagree with the real thing. What it reads is cached in `.hora/tree/<repository>.md` with the tag it was read at, and re-read when that tag changes. **On any disagreement, the tree wins.**
 
@@ -359,7 +359,7 @@ When a verification gate fails it clears the checkpoints it invalidates and the 
 5. UX findings                  the UI/UX audit — the sweep, or on explicit request
 ```
 
-**Each step names the work, not a skill.** No hora file writes down a package skill's name — the match is made at run time against the equipped skills' own descriptions, and the names that were matched go into the run's record. [`skills.md`](./skills.md) has the reasoning.
+**Each step names the work, not a skill.** No hora file writes down a package skill's name — the match is made at run time against the equipped skills' own descriptions, and the names that were matched go into the run's record. [`structure.md`](../kit/skills/hora/references/structure.md) has the reasoning.
 
 **It contains no criteria of its own.** What a review looks at and what it fails on lives in those skills; this command decides only which features are in scope, what order the delegates run in, and where the result is recorded.
 
@@ -511,5 +511,5 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 |---|---|
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
-| the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
+| the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
