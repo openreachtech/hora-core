@@ -148,44 +148,14 @@ ls .claude/skills/
 
 And the authoritative statement of **what work** each checkpoint delegates is [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md); for a spec stage it is [`stages.md`](../kit/skills/hora-spec/references/stages.md). **Neither is repeated here, deliberately** — a second copy of either would be exactly the drift this whole document is about.
 
-### `hor-` — backend
+| Package | Prefix | What it covers | Catalog |
+|---|---|---|---|
+| `hora-skills-ort-core` | `hoc-` | conventions and procedures that hold on any project, whatever the stack | [catalog](https://github.com/openreachtech/hora-skills-ort-core/blob/main/docs/skills.md) |
+| `hora-skills-ort-renchan` | `hor-` | the backend surface | [catalog](https://github.com/openreachtech/hora-skills-ort-renchan/blob/main/docs/skills.md) |
+| `hora-skills-ort-furo` | `hof-` | the frontend surface | [catalog](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/docs/skills.md) |
+| `hora-skills-ort-support` | `hos-` | the work around the code — explaining a result, writing the manual its users read | [catalog](https://github.com/openreachtech/hora-skills-ort-support/blob/main/docs/skills.md) |
 
-| Area | Covers |
-|---|---|
-| **Database** | logical schema design, migrations, models, seeders, named subqueries |
-| **API schemas and operations** | per-audience schemas, the server engine, operation resolvers, input validators, the shared resolver container, **stub resolvers** |
-| **REST** | the RESTful renderer architecture |
-| **Execution placement** | deciding whether work belongs in the request path, in a post-worker, or in a background job — then implementing it |
-| **Types and constants** | `.d.ts` declaration files, and the constant convention |
-| **Integration** | external HTTP/REST API clients |
-| **Design patterns** | the strategy trio that replaces an `else-if` chain |
-| **AI features** | agent structure and loops, multi-LLM providers, light RAG, prompt document stores |
-| **Security** | a read-only, repo-wide audit that produces findings and fixes nothing |
-| **Testing** | where a test goes, how its run order is guaranteed, and the local E2E container stack |
-
-### `hof-` — frontend
-
-| Area | Covers |
-|---|---|
-| **Framework** | app structure, environment variables, context patterns, utility modules as classes |
-| **Components** | a family covering buttons, dialogs, tables, selects, tabs, toasts, steppers, editors and more — plus what must **not** be built |
-| **Style** | CSS conventions, layers, units, custom properties, property order, `z-index`, margins, animation |
-| **API clients** | API operations and generated types; the RESTful client trio |
-| **Error handling** | mapping backend error codes to user-facing messages |
-| **UI/UX** | the project context file, generating UI that is correct by construction, and auditing existing output |
-| **Acceptance** | **the acceptance review**, and the durable end-to-end scenario specification |
-
-### `hoc-` — core (either surface)
-
-| Area | Covers |
-|---|---|
-| **Coding conventions** | classes, members, declarations, modules, naming, scope, statements, async, errors, comments, JSDoc, contracts |
-| **Requirements** | turning a rough request into a verifiable requirement document |
-| **Progress** | keeping an in-flight implementation's state visible and truthful |
-| **Testing** | writing Jest tests, and driving a suite to green **without weakening it** |
-| **Test caching** | reusing a result recorded for unchanged inputs, and what a reused result must be reported with |
-| **Git** | commit conventions |
-| **Documentation** | READMEs, docs, licenses, and updating skills themselves |
+**Each package documents its own skills, and this page does not restate them.** A list here would be a second copy of every catalog, drifting from the first the moment a skill is added or renamed — which is the failure this whole document is about.
 
 ---
 
