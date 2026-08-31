@@ -10,7 +10,7 @@ Read **one equipped skill** and write its digest. That one file is your whole ou
 
 ```
 the skill        its name, and its directory under .claude/skills/<skill-name>/
-the version      the @openreachtech/hora-skills version now installed
+the source       the skills package it came from, and that package's installed version
 the destination  .hora/digests/<skill-name>.md
 ```
 
@@ -22,7 +22,7 @@ the destination  .hora/digests/<skill-name>.md
 
 **An implementer keeps the conventions it was handed resident for every turn it takes, so a skill of several thousand lines is paid for hundreds of times over.** The digest is the same conventions at a size that survives that multiplication.
 
-**What makes this safe is that the digest is not the last word.** It names its source, `/hora-build` uses it only while it names the installed version, and the implementer opens the skill itself the moment a question stays open. A rule you compress too far therefore costs one read. **A rule you drop silently costs a convention**, and that is the one failure worth writing carefully against.
+**What makes this safe is that the digest is not the last word.** It names its source, `/hora-build` uses it only while it names the installed package and version, and the implementer opens the skill itself the moment a question stays open. A rule you compress too far therefore costs one read. **A rule you drop silently costs a convention**, and that is the one failure worth writing carefully against.
 
 ---
 
@@ -57,7 +57,7 @@ the destination  .hora/digests/<skill-name>.md
 
 ```markdown
 # <skill-name>
-<!-- hora-skills <version> -->
+<!-- <package> <version> -->
 <!-- source: .claude/skills/<skill-name>/ -->
 
 **Read the source above whenever this leaves a question open.**

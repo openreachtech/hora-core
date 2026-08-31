@@ -6,7 +6,7 @@ Every file the two hora packages distribute — every skill and every agent — 
 
 This document is the style those files are held to. It is about wording, never about what the rules say.
 
-**They are not authored here.** The hora skills and agents are written in [`hora-core`](https://github.com/openreachtech/hora-core), the procedures they delegate to in [`hora-skills`](https://github.com/openreachtech/hora-skills); this repository only receives them, under `.claude/`. The style lives with the method, which is documented here.
+**The hora skills and the agents are written here**, and the procedures they delegate to are written in the skills package of their domain — one package per domain, each carrying its own catalog. This page is the style the ones written here are held to, and it lives with the method for that reason.
 
 ---
 
@@ -65,4 +65,4 @@ These are read by matching on the exact string, so a clearer wording breaks them
 
 ## Where the reasoning goes instead
 
-`docs/` is where a design is explained to a person: [architecture](./architecture.md), [skills](./skills.md), [adopting](./adopting.md). It is read by nobody at run time, so an argument costs nothing there and costs every run in a skill file.
+`docs/` is where a design is explained to a person: [architecture](./architecture.md), [structure](../kit/skills/hora/references/structure.md), [adopting](./adopting.md). It is read by nobody at run time, so an argument costs nothing there and costs every run in a skill file.

@@ -200,7 +200,7 @@ From there the normal route takes over. `/hora-build` picks the feature up, `/ho
 
 | | |
 |---|---|
-| the gates in full, as the skill states them | [`SKILL.md`](../.claude/skills/hora-hotfix/SKILL.md) |
+| the gates in full, as the skill states them | [`SKILL.md`](../kit/skills/hora-hotfix/SKILL.md) |
 | what each command does | [`commands.md`](./commands.md) |
-| the branch rules, and how a `release/<version>` catches up | [`commits.md`](../.claude/skills/hora/references/commits.md) |
+| the branch rules, and how a `release/<version>` catches up | [`commits.md`](../kit/skills/hora/references/commits.md) |
 | why the whole thing is shaped this way | [`architecture.md`](./architecture.md) |

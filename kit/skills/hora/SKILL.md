@@ -47,11 +47,18 @@ Read `references/structure.md` before anything else — the repository layout, w
 
 ```
 Is there at least one skill under .claude/skills/ whose name carries an
-hb- / hf- / hc- prefix?
+hoc- / hor- / hof- / hos- prefix?
                              if not → stop. Report that the implementation
                                       skills are not equipped, and ask for
                                       them to be equipped before rerunning
+
+Is /hora-setup under .claude/skills/ too?
+                             if not → stop. Report that code setup is not
+                                      equipped, and ask for it before
+                                      rerunning
 ```
+
+**`/hora-setup` is asked for here because it is not in this package either.** What it does is one stack from beginning to end — which repositories exist, what fills them, what to read once they arrived — so it is written by the boilerplate that knows that stack, and equipped from there. `/hora` orders it like the rest, and a project whose boilerplate has not put it in place cannot get past step 2.
 
 **Nothing here checks the hora skills themselves.** `/hora` is one of them, so a session that reached this line has already proved they are equipped. What cannot be known from the inside is the other package's state, and that is the whole of what this section asks.
 
@@ -159,7 +166,7 @@ Report the decision in one line before starting work — for example, "continuin
 
 ## Where the procedures live
 
-**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in `@openreachtech/hora-skills`, equipped under this repository's own `.claude/skills/`.
+**`/hora` holds the order. It holds no procedure and no pass/fail criterion.** How to write a resolver, a migration, a component or a test — and what an acceptance review looks at — all live in the `@openreachtech/hora-skills-ort-*` packages, equipped under this repository's own `.claude/skills/`.
 
 **Never write one of those procedures into a hora skill** (`references/structure.md`, "The division of labor").
 
@@ -249,7 +256,7 @@ Remaining: #payroll #bonus #year-end
 | `../hora-spec/references/stages.md` | stage 0, then the seven stages, and each one's exit condition |
 | `../hora-spec/references/investigation.md` | what stage 0 reads, and the line between a fact and an intent |
 | `../hora-spec/references/principles.md` | the thinking a spec is written with |
-| `../hora-setup/SKILL.md` | code setup |
+| `/hora-setup`, as the project's boilerplate ships it | code setup |
 | `../hora-plan/SKILL.md` | the planner |
 | `../hora-build/SKILL.md` | one feature through the checkpoints |
 | `../hora-build/references/checkpoints.md` | the eighteen checkpoints themselves |

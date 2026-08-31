@@ -87,17 +87,17 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 **Each stage from 1 to 7 is its own skill, and each may be run directly**: `/hora-spec-usecases`, `/hora-spec-horizon`, `/hora-spec-nonfunctional`, `/hora-spec-backend`, `/hora-spec-frontend`, `/hora-spec-security`, `/hora-spec-review`. `/hora-spec` runs them in order; run one alone to redo just that stage's conversation. Stage 0 has no skill of its own — `/hora-spec` runs it itself.
 
-**The order is a rule, and each stage is a gate.** A data model designed before the use cases are fixed is designed twice; a table designed before the user counts are known is designed for the wrong number. Each stage's exit condition is in [`stages.md`](../.claude/skills/hora-spec/references/stages.md).
+**The order is a rule, and each stage is a gate.** A data model designed before the use cases are fixed is designed twice; a table designed before the user counts are known is designed for the wrong number. Each stage's exit condition is in [`stages.md`](../kit/skills/hora-spec/references/stages.md).
 
 **Going back is normal.** Stage 7 exists to send the run back into whichever stage owns a shortfall — and so does checkpoint 2, 9, 11 or 18 when what it finds turns out to be the spec rather than the code.
 
-**Stage 0 is what stops a running product from having to be dictated.** It reads the repositories and the documents, drafts what they show, and hands it back for you to correct. On a project with nothing to read it records that and moves on ([`investigation.md`](../.claude/skills/hora-spec/references/investigation.md)).
+**Stage 0 is what stops a running product from having to be dictated.** It reads the repositories and the documents, drafts what they show, and hands it back for you to correct. On a project with nothing to read it records that and moves on ([`investigation.md`](../kit/skills/hora-spec/references/investigation.md)).
 
 **On a project with code, one declaration decides how much of that conversation you get: `Authority:`** — `as-built` (what runs is what this version is; questions drop to a handful, and use cases are drafted from the system for you to correct) or `to-spec` (the spec is the truth; the code catches up through the checkpoints). It is asked once at stage 1, overridable per feature, and required — the whole procedure is in [`adopting.md`](./adopting.md), "First, decide which of the two adoptions this is".
 
 ### Adding a feature to a version that already shipped
 
-**From the second version on, `spec.md` is a diff against the version before it** — only the sections this version changes. Everything else carries over by being absent, and past versions are never rewritten ([`spec-format.md`](../.claude/skills/hora/references/spec-format.md), "From the second version on"). **The blank spec is not copied into a diff version**: it would land twenty empty headings in a document that needed one new feature.
+**From the second version on, `spec.md` is a diff against the version before it** — only the sections this version changes. Everything else carries over by being absent, and past versions are never rewritten ([`spec-format.md`](../kit/skills/hora/references/spec-format.md), "From the second version on"). **The blank spec is not copied into a diff version**: it would land twenty empty headings in a document that needed one new feature.
 
 **Write the outline, not the document.** Drop what you want into `specs/<version>/request/` — a mail, a ticket, a page of bullets, in your own words, written by whoever wanted it — and run `/hora-spec`. Stage 0 reads it first and treats it as this version's agenda; the seven stages turn it into sections, each one shown to you in full before it is written.
 
@@ -119,11 +119,11 @@ specs/1.1.0/
 
 **The stages do not make you re-agree to what shipped.** A stage whose section this version does not touch passes as a **carry-over** — the previous version's answer, stated back to you in the words it was fixed in, and confirmed. It is checked, never assumed, and the closing report names every one, because a carry-over is the one kind of pass that looks the same as not having run.
 
-**Two stages never carry over, and they are why the rest may be brief.** Stage 6 states the caller and the refusal of every operation this version adds, at the version that adds it; stage 7 reviews the **resolved** document rather than the diff — a new operation contradicting a rule 1.0.0 wrote is invisible in two pages and plain in the whole. Which stages may carry over is per stage in [`stages.md`](../.claude/skills/hora-spec/references/stages.md).
+**Two stages never carry over, and they are why the rest may be brief.** Stage 6 states the caller and the refusal of every operation this version adds, at the version that adds it; stage 7 reviews the **resolved** document rather than the diff — a new operation contradicting a rule 1.0.0 wrote is invisible in two pages and plain in the whole. Which stages may carry over is per stage in [`stages.md`](../kit/skills/hora-spec/references/stages.md).
 
 ### How it asks: a check, a proposal, a question
 
-**These are three different things and they are never phrased alike** ([`asking.md`](../.claude/skills/hora/references/asking.md)).
+**These are three different things and they are never phrased alike** ([`asking.md`](../kit/skills/hora/references/asking.md)).
 
 | | What it means | What you are deciding |
 |---|---|---|
@@ -156,7 +156,7 @@ hora  Stage 1. You described "attendance management, approval, payroll".
       Add either?
 ```
 
-**Approval is per section, never per document.** One "yes" over a whole spec is worse than none, because the record then says it was read. The reasoning is in [`structure.md`](../.claude/skills/hora/references/structure.md), invariant 1.
+**Approval is per section, never per document.** One "yes" over a whole spec is worse than none, because the record then says it was read. The reasoning is in [`structure.md`](../kit/skills/hora/references/structure.md), invariant 1.
 
 ### What it never does
 
@@ -171,6 +171,8 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 ## `/hora-setup`
 
 **Code setup.** Creates the repositories the spec declares, fills in this project's values, and reads the real tree that arrived.
+
+**This one command is not in Hora Kit.** What it does is one stack from beginning to end — which repositories exist, what fills them, what to read once they arrived — so the boilerplate that knows that stack writes it and equips it. `/hora` orders it like the other four, and stops before step 2 when it is not equipped.
 
 | | |
 |---|---|
@@ -190,7 +192,7 @@ hora  Stage 1. You described "attendance management, approval, payroll".
 
 **It re-evaluates on every version.** Repositories arrive later — a project starts as an API for a phone app and gains an admin screen — so passing this once is not the end of it.
 
-**Equipping the skills is no longer a step here.** `npm install` places them, through this repository's `postinstall` ([`skills.md`](./skills.md)), so there is nothing for `/hora-setup` to do about it and nothing for a half-finished run to leave undone. `npm run hora:init` re-equips on demand.
+**Equipping the skills is no longer a step here.** `npm install` places them, through this repository's `postinstall` ([`structure.md`](../kit/skills/hora/references/structure.md)), so there is nothing for `/hora-setup` to do about it and nothing for a half-finished run to leave undone. `npm run hora:init` re-equips on demand.
 
 **Step 3 does not bake anything in.** The newest tag is always cloned, so any convention written into Hora Kit would eventually disagree with the real thing. What it reads is cached in `.hora/tree/<repository>.md` with the tag it was read at, and re-read when that tag changes. **On any disagreement, the tree wins.**
 
@@ -322,7 +324,7 @@ It reports in one line before starting: *"building #attendance, from checkpoint 
 | **Frontend** | 10 open the frontend · 11 UI/UX and use cases · 12 component design · 13 frontend modules · 14 API client · 15 UI · 16 wire the data in · 17 local test environment | a frontend row | 17 |
 | **Acceptance** | 18 acceptance | nothing | — |
 
-Each one's exit condition, delegate skill and not-applicable rule is in [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md).
+Each one's exit condition, delegate skill and not-applicable rule is in [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md).
 
 **Three things about the order are deliberate:**
 
@@ -357,7 +359,7 @@ When a verification gate fails it clears the checkpoints it invalidates and the 
 5. UX findings                  the UI/UX audit — the sweep, or on explicit request
 ```
 
-**Each step names the work, not a skill.** No hora file writes down a package skill's name — the match is made at run time against the equipped skills' own descriptions, and the names that were matched go into the run's record. [`skills.md`](./skills.md) has the reasoning.
+**Each step names the work, not a skill.** No hora file writes down a package skill's name — the match is made at run time against the equipped skills' own descriptions, and the names that were matched go into the run's record. [`structure.md`](../kit/skills/hora/references/structure.md) has the reasoning.
 
 **It contains no criteria of its own.** What a review looks at and what it fails on lives in those skills; this command decides only which features are in scope, what order the delegates run in, and where the result is recorded.
 
@@ -509,5 +511,5 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 |---|---|
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
-| the skills the checkpoints delegate to | [`skills.md`](./skills.md) |
+| the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |

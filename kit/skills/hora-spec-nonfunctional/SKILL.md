@@ -13,7 +13,7 @@ Read `../hora/references/structure.md` and `../hora-spec/references/principles.m
 
 **Offer numbers as options, never as a blank.** "How many users?" produces a shrug; `200 / 2,000 / 20,000`, with today's row count named alongside, produces an answer in one exchange (`../hora/references/asking.md`).
 
-**Nothing in `@openreachtech/hora-skills` owns this stage, and nothing could.** No skill states what a project's user count or availability target should be. What is written below is which questions to ask; every answer is the requester's.
+**Nothing in the `@openreachtech/hora-skills-ort-*` packages owns this stage, and nothing could.** No skill states what a project's user count or availability target should be. What is written below is which questions to ask; every answer is the requester's.
 
 ---
 
@@ -152,4 +152,4 @@ The four numbers written, as numbers or as stated assumptions; availability, ret
 | `../hora-spec/references/stages.md` | this stage's exit condition |
 | `../hora-spec/references/principles.md` | "Scale is a number, or it is nothing" |
 | `../hora/references/spec-format.md` | "Non-functional requirements", "Manual verification" |
-| `../hora-setup/SKILL.md` | what it does with the middleware table |
+| `/hora-setup`, as the project's boilerplate ships it | what it does with the middleware table |

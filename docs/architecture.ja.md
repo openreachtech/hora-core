@@ -33,18 +33,20 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 ## 4つの層
 
-![4つの層：/hora、5つの skill、ステージ skill と2つのエージェント、そして hora-skills](./images/layers.ja.svg)
+![4つの層：/hora、5つの skill、ステージ skill と2つのエージェント、そして4つのスキルパッケージ](./images/layers.ja.svg)
 
 | 層 | 決めること | 決してしないこと | 配布元 |
 |---|---|---|---|
 | `/hora` | 次にどの段階が来るか。すべてのブランチ・コミット・マージ | 作業の中身に関する一切 | `@openreachtech/hora` |
-| 5つの skill | 作業の順序と、各関所の終了条件 | その書き方 | `@openreachtech/hora` |
+| 5つの skill | 作業の順序と、各関所の終了条件 | その書き方 | `@openreachtech/hora`。ただし `/hora-setup` はプロジェクトの boilerplate が配布 |
 | ステージ skill と2つの agent | 仕様書の1節、あるいは1関所ぶんのコードや判定 | 順序上の位置。git に関する一切 | `@openreachtech/hora` |
-| `hora-skills` | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills` |
+| 4つのスキルパッケージ | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills-ort-core`・`-ort-renchan`・`-ort-furo`・`-ort-support` |
+
+**4つの層のどれにも属さない skill が1つだけあり、それは `/hora` が決して起動しない唯一の skill です — `/hora-hotfix`。** 作業の順序も、関所の終了条件も決めません。何を緊急とするかは人が決めることだからです。直接呼ばれ、release ラインではなく `main` の上で動き、その結果の上に `/hora` が開いている release ライン群を rebase します。配布元は他と同じ `@openreachtech/hora` です。[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix` と、経路全体を書いた [`hotfix.ja.md`](./hotfix.ja.md) を参照してください。
 
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 
-**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../.claude/skills/hora/references/structure.md) の "The division of labor" と [`skills.ja.md`](./skills.ja.md) を参照してください。
+**驚かれるのは、パッケージ2つの間の分割です。** Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../kit/skills/hora/references/structure.md) の "The division of labor" と [`structure.md`](../kit/skills/hora/references/structure.md) を参照してください。
 
 ---
 
@@ -65,9 +67,9 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 コストは実在し、承知の上で受け入れています。機能ごとにコンテナ群を立ち上げる手間は、間違ったテーブルの上に建てたその20機能を解きほぐす手間に比べれば安いためです。
 
-**退行の網が累積であることが、上の表の3行目を成立させています。** [`/hora-accept`](../.claude/skills/hora-accept/SKILL.md) はどの関所でも**ユニットスイートをリポジトリ全体に対して**流します。したがって、ある機能が過去の機能を壊した場合、壊したその実行で落ちます。高コストな側 — 実ブラウザで画面を駆動するレビュー — は関所ではその機能自身に絞られ、全機能を端から端まで駆動するのは版全体のスイープ（または明示的に要求した実行）の仕事です。
+**退行の網が累積であることが、上の表の3行目を成立させています。** [`/hora-accept`](../kit/skills/hora-accept/SKILL.md) はどの関所でも**ユニットスイートをリポジトリ全体に対して**流します。したがって、ある機能が過去の機能を壊した場合、壊したその実行で落ちます。高コストな側 — 実ブラウザで画面を駆動するレビュー — は関所ではその機能自身に絞られ、全機能を端から端まで駆動するのは版全体のスイープ（または明示的に要求した実行）の仕事です。
 
-**この順序で作ることは、仕様に1つ条件を課します。見落としやすい条件です — 機能の受入基準は、その機能自身の関所で達成可能でなければなりません。** 後から作る機能を名指す基準は、それを読むどの関所でも満たせません。それでも4つの実行がその基準に対して動きます — 関所1は基準を読んで作り、6と16は基準ごとにテストを書き、18はその機能を落として他人の関所へ差し戻します。**そのため受入基準は二段になっています。** 機能ごとの基準は、その機能とその `depends` までが作られていて後は何も無い製品に対して確認されます。複数機能を跨ぐ振る舞いは仕様書の `Version acceptance criteria` 節へ行き、どの関所も読まず、版全体のスイープが確認します。段を間違えた基準は [`/hora-plan`](../.claude/skills/hora-plan/SKILL.md) で `forward-reference` として止まり、機能の順序を直すか、振る舞いの段を上げることで直します。同じ検査が、その裏側 — 書かれた順序が `depends` と矛盾している状態 — も捕まえます。
+**この順序で作ることは、仕様に1つ条件を課します。見落としやすい条件です — 機能の受入基準は、その機能自身の関所で達成可能でなければなりません。** 後から作る機能を名指す基準は、それを読むどの関所でも満たせません。それでも4つの実行がその基準に対して動きます — 関所1は基準を読んで作り、6と16は基準ごとにテストを書き、18はその機能を落として他人の関所へ差し戻します。**そのため受入基準は二段になっています。** 機能ごとの基準は、その機能とその `depends` までが作られていて後は何も無い製品に対して確認されます。複数機能を跨ぐ振る舞いは仕様書の `Version acceptance criteria` 節へ行き、どの関所も読まず、版全体のスイープが確認します。段を間違えた基準は [`/hora-plan`](../kit/skills/hora-plan/SKILL.md) で `forward-reference` として止まり、機能の順序を直すか、振る舞いの段を上げることで直します。同じ検査が、その裏側 — 書かれた順序が `depends` と矛盾している状態 — も捕まえます。
 
 ---
 
@@ -87,9 +89,9 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 **`hora-verifier` が何も直さないのは意図的です。** 同じエージェントに実装と検証をさせると、落ちているテストを通るまで緩める道が開きます。このエージェントはファイル編集ツールを持たず、「落ちている」という事実を返すだけで、直しません。
 
-**`hora-implementer` は git にも `.hora/` にも `specs/` にも触れません。** 1関所ぶん — または1関所の1単位ぶん — のコードとテストを書き、それ以外はすべて報告します。必要な依存、触ってはいけない共有ファイル、メインセッションに集約ファイルを再生成させたいフォルダ、変えたくなった contract、仕様書で見つけた問題です。[`/hora-build`](../.claude/skills/hora-build/SKILL.md) がその報告に基づいて動きます。
+**`hora-implementer` は git にも `.hora/` にも `specs/` にも触れません。** 1関所ぶん — または1関所の1単位ぶん — のコードとテストを書き、それ以外はすべて報告します。必要な依存、触ってはいけない共有ファイル、メインセッションに集約ファイルを再生成させたいフォルダ、変えたくなった contract、仕様書で見つけた問題です。[`/hora-build`](../kit/skills/hora-build/SKILL.md) がその報告に基づいて動きます。
 
-**`hora-digester` は1つのファイルだけを書き、他はすべて読むだけです。** 出力は `.hora/digests/<skill-name>.md` で、ヘッダには由来した `hora-skills` のバージョンが入ります — だからダイジェストはインストール済みのバージョンと一致する間だけ使われ、パッケージが更新されれば、次に読まれる前に書き直されます。権威はスキル本体のままです。ダイジェストで解けない疑問が出た時点で、implementer が本体を開きます。
+**`hora-digester` は1つのファイルだけを書き、他はすべて読むだけです。** 出力は `.hora/digests/<skill-name>.md` で、ヘッダには由来したパッケージと、そのパッケージのバージョンが入ります — だからダイジェストはインストール済みのバージョンと一致する間だけ使われ、由来したパッケージが更新されれば、そのダイジェストは次に読まれる前に書き直されます。権威はスキル本体のままです。ダイジェストで解けない疑問が出た時点で、implementer が本体を開きます。
 
 **エージェントをここまで縛る理由：** 禁止の一つひとつが、「2人の書き手が衝突する経路」か「誰にも見えないところで決定が下される経路」を1本ずつ塞いでいます。
 
@@ -103,7 +105,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 .hora/
   tree/<repository>.md          /hora-setup が実地に読んだ内容と、読んだ時点のタグ
   digests/<skill-name>.md       equip 済みスキル1つの規約を短くしたもの。由来した
-                                hora-skills のバージョン付き
+                                由来したパッケージとバージョン付き
   spec/<version>/_stages.md     /hora-spec 自身の、どこまで進んだかの記録（第2部）
   spec/<version>/_assets.md     ステージ0 が何を、どこから、どのコミット時点で読んだか
   spec/<version>/_divergence.md 文書とコードの食い違い — 1件につき1行、各行はその
@@ -119,7 +121,9 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
   glossary.md                   追記のみ。版で分けない
 
   equip-core.json               hora-core の install が置いたもの。gitignore 対象
-  equip-skills.json             hora-skills の install が置いたもの。gitignore 対象
+  hora-skills-ort-core.json     各スキルパッケージの install が置いたもの。
+  hora-skills-ort-furo.json     パッケージごとに1ファイル。gitignore 対象
+  hora-skills-ort-renchan.json
 ```
 
 `git log .hora/` が「何が走ったか」の履歴です。他に記録している場所はなく、必要もありません。
@@ -155,7 +159,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 - [x] 7. Worker  <!-- n/a: this feature triggers no background job -->
 ```
 
-**状態は3つだけです**：未通過、通過、**理由付きの n/a**。理由の無い `n/a` は状態ではありません — 飛ばした関所が、通った関所の印を被っているだけです。全一覧と各関所の終了条件は [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) にあります。
+**状態は3つだけです**：未通過、通過、**理由付きの n/a**。理由の無い `n/a` は状態ではありません — 飛ばした関所が、通った関所の印を被っているだけです。全一覧と各関所の終了条件は [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) にあります。
 
 ---
 
@@ -180,7 +184,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 ## git モデル
 
-git 操作はすべてメインセッションで行われます — `/hora` 自身か、それが走らせた skill です。エージェントは決して git に触れません。規則は [`commits.md`](../.claude/skills/hora/references/commits.md) にあります。形はこうです。
+git 操作はすべてメインセッションで行われます — `/hora` 自身か、それが走らせた skill です。エージェントは決して git に触れません。規則は [`commits.md`](../kit/skills/hora/references/commits.md) にあります。形はこうです。
 
 ![git モデル：main、release/&lt;version&gt;、そこから切られるブランチ](./images/git-model.ja.svg)
 
@@ -193,7 +197,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **検収の後ではありません。** 検収（18）のスイートはその時点の全機能に及び、どの機能でも落ちうるので、待つとこの機能のブランチが他の機能の作業をまたいで開きっぱなしになります。検収が見つけたものは `retake/` ブランチで戻ってきます — 「マージ済みだが後から不足が判明した」の既存の名前が、まさにそれです。
 
-**関所17だけはこの表の外にあります。** ローカルの E2E 環境はバックエンド行にあり、その機能ブランチは8関所前（関所9）で既にマージ済みです。だからその変更は専用の `update/e2e-<what>-for-<feature-id>` ブランチに載り、他の `update/` と同じように切られてマージされます（[`commits.md`](../.claude/skills/hora/references/commits.md)）。
+**関所17だけはこの表の外にあります。** ローカルの E2E 環境はバックエンド行にあり、その機能ブランチは8関所前（関所9）で既にマージ済みです。だからその変更は専用の `update/e2e-<what>-for-<feature-id>` ブランチに載り、他の `update/` と同じように切られてマージされます（[`commits.md`](../kit/skills/hora/references/commits.md)）。
 
 **依存が専用ブランチを持つ理由：** `package-lock.json` は2つの変更が同時にきれいに編集できないファイルです。「1度に1つ、次を始める前にマージ」が人間のチームが衝突を避ける方法であり、ここでも同じです。
 
@@ -217,7 +221,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **そしてこの順序では、並列の価値自体が聞こえるほど大きくありません。** 単位は小さなタスクではなく、製品全体への検収で終わる1機能です。重ねられる余地はあまり残っていません。
 
-**関所の単位は、この問題の両側をどちらも回避します。だからこれだけが同時に走ります**（[`hora-build/SKILL.md`](../.claude/skills/hora-build/SKILL.md)）。単位はコミットより小さい — 関所6のどの単位も、そのゲートのただ1つのコミットに着地するので、後続の単位の成果が吸い込まれる先の先行コミットが存在しません。そして共有されるフォルダは、全単位が終わったあとにメインセッションが再生成するので、集約ファイルはどの単位も書きません。依存の場合は直列時の答えをそのまま保ちます — 必要になった単位はそれを報告し、`/hora-build` が専用ブランチで導入してから作業が続きます。
+**関所の単位は、この問題の両側をどちらも回避します。だからこれだけが同時に走ります**（[`hora-build/SKILL.md`](../kit/skills/hora-build/SKILL.md)）。単位はコミットより小さい — 関所6のどの単位も、そのゲートのただ1つのコミットに着地するので、後続の単位の成果が吸い込まれる先の先行コミットが存在しません。そして共有されるフォルダは、全単位が終わったあとにメインセッションが再生成するので、集約ファイルはどの単位も書きません。依存の場合は直列時の答えをそのまま保ちます — 必要になった単位はそれを報告し、`/hora-build` が専用ブランチで導入してから作業が続きます。
 
 **効くのはウォールクロックよりも、各エージェントが抱える量です。** 1体で6つの resolver を書くエージェントは、6つ分に伸びたコンテキストを抱え、以降の全ターンでその全量を支払います。6体なら各自が1つ分だけを抱えます。実測では、build 中で最も重い単一エージェントは関所6のもので、最大の常駐コンテキストを抱えたまま308ターン回っていました。
 
@@ -229,7 +233,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **すでに動いている製品では、口述はさらに悪化します。** たとえば20機能を持つ製品で、その全部を記憶から、しかもこの書式で説明させれば、人は覚えているものだけを話します。そして**語られなかった部分の沈黙は、「そこには何も無い」と全く同じに読めます。** **システムは「それが何をするか」の証人としては優秀で、「誰が何を望んだか」の証人としては役に立ちません。** 前者をステージ0が読み、後者のために7つのステージが残ります。
 
-**だから `/hora-spec` が書きます。そして、この半分にある機構はすべて、それが「AI が要件を決めた」にならないためにあります。** skill 自体の権威は [`hora-spec/SKILL.md`](../.claude/skills/hora-spec/SKILL.md)、ステージの権威は [`stages.md`](../.claude/skills/hora-spec/references/stages.md)、ステージ0が何を読んでよいかは [`investigation.md`](../.claude/skills/hora-spec/references/investigation.md)、人への尋ね方は [`asking.md`](../.claude/skills/hora/references/asking.md)、そこで適用される考え方は [`principles.md`](../.claude/skills/hora-spec/references/principles.md) にあります。
+**だから `/hora-spec` が書きます。そして、この半分にある機構はすべて、それが「AI が要件を決めた」にならないためにあります。** skill 自体の権威は [`hora-spec/SKILL.md`](../kit/skills/hora-spec/SKILL.md)、ステージの権威は [`stages.md`](../kit/skills/hora-spec/references/stages.md)、ステージ0が何を読んでよいかは [`investigation.md`](../kit/skills/hora-spec/references/investigation.md)、人への尋ね方は [`asking.md`](../kit/skills/hora/references/asking.md)、そこで適用される考え方は [`principles.md`](../kit/skills/hora-spec/references/principles.md) にあります。
 
 ---
 
@@ -254,7 +258,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **読んでも決して決まらないのは意図です。** どの操作が在るかは事実ですが、それが誰のためか、本来誰が呼べるべきか、機能のどこまでが完成なのかは、ツリーの中には無い。これらは常に尋ねられます — 材料を並べた上で、何も推奨せずに。
 
-**唯一の切り分けは宣言で、それは書かれるものであって、推測されるものではありません。** `Authority: as-built` は、その意図を人が一度、仕様書の中で確定させたものです: 以後キットは `built:` を導出し、ユースケースを動いているシステムから草案して、草案値をデフォルトに機能ごとの訂正に出します。`to-spec` は逆向きに確定させます — 完成度は一切尋ねられず、全関所が現状のコードに対して走ります。宣言が書かれていないところでは、上の段落がそのまま全面的に適用されます（[`structure.md`](../.claude/skills/hora/references/structure.md) の不変条件2、"`Authority: as-built`"）。
+**唯一の切り分けは宣言で、それは書かれるものであって、推測されるものではありません。** `Authority: as-built` は、その意図を人が一度、仕様書の中で確定させたものです: 以後キットは `built:` を導出し、ユースケースを動いているシステムから草案して、草案値をデフォルトに機能ごとの訂正に出します。`to-spec` は逆向きに確定させます — 完成度は一切尋ねられず、全関所が現状のコードに対して走ります。宣言が書かれていないところでは、上の段落がそのまま全面的に適用されます（[`structure.md`](../kit/skills/hora/references/structure.md) の不変条件2、"`Authority: as-built`"）。
 
 ---
 
@@ -274,7 +278,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **後戻りは正常であり、失敗ではありません。** 手前のステージの誤りを見つけたステージは、それを述べ、戻り先のステージを名指し、実行はそこへ戻ります。ステージ7はまさにそのために存在し、不足をその場で継ぎ当てることはしません — その場での継ぎ当ては、「どのステージもデータモデルと突き合わせていないユースケース」が文書に残る道です。
 
-**同じ表が、実装側の指摘をここへ戻します。** 関所2 / 9 / 11 / 18 の指摘が、コードではなく仕様の不足だと判明した場合、見つかった場所で直すのではなく、それを所有するステージへ戻ります。どの指摘がどこへ戻るかは [`stages.md`](../.claude/skills/hora-spec/references/stages.md) の "What sends a run back into a stage" にあり、各ステージの終了条件と担当スキルも同じ文書にあります。
+**同じ表が、実装側の指摘をここへ戻します。** 関所2 / 9 / 11 / 18 の指摘が、コードではなく仕様の不足だと判明した場合、見つかった場所で直すのではなく、それを所有するステージへ戻ります。どの指摘がどこへ戻るかは [`stages.md`](../kit/skills/hora-spec/references/stages.md) の "What sends a run back into a stage" にあり、各ステージの終了条件と担当スキルも同じ文書にあります。
 
 **あるステージが他のステージの節を書くことはありません。** ステージ4はユースケースを書かず、ステージ1は列の型を選びません。次のステージの節に手を伸ばしたステージは、それを決めるはずだった対話の前に、それを決めてしまっています。
 
@@ -329,13 +333,13 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 **その行を持つのはステージ5だけです** — フロントエンドのリポジトリを宣言しない版、たとえばスマートフォンアプリ向けの API のみの版です。他のステージはすべて通過します。認証が一切ない版でも、ステージ6でそのことと理由を述べる必要があり、バックエンド行の無い版でも、ステージ4でそれを宣言する必要があります。
 
-**2版目からは、ステージが「引き継ぎ」で通過することがあり、それも3状態のうちの「通過」です。** そこからの `spec.md` は差分なので、7つのステージが決めることの大半は前の版で決着しています。この版が触らない節を持つステージは、直前の版の答えを提示して確認を取り、引き継ぎを書き添えて通過します — `<!-- carried: 1.0.0's numbers, confirmed unchanged -->`。**推測ではなく確認です。** 引き継ぎは、走らなかったステージと見分けのつかない唯一の通過だからです。**ステージ6と7は、その版が足すものについては決して引き継ぎません。** それが、他を短く済ませてよい理由です。どのステージが引き継げるかは [`stages.md`](../.claude/skills/hora-spec/references/stages.md) にステージごとに書かれています。
+**2版目からは、ステージが「引き継ぎ」で通過することがあり、それも3状態のうちの「通過」です。** そこからの `spec.md` は差分なので、7つのステージが決めることの大半は前の版で決着しています。この版が触らない節を持つステージは、直前の版の答えを提示して確認を取り、引き継ぎを書き添えて通過します — `<!-- carried: 1.0.0's numbers, confirmed unchanged -->`。**推測ではなく確認です。** 引き継ぎは、走らなかったステージと見分けのつかない唯一の通過だからです。**ステージ6と7は、その版が足すものについては決して引き継ぎません。** それが、他を短く済ませてよい理由です。どのステージが引き継げるかは [`stages.md`](../kit/skills/hora-spec/references/stages.md) にステージごとに書かれています。
 
 ---
 
 ## 両方を支える2つの境界
 
-上のすべては2本の線の上に載っています。どちらも [`structure.md`](../.claude/skills/hora/references/structure.md) に書かれています。
+上のすべては2本の線の上に載っています。どちらも [`structure.md`](../kit/skills/hora/references/structure.md) に書かれています。
 
 ### 1. 所有権の分割
 
@@ -359,13 +363,13 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 |---|---|
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
-| 関所が委譲するスキル群 | [`skills.ja.md`](./skills.ja.md) |
+| 関所が委譲するスキル群 | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
-| 18の関所そのもの | [`checkpoints.md`](../.claude/skills/hora-build/references/checkpoints.md) |
-| ステージ0と、仕様書を書く7つのステージ | [`stages.md`](../.claude/skills/hora-spec/references/stages.md) |
-| ステージ0が何を読み、読んでも決まらないものは何か | [`investigation.md`](../.claude/skills/hora-spec/references/investigation.md) |
-| 確認・提案・質問の違い | [`asking.md`](../.claude/skills/hora/references/asking.md) |
-| 仕様書を書くときの考え方 | [`principles.md`](../.claude/skills/hora-spec/references/principles.md) |
-| 仕様書の書式 | [`spec-format.md`](../.claude/skills/hora/references/spec-format.md) |
+| 18の関所そのもの | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
+| ステージ0と、仕様書を書く7つのステージ | [`stages.md`](../kit/skills/hora-spec/references/stages.md) |
+| ステージ0が何を読み、読んでも決まらないものは何か | [`investigation.md`](../kit/skills/hora-spec/references/investigation.md) |
+| 確認・提案・質問の違い | [`asking.md`](../kit/skills/hora/references/asking.md) |
+| 仕様書を書くときの考え方 | [`principles.md`](../kit/skills/hora-spec/references/principles.md) |
+| 仕様書の書式 | [`spec-format.md`](../kit/skills/hora/references/spec-format.md) |
 
 <!-- ./images/ の図はペアで生成されています — x.svg と x.ja.svg。片方を直したら、もう片方も直してください -->

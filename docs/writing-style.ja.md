@@ -6,7 +6,7 @@
 
 この文書は、それらのファイルが従う文体です。書き方の話であって、規則の中身の話ではありません。
 
-**ここで書かれるものではありません。** hora の skill と agent は [`hora-core`](https://github.com/openreachtech/hora-core) で、それらの委譲先である手順は [`hora-skills`](https://github.com/openreachtech/hora-skills) で書かれます。このリポジトリはそれを `.claude/` に受け取るだけです。文体は方法論と同じ場所に置く、という理由でここにあります。
+**hora の skill と agent は、ここで書かれます。** それらの委譲先である手順は、そのドメインのスキルパッケージ（ドメインごとに1つ、それぞれが自分のカタログを持つ）で書かれます。このページは、ここで書かれるものが従う文体です。文体は方法論と同じ場所に置く、という理由でここにあります。
 
 ---
 
@@ -65,4 +65,4 @@
 
 ## 論拠の置き場所
 
-`docs/` が、設計を人に説明する場所です（[architecture](./architecture.ja.md)、[skills](./skills.ja.md)、[adopting](./adopting.ja.md)）。実行時には誰も読まないので、論拠を置いても費用はかかりません。スキルファイルに置くと、毎回かかります。
+`docs/` が、設計を人に説明する場所です（[architecture](./architecture.ja.md)、[structure](../kit/skills/hora/references/structure.md)、[adopting](./adopting.ja.md)）。実行時には誰も読まないので、論拠を置いても費用はかかりません。スキルファイルに置くと、毎回かかります。
