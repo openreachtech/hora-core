@@ -15,6 +15,7 @@ How Hora works — the method this package carries. Every document here is a pai
 | [`adopting.md`](./adopting.md) | **putting the kit on a project that already exists.** Which of the two adoptions it is, the six steps, and what to watch for |
 | [`hotfix.md`](./hotfix.md) | **the emergency route.** What `/hora-hotfix` gives up, its six gates, and how the debt comes back as ordinary work |
 | [`writing-style.md`](./writing-style.md) | **how the skills are written.** The three rules the files under `kit/` are held to, and what is never compressed |
+| [`document-style.md`](./document-style.md) | **how these documents are written.** What bold is for, one claim per sentence, the Japanese as its own document, and the structural conventions |
 
 **None of this is read at run time.** An agent reads `kit/`; a person reads here. That is why an argument costs nothing on this side and costs every run on the other ([`writing-style.md`](./writing-style.md), "Where the reasoning goes instead").
 
