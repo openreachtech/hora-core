@@ -12,6 +12,20 @@
 
 ---
 
+## 目次
+
+- [/hora](#hora)
+- [/hora-spec](#hora-spec)
+- [/hora-setup](#hora-setup)
+- [/hora-plan](#hora-plan)
+- [/hora-build](#hora-build)
+- [/hora-accept](#hora-accept)
+- [/hora-hotfix](#hora-hotfix)
+- [実際のセッションの見え方](#実際のセッションの見え方)
+- [次に読むもの](#次に読むもの)
+
+---
+
 ## `/hora`
 
 ![2つの半分：/hora-spec が何を作るかを決め、/hora が作る](./images/overview.ja.svg)

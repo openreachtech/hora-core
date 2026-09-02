@@ -15,6 +15,19 @@ Something is broken in production and you have two hours. The normal route — w
 
 ---
 
+## Contents
+
+- [What it gives up, and what it does not](#what-it-gives-up-and-what-it-does-not)
+- [The six gates](#the-six-gates)
+- [When it says no, it shows you the choices](#when-it-says-no-it-shows-you-the-choices)
+- [Schema changes](#schema-changes)
+- [What the record says](#what-the-record-says)
+- [The debt comes back as ordinary work](#the-debt-comes-back-as-ordinary-work)
+- [Things worth knowing](#things-worth-knowing)
+- [Where to go next](#where-to-go-next)
+
+---
+
 ## What it gives up, and what it does not
 
 | | |

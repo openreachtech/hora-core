@@ -8,6 +8,24 @@ Hora Kit is usually met as a template you start from. This is the other case: th
 
 ---
 
+## Contents
+
+- [What adoption actually buys you](#what-adoption-actually-buys-you)
+- [First, decide which of the two adoptions this is](#first-decide-which-of-the-two-adoptions-this-is)
+- [Before you start](#before-you-start)
+- [The shape you are moving toward](#the-shape-you-are-moving-toward)
+- [Step 1 — Create the kit repository around them](#step-1--create-the-kit-repository-around-them)
+- [Step 2 — Bring your existing documents in](#step-2--bring-your-existing-documents-in)
+- [Step 3 — Write the spec, describing what is already there](#step-3--write-the-spec-describing-what-is-already-there)
+- [Step 4 — Run /hora](#step-4--run-hora)
+- [Step 5 — Read the plan before building anything](#step-5--read-the-plan-before-building-anything)
+- [Step 6 — The first acceptance sweep](#step-6--the-first-acceptance-sweep)
+- [What to watch for](#what-to-watch-for)
+- [The short version](#the-short-version)
+- [Where to go next](#where-to-go-next)
+
+---
+
 ## What adoption actually buys you
 
 Not "the kit will build the rest for you" — that is what it does afterwards. **The first thing it does is tell you what the product currently does.**
