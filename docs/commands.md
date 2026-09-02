@@ -12,6 +12,20 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 
 ---
 
+## Contents
+
+- [/hora](#hora)
+- [/hora-spec](#hora-spec)
+- [/hora-setup](#hora-setup)
+- [/hora-plan](#hora-plan)
+- [/hora-build](#hora-build)
+- [/hora-accept](#hora-accept)
+- [/hora-hotfix](#hora-hotfix)
+- [What a session actually looks like](#what-a-session-actually-looks-like)
+- [Where to go next](#where-to-go-next)
+
+---
+
 ## `/hora`
 
 ![Two halves: /hora-spec decides what gets built, /hora builds it](./images/overview.svg)

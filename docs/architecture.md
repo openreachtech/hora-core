@@ -8,6 +8,28 @@ This document explains the design. It is not the authority on any rule — each 
 
 ---
 
+## Contents
+
+- [Two halves](#two-halves)
+- **[Part 1 — /hora: building the application](#part-1--hora-building-the-application)**
+  - [Four layers](#four-layers)
+  - [Feature by feature, not layer by layer](#feature-by-feature-not-layer-by-layer)
+  - [Where each thing runs, and why](#where-each-thing-runs-and-why)
+  - [The state model](#the-state-model)
+  - [Re-entrancy](#re-entrancy)
+  - [The git model](#the-git-model)
+  - [Why it is serial](#why-it-is-serial)
+- **[Part 2 — /hora-spec: deciding what gets built](#part-2--hora-spec-deciding-what-gets-built)**
+  - [Reading is not inferring](#reading-is-not-inferring)
+  - [Stage 0, then seven stages, in order](#stage-0-then-seven-stages-in-order)
+  - [Why every stage is a conversation](#why-every-stage-is-a-conversation)
+  - [Approval is per section](#approval-is-per-section)
+  - [The state of a spec run](#the-state-of-a-spec-run)
+  - [The two boundaries that hold both halves together](#the-two-boundaries-that-hold-both-halves-together)
+  - [Where to go next](#where-to-go-next)
+
+---
+
 ## Two halves
 
 **Hora Kit is two machines that share one document.** `/hora-spec` decides what gets built, in conversation with whoever wants the product. `/hora` builds what the resulting document says. `specs/<version>/spec.md` is the only thing the two of them share, and that is what lets each half be described on its own.
