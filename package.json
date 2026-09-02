@@ -48,5 +48,8 @@
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.5",
     "jest": "^30.4.2"
+  },
+  "overrides": {
+    "brace-expansion@5": "^5.0.9"
   }
 }
