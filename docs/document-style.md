@@ -54,6 +54,7 @@ It is the same document, written in Japanese. Whoever reads only the Japanese mu
 - **Parentheses are full-width**: `（…）`, not `(…)`.
 - A term the English states in English stays in English. No Japanese word is invented for `resolver` or `checkpoint`.
 - Where the English argues, the Japanese argues. Summarising one side is how a pair starts to disagree.
+- **Italics do not read in Japanese, so bold stands in for them.** The Japanese therefore carries more bold than the English, and the counts are not meant to match. `*works*` becomes `**動くかどうか**`.
 
 ---
 
