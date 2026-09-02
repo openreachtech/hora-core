@@ -26,13 +26,15 @@ They are not an agent executing a step. They arrived with a question, and they l
 
 ## Bold marks what must not be missed
 
-**At most two per section, in prose.** The number matches the skills' and the reason does not: there, bold costs tokens; here, it costs its own meaning. Where every paragraph opens bold, the page has marked nothing.
+**Bold the imperative, the prohibition, or the one fact a reader who skims must still leave with. Never the topic of the paragraph**, which is what the heading is for. That is the rule; the rest of this section is how to tell when it has been broken.
+
+Roughly two per section, in prose. **This is a target, not a hard limit** — a section carrying three parallel prohibitions is not a defect, and one where every paragraph opens bold has marked nothing. Over two is the signal to look, and what the extras turn out to be is almost always topic sentences.
+
+The number matches the skills' and the reason does not: there, bold costs tokens; here, it costs its own meaning.
 
 **A table's label column does not count.** There the bold separates the label from what it labels, which is structure rather than emphasis, and this kit has used it that way throughout.
 
-Measured in prose across the kit, bold runs from 0.1 to 3.8 per section, and thirteen of thirty-eight documents are over two. One README carries two bolds in 129 lines; one document carries 83 in 22 sections.
-
-Bold the imperative, the prohibition, or the one fact a reader who skims must still leave with. Never the topic of the paragraph, which is what the heading is for.
+Measured in prose across the kit, bold runs from 0.1 to 3.8 per section. Fourteen of forty-six documents are over two, and the overflow is topic sentences in every one of them.
 
 ---
 
