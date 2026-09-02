@@ -14,6 +14,8 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 
 ## `/hora`
 
+![Two halves: /hora-spec decides what gets built, /hora builds it](./images/overview.svg)
+
 **The orchestrator.** Works out where the project stands, runs whichever skill comes next, and owns every git operation.
 
 | | |
@@ -54,6 +56,8 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 ---
 
 ## `/hora-spec`
+
+![Stage 0, then the seven stages of /hora-spec, and the return paths into them](./images/stages.svg)
 
 **The author.** Reads whatever already exists, then writes the version's spec with you through the seven stage skills.
 
@@ -294,6 +298,8 @@ The sweep entry carries the version's own criteria — how many, the section's `
 ---
 
 ## `/hora-build`
+
+![One feature, eighteen checkpoints, four gates](./images/checkpoints.svg)
 
 **One feature, through the eighteen checkpoints, in order.**
 

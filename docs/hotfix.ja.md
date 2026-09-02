@@ -85,6 +85,8 @@ H6  着地      main へマージし、追従を /hora に渡す
 
 `hotfix/<hotfix-id>` を `main` から切り、`main` へ戻します。**そこから枝は決して切りません。** その後 `/hora` が、開いている `release/<version>` を新しい `main` に追従させます。
 
+![git モデル：main、release/&lt;version&gt;、そこから切られるブランチ](./images/git-model.ja.svg)
+
 ---
 
 ## 断らずに、選択肢を出します
