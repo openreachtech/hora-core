@@ -2,6 +2,8 @@
 
 # The emergency route
 
+*[日本語](./hotfix.ja.md)*
+
 Something is broken in production and you have two hours. The normal route — write the spec, plan, eighteen checkpoints, acceptance — is the right route, and it is far too slow for this.
 
 `/hora-hotfix` is the other one. **It fixes one defect, ships it, and writes down everything it skipped**, so the skipped part comes back as real work later instead of quietly disappearing.

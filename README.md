@@ -1,5 +1,7 @@
 # Hora Kit
 
+*[日本語](https://github.com/openreachtech/hora-core/blob/main/README.ja.md)*
+
 Hora builds an application from its spec, one feature at a time, through an AI agent tool.
 
 This package is the container that carries its core — the skills and agents that tool reads — to the repositories that build with it.

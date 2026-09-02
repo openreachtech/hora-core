@@ -1,5 +1,7 @@
 # Hora Kit
 
+*[English](https://github.com/openreachtech/hora-core/blob/main/README.md)*
+
 Hora は、仕様書からアプリケーションを、機能単位で、AI エージェントツールを通して実装します。
 
 このパッケージは、そのコア — エージェントツールが読み込むスキルとエージェント — を、構築を行うリポジトリへ運ぶコンテナです。
