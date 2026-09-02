@@ -32,7 +32,7 @@ Roughly two per section, in prose. **This is a target, not a hard limit** — a 
 
 The number matches the skills' and the reason does not: there, bold costs tokens; here, it costs its own meaning.
 
-**A table's label column does not count.** There the bold separates the label from what it labels, which is structure rather than emphasis, and this kit has used it that way throughout.
+**A label does not count.** A table's label column, a condition a paragraph covers (`Under as-built`), a UI path, or a term being marked as a term (`carry-over`, `resolved`) — in each the bold separates a name from what is said about it, which is structure rather than emphasis. This kit has used it that way throughout, and in Japanese it is the only way available, italics being out.
 
 Measured in prose across the kit, bold runs from 0.1 to 3.8 per section. Fourteen of forty-six documents are over two, and the overflow is topic sentences in every one of them.
 
