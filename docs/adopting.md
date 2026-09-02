@@ -30,9 +30,9 @@ Hora Kit is usually met as a template you start from. This is the other case: th
 
 ## What adoption actually buys you
 
-Not "the kit will build the rest for you" — that is what it does afterwards. **The first thing it does is tell you what the product currently does.**
+Not "the kit will build the rest for you" — that is what it does afterwards. The first thing it does is tell you what the product currently does.
 
-A feature declared as already built skips the seventeen checkpoints that describe how it would have been built, and **still enters the acceptance run**. So the first sweep after adopting is an acceptance review of the whole existing product against its own stated use cases: what is reachable, what is complete, what tells the truth when it fails. **This is what happens under `Baseline: verified`**, and leaving a feature inventoried instead — named, and never accepted — is the other option (below).
+A feature declared as already built skips the seventeen checkpoints that describe how it would have been built, and **still enters the acceptance run**. So the first sweep after adopting is an acceptance review of the whole existing product against its own stated use cases: what is reachable, what is complete, what tells the truth when it fails. This is what happens under `Baseline: verified`, and leaving a feature inventoried instead — named, and never accepted — is the other option (below).
 
 **Expect findings, and expect them to be the reason this was worth doing.**
 
@@ -56,9 +56,9 @@ After that, new features go through the full eighteen, one at a time.
 
 **Mixing them is normal, and it is declared per feature.** Fifteen features are done and three are half-way: write `Authority: as-built` in `Existing assets` and put `<!-- authority: to-spec -->` on the three ([`spec-format.md`](../kit/skills/hora/references/spec-format.md), "`authority`"). Answering `not finished` on those three during stage 1's per-feature confirmation produces exactly this shape without you editing anything by hand.
 
-**What `as-built` does not buy:** checkpoint 18 still runs — the adoption sweep is what makes the fixed baseline a verified one, not a claimed one. Anything reachable without authentication is still asked about one operation at a time, whatever the declaration says. And the declaration reaches only the features built when it was made — a feature added in `1.1.0` is specified in conversation like any other new feature.
+What `as-built` does not buy: checkpoint 18 still runs — the adoption sweep is what makes the fixed baseline a verified one, not a claimed one. Anything reachable without authentication is still asked about one operation at a time, whatever the declaration says. And the declaration reaches only the features built when it was made — a feature added in `1.1.0` is specified in conversation like any other new feature.
 
-**There is a second declaration, and it decides how much is accepted before the tag.** It is the `Baseline:` line of the same `Existing assets` section, and it has two values ([`spec-format.md`](../kit/skills/hora/references/spec-format.md), "Existing assets").
+There is a second declaration, and it decides how much is accepted before the tag. It is the `Baseline:` line of the same `Existing assets` section, and it has two values ([`spec-format.md`](../kit/skills/hora/references/spec-format.md), "Existing assets").
 
 | | `verified` | `inventoried` |
 |---|---|---|
@@ -67,9 +67,9 @@ After that, new features go through the full eighteen, one at a time.
 | What the tag claims | a verified baseline | **what was accepted, and no more — the rest is named** |
 | What a verdict may read | `passed` | **`passed over 17 of 20 features; 3 not accepted`** — a bare `passed` is not available |
 
-**What `inventoried` buys:** starting the next piece of work without first specifying and accepting twenty features. A listed feature stays named in `_plan.md`'s `## Not accepted` and on every acceptance record's `not-accepted:` line, and **the version that next changes it writes the spec then, and accepts it at full live reach.**
+What `inventoried` buys: starting the next piece of work without first specifying and accepting twenty features. A listed feature stays named in `_plan.md`'s `## Not accepted` and on every acceptance record's `not-accepted:` line, and **the version that next changes it writes the spec then, and accepts it at full live reach.**
 
-**What it does not buy:** any confirmation that the feature works. Its inherited tests passing is the whole of the guarantee, and nothing beyond that is claimed.
+What it does not buy: any confirmation that the feature works. Its inherited tests passing is the whole of the guarantee, and nothing beyond that is claimed.
 
 **Whether it pays for itself is proportional to how untested the product is.** The cost it removes is the exchange-per-feature needed to settle acceptance criteria for a feature with no tests to draft them from — where the tests are good, criteria are drafted and confirmed three or four features at a time. **On a well-tested product the declaration and the per-feature choices cost more than they save, and `verified` is the right answer.**
 
@@ -96,7 +96,7 @@ myproject-app/                  ← the kit. Holds specs/, .hora/, .claude/. No 
   admin-console/                ← your existing frontend, untouched
 ```
 
-**The nesting is not git's requirement but Claude Code's:** a session cannot write outside its working directory, so the repositories it must reach have to sit inside it.
+The nesting is not git's requirement but Claude Code's: a session cannot write outside its working directory, so the repositories it must reach have to sit inside it.
 
 **The directory names do not have to change.** That is what the `Directory` column exists for.
 
@@ -122,7 +122,7 @@ npm install
 
 **Do this before running `/hora-spec`.** A session can only read what is inside its own working directory, and everything `/hora` reads is reached by following links from `specs/<version>/spec.md`. A requirements document sitting on a wiki is a document stage 0 cannot open.
 
-**Three directories ship empty for exactly this.** Drop each document into whichever one describes it:
+Three directories ship empty for exactly this. Drop each document into whichever one describes it:
 
 ```
 myproject-app/
@@ -142,7 +142,7 @@ myproject-app/
   admin-console/
 ```
 
-**Which folder you choose is what you would otherwise be asked, one document at a time.** Stage 0 reads them all, puts your placement back as a check — *"these are in `sources/`, so I am treating them as part of the specification; right?"* — and writes the tables. Twenty documents become one exchange, plus whichever you want moved.
+Which folder you choose is what you would otherwise be asked, one document at a time. Stage 0 reads them all, puts your placement back as a check — *"these are in `sources/`, so I am treating them as part of the specification; right?"* — and writes the tables. Twenty documents become one exchange, plus whichever you want moved.
 
 **`request/` is the one that is not about documents you already have.** It is where what you want built goes — a mail, a ticket, a page of bullets, in whatever words you have it in. Stage 0 reads it as this version's agenda, and the seven stages turn it into sections you approve one at a time. Nothing in it ever becomes spec text on its own, and `/hora-plan` does not read it at all.
 
@@ -175,9 +175,9 @@ The first two map onto two tables in `spec.md`, and **the difference is not fili
 | **`Annex`** | this document **explains** the specification | interpretation only. **Never produces a task** |
 | **`request/`** | this is what somebody **wants**, and nobody has worked it out yet | `/hora-spec` drafts sections from it, which you approve. **Never a table, never a task, never read by `/hora-plan`** |
 
-**The third row is why a rough note is safe to hand over and a rough `Source` is not.** Put a wish list in `sources/` and the wishes become tasks; put it in `request/` and each one arrives back at you as a question or a proposal first.
+The third row is why a rough note is safe to hand over and a rough `Source` is not. Put a wish list in `sources/` and the wishes become tasks; put it in `request/` and each one arrives back at you as a question or a proposal first.
 
-**So a five-year-old line about a Slack integration, in a document you put in `sources/`, is a Slack integration somebody builds.** In `annex/` the same line is background: it informs what stage 4 puts to you, and only what you confirm reaches the spec.
+So a five-year-old line about a Slack integration, in a document you put in `sources/`, is a Slack integration somebody builds. In `annex/` the same line is background: it informs what stage 4 puts to you, and only what you confirm reaches the spec.
 
 **The split is therefore not about quality — it is whether anybody is willing to be held to it.** A current API reference is `Sources`; a two-year-old design document is `Annex` however good it is.
 
@@ -201,7 +201,7 @@ cp specs/skeleton/spec.md specs/1.0.0/spec.md
 
 **You are not expected to dictate the product.** A person describing twenty existing features from memory, in an exacting format, describes the ones they remember — and the silence around the rest reads exactly like "there is nothing there". So stage 0 reads the repositories and every document you point it at, drafts what they show, and puts it back to you **to correct rather than to compose** ([`investigation.md`](../kit/skills/hora-spec/references/investigation.md)).
 
-**What it reads and what it asks are two different lists**, and the split is the whole design:
+What it reads and what it asks are two different lists, and the split is the whole design:
 
 | It reads this, and asks you to confirm it | It asks you outright — nothing can read it |
 |---|---|
@@ -211,7 +211,7 @@ cp specs/skeleton/spec.md specs/1.0.0/spec.md
 | **who may call each operation today** | **who *should* be able to** |
 | | **how far each feature is actually built** |
 
-**The fourth row is where adoption pays for itself.** "Anyone signed in can call this" is read off an auth filter; whether that was ever anybody's decision usually turns out to be a different question entirely.
+The fourth row is where adoption pays for itself. "Anyone signed in can call this" is read off an auth filter; whether that was ever anybody's decision usually turns out to be a different question entirely.
 
 **Nothing it reads becomes a requirement on its own.** A reading is shown to you as a check — *"I read it as this; is that right?"* — and only what you confirm or correct is written. What the kit proposes is labelled a proposal, separately, so that a suggestion never enters the document as something the system already does ([`asking.md`](../kit/skills/hora/references/asking.md)).
 
@@ -274,8 +274,8 @@ This is the annotation that makes adoption possible.
 
 **`/hora-spec` derives it and confirms it with you, one feature at a time.** A half-finished screen and a finished one are indistinguishable from a file listing, so the kit lays out the evidence — the resolvers, the migration, the tests, the screens — and prepares the answer for you to select rather than compose. The `Authority` declaration decides what that looks like:
 
-- **Under `as-built`**, the whole derived table is shown first, then each feature is confirmed by selection with the derived gate as the default. Answering `not finished` puts `<!-- authority: to-spec -->` on that feature instead of a `built:`.
-- **Under `to-spec`**, `built:` is never asked and never written — every checkpoint runs and reconciles the code toward the spec. The per-feature conversation still happens, with the evidence shown, but it settles what the spec should say — the use cases, and each spec-vs-code disagreement — and more of the answer is yours to decide.
+- Under `as-built`, the whole derived table is shown first, then each feature is confirmed by selection with the derived gate as the default. Answering `not finished` puts `<!-- authority: to-spec -->` on that feature instead of a `built:`.
+- Under `to-spec`, `built:` is never asked and never written — every checkpoint runs and reconciles the code toward the spec. The per-feature conversation still happens, with the evidence shown, but it settles what the spec should say — the use cases, and each spec-vs-code disagreement — and more of the answer is yours to decide.
 
 ```
 #attendance — derived: frontend (4 resolvers, a migration, 31 tests, and
@@ -348,7 +348,7 @@ It works out that repositories are declared but not all set up, and runs `/hora-
 
 **This is the moment to check that `built:` is right.** The plan will show, per feature, how many checkpoints are already marked not-applicable. A feature you thought was finished but declared nothing about will be planned from checkpoint 1; a feature you declared `built: frontend` will sit with only checkpoint 18 open.
 
-**Getting one wrong in either direction is cheap to fix now and expensive later:**
+Getting one wrong in either direction is cheap to fix now and expensive later:
 
 | Wrong how | What follows |
 |---|---|
