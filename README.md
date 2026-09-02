@@ -1,6 +1,8 @@
 # Hora Kit
 
-The container that carries the core of Hora — the skills and agents an AI agent tool reads — to the repositories that build with it.
+Hora builds an application from its spec, one feature at a time, through an AI agent tool.
+
+This package is the container that carries its core — the skills and agents that tool reads — to the repositories that build with it.
 
 Everything it ships lives under a single directory, `kit/`, laid out the way an agent tool expects to find it:
 
