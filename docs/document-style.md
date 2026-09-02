@@ -42,7 +42,17 @@ Measured in prose across the kit, bold runs from 0.1 to 3.8 per section. Fourtee
 
 **No word ceiling.** A sentence may run long here in a way it must not in a skill file, because the reasoning is the point.
 
-What it may not do is carry a second claim. **An em dash that joins one is a sentence break** — the same rule the skills are held to, and for the same reason, because this one is about parsing rather than cost. A second em dash in a sentence is the signal to look, and usually the signal to split.
+What it may not do is carry a second claim. **An em dash that joins one is a sentence break** — the same rule the skills are held to, and for the same reason, because this one is about parsing rather than cost.
+
+The dash has three uses here and only the third is that break.
+
+| Use | |
+|---|---|
+| **a pair closing an aside** | `every workflow — five of them — carries the same expression`. The material between is removable and the sentence still stands. One mark, not two |
+| **a trailing dash** | `…the four packages — one per domain`. It opens an aside that runs to the full stop. One mark |
+| **joining an independent clause** | `a person covers what they remember — and the silence reads like "there is nothing there"`. Two claims. **This is the break** |
+
+So counting dashes finds nothing. Measured across the kit, 116 sentences carry exactly two and almost every one of them is a pair; five carry three or more and one of those five was joining a clause. **Read the sentence rather than the count.**
 
 ---
 
