@@ -385,6 +385,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 | | |
 |---|---|
+| キットで作るプロジェクトが何を持つか、どう始めるか | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 関所が委譲するスキル群 | [`structure.md`](../kit/skills/hora/references/structure.md) |

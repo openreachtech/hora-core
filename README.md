@@ -6,6 +6,8 @@ Hora builds an application from its spec, one feature at a time, through an AI a
 
 This package is the container that carries its core — the skills and agents that tool reads — to the repositories that build with it.
 
+**A new project does not install it by hand.** [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) is the GitHub template to start from: it declares this package and the four skill libraries, places them on `npm install`, and holds the documentation for the kit as a whole — what a project built with it contains, what each command does, and how to put it on a repository that already exists. What follows here is for equipping the kit into a repository that did not come from that template.
+
 Everything it ships lives under a single directory, `kit/`, laid out the way an agent tool expects to find it:
 
 ```
