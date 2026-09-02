@@ -2,6 +2,8 @@
 
 # Adopting Hora Kit onto a project that already exists
 
+*[日本語](./adopting.ja.md)*
+
 Hora Kit is usually met as a template you start from. This is the other case: the stack's backend and frontend repositories already exist, already hold working code, and you want the kit around them.
 
 **Nothing about the existing repositories is taken over.** Their history, their branches, their configs and their code stay theirs. Hora Kit is a repository that sits *outside* them and holds the spec, the plan and the record.

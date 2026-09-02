@@ -2,6 +2,8 @@
 
 # What each command does
 
+*[日本語](./commands.ja.md)*
+
 The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
 **In normal use you only ever type `/hora`.** It decides which of the others to run. **The one it never starts is `/hora-hotfix`** — whether something is an emergency is a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.

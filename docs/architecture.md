@@ -2,6 +2,8 @@
 
 # How work gets executed
 
+*[日本語](./architecture.ja.md)*
+
 How Hora Kit turns a spec into an application: what runs where, what holds the state, and why the whole thing is serial.
 
 This document explains the design. It is not the authority on any rule — each rule lives in the skill that owns it, and this file links to it.
