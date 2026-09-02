@@ -2,6 +2,8 @@
 
 # What each command does
 
+*[日本語](./commands.ja.md)*
+
 The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
 **In normal use you only ever type `/hora`.** It decides which of the others to run. **The one it never starts is `/hora-hotfix`** — whether something is an emergency is a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
@@ -12,7 +14,23 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 
 ---
 
+## Contents
+
+- [/hora](#hora)
+- [/hora-spec](#hora-spec)
+- [/hora-setup](#hora-setup)
+- [/hora-plan](#hora-plan)
+- [/hora-build](#hora-build)
+- [/hora-accept](#hora-accept)
+- [/hora-hotfix](#hora-hotfix)
+- [What a session actually looks like](#what-a-session-actually-looks-like)
+- [Where to go next](#where-to-go-next)
+
+---
+
 ## `/hora`
+
+![Two halves: /hora-spec decides what gets built, /hora builds it](./images/overview.svg)
 
 **The orchestrator.** Works out where the project stands, runs whichever skill comes next, and owns every git operation.
 
@@ -55,6 +73,8 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 ## `/hora-spec`
 
+![Stage 0, then the seven stages of /hora-spec, and the return paths into them](./images/stages.svg)
+
 **The author.** Reads whatever already exists, then writes the version's spec with you through the seven stage skills.
 
 | | |
@@ -93,7 +113,7 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 **Stage 0 is what stops a running product from having to be dictated.** It reads the repositories and the documents, drafts what they show, and hands it back for you to correct. On a project with nothing to read it records that and moves on ([`investigation.md`](../kit/skills/hora-spec/references/investigation.md)).
 
-**On a project with code, one declaration decides how much of that conversation you get: `Authority:`** — `as-built` (what runs is what this version is; questions drop to a handful, and use cases are drafted from the system for you to correct) or `to-spec` (the spec is the truth; the code catches up through the checkpoints). It is asked once at stage 1, overridable per feature, and required — the whole procedure is in [`adopting.md`](./adopting.md), "First, decide which of the two adoptions this is".
+On a project with code, one declaration decides how much of that conversation you get: `Authority:` — `as-built` (what runs is what this version is; questions drop to a handful, and use cases are drafted from the system for you to correct) or `to-spec` (the spec is the truth; the code catches up through the checkpoints). It is asked once at stage 1, overridable per feature, and required — the whole procedure is in [`adopting.md`](./adopting.md), "First, decide which of the two adoptions this is".
 
 ### Adding a feature to a version that already shipped
 
@@ -115,7 +135,7 @@ specs/1.1.0/
 | Declared in a table, and linked from `spec.md` | yes | yes | **never** |
 | `/hora-plan` extracts tasks from it | yes | no | **never reads it at all** |
 
-**A request is never held to like a source.** It may contradict itself, ask for two incompatible things, or describe a screen without saying who opens it — each of those becomes a question, not a defect in your file. **Being able to hand over rough notes is the whole point of the directory.** Saying the same thing in conversation works identically; the directory exists because a request is often longer than a message and written by somebody who is not in the session.
+**A request is never held to like a source.** It may contradict itself, ask for two incompatible things, or describe a screen without saying who opens it — each of those becomes a question, not a defect in your file. Being able to hand over rough notes is the whole point of the directory. Saying the same thing in conversation works identically; the directory exists because a request is often longer than a message and written by somebody who is not in the session.
 
 **The stages do not make you re-agree to what shipped.** A stage whose section this version does not touch passes as a **carry-over** — the previous version's answer, stated back to you in the words it was fixed in, and confirmed. It is checked, never assumed, and the closing report names every one, because a carry-over is the one kind of pass that looks the same as not having run.
 
@@ -123,7 +143,7 @@ specs/1.1.0/
 
 ### How it asks: a check, a proposal, a question
 
-**These are three different things and they are never phrased alike** ([`asking.md`](../kit/skills/hora/references/asking.md)).
+These are three different things and they are never phrased alike ([`asking.md`](../kit/skills/hora/references/asking.md)).
 
 | | What it means | What you are deciding |
 |---|---|---|
@@ -253,7 +273,7 @@ Changes that appear in no contract (wording, an internal refactor) are patch; so
 
 ### The part that talks to you
 
-**This is the command that asks questions.** It works through the resolved spec and checks, among others:
+This is the command that asks questions. It works through the resolved spec and checks, among others:
 
 | Missing | Because |
 |---|---|
@@ -295,6 +315,8 @@ The sweep entry carries the version's own criteria — how many, the section's `
 
 ## `/hora-build`
 
+![One feature, eighteen checkpoints, four gates](./images/checkpoints.svg)
+
 **One feature, through the eighteen checkpoints, in order.**
 
 | | |
@@ -326,7 +348,7 @@ It reports in one line before starting: *"building #attendance, from checkpoint 
 
 Each one's exit condition, delegate skill and not-applicable rule is in [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md).
 
-**Three things about the order are deliberate:**
+Three things about the order are deliberate:
 
 - **4 (stub) comes before the frontend gate** so that 12–14 can build a client and a screen against something real-shaped, without waiting for 6. 16 swaps them onto the actual API — a change of endpoint, not a rewrite, because the stub and the real resolver share a class name and interface
 - **5 and 13 gather the modules the next checkpoint will import**, before it starts — and 5 first checks the in-house package catalog (`@openreachtech/hora-ecosystem`, a devDependency of this repository) so nothing the company already ships gets reinvented. A resolver that turns out mid-implementation to need an external client it does not have is exactly the interruption those exist to remove

@@ -2,6 +2,8 @@
 
 # The emergency route
 
+*[日本語](./hotfix.ja.md)*
+
 Something is broken in production and you have two hours. The normal route — write the spec, plan, eighteen checkpoints, acceptance — is the right route, and it is far too slow for this.
 
 `/hora-hotfix` is the other one. **It fixes one defect, ships it, and writes down everything it skipped**, so the skipped part comes back as real work later instead of quietly disappearing.
@@ -12,6 +14,19 @@ Something is broken in production and you have two hours. The normal route — w
 ```
 
 **`/hora` never starts it.** Whether something is an emergency is a person's call, so you type `/hora-hotfix` yourself.
+
+---
+
+## Contents
+
+- [What it gives up, and what it does not](#what-it-gives-up-and-what-it-does-not)
+- [The six gates](#the-six-gates)
+- [When it says no, it shows you the choices](#when-it-says-no-it-shows-you-the-choices)
+- [Schema changes](#schema-changes)
+- [What the record says](#what-the-record-says)
+- [The debt comes back as ordinary work](#the-debt-comes-back-as-ordinary-work)
+- [Things worth knowing](#things-worth-knowing)
+- [Where to go next](#where-to-go-next)
 
 ---
 
@@ -84,6 +99,8 @@ The full unit suites, in every repository. Then whatever the fix touched forces:
 ### H6 — Land
 
 `hotfix/<hotfix-id>` is cut from `main`, merged back into `main`, and **nothing is ever cut from it**. Then `/hora` rebases any open `release/<version>` onto the new `main`.
+
+![The git model: main, release/<version>, and the branches cut from it](./images/git-model.svg)
 
 ---
 

@@ -2,7 +2,9 @@
 
 # How the hora skills are written
 
-Every file the two hora packages distribute — every skill and every agent — is read at run time, by an agent, before it does anything. **A rule that takes eight sentences to state costs those eight sentences on every run.**
+*[日本語](./writing-style.ja.md)*
+
+Every file the hora packages distribute — every skill and every agent — is read at run time, by an agent, before it does anything. **A rule that takes eight sentences to state costs those eight sentences on every run.**
 
 This document is the style those files are held to. It is about wording, never about what the rules say.
 
