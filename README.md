@@ -1,6 +1,12 @@
 # Hora Kit
 
-The container that carries the core of Hora — the skills and agents an AI agent tool reads — to the repositories that build with it.
+*[日本語](https://github.com/openreachtech/hora-core/blob/main/README.ja.md)*
+
+Hora builds an application from its spec, one feature at a time, through an AI agent tool.
+
+This package is the container that carries its core — the skills and agents that tool reads — to the repositories that build with it.
+
+**A new project does not install it by hand.** [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) is the GitHub template to start from: it declares this package and the four skill libraries, places them on `npm install`, and holds the documentation for the kit as a whole — what a project built with it contains, what each command does, and how to put it on a repository that already exists. What follows here is for equipping the kit into a repository that did not come from that template.
 
 Everything it ships lives under a single directory, `kit/`, laid out the way an agent tool expects to find it:
 
@@ -16,7 +22,7 @@ What npm publishes is `dist/`, built from `kit/` on every pack. The two trees ar
 
 Alongside it the package carries one executable, and its only job is to place that payload into a repository. There is nothing here to `import`.
 
-How Hora itself works — the method this kit carries — is documented under [`docs/`](./docs): what each command does, how the orchestrator runs, putting it on a repository that already exists, the emergency route, and the writing style these documents are held to.
+How Hora itself works — the method this kit carries — is documented under [`docs/`](./docs/README.md): what each command does, how the orchestrator runs, putting it on a repository that already exists, the emergency route, and the writing style these documents are held to.
 
 ## Installation
 
