@@ -85,6 +85,8 @@ The full unit suites, in every repository. Then whatever the fix touched forces:
 
 `hotfix/<hotfix-id>` is cut from `main`, merged back into `main`, and **nothing is ever cut from it**. Then `/hora` rebases any open `release/<version>` onto the new `main`.
 
+![The git model: main, release/<version>, and the branches cut from it](./images/git-model.svg)
+
 ---
 
 ## When it says no, it shows you the choices
