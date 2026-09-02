@@ -13,7 +13,7 @@ This document explains the design. It is not the authority on any rule — each 
 ## Contents
 
 - [Two halves](#two-halves)
-- **[Part 1 — /hora: building the application](#part-1--hora-building-the-application)**
+- [Part 1 — /hora: building the application](#part-1--hora-building-the-application)
   - [Four layers](#four-layers)
   - [Feature by feature, not layer by layer](#feature-by-feature-not-layer-by-layer)
   - [Where each thing runs, and why](#where-each-thing-runs-and-why)
@@ -21,7 +21,7 @@ This document explains the design. It is not the authority on any rule — each 
   - [Re-entrancy](#re-entrancy)
   - [The git model](#the-git-model)
   - [Why it is serial](#why-it-is-serial)
-- **[Part 2 — /hora-spec: deciding what gets built](#part-2--hora-spec-deciding-what-gets-built)**
+- [Part 2 — /hora-spec: deciding what gets built](#part-2--hora-spec-deciding-what-gets-built)
   - [Reading is not inferring](#reading-is-not-inferring)
   - [Stage 0, then seven stages, in order](#stage-0-then-seven-stages-in-order)
   - [Why every stage is a conversation](#why-every-stage-is-a-conversation)
@@ -45,11 +45,11 @@ This document explains the design. It is not the authority on any rule — each 
 | **what it does with a gap** | asks, proposes, and writes only what was approved | stops, and says what to fix in `specs/` |
 | **what it never does** | design anything nobody approved; touch git, `.hora/tasks/` or any repository | invent a requirement; write `specs/` outside one narrow, approved exception |
 
-**In time, the spec half comes first.** This document takes `/hora` first because most of the machinery is there, and because the spec half is easier to read once it is clear what reads its output.
+In time, the spec half comes first. This document takes `/hora` first because most of the machinery is there, and because the spec half is easier to read once it is clear what reads its output.
 
-**The two halves also differ in how much of your attention they need, and that is what the recommended way of running them follows.** `/hora-spec` is worth sitting through, stage by stage: it is conversation from end to end, and it is where a spec stops being a list of feature names. The implementation half can be left to run — **it stops when it needs an answer instead of deciding**, which is the whole reason unattended is safe here and not in the other half. See [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
+The two halves also differ in how much of your attention they need, and that is what the recommended way of running them follows. `/hora-spec` is worth sitting through, stage by stage: it is conversation from end to end, and it is where a spec stops being a list of feature names. The implementation half can be left to run — **it stops when it needs an answer instead of deciding**, which is the whole reason unattended is safe here and not in the other half. See [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
 
-**This document is in two parts:** Part 1 is `/hora` — the layers, the eighteen checkpoints, the state, re-entrancy, git, and why it is serial. Part 2 is `/hora-spec` — reading what already exists, the seven stages, why every one of them is a conversation, and how approval works.
+This document is in two parts: Part 1 is `/hora` — the layers, the eighteen checkpoints, the state, re-entrancy, git, and why it is serial. Part 2 is `/hora-spec` — reading what already exists, the seven stages, why every one of them is a conversation, and how approval works.
 
 ---
 
@@ -70,7 +70,7 @@ This document explains the design. It is not the authority on any rule — each 
 
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
-**The split between the two packages is the one that surprises people.** Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
+The split between the two packages is the one that surprises people. Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
 
 ---
 
@@ -80,7 +80,7 @@ One feature goes through its spec, its backend, its frontend and then acceptance
 
 ![One feature, eighteen checkpoints, four gates](./images/checkpoints.svg)
 
-**The alternative is worth stating, because it is the ordinary way to do it.** Build every backend task, then every frontend task, then test: under that order, the first time anyone finds out whether a feature *works* is after all of them are written — and on a version holding, say, twenty features, a shortfall in the data model is by then twenty features deep, every one of them built on it. **That twenty is an example. How many features a version holds differs per project, and the rest of this section reuses the same one.**
+The alternative is worth stating, because it is the ordinary way to do it. Build every backend task, then every frontend task, then test: under that order, the first time anyone finds out whether a feature *works* is after all of them are written — and on a version holding, say, twenty features, a shortfall in the data model is by then twenty features deep, every one of them built on it. That twenty is an example. How many features a version holds differs per project, and the rest of this section reuses the same one.
 
 | | Layer by layer | Feature by feature |
 |---|---|---|
@@ -91,9 +91,9 @@ One feature goes through its spec, its backend, its frontend and then acceptance
 
 The cost is real and it is accepted deliberately: bringing a container stack up per feature is cheap next to unwinding those twenty features built on a wrong table.
 
-**The regression net is cumulative, which is what makes the middle row work.** At every gate, [`/hora-accept`](../kit/skills/hora-accept/SKILL.md) runs the **unit suites across whole repositories** — so a feature that breaks an earlier one fails in the run that broke it. The expensive half, driving screens in a real browser, is scoped to the gate's own feature there; every feature is driven end to end once, at the whole-version sweep, or earlier on explicit request.
+The regression net is cumulative, which is what makes the middle row work. At every gate, [`/hora-accept`](../kit/skills/hora-accept/SKILL.md) runs the unit suites across whole repositories — so a feature that breaks an earlier one fails in the run that broke it. The expensive half, driving screens in a real browser, is scoped to the gate's own feature there; every feature is driven end to end once, at the whole-version sweep, or earlier on explicit request.
 
-**Building in this order puts one requirement on the spec, and it is easy to miss: a feature's acceptance criteria have to be meetable at that feature's own gate.** A criterion naming a feature built later cannot be met at any gate that reads it — and four runs act on one anyway, because checkpoint 1 builds from the criteria, 6 and 16 write a test for each of them, and 18 fails the feature and sends the run into somebody else's checkpoint. **So acceptance criteria come in two tiers.** A feature's own are checked against a product in which that feature and its `depends` are built and nothing later is; a behavior spanning several features goes to the spec's `Version acceptance criteria` section, which no gate reads and the whole-version sweep checks. A criterion in the wrong tier is a `forward-reference` stop at [`/hora-plan`](../kit/skills/hora-plan/SKILL.md), fixed by reordering the features or by moving the behavior up a tier — and the same check catches the other half of it, a written order that contradicts a `depends`.
+**Building in this order puts one requirement on the spec, and it is easy to miss: a feature's acceptance criteria have to be meetable at that feature's own gate.** A criterion naming a feature built later cannot be met at any gate that reads it — and four runs act on one anyway, because checkpoint 1 builds from the criteria, 6 and 16 write a test for each of them, and 18 fails the feature and sends the run into somebody else's checkpoint. So acceptance criteria come in two tiers. A feature's own are checked against a product in which that feature and its `depends` are built and nothing later is; a behavior spanning several features goes to the spec's `Version acceptance criteria` section, which no gate reads and the whole-version sweep checks. A criterion in the wrong tier is a `forward-reference` stop at [`/hora-plan`](../kit/skills/hora-plan/SKILL.md), fixed by reordering the features or by moving the behavior up a tier — and the same check catches the other half of it, a written order that contradicts a `depends`.
 
 ---
 
@@ -117,7 +117,7 @@ Not everything can be delegated to a subagent, and the line is not about difficu
 
 **`hora-digester` writes one file and reads everything else.** Its output is `.hora/digests/<skill-name>.md`, and the header names the package it was derived from and that package's version — so a digest is used only while it matches what is installed, and an update of the package it came from leaves each of its digests to be rewritten before any is read again. The skill itself stays the authority: an implementer opens it the moment its digest leaves a question open.
 
-**Why the agents are so tightly bounded:** every one of those prohibitions removes a way for two writers to collide, or for a decision to be made where nobody can see it.
+Why the agents are so tightly bounded: every one of those prohibitions removes a way for two writers to collide, or for a decision to be made where nobody can see it.
 
 ---
 
@@ -185,7 +185,7 @@ There is no state file. **The state is `.hora/`, and its checkboxes are the stat
 - [x] 7. Worker  <!-- n/a: this feature triggers no background job -->
 ```
 
-**Three states, and only three:** not passed, passed, and not-applicable-with-a-reason. A bare `n/a` is not a state — it is a skipped checkpoint wearing the mark of a cleared one. The full list, with each checkpoint's exit condition, is in [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md).
+Three states, and only three: not passed, passed, and not-applicable-with-a-reason. A bare `n/a` is not a state — it is a skipped checkpoint wearing the mark of a cleared one. The full list, with each checkpoint's exit condition, is in [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md).
 
 ---
 
@@ -225,7 +225,7 @@ Every git operation happens in the main session — `/hora` itself, or a skill i
 
 **Checkpoint 17 is the one that falls outside the table.** The local end-to-end environment lives in the backend row, whose feature branch merged eight checkpoints earlier — so its changes go on their own `update/e2e-<what>-for-<feature-id>` branch, cut and merged like any other `update/` ([`commits.md`](../kit/skills/hora/references/commits.md)).
 
-**Why a dependency gets its own branch:** `package-lock.json` is the file two changes cannot both edit cleanly. One change at a time, merged before the next starts, is how a human team avoids that conflict, and it is how this does too.
+Why a dependency gets its own branch: `package-lock.json` is the file two changes cannot both edit cleanly. One change at a time, merged before the next starts, is how a human team avoids that conflict, and it is how this does too.
 
 **A hotfix is the one trunk that does not come from `release/<version>`.** `/hora-hotfix` cuts `hotfix/<hotfix-id>` from `main` and merges it back into `main`, and nothing is ever cut from it — a fix needing a branch of its own is not a hotfix. `/hora` then rebases any open `release/<version>` onto the new `main` ([`commands.md`](./commands.md), `/hora-hotfix`).
 
@@ -245,7 +245,7 @@ Giving each parallel task its own branch would fix it — except **a single work
 
 **Until that is genuinely resolved, serial is not a cautious default — it is the only one that commits correctly.**
 
-**The order also makes parallelism worth much less than it sounds.** The unit is not a small task; it is a feature that ends at an acceptance run over the whole product. There is not much left to overlap.
+The order also makes parallelism worth much less than it sounds. The unit is not a small task; it is a feature that ends at an acceptance run over the whole product. There is not much left to overlap.
 
 **A checkpoint's units clear both halves of that problem, which is why they are the one thing that does run at once** ([`hora-build/SKILL.md`](../kit/skills/hora-build/SKILL.md)). A unit is smaller than a commit: every unit of checkpoint 6 lands in the gate's single commit, so there is no earlier commit for a later unit's work to leak into. And the folder they share is regenerated by the main session once they have all finished, so no unit writes the aggregation file at all. The dependency case keeps its serial answer — a unit that needs one reports it, and `/hora-build` installs it on its own branch before the work continues.
 
@@ -272,7 +272,7 @@ read the code, draft what it shows, show it, let somebody confirm it   allowed
 read the code and write the requirement it implies                     forbidden
 ```
 
-**Which is why every reading goes out in one of three forms, and they are never phrased alike:**
+Which is why every reading goes out in one of three forms, and they are never phrased alike:
 
 | | | What the person judges |
 |---|---|---|
@@ -280,7 +280,7 @@ read the code and write the requirement it implies                     forbidden
 | **a proposal** | "I suggest this. It is yours to decide." | take it, or not |
 | **a question** | "Nothing decides this. What is it?" | what it is |
 
-**The mixing that matters runs one way.** A check dressed as a proposal costs a false approval over something that was true anyway. **A proposal dressed as a check puts the kit's own idea into `specs/` as an existing fact** — and nothing downstream can tell it apart from something read off the real system. That is the failure this whole distinction exists to prevent, and it is at its most tempting on an adopted project, where what exists and what is obviously missing turn up in the same breath.
+The mixing that matters runs one way. A check dressed as a proposal costs a false approval over something that was true anyway. **A proposal dressed as a check puts the kit's own idea into `specs/` as an existing fact** — and nothing downstream can tell it apart from something read off the real system. That is the failure this whole distinction exists to prevent, and it is at its most tempting on an adopted project, where what exists and what is obviously missing turn up in the same breath.
 
 **What no reading ever settles is intent.** Which operations exist is a fact; who they are for, who *should* be allowed to call them, and how much of a feature counts as finished are not in the tree at all. Those are asked, always — with the evidence laid out and nothing recommended.
 
@@ -304,7 +304,7 @@ read the code and write the requirement it implies                     forbidden
 
 **Going back is normal, and it is not a failure.** A stage that turns up something an earlier one got wrong says so, names the stage, and the run returns there. Stage 7 exists to do exactly that, and it never patches a shortfall in place — patching in place is how a document ends up with a use case that no stage ever walked against a data model.
 
-**The same table is what brings a build finding back here.** A finding at checkpoint 2, 9, 11 or 18 that turns out to be a shortfall in the spec rather than in the code returns to the stage that owns it, instead of being fixed where it was found. Which finding returns where is in [`stages.md`](../kit/skills/hora-spec/references/stages.md), "What sends a run back into a stage" — along with every stage's exit condition and the sub-skill that runs it.
+The same table is what brings a build finding back here. A finding at checkpoint 2, 9, 11 or 18 that turns out to be a shortfall in the spec rather than in the code returns to the stage that owns it, instead of being fixed where it was found. Which finding returns where is in [`stages.md`](../kit/skills/hora-spec/references/stages.md), "What sends a run back into a stage" — along with every stage's exit condition and the sub-skill that runs it.
 
 **No stage may write another stage's section.** Stage 4 does not write use cases; stage 1 does not choose a column type. A stage that reaches into the next one's section has decided something before the conversation that was supposed to decide it.
 
@@ -346,7 +346,7 @@ read the code and write the requirement it implies                     forbidden
 
 ## The state of a spec run
 
-**Same model as Part 1, one directory over.** `/hora-spec` records where it got to in `.hora/spec/<version>/_stages.md`; there is no separate state file, the checkboxes are the state, and `git log .hora/` is the history.
+Same model as Part 1, one directory over. `/hora-spec` records where it got to in `.hora/spec/<version>/_stages.md`; there is no separate state file, the checkboxes are the state, and `git log .hora/` is the history.
 
 ```markdown
 1. [x] Use cases and actors
@@ -355,7 +355,7 @@ read the code and write the requirement it implies                     forbidden
 5. [x] Screens and interaction  <!-- n/a: this version declares no frontend -->
 ```
 
-**Three states, and only three** — not passed, passed, and not-applicable-with-a-written-reason, exactly as in a feature file. The reason is checked against that stage's own "not applicable when" line, never against "the requester did not want to talk about it".
+Three states, and only three — not passed, passed, and not-applicable-with-a-written-reason, exactly as in a feature file. The reason is checked against that stage's own "not applicable when" line, never against "the requester did not want to talk about it".
 
 **Only stage 5 has such a line at all** — a version that declares no frontend repository, an API-only release for a phone app, say. Every other stage is passed. A release with no authentication still has to say so at stage 6, and why; a version with no backend row still has to declare that at stage 4.
 
