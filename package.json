@@ -52,5 +52,9 @@
   "overrides": {
     "brace-expansion@5": "^5.0.9",
     "flatted": "^3.4.2"
+  },
+  "allowScripts": {
+    "fsevents": false,
+    "unrs-resolver": false
   }
 }
