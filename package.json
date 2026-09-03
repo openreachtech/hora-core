@@ -55,5 +55,6 @@
   },
   "allowScripts": {
     "fsevents": false,
+    "unrs-resolver": false
   }
 }
