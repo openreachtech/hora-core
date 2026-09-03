@@ -6,10 +6,13 @@
 
 How Hora works — the method this package carries. Every document here is a pair, `x.md` and `x.ja.md`, and each opens with a link to its twin.
 
-**Start with [`architecture.md`](./architecture.md).** It sets out the two halves — deciding what gets built, then building it — and the rest read against that shape.
+**Starting a project? [`quick-start.md`](./quick-start.md) is the shortest route** — what you want goes into two directories, and `/hora` writes the spec with you out of it.
+
+**Start with [`architecture.md`](./architecture.md) to understand the method.** It sets out the two halves — deciding what gets built, then building it — and the rest read against that shape.
 
 | Document | What it settles |
 |---|---|
+| [`quick-start.md`](./quick-start.md) | **the shortest route to a spec.** The three drop-off directories, what putting a file in each one says, and what `/hora` does with them |
 | [`architecture.md`](./architecture.md) | **how work gets executed.** The four layers and where each ships from, one feature through eighteen checkpoints, re-entrancy, the git model, and the seven stages a spec is written through |
 | [`commands.md`](./commands.md) | **what each command does.** Reads, writes, stops-when and run-it-directly for all six, plus what a session actually looks like |
 | [`adopting.md`](./adopting.md) | **putting the kit on a project that already exists.** Which of the two adoptions it is, the six steps, and what to watch for |
