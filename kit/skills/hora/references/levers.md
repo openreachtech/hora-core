@@ -85,6 +85,7 @@
 | the sweep entry alone cleared when the version's own criteria change | `../../hora-plan/SKILL.md`, "6. Reconcile on re-entry" |
 | a not-applicable mark cleared the moment its reason stops holding | `../../hora-build/references/checkpoints.md` |
 | the verifier skipped where a passing suite already proves the exit condition | `../../hora-build/SKILL.md`, "Step 9 — when the suite is the verification (checkpoints 6 and 16)" |
+| the change set a verifier is handed, at checkpoint 8 and at step 9 | `../../hora-build/SKILL.md`, "The change set of a checkpoint" |
 | a checkpoint's units taken by one agent each, sharing the gate's one commit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |
 | a matched skill read through a digest pinned to the package version | `../../hora-build/SKILL.md`, "Step 3 — the digest each matched skill is read through"; `structure.md`, "How the match is made" |
 | one row-id prefix allocated per feature and handed to every unit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |

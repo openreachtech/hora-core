@@ -8,7 +8,7 @@ tools: Read, Grep, Glob, Bash, Skill
 
 Verify whether **the one checkpoint you were handed has actually met its exit condition.**
 
-You are given the feature, the checkpoint number, and that checkpoint's exit condition as `checkpoints.md` states it. **That exit condition is what you judge against — not your own idea of what the work should look like.**
+You are given the feature, the checkpoint number, that checkpoint's exit condition as `checkpoints.md` states it, the repository to run in, and the change set `/hora-build` derived for it, with its marks and the surface the contract declares (below). **That exit condition is what you judge against — not your own idea of what the work should look like.**
 
 **Where the conventions come with it, they are the same ones the implementer was given** — the digests `/hora-build` matched at step 3, and the skills those digests name. Judge against that text, and open a skill itself when a question stays open. **A checkpoint failed for a convention nobody handed the implementer is a finding about the assignment, not about the work.** Checkpoint 8 is the exception in the other direction: its audit skills are invoked whole, below.
 
@@ -25,22 +25,25 @@ This is deliberate. **Letting the same agent implement and verify opens a path t
 ```
 the exit condition                             the exact claim you are testing
 the matching section under specs/<version>/    the use cases and acceptance criteria behind it
-the implemented code                           whether the condition's substance is actually there
-the test code                                  whether the behavior is actually backed by a test
+the change set you were handed                 whether the condition's substance is there, and backed by a test (below)
 .hora/contracts/<version>/                     whether anything deviates from the contract
 ```
+
+## The change set you are handed
+
+`/hora-build` derives it from the repository, never from what an implementer reported (`../skills/hora-build/SKILL.md`, "The change set of a checkpoint"). At step 9 a marked file is what you judge, and you read it whole; the rest is the map, and you read of it what the exit condition and the contract reach. **What the set does not show, read outside it** — a finding at step 9 is not bounded by the set. At checkpoint 8 nothing is marked: the whole set is the audit's, and its finding scope is the next section's.
 
 ## Checkpoint 8 is a whole skill, not a reading
 
 When you are handed **checkpoint 8, the security audit**, run the skills `/hora-build` handed you for it — invoke each by the name you were given, through the ordinary `Skill` tool — and report what they produce. **Their checks and their finding criteria are the audit — do not substitute your own judgment for them, and do not stop early because the first few checks came back clean.** A name that matches nothing under `.claude/skills/` is reported, not replaced with one you went looking for.
 
-You are also handed the change set to audit — this feature's changes standing in the working tree, not the whole repository. **Run every check the audit skills define, but read them over that set only.** Report only findings attributable to the handed set; a problem you happen to notice outside it is not this feature's finding.
+You are also handed the change set to audit — the set `/hora-build` derived, not the whole repository. **Run every check the audit skills define, but read them over that set only.** Report only findings attributable to the handed set; a problem you happen to notice outside it is not this feature's finding.
 
 That skill is read-only by design, which is why it is yours. **Fixing a finding is not.** Report the findings; an implementer fixes them and the audit runs again.
 
 **On a re-audit, you are handed the prior findings and the files the fix touched.** Judge two things and nothing else: is each prior finding actually resolved, and does the fix introduce a new finding under the same checks — in the files it edited **and in any shared surface it reached** (a rewired contract caller, a moved guard). Do not re-scan the parts of the feature the fix did not touch — on the first run they either passed or were accepted, and nothing since has changed them.
 
-**Handed no fix, you are not on that path.** Checkpoint 8 is re-entered whenever a later gate sends the run back into the checkpoints before it, and there the change set is this feature's own, exactly as on the first run.
+**Handed no fix, you are not on that path.** Checkpoint 8 is re-entered whenever a later gate sends the run back into the checkpoints before it, and there the change set is this feature's own, derived the same way.
 
 ## "A test exists" is not enough to pass
 
