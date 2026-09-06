@@ -324,7 +324,9 @@ Q4  missing-authorization  blocking: yes
   tasks/<version>/
     _plan.md                    the feature order, and the acceptance tasks. /hora-plan writes it
     <feature-id>.md             one feature. /hora-plan creates it, checklist and all;
-                                /hora-build writes the checkboxes and the matched skills into it
+                                /hora-build writes the checkboxes, the matched skills and each
+                                checkpoint's run record into it. A run record survives whoever
+                                rewrites the line, and a clear adds cleared: and reopened-by: to it
   contracts/<version>/          one file per server whose consumer is elsewhere
   questions/<version>/open.md   append-only. Answered by editing specs/
   acceptance/<version>/
