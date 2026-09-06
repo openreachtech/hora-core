@@ -109,7 +109,8 @@ Report the decision in one line before starting work — "building #attendance, 
 9. Verify the exit condition actually holds — with hora-verifier for anything
    a reading of the code can settle, in conversation for the four gates that
    check against use cases. At 6 and 16, where step 8's suite is itself the
-   proof, the verifier is usually skipped (below)
+   proof, the verifier is usually skipped (below). Met or not, add this run
+   to the line's run record (below)
 10. Write [x] into the feature file. Commit at the gate boundary, not here
 11. Move to the next checkpoint
 ```
@@ -144,6 +145,25 @@ Report the decision in one line before starting work — "building #attendance, 
 **Record it even when nothing matched.** An empty list is the evidence that the gate ran without its conventions; no list at all is indistinguishable from a checkpoint nobody thought about. Report the gap by name in the closing report too.
 
 **Never let an agent do this matching.** An agent would pick differently on a rerun, and nothing downstream could say which set the first run used.
+
+### A checkpoint line's run record
+
+A checkpoint line carries a second comment at its end, holding what running the checkpoint cost. The first comment stays exactly as it is: `/hora-plan` reads `<!-- n/a: … -->` by its text.
+
+```markdown
+- [x] 6. Actual API  <!-- skills: …; digests: … --> <!-- cleared: 1; reopened-by: 9; agents: 4; agent-time: 840s; verify-time: 240s -->
+```
+
+| Field | Meaning |
+|---|---|
+| `cleared:` | how many times this line went back to `[ ]`. Omitted while it is 0 |
+| `reopened-by:` | who cleared it, in order |
+| `agents:` | how many hora-implementer and hora-verifier agents this line started, over every run |
+| `agent-time:` | seconds of wall clock from starting them to the last one returning, over every run |
+| `verify-time:` | the hora-verifier share of `agent-time:` |
+| `agent-tokens:`, `verify-tokens:` | the same split, only where the Agent tool reports tokens |
+
+**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:` and `reopened-by:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
 
 ### Step 3 — the digest each matched skill is read through
 
