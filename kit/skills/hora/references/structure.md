@@ -1,6 +1,6 @@
 # What every hora skill assumes
 
-`/hora`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept` and `/hora-hotfix` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+`/hora`, `/hora-fast`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept` and `/hora-hotfix` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
 
 ---
 
@@ -38,7 +38,7 @@
 
 **Stack names are the same copy too.** A boilerplate, a framework, a database, a queue — written anywhere in a hora file, even as an example — is a fact the handbook already owns, and it goes stale the same silent way. Examples in hora files use roles (`backend`, `frontend-admin`) and kinds of work, never stacks.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-fast`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
@@ -327,6 +327,8 @@ Q4  missing-authorization  blocking: yes
                                 /hora-build writes the checkboxes, the matched skills and each
                                 checkpoint's run record into it. A run record survives whoever
                                 rewrites the line, and a clear adds cleared: and reopened-by: to it
+    _fast.md                    the parallel scheduler's record: who chose it, the limit, and the
+                                foundation with its run record. /hora-fast writes it
   contracts/<version>/          one file per server whose consumer is elsewhere
   questions/<version>/open.md   append-only. Answered by editing specs/
   acceptance/<version>/

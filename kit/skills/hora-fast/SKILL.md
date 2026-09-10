@@ -1,6 +1,6 @@
 ---
 name: hora-fast
-description: Build a version's features several at a time, each in its own git worktree, after the parts they share have been built once. Uses the same spec, plan, feature files and acceptance as /hora, and replaces only the scheduling. Invoked instead of /hora, by an explicit /hora-fast, when one feature at a time does not fit the date.
+description: Build a version's features several at a time, each in its own git worktree, after the parts they share have been built once. Uses the same spec, plan, feature files and acceptance as /hora, and replaces only the scheduling. Invoked instead of /hora, by an explicit /hora-fast, when one feature at a time is too slow for the version.
 ---
 
 # hora-fast
@@ -27,22 +27,23 @@ Read `../hora/references/structure.md` first, then `../hora-build/references/che
 
 ---
 
-## Whether this is the right skill
+## What to say before starting
 
-Run the equipment check `/hora` runs (`../hora/SKILL.md`, "Whether hora can start at all"). Then the arithmetic:
+Run the equipment check `/hora` runs (`../hora/SKILL.md`, "Whether hora can start at all"). Then estimate what `/hora` would take from here, and say it:
 
 ```
-pace       seconds per feature, from the run records of the features already
-           done in this version (agent-time: summed over a feature's lines),
-           or from the previous version while none is done
+pace       seconds per feature: wall-time: summed over a feature's lines, from
+           the run records of the features already done in this version, or
+           from the previous version while none is done
 remaining  features in _plan.md still [ ]
-days       the date, from whoever invoked this. It is not in the spec, and it
-           is never inferred
 
-pace x remaining <= days   -> say so, and run /hora instead
+pace x remaining            what /hora would take from here
+its share on 1, 2, 9, 11    what neither scheduler shortens
 ```
 
-**The run record measures agents, not people.** Checkpoints 1, 2, 9 and 11 run in conversation under either scheduler, so a version that waits mostly on a person gains nothing here. Say so when that is the case.
+**Ask whether there is a date. Do not assume one.** Most versions have none, and wanting the version sooner is reason enough to be here. Where a date exists and the serial estimate fits it, say so; the person chooses which scheduler runs.
+
+**Read the four conversation lines apart.** `wall-time:` on checkpoints 1, 2, 9 and 11 is mostly a person answering, and it is the same under either scheduler. A version whose time sits mostly on those four lines gains little here. Say so when the records show it.
 
 **A person chooses this skill by invoking it, and the invocation is the whole decision** (`../hora/references/structure.md`, "Where a lever lives", question 2). The record says who chose it ("The record", below).
 
@@ -291,7 +292,7 @@ After a drain, every feature is at a gate's entrance and every main working copy
 
 **A drain finishes gates rather than moving features back, because `/hora` has room for one feature.** The mirror of the move above — stash in the worktree, remove it, switch the main copy, pop — would spare one feature its remaining checkpoints. Add it when a drain proves slow.
 
-**Skipping the drain fails loudly.** `/hora` builds features that have no worktree as usual, and stops at git the first time it picks one that has. The parked worktrees wait until this skill runs again. A guard line in `/hora`'s step 0 would turn that stop into a sentence ("What this asks of hora"); it is a courtesy.
+**Skipping the drain fails loudly.** `/hora` builds features that have no worktree as usual, and stops at git the first time it picks one that has. The parked worktrees wait until this skill runs again. `/hora`'s step 0 turns that stop into a sentence.
 
 ---
 
@@ -380,21 +381,6 @@ git status --short --branch for the main working copy AND every open
   worktree of every repository. The outer git status sees none of them
 what a drain would have to finish, if /hora is to take over
 ```
-
----
-
-## What this asks of hora
-
-Edits the other files need before this skill ships. None is made here.
-
-| File | Edit |
-|---|---|
-| `../hora/references/structure.md`, "What lives in `.hora/`" | one row for `tasks/<version>/_fast.md` |
-| `../hora/references/levers.md` | rows for: the scheduler chosen at the invocation; a checkpoint skipped on instruction; the drain |
-| `../hora-build/SKILL.md`, "A checkpoint line's run record" | `wall-time:` per line, so the arithmetic above has its number |
-| `../hora/SKILL.md`, "The shape of a run" | one line naming this skill as the alternative scheduler, and where it is chosen |
-| `../hora/SKILL.md`, "Deciding where you are", step 0 | the courtesy guard: a worktree under `.worktrees/` in any repository stops the run and points at a drain through `/hora-fast` |
-| `../hora-accept/SKILL.md`, "What is in scope" | the gate-run row reads "checkpoint 18 of `/hora-build`"; it is checkpoint 18 of this skill too |
 
 ---
 

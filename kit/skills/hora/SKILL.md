@@ -37,6 +37,8 @@ Read `references/structure.md` before anything else — the repository layout, w
 
 **Serial down to the checkpoint.** No feature ever runs alongside another, and no checkpoint alongside another checkpoint.
 
+**`/hora-fast` is the other scheduler.** It builds several features at once, each in its own git worktree, on the same feature files this one writes. A person chooses it by invoking it instead of `/hora` (`../hora-fast/SKILL.md`).
+
 **Inside a checkpoint, its units do run together.** Five of the eighteen divide into units whose files are exclusive — a table, a module, an operation, a component, a screen — and each gets an implementer of its own. The checkpoint stays one gate with one exit condition (`../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units").
 
 ---
@@ -76,7 +78,11 @@ With that settled, do this every time — a fresh start and a restart alike.
 0. git fetch origin --prune, for the hora repository and every declared row
    that already exists. Then check for a hotfix that landed on main
    (references/commits.md, "Keeping release/<version> current"), and read
-   .hora/hotfix/ for any record whose debt: still reads open
+   .hora/hotfix/ for any record whose debt: still reads open.
+   Then git -C <row> worktree list, for every declared row: a worktree under
+   .worktrees/ is a feature /hora-fast has in flight. Stop, and say to drain
+   it through /hora-fast (../hora-fast/SKILL.md, "Switching between the two
+   schedulers")
 
 1. Does the target version have a spec at all — a specs/<version>/spec.md with
    content in it?                             if not → /hora-spec.
