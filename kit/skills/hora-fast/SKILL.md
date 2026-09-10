@@ -1,6 +1,6 @@
 ---
 name: hora-fast
-description: Build a version's features several at a time, each in its own git worktree, after the parts they share have been built once. Uses the same spec, plan, feature files and acceptance as /hora, and replaces only the scheduling. Invoked instead of /hora, by an explicit /hora-fast, when one feature at a time does not fit the date.
+description: Build a version's features several at a time, each in its own git worktree, after the parts they share have been built once. Uses the same spec, plan, feature files and acceptance as /hora, and replaces only the scheduling. Invoked instead of /hora, by an explicit /hora-fast, when one feature at a time is too slow for the version.
 ---
 
 # hora-fast
@@ -27,22 +27,23 @@ Read `../hora/references/structure.md` first, then `../hora-build/references/che
 
 ---
 
-## Whether this is the right skill
+## What to say before starting
 
-Run the equipment check `/hora` runs (`../hora/SKILL.md`, "Whether hora can start at all"). Then the arithmetic:
+Run the equipment check `/hora` runs (`../hora/SKILL.md`, "Whether hora can start at all"). Then estimate what `/hora` would take from here, and say it:
 
 ```
 pace       seconds per feature: wall-time: summed over a feature's lines, from
            the run records of the features already done in this version, or
            from the previous version while none is done
 remaining  features in _plan.md still [ ]
-days       the date, from whoever invoked this. It is not in the spec, and it
-           is never inferred
 
-pace x remaining <= days   -> say so, and run /hora instead
+pace x remaining            what /hora would take from here
+its share on 1, 2, 9, 11    what neither scheduler shortens
 ```
 
-**Read the four conversation lines apart.** `wall-time:` on checkpoints 1, 2, 9 and 11 is mostly a person answering, and it is the same under either scheduler. A version whose time sits mostly on those four lines gains nothing here. Say so when the records show it.
+**Ask whether there is a date. Do not assume one.** Most versions have none, and wanting the version sooner is reason enough to be here. Where a date exists and the serial estimate fits it, say so; the person chooses which scheduler runs.
+
+**Read the four conversation lines apart.** `wall-time:` on checkpoints 1, 2, 9 and 11 is mostly a person answering, and it is the same under either scheduler. A version whose time sits mostly on those four lines gains little here. Say so when the records show it.
 
 **A person chooses this skill by invoking it, and the invocation is the whole decision** (`../hora/references/structure.md`, "Where a lever lives", question 2). The record says who chose it ("The record", below).
 

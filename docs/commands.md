@@ -6,7 +6,7 @@
 
 The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
-**In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a date is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
+**In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
 **Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
 
@@ -460,7 +460,7 @@ The record names the features the fix touched. On the next run, `/hora` reports 
 | **Reads** | everything `/hora` reads, plus `git worktree list` in every declared repository |
 | **Writes** | everything `/hora` and `/hora-build` write, in the same form, plus `.hora/tasks/<version>/_fast.md` — who chose it, the limit, and the foundation |
 | **Stops when** | `/hora` would stop; the stack handbook has no answer for what a second working copy needs; moving a mid-gate feature into a worktree fails |
-| **Run it directly** | always. `/hora` never starts it — whether a date is worth building in parallel is a person's call |
+| **Run it directly** | always. `/hora` never starts it — whether a version is worth building in parallel is a person's call |
 
 ### What it does
 

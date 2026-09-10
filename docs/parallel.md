@@ -4,7 +4,7 @@
 
 *[日本語](./parallel.ja.md)*
 
-The version holds eleven features, the date is three weeks out, and the last version's pace says one feature takes four days. The normal route — one feature through eighteen checkpoints, accepted, then the next — is the right route, and it does not fit.
+The version holds eleven features, the last version's pace says one feature takes four days, and nobody wants to wait six weeks. The normal route — one feature through eighteen checkpoints, accepted, then the next — is the right route, and it is slow.
 
 `/hora-fast` is the other one. **It builds the parts the features share first, then builds the features side by side, each in its own git worktree, and verifies the version live once at the end.** The spec, the plan, the feature files and the acceptance records are exactly what `/hora` writes, so either scheduler can continue what the other started.
 
@@ -13,7 +13,7 @@ The version holds eleven features, the date is three weeks out, and the last ver
 /hora-fast   the shared files once  →  features side by side, 18 each  →  one live sweep
 ```
 
-**`/hora` never starts it.** Whether a date is worth building in parallel is a person's call, so you type `/hora-fast` yourself.
+**`/hora` never starts it.** Whether to build in parallel is a person's call, so you type `/hora-fast` yourself.
 
 ---
 
@@ -34,7 +34,7 @@ The version holds eleven features, the date is three weeks out, and the last ver
 
 ## When it pays, and when it cannot
 
-The skill does the arithmetic before anything else: the measured pace per feature, times the features remaining, against the days left. **When that fits, it says so and runs `/hora` instead.** Parallel building has a cost, listed below, and a version that fits serially should not pay it.
+The skill estimates before anything else: the measured pace per feature, times the features remaining, is what `/hora` would take from here. It says that number, and it asks whether there is a date. **It does not assume one.** Most versions have none, and wanting the version sooner is reason enough. Where a date exists and the serial estimate fits it, the skill says so, and the person chooses — parallel building has a cost, listed below, and a version that fits serially may prefer not to pay it.
 
 The pace comes from the run record every checkpoint line carries — `wall-time:`, the seconds from entering a checkpoint to marking it. Four of the eighteen are conversations: 1, 2, 9 and 11 put the use cases to a person, and their `wall-time:` is mostly that person answering.
 
