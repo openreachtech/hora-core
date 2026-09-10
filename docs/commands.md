@@ -4,9 +4,9 @@
 
 *[日本語](./commands.ja.md)*
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
-**In normal use you only ever type `/hora`.** It decides which of the others to run. **The one it never starts is `/hora-hotfix`** — whether something is an emergency is a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
+**In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a date is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
 **Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
 
@@ -23,6 +23,7 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 - [/hora-build](#hora-build)
 - [/hora-accept](#hora-accept)
 - [/hora-hotfix](#hora-hotfix)
+- [/hora-fast](#hora-fast)
 - [What a session actually looks like](#what-a-session-actually-looks-like)
 - [Where to go next](#where-to-go-next)
 
@@ -450,6 +451,41 @@ The record names the features the fix touched. On the next run, `/hora` reports 
 
 ---
 
+## `/hora-fast`
+
+**The parallel scheduler.** Several features at once, each in its own git worktree, after the files they share have been built once. [`parallel.md`](./parallel.md) walks the whole route; this is the summary. Same spec, same plan, same feature files, same acceptance as `/hora` — only the order changes.
+
+| | |
+|---|---|
+| **Reads** | everything `/hora` reads, plus `git worktree list` in every declared repository |
+| **Writes** | everything `/hora` and `/hora-build` write, in the same form, plus `.hora/tasks/<version>/_fast.md` — who chose it, the limit, and the foundation |
+| **Stops when** | `/hora` would stop; the stack handbook has no answer for what a second working copy needs; moving a mid-gate feature into a worktree fails |
+| **Run it directly** | always. `/hora` never starts it — whether a date is worth building in parallel is a person's call |
+
+### What it does
+
+```
+0-4. As /hora. Then: is a main working copy on a feature/ branch?
+                                   → move that feature into a worktree
+5.   Is the foundation built?      no → build it: every file two features
+                                        would both write, once, on release/<version>
+6.   Any feature still [ ]?        yes → open a worktree each, up to the limit,
+                                         and run its checkpoints as /hora-build does
+7.   Every feature done, no full sweep yet → /hora-accept, whole-version
+```
+
+**Each feature's checkpoint 18 is the browser-less gate run; the version is driven live once, at the sweep.** That is the design in one sentence, and the sweep is the run it rests on.
+
+### Switching
+
+**To `/hora-fast`: any time.** A feature `/hora` left mid-gate moves into a worktree with its uncommitted work. **Back to `/hora`: say "drain" first.** It finishes every open feature to its gate, merges, and closes the worktrees; then `/hora` starts from its own usual state.
+
+### What it gives up
+
+A regression is caught at the merge instead of at the checkpoint that caused it. Screens are driven once, at the sweep, instead of at each feature's gate. Several features reach a conversation checkpoint in the same hour. Each feature in flight needs a second working copy and a second database.
+
+---
+
 ## What a session actually looks like
 
 ### The first run
@@ -532,6 +568,7 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 | | |
 |---|---|
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
+| the parallel route, end to end | [`parallel.md`](./parallel.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
 | the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |

@@ -142,7 +142,7 @@ Report the decision in one line before starting work — "building #attendance, 
 A checkpoint line carries a second comment at its end, holding what running the checkpoint cost. The first comment stays exactly as it is: `/hora-plan` reads `<!-- n/a: … -->` by its text.
 
 ```markdown
-- [x] 6. Actual API  <!-- skills: …; digests: … --> <!-- cleared: 1; reopened-by: 9; agents: 4; agent-time: 840s; verify-time: 240s -->
+- [x] 6. Actual API  <!-- skills: …; digests: … --> <!-- cleared: 1; reopened-by: 9; agents: 4; agent-time: 840s; verify-time: 240s; wall-time: 1310s -->
 ```
 
 | Field | Meaning |
@@ -152,9 +152,10 @@ A checkpoint line carries a second comment at its end, holding what running the 
 | `agents:` | how many hora-implementer and hora-verifier agents this line started, over every run |
 | `agent-time:` | seconds of wall clock from starting them to the last one returning, over every run |
 | `verify-time:` | the hora-verifier share of `agent-time:` |
+| `wall-time:` | seconds of wall clock from entering the checkpoint to writing its box, or to stopping short, over every run. On 1, 2, 9 and 11 it is mostly a person answering |
 | `agent-tokens:`, `verify-tokens:` | the same split, only where the Agent tool reports tokens |
 
-**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:` and `reopened-by:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
+**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
 
 ### Step 3 — the digest each matched skill is read through
 

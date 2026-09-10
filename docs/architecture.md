@@ -68,6 +68,8 @@ This document is in two parts: Part 1 is `/hora` — the layers, the eighteen ch
 
 **One skill sits outside all four, and it is the only one `/hora` never starts: `/hora-hotfix`.** It decides neither the order of the work nor a gate's exit condition, because whether something is an emergency is a person's call. It is invoked directly, it works on `main` rather than on a release line, and `/hora` rebases the open release lines onto what it produced. It ships in `@openreachtech/hora` like the rest. See [`commands.md`](./commands.md), `/hora-hotfix`, and [`hotfix.md`](./hotfix.md) for the whole route.
 
+**A second skill sits beside `/hora` rather than under it: `/hora-fast`.** It is the other scheduler — the same files, the same checkpoints, several features at once, each in its own git worktree. A person chooses it by invoking it instead of `/hora`. [`parallel.md`](./parallel.md) has the route, and "Why it is serial", below, has what it resolves and what it pays for that.
+
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
 The split between the two packages is the one that surprises people. Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
@@ -241,9 +243,11 @@ Why a dependency gets its own branch: `package-lock.json` is the file two change
 
 > **An aggregation file is rewritten in full by every task that touches its folder.** By the time an earlier task's commit is built from its own file list, that file already carries every later task's contribution. The commit silently absorbs work that is not its own.
 
-Giving each parallel task its own branch would fix it — except **a single working directory can only have one branch checked out at a time**, and this design does not use git worktrees. The same constraint reappears mid-run: when a dependency is discovered partway through, the serial flow pauses that one task, installs it, and rebases; in parallel, several open branches would each need that rebase, which means switching the whole working directory out from under whatever else is mid-edit.
+Giving each parallel task its own branch would fix it — except **a single working directory can only have one branch checked out at a time**, and `/hora` does not use git worktrees. The same constraint reappears mid-run: when a dependency is discovered partway through, the serial flow pauses that one task, installs it, and rebases; in parallel, several open branches would each need that rebase, which means switching the whole working directory out from under whatever else is mid-edit.
 
-**Until that is genuinely resolved, serial is not a cautious default — it is the only one that commits correctly.**
+**Without worktrees, serial is not a cautious default — it is the only order that commits correctly.**
+
+**`/hora-fast` is the resolution, and it pays for it elsewhere.** Each feature gets a git worktree of its own, so each has its own branch, its own commits and its own rebase. What that costs — the shared files built first, a database per feature, a regression attributed at the merge instead of at the checkpoint — is in [`parallel.md`](./parallel.md). `/hora` stays the default, because it is the order that finds a regression one commit old.
 
 The order also makes parallelism worth much less than it sounds. The unit is not a small task; it is a feature that ends at an acceptance run over the whole product. There is not much left to overlap.
 
@@ -390,6 +394,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 | what a project built with the kit contains, and how to start one | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) |
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
+| the parallel route, end to end | [`parallel.md`](./parallel.md) |
 | the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |

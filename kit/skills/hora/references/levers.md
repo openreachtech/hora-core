@@ -101,6 +101,7 @@
 | a collapsed version's features not taken individually, the sweep closing them | `../../hora-build/SKILL.md`, "Where to start"; `../../hora-plan/SKILL.md`, "collapses to one sweep" |
 | `/hora-setup` invoked only where a declared row is missing | `../SKILL.md`, "Deciding where you are" |
 | checkpoint 18 cleared for the features a hotfix touched | `../../hora-plan/SKILL.md`, "Paying a hotfix's debt" |
+| the foundation derived against the release tip — what the tip already holds is done | `../../hora-fast/SKILL.md`, "The foundation" |
 
 ## In the invocation, and that run's record
 
@@ -121,6 +122,9 @@
 | a person choosing one of H1's three ways forward | `../../hora-hotfix/SKILL.md`, "H1. Admit" |
 | a sub-command invoked directly instead of `/hora` | `../SKILL.md`, "The shape of a run" |
 | one `/hora-spec-*` stage invoked alone | `../../hora-spec/references/stages.md` |
+| the parallel scheduler, chosen for a version by invoking `/hora-fast` | `../../hora-fast/SKILL.md`, "What a person says to this skill" |
+| an interactive checkpoint skipped on instruction, for one feature, once | `../../hora-fast/SKILL.md`, "The interactive checkpoints" |
+| a drain — the parallel run wound down to a gate's entrance | `../../hora-fast/SKILL.md`, "Switching between the two schedulers" |
 
 ## In `request/`
 
