@@ -43,17 +43,18 @@
     "@openreachtech/jest-constructor-spy": "^1.1.2",
     "@openreachtech/jest-deep-containing": "^1.0.2",
     "@openreachtech/jest-expect-each": "^1.0.3",
-    "@openreachtech/mentsu-rootpath": "^1.1.1",
-    "@openreachtech/renchan-env": "^1.0.4",
+    "@openreachtech/mentsu-rootpath": "^1.1.3",
+    "@openreachtech/renchan-env": "^1.0.6",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.5",
-    "jest": "^30.4.2"
+    "jest": "^30.5.1"
   },
   "overrides": {
     "brace-expansion@5": "^5.0.9",
     "flatted": "^3.4.2"
   },
   "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
     "fsevents": false,
     "unrs-resolver": false
   }
