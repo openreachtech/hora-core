@@ -43,7 +43,7 @@
     "@openreachtech/jest-constructor-spy": "^1.1.2",
     "@openreachtech/jest-deep-containing": "^1.0.2",
     "@openreachtech/jest-expect-each": "^1.0.3",
-    "@openreachtech/mentsu-rootpath": "^1.1.1",
+    "@openreachtech/mentsu-rootpath": "^1.1.3",
     "@openreachtech/renchan-env": "^1.0.4",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.5",
