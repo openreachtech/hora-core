@@ -46,7 +46,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 | Invoked as | Unit suites (step 2) | Review scope (steps 3–6) | Written to |
 |---|---|---|---|
-| checkpoint 18 of `/hora-build` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review is **skipped unless explicitly requested, or unless this run is paying a listed feature's deferred acceptance** (below) | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
+| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review is **skipped unless explicitly requested, or unless this run is paying a listed feature's deferred acceptance** (below) | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
 
 **Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
@@ -59,7 +59,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 | Invoked as | The version's own criteria |
 |---|---|
-| checkpoint 18 of `/hora-build` — the feature gate | **not in scope, at any reach** |
+| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | **not in scope, at any reach** |
 | the whole-version sweep | **in scope, all of them** — including the ones earlier versions added, since they stand in the resolved document until somebody removes them |
 
 **A widening does not reach them either.** A widened gate run is still accepting *one feature*, and these criteria are a statement about the version. **Judged at a gate, a criterion spanning three features would fail against a product holding one of them.**

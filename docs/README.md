@@ -17,6 +17,7 @@ How Hora works — the method this package carries. Every document here is a pai
 | [`commands.md`](./commands.md) | **what each command does.** Reads, writes, stops-when and run-it-directly for all six, plus what a session actually looks like |
 | [`adopting.md`](./adopting.md) | **putting the kit on a project that already exists.** Which of the two adoptions it is, the six steps, and what to watch for |
 | [`hotfix.md`](./hotfix.md) | **the emergency route.** What `/hora-hotfix` gives up, its six gates, and how the debt comes back as ordinary work |
+| [`parallel.md`](./parallel.md) | **the parallel route.** What `/hora-fast` builds first, why each feature gets a worktree, what it gives up, and how to switch back |
 | [`writing-style.md`](./writing-style.md) | **how the skills are written.** The three rules the files under `kit/` are held to, and what is never compressed |
 | [`document-style.md`](./document-style.md) | **how these documents are written.** What bold is for, one claim per sentence, the Japanese as its own document, and the structural conventions |
 

@@ -58,7 +58,7 @@ A feature's checkpoints cross repositories. **Each repository gets its own `feat
 
 **What goes into one commit, and how its subject is worded, are not `/hora`'s to state.** The granularity of a commit, which changes are split apart, and whether this repository's subjects are imperative or Conventional Commits are its git conventions, held by an equipped skill and matched at run time (`structure.md`). Below is only what `/hora` adds on top of them.
 
-- **Stamp the spec ID into the commit message.** It is the only way to follow one change across every declared repository
+- **Stamp the spec ID into the commit message**, as one trailer line reading `spec: <version>#<id>`. It is the only way to follow one change across every declared repository, and `/hora-build` finds a landed commit by that exact line (`../../hora-build/SKILL.md`, "The change set of a checkpoint")
 
 ```
 Declare the RpaFlow model
@@ -169,7 +169,7 @@ Never hand-resolve a conflict textually. Redo means reproducing the same intent 
 
 | The commit's own kind | How to redo it |
 |---|---|
-| a feature's implementation commit (carries a `spec: <id>` trailer) | trace `<id>`, clear the checkpoints in `.hora/tasks/<version>/<id>.md` that produced it, and run them again through `/hora-build` against the tree as it stands |
+| a feature's implementation commit (carries a `spec: <version>#<id>` trailer) | trace `<id>`, clear the checkpoints in `.hora/tasks/<version>/<id>.md` that produced it, and run them again through `/hora-build` against the tree as it stands |
 | a `package.json`/`package-lock.json` commit | **stop instead of redoing it, if the commits being caught up on also touch this file.** Re-running `npm install` would silently pick some resolution, with no conflict to surface the disagreement. Report it and wait for a human. Otherwise re-run the same `npm install`/`npm uninstall` against the tree as it stands |
 | a migration commit | **stop instead of redoing it, if the commits being caught up on touch the same table.** The file order and the history order disagree after a rebase, so which migration lands first differs per environment. Report it and wait for a human. Otherwise cherry-pick it unchanged |
 | a conflict-proof file commit | the same distinction: stop and ask if the hotfix side also touches this file; otherwise re-apply the change fresh |

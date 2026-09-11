@@ -72,18 +72,9 @@ Report the decision in one line before starting work — "building #attendance, 
           feature's row-id prefix
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
-          AND the change set to audit: this feature's changes as they stand
-          in this checkpoint's repository, plus the operations and endpoints
-          it declares in .hora/contracts/<version>/. Take the changes from
-          the working tree, never from a commit range — the backend commits
-          do not land until the gate after 9, so a range is empty, or
-          part-filled where a hotfix catch-up already saved some of the work,
-          which is the worse of the two. From inside that repository:
-            base=$(git merge-base release/<version> HEAD)
-            git diff --name-only "$base"             # tracked, since the point
-            git ls-files --others --exclude-standard # the new files, untracked
-          The audit skills run over that set, never the whole repository
-          (below)
+          AND the change set to audit ("The change set of a checkpoint",
+          below). The audit skills run over that set, never the whole
+          repository
 6. Gather the units: regenerate every aggregation file their registrations
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
@@ -107,9 +98,10 @@ Report the decision in one line before starting work — "building #attendance, 
        `lacked-environment` question that names the configuration the run
        died under (below), and stop the feature there
 9. Verify the exit condition actually holds — with hora-verifier for anything
-   a reading of the code can settle, in conversation for the four gates that
-   check against use cases. At 6 and 16, where step 8's suite is itself the
-   proof, the verifier is usually skipped (below)
+   a reading of the code can settle, handed the marked change set (below);
+   in conversation for the four gates that check against use cases. At 6
+   and 16, where step 8's suite is itself the proof, the verifier is usually
+   skipped (below). Met or not, add this run to the line's run record (below)
 10. Write [x] into the feature file. Commit at the gate boundary, not here
 11. Move to the next checkpoint
 ```
@@ -144,6 +136,26 @@ Report the decision in one line before starting work — "building #attendance, 
 **Record it even when nothing matched.** An empty list is the evidence that the gate ran without its conventions; no list at all is indistinguishable from a checkpoint nobody thought about. Report the gap by name in the closing report too.
 
 **Never let an agent do this matching.** An agent would pick differently on a rerun, and nothing downstream could say which set the first run used.
+
+### A checkpoint line's run record
+
+A checkpoint line carries a second comment at its end, holding what running the checkpoint cost. The first comment stays exactly as it is: `/hora-plan` reads `<!-- n/a: … -->` by its text.
+
+```markdown
+- [x] 6. Actual API  <!-- skills: …; digests: … --> <!-- cleared: 1; reopened-by: 9; agents: 4; agent-time: 840s; verify-time: 240s; wall-time: 1310s -->
+```
+
+| Field | Meaning |
+|---|---|
+| `cleared:` | how many times this line went back to `[ ]`. Omitted while it is 0 |
+| `reopened-by:` | who cleared it, in order |
+| `agents:` | how many hora-implementer and hora-verifier agents this line started, over every run |
+| `agent-time:` | seconds of wall clock from starting them to the last one returning, over every run |
+| `verify-time:` | the hora-verifier share of `agent-time:` |
+| `wall-time:` | seconds of wall clock from entering the checkpoint to writing its box, or to stopping short, over every run. On 1, 2, 9 and 11 it is mostly a person answering |
+| `agent-tokens:`, `verify-tokens:` | the same split, only where the Agent tool reports tokens |
+
+**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
 
 ### Step 3 — the digest each matched skill is read through
 
@@ -207,6 +219,30 @@ Report the decision in one line before starting work — "building #attendance, 
 **Capture test output in a file, and read the file.** Output collected behind a pipe lives in memory until the run ends, and a suite can end by taking the whole machine down. Written to a file as it is produced, the output survives to the line where the run stopped.
 
 **A run that dies without a result is the third kind of failure, and it is an environment one.** It is recorded as a `lacked-environment` question, and what makes the record worth writing is the configuration it names: how many workers ran, what per-worker memory ceiling they were given, and what else was resident on the machine. A record without those is "it died", and the next run dies the same way. What the right values *are* is the package's knowledge; naming what this run died under is this skill's job.
+
+### The change set of a checkpoint
+
+What hora-verifier is handed at checkpoint 8, and at step 9 wherever it runs: this feature's change set, derived from the repository, never from what an implementer reported. From inside this checkpoint's repository:
+
+```
+base=$(git merge-base release/<version> HEAD)
+git diff --name-only "$base"                                        # tracked, since the branch point
+git ls-files --others --exclude-standard                            # untracked
+git log --name-only --format= --grep="^spec: <version>#<id>$" HEAD  # landed, on a retake
+```
+
+plus the operations and endpoints this feature declares in `.hora/contracts/<version>/`. The third line is empty until the gate lands, so mid-gate the set is the working tree. It assumes each commit keeps its `spec:` trailer in the history; where the equipped git conventions squash, it comes back empty or wider, and either is absorbed below.
+
+**Mark the set from the reports this session holds, and hand the marks over with it.**
+
+| Mark | Files |
+|---|---|
+| `this-checkpoint` | in the `touchedFiles` of any implementer this checkpoint started — the fix loop's and earlier runs' in this gate included |
+| `unreported` | in the first two lines, in no report of this gate, and not written by this session |
+
+The rest carry no mark. A marked file is what the verifier judges; the rest is the map, and the verifier reads of it what the exit condition and the contract reach. An `unreported` file is neither a question nor a failure: nobody vouched for it, so the verifier reads it. A run entered from a fresh `/hora` invocation holds no earlier reports, so it marks `this-checkpoint` only.
+
+**The set is a starting point, never a ceiling.** What the exit condition requires and the set does not show, the verifier reads outside it.
 
 ### Step 9 — when the suite is the verification (checkpoints 6 and 16)
 
