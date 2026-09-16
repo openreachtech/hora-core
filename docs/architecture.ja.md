@@ -389,7 +389,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 
 | | |
 |---|---|
-| キットで作るプロジェクトが何を持つか、どう始めるか | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) |
+| キットで作るプロジェクトが何を持つか、どう始めるか | Web は [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate)、ネイティブは [`hora-boilerplate-mobile`](https://github.com/openreachtech/hora-boilerplate-mobile) |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 並列経路を最初から最後まで | [`parallel.ja.md`](./parallel.ja.md) |
