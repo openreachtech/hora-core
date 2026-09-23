@@ -177,9 +177,9 @@ A feature answered `not finished` becomes `<!-- authority: to-spec -->` — no `
 "For #attendance I found: 4 resolvers, a migration, 31 tests, and two screens
  that call them. What the tree cannot tell me is whether that is finished.
 
-   spec       the specification exists; no code does
-   backend    the backend work is there
-   frontend   the frontend work is there too
+   spec       nobody can use it yet; only the specification exists
+   backend    it works, but no screen reaches it
+   frontend   somebody can already use it from a screen
    not built  none of it counts as done"
 ```
 

@@ -333,6 +333,7 @@ These are properties of *this run* rather than of the product, so no delegate ow
 | File | Content |
 |---|---|
 | `../hora/references/structure.md` | the layout, the invariants, the division of labor, how a skill is named |
+| `../hora/references/asking.md` | how a finding is put to the person who decides it |
 | `../hora/references/spec-format.md` | `<!-- baseline: inventoried -->`, and **"15. Version acceptance criteria"** — what only a sweep checks |
 | `../hora/references/done-criteria.md` | what "done" means for a checkpoint, a feature and a version |
 | `../hora-build/references/checkpoints.md` | checkpoint 18, and the checkpoints a finding sends the run back to |

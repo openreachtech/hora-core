@@ -17,6 +17,8 @@ This is the stage that reads the backend properly: the migrations, the models, t
 
 **The whole existing data model and operation list goes out as checks, batched per area** — one for the tables, one for the operations, one for what runs outside the request. A person confirming the fourteenth table in a row has stopped reading (`../hora-spec/references/investigation.md`).
 
+**A check on the data model says what the product remembers, not which columns hold it** (`../hora/references/asking.md`, "What changes for the person").
+
 **A feature listed under `Baseline: inventoried` still owes its tables and its operations a row each here.** The section itself carries a name and one line (`../hora/references/spec-format.md`, "`baseline`") — but its tables are in the database everything designed here has to fit around, and its operations sit on a server stage 6 has to state a caller for. It costs almost no exchanges, since those rows sit inside the batched checks above.
 
 | Read it, put it up as a check | Ask, or propose |
@@ -149,6 +151,8 @@ What belongs in the spec is the logical shape:
 ```
 
 **Every operation states its kind, and the kind is never inferred.** `/hora-build` branches on the value at three separate checkpoints. Ask, and write what was said.
+
+**Ask it as what the operation does** — whether it only shows something, or changes something somebody else then sees.
 
 **An input whose fields nobody has decided stops the run.** Writing it anyway means inventing the shape of an API.
 
