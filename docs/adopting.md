@@ -215,7 +215,7 @@ The fourth row is where adoption pays for itself. "Anyone signed in can call thi
 
 **Nothing it reads becomes a requirement on its own.** A reading is shown to you as a check — *"I read it as this; is that right?"* — and only what you confirm or correct is written. What the kit proposes is labelled a proposal, separately, so that a suggestion never enters the document as something the system already does ([`asking.md`](../kit/skills/hora/references/asking.md)).
 
-**Answers are offered as choices wherever they can be.** Existing row counts come with the retention question, current filters come with the authorization question, and what stage 0 found for a feature comes with the `built:` question. You correct far more than you compose.
+**Answers are offered as choices wherever they can be, each described by what it would mean for the product.** Existing row counts come with the retention question, current filters come with the authorization question — stated as what somebody can do today rather than as a filter's name — and what stage 0 found for a feature comes with the `built:` question. You correct far more than you compose.
 
 Two stages earn their keep more here than anywhere else:
 

@@ -154,6 +154,8 @@ These are three different things and they are never phrased alike ([`asking.md`]
 
 **A confirmed check goes in as fact; an approved proposal goes in as your decision.** Mixing them matters in one direction especially: a proposal phrased as a check would put the kit's own idea into the spec as something the system already does, and nothing afterwards could tell them apart.
 
+**Whichever of the three it is, it is put in terms of what changes for you.** "I will link this column to that one — all right?" is a question you can only answer about columns. "You would be able to fill in every entry under one heading at once" is the same decision, asked where you can actually judge it; the design that delivers it follows in a clause. Where nothing you could observe turns on the answer — a repository name, a middleware version — it says so and asks plainly.
+
 **Answers are offered as choices wherever they can be**, so you correct rather than compose — with "other" always available. What is never folded into a choice is approving a section: that is the one place the exact words have to be read.
 
 ### How it writes
