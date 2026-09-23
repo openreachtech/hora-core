@@ -233,6 +233,8 @@ hora  Stage 3. 1.0.0 fixed these, and nothing in the CSV export request
 
 **On a diff version, a stage that carried over is `[x]` with the carry-over written next to it** — `<!-- carried: ... -->`, saying what it was confirmed against.
 
+**Report a stage in one line the moment its box is written** (`../hora/references/structure.md`, "Reporting progress").
+
 **"Decided in conversation, and not visible in `spec.md`" is the part worth the file.** A spec states what the product is; it does not state what it was nearly instead, and the reason a design came out this way is exactly what somebody later needs in order not to undo it.
 
 **"Proposals not taken" stops a run from proposing the same thing every time.** Re-raising a declined proposal every session is how a person learns to say yes without reading.
@@ -307,7 +309,7 @@ When a `blocking: yes` is outstanding, **put what the human has to do first**: w
 | `references/investigation.md` | **the authority on stage 0** — what may be read, what reading never settles, `Sources` and `Annex`, `_assets.md` |
 | `../hora/references/asking.md` | **the authority on how anything is put to a person** |
 | `references/principles.md` | **the thinking this skill applies**, and the boundary against the package's own design skills |
-| `../hora/references/structure.md` | the layout, the invariants, the language rule, how a repository is inspected |
+| `../hora/references/structure.md` | the layout, the invariants, the language rule, how a repository is inspected, how progress is reported |
 | `../hora/references/spec-format.md` | **the authority on the format** of what this skill writes |
 | `specs/skeleton/spec.md` | the blank spec this skill copies |
 | `../hora-plan/SKILL.md` | what happens to the spec next, and the question categories |

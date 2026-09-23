@@ -311,6 +311,18 @@ Q4  missing-authorization  blocking: yes
 
 ---
 
+## Reporting progress
+
+**When a checkpoint or a stage passes, report it in one line, in this shape.**
+
+```
+<checkpoint or stage> passed | <the one fact it established> | <the blocker or decision, or -> what comes next>
+```
+
+**Never restate what the feature file or `_stages.md` already records.** The line replaces narration only. A check, a proposal, a question and a section shown for approval keep the form `asking.md` gives them.
+
+---
+
 ## What lives in `.hora/`
 
 ```
