@@ -178,8 +178,8 @@ A feature answered `not finished` becomes `<!-- authority: to-spec -->` — no `
  that call them. What the tree cannot tell me is whether that is finished.
 
    spec       nobody can use it yet; only the specification exists
-   backend    it works, but no screen reaches it
-   frontend   somebody can already use it from a screen
+   backend    every part of it runs on the server, but no screen reaches it yet
+   frontend   it has its screens in every app it targets
    not built  none of it counts as done"
 ```
 
