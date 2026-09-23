@@ -7,7 +7,7 @@ description: Build one feature by taking it through the eighteen checkpoints —
 
 **Take one feature through the eighteen checkpoints, in order.**
 
-Read `../hora/references/structure.md` (the layout, the invariants, where a command runs) and `references/checkpoints.md` (the checkpoint list itself) before starting. **This skill is read-only on `specs/`; checkpoint 1 is where a problem found there is routed to the two skills that may write it** (`references/checkpoints.md`, checkpoint 1).
+Read `../hora/references/structure.md` (the layout, the invariants, where and how a command runs) and `references/checkpoints.md` (the checkpoint list itself) before starting. **This skill is read-only on `specs/`; checkpoint 1 is where a problem found there is routed to the two skills that may write it** (`references/checkpoints.md`, checkpoint 1).
 
 ## One feature at a time, never two
 
@@ -461,7 +461,7 @@ Checkpoint 18 passing is what finishes a feature. Then:
 | File | Content |
 |---|---|
 | `references/checkpoints.md` | **the eighteen checkpoints** — order, exit conditions, delegates, when each does not apply |
-| `../hora/references/structure.md` | the layout, the invariants, where a command runs, the division of labor |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor |
 | `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | branches, commit granularity, merging, hotfix catch-up |
 | `../hora/references/done-criteria.md` | what "done" means for a checkpoint, a feature and a version |

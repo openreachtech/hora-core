@@ -307,7 +307,7 @@ When a `blocking: yes` is outstanding, **put what the human has to do first**: w
 | `references/investigation.md` | **the authority on stage 0** — what may be read, what reading never settles, `Sources` and `Annex`, `_assets.md` |
 | `../hora/references/asking.md` | **the authority on how anything is put to a person** |
 | `references/principles.md` | **the thinking this skill applies**, and the boundary against the package's own design skills |
-| `../hora/references/structure.md` | the layout, the invariants, the language rule |
+| `../hora/references/structure.md` | the layout, the invariants, the language rule, how a repository is inspected |
 | `../hora/references/spec-format.md` | **the authority on the format** of what this skill writes |
 | `specs/skeleton/spec.md` | the blank spec this skill copies |
 | `../hora-plan/SKILL.md` | what happens to the spec next, and the question categories |
