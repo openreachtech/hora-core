@@ -1,6 +1,6 @@
 # How to ask a person something
 
-**Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, and `/hora-hotfix`.
+**Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, `/hora-build` at the checkpoints that run in conversation, `/hora-accept`, and `/hora-hotfix`.
 
 **There are three ways to put something to a person, and they are not interchangeable.** Each one asks the person to do a different job.
 
@@ -53,6 +53,25 @@ a question   "This is not decided anywhere. What is it?"
 
 ---
 
+## What changes for the person
+
+**Say what the product will do differently, then the design that delivers it, in one clause.** A person asked about a column answers about the column.
+
+| | |
+|---|---|
+| **not legitimate** | "I will link `xxx` to `yyy` by a column. Is that all right?" |
+| **legitimate** | "You would be able to fill in every xxx under one yyy at once — each xxx holding the yyy it belongs to." |
+
+This governs the wording, not the form. A proposal said in what somebody gains is still a proposal, and still says so.
+
+**It reaches the question file too.** What is written there is read by whoever edits `specs/` next, long after the conversation.
+
+**Where nothing observable turns on it, say so and ask in plain technical terms.** A repository name, a middleware version and an `id` collision have no user-facing consequence.
+
+The same standard holds for what a criterion claims, once written (`../../hora-spec-review/SKILL.md`, "2. Is every acceptance criterion observable?").
+
+---
+
 ## Use the question tool, and make the answer selectable
 
 **Default to `AskUserQuestion` rather than free prose.** A person who has to compose every answer from nothing answers fewer of them.
@@ -73,9 +92,11 @@ a question   "This is not decided anywhere. What is it?"
 
 1. **Put the most likely answer first, and mark it `(recommended)`.** After stage 0 has read the existing assets, the skill usually does know which is most likely
 2. **Offer values, not blanks.** Not "how many users?" but `100 / 1,000 / 10,000`. A person corrects a number more readily than they produce one
-3. **Say what each option costs** in its description
+3. **Say what each option changes for the person**, and what it costs, in its description
 4. **Batch up to four.** One question per exchange turns a stage into an interrogation
 5. **"Other" is always available**, added by the tool itself, which is what makes offering a best guess safe
+
+**The question text and the descriptions carry what changes. An option label stays short.**
 
 ### Where it does not fit, say why in one line
 

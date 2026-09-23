@@ -26,6 +26,8 @@ Those two are one word apart in English and are not the same claim. "Anyone with
 
 **Ask about every operation whose current answer surprises anybody, and about every operation with no filter at all.** Use the question tool, batched, with the current setting shown alongside each choice.
 
+**State each current setting as what somebody could do with it today**, never as the filter's name (`../hora/references/asking.md`, "What changes for the person").
+
 ---
 
 ## What this stage decides
