@@ -34,7 +34,7 @@ What counts as material is whatever you actually have: a mail, a ticket, a page 
 
 `<myproject>-app` comes from the [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) template, and running `npm install` inside `<myproject>-app` is what sets up the tooling `/hora` runs on, under `<myproject>-app/.claude/`. The steps, and what to have installed first, are in `hora-boilerplate`'s README.
 
-**This walkthrough builds a web project.** A native Android or iOS one starts from [`hora-boilerplate-mobile`](https://github.com/openreachtech/hora-boilerplate-mobile) instead, and everything after this step reads the same.
+**This walkthrough builds a web project.** A native Android or iOS one starts from `hora-boilerplate-mobile` instead, and everything after this step reads the same.
 
 **Under `specs/` there is one directory per release, and `specs/1.0.0/` is the first of them.** The three directories arrive inside it, empty, with the template, so there is nothing to create before step 2.
 
