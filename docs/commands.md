@@ -112,6 +112,8 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 **Going back is normal.** Stage 7 exists to send the run back into whichever stage owns a shortfall — and so does checkpoint 2, 9, 11 or 18 when what it finds turns out to be the spec rather than the code.
 
+Each stage that passes is reported in one line, such as *"stage 3 passed | 200 staff now, 5,000 within two years | -> stage 4"*.
+
 **Stage 0 is what stops a running product from having to be dictated.** It reads the repositories and the documents, drafts what they show, and hands it back for you to correct. On a project with nothing to read it records that and moves on ([`investigation.md`](../kit/skills/hora-spec/references/investigation.md)).
 
 On a project with code, one declaration decides how much of that conversation you get: `Authority:` — `as-built` (what runs is what this version is; questions drop to a handful, and use cases are drafted from the system for you to correct) or `to-spec` (the spec is the truth; the code catches up through the checkpoints). It is asked once at stage 1, overridable per feature, and required — the whole procedure is in [`adopting.md`](./adopting.md), "First, decide which of the two adoptions this is".
@@ -153,6 +155,8 @@ These are three different things and they are never phrased alike ([`asking.md`]
 | **a question** | "Nothing decides this. What is it?" | what it is |
 
 **A confirmed check goes in as fact; an approved proposal goes in as your decision.** Mixing them matters in one direction especially: a proposal phrased as a check would put the kit's own idea into the spec as something the system already does, and nothing afterwards could tell them apart.
+
+**Whichever of the three it is, it is put in terms of what changes for you.** "I will link this column to that one — all right?" is a question you can only answer about columns. "You would be able to fill in every entry under one heading at once" is the same decision, asked where you can actually judge it; the design that delivers it follows in a clause. Where nothing you could observe turns on the answer — a repository name, a middleware version — it says so and asks plainly.
 
 **Answers are offered as choices wherever they can be**, so you correct rather than compose — with "other" always available. What is never folded into a choice is approving a section: that is the one place the exact words have to be read.
 
@@ -336,7 +340,7 @@ The sweep entry carries the version's own criteria — how many, the section's `
 4. Repeat. Commit .hora/ at each gate boundary
 ```
 
-It reports in one line before starting: *"building #attendance, from checkpoint 6 of 18."*
+It reports in one line before starting: *"building #attendance, from checkpoint 6 of 18."* After each checkpoint that passes, it reports one more line, such as *"6 passed | every criterion #attendance covers has a passing test | -> 7"*.
 
 ### The eighteen, in four gates
 

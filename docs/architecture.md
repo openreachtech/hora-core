@@ -391,7 +391,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 
 | | |
 |---|---|
-| what a project built with the kit contains, and how to start one | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) |
+| what a project built with the kit contains, and how to start one | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) for web, `hora-boilerplate-mobile` for native |
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the parallel route, end to end | [`parallel.md`](./parallel.md) |

@@ -34,6 +34,8 @@
 
 `<myproject>-app` は [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) テンプレートから作ります。作った `<myproject>-app` 配下で `npm install` すると、`/hora` を使うためのツール群が `<myproject>-app/.claude/` にセットアップされます。手順と、事前にインストールしておくものは、`hora-boilerplate` の README にあります。
 
+**この手引きが作るのは Web のプロジェクトです。** ネイティブの Android / iOS は代わりに `hora-boilerplate-mobile` から始めますが、この手順より後はすべて同じに読めます。
+
 **`specs/` の下はリリースの版ごとのディレクトリで、`specs/1.0.0/` が最初の版です。** 3つのディレクトリはテンプレートに空の状態で入っているので、手順2 の前に作るものはありません。
 
 ---

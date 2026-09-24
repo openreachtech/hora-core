@@ -7,7 +7,7 @@ description: Build one feature by taking it through the eighteen checkpoints —
 
 **Take one feature through the eighteen checkpoints, in order.**
 
-Read `../hora/references/structure.md` (the layout, the invariants, where a command runs) and `references/checkpoints.md` (the checkpoint list itself) before starting. **This skill is read-only on `specs/`; checkpoint 1 is where a problem found there is routed to the two skills that may write it** (`references/checkpoints.md`, checkpoint 1).
+Read `../hora/references/structure.md` (the layout, the invariants, where and how a command runs) and `references/checkpoints.md` (the checkpoint list itself) before starting. **This skill is read-only on `specs/`; checkpoint 1 is where a problem found there is routed to the two skills that may write it** (`references/checkpoints.md`, checkpoint 1).
 
 ## One feature at a time, never two
 
@@ -103,7 +103,8 @@ Report the decision in one line before starting work — "building #attendance, 
    and 16, where step 8's suite is itself the proof, the verifier is usually
    skipped (below). Met or not, add this run to the line's run record (below)
 10. Write [x] into the feature file. Commit at the gate boundary, not here
-11. Move to the next checkpoint
+11. Report the checkpoint in one line (../hora/references/structure.md,
+    "Reporting progress"), then move to the next checkpoint
 ```
 
 **Step 10's split matters.** The checkbox is written the moment the checkpoint passes, so an interrupted run resumes at the right place; the commit happens once per gate, so `git log .hora/` stays readable (`../hora/references/commits.md`, "Committing `.hora/`").
@@ -461,7 +462,8 @@ Checkpoint 18 passing is what finishes a feature. Then:
 | File | Content |
 |---|---|
 | `references/checkpoints.md` | **the eighteen checkpoints** — order, exit conditions, delegates, when each does not apply |
-| `../hora/references/structure.md` | the layout, the invariants, where a command runs, the division of labor |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor, how progress is reported |
+| `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | branches, commit granularity, merging, hotfix catch-up |
 | `../hora/references/done-criteria.md` | what "done" means for a checkpoint, a feature and a version |
 | `../../agents/hora-implementer.md` | writes code and tests for one checkpoint, or for one unit of one |

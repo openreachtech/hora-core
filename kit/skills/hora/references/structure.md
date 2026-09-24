@@ -132,6 +132,14 @@ Only the last says so. The outer root's own `eslint.config.js` ignores `*-backen
 
 ---
 
+## Inspecting a repository
+
+**While a checkpoint or a stage runs, plan every command a step needs before running any, then run them as one Bash call with an `echo` marker before each.** Each command still runs in its own repository (above), and a command a skill names runs exactly as written.
+
+**Anchor a class-name match to a word boundary**, because one class name can be the tail of another.
+
+---
+
 ## Invariants
 
 These three must not be broken.
@@ -300,6 +308,18 @@ Q4  missing-authorization  blocking: yes
 **`blocking: no` gets the same treatment as `blocking: yes`.** Nothing is stopping *yet*: an `inferred-annotation` nobody checked and a `spec-assumption` nobody corrected are decisions made by default, cheapest to overturn in the run that raised them.
 
 **An `eslint-exception` still gets its own line, by name, with the link alongside it.**
+
+---
+
+## Reporting progress
+
+**When a checkpoint or a stage passes, report it in one line, in this shape.**
+
+```
+<checkpoint or stage> passed | <the one fact it established> | <the blocker or decision, or -> what comes next>
+```
+
+**Never restate what the feature file or `_stages.md` already records.** The line replaces narration only. A check, a proposal, a question and a section shown for approval keep the form `asking.md` gives them.
 
 ---
 

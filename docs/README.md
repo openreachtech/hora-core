@@ -27,6 +27,6 @@ How Hora works — the method this package carries. Every document here is a pai
 
 | | |
 |---|---|
-| what a project built with the kit contains, and how to start one | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) |
+| what a project built with the kit contains, and how to start one | [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate) for web, `hora-boilerplate-mobile` for native |
 | how this package is installed and what its command does | [`README.md`](../README.md) |
 | the eighteen checkpoints, the spec format, the branch and commit rules | the `references/` beside the skill that owns each one, under [`kit/skills/`](../kit/skills) |

@@ -6,6 +6,8 @@
 
 **No checkpoint below names a package skill, and none ever may.** Each checkpoint's **Delegate to** row says what has to be covered, and the main session matches that against the equipped skills' own descriptions at run time (`../../hora/references/structure.md`, "No hora file ever names one of those skills"). **Skills Hora Kit itself ships — `/hora-accept` — are named here freely.**
 
+**Checkpoints 1, 2, 9 and 11 run in conversation.** How anything is put to a person there is `../../hora/references/asking.md`.
+
 ---
 
 ## What a checkpoint is
