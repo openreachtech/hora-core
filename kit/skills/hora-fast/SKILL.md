@@ -389,7 +389,8 @@ what a drain would have to finish, if /hora is to take over
 | File | Content |
 |---|---|
 | `../hora/SKILL.md` | the serial scheduler — its decision steps and its closing report |
-| `../hora/references/structure.md` | the layout, the invariants, where a command runs, where a lever lives |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, where a lever lives, how progress is reported |
+| `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | every branch and commit rule, unchanged here |
 | `../hora-build/SKILL.md` | how one checkpoint runs — this skill runs it in a worktree |
 | `../hora-build/references/checkpoints.md` | the eighteen checkpoints, and why a checkpoint reconciles against existing code |

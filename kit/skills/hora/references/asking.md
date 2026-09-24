@@ -1,6 +1,6 @@
 # How to ask a person something
 
-**Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, `/hora-build` at the checkpoints that run in conversation, `/hora-accept`, and `/hora-hotfix`.
+**Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, `/hora-build` and `/hora-fast` at the checkpoints that run in conversation, `/hora-accept`, and `/hora-hotfix`.
 
 **There are three ways to put something to a person, and they are not interchangeable.** Each one asks the person to do a different job.
 
