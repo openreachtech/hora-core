@@ -70,6 +70,8 @@ This document is in two parts: Part 1 is `/hora` — the layers, the eighteen ch
 
 **A second skill sits beside `/hora` rather than under it: `/hora-fast`.** It is the other scheduler — the same files, the same checkpoints, several features at once, each in its own git worktree. A person chooses it by invoking it instead of `/hora`. [`parallel.md`](./parallel.md) has the route, and "Why it is serial", below, has what it resolves and what it pays for that.
 
+**A third runs either scheduler without a person: `/hora-auto`.** It takes one declaration of what matters most once the spec has passed stage 7, then decides and records everything the route would have asked, up to a draft pull request into `main`. The merge stays a person's, because the merge is the release. [`auto.md`](./auto.md) has the route.
+
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
 The split between the two packages is the one that surprises people. Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
