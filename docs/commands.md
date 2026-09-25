@@ -4,9 +4,9 @@
 
 *[日本語](./commands.ja.md)*
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), `/hora-auto` (the automatic route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
-**In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
+**In normal use you only ever type `/hora`.** It decides which of the others to run. **Three it never starts: `/hora-hotfix`, `/hora-fast` and `/hora-auto`** — whether something is an emergency, whether a version is worth building in parallel, and whether it may be built without anyone answering, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
 **Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
 
@@ -24,6 +24,7 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 - [/hora-accept](#hora-accept)
 - [/hora-hotfix](#hora-hotfix)
 - [/hora-fast](#hora-fast)
+- [/hora-auto](#hora-auto)
 - [What a session actually looks like](#what-a-session-actually-looks-like)
 - [Where to go next](#where-to-go-next)
 
@@ -491,6 +492,42 @@ A regression is caught at the merge instead of at the checkpoint that caused it.
 
 ---
 
+## `/hora-auto`
+
+**The automatic route.** `/hora` with every conversation after the spec replaced by a recorded decision. [`auto.md`](./auto.md) walks the whole route; this is the summary. You declare once what matters most, and the run goes on to a pushed `release/<version>` and a draft pull request into `main`.
+
+| | |
+|---|---|
+| **Reads** | everything the scheduler it runs reads, plus `.hora/spec/<version>/_stages.md`, which must show stage 7 passed |
+| **Writes** | everything `/hora` and `/hora-build` write, in the same form, plus `.hora/tasks/<version>/_auto.md` — the declaration, every change to it, and every stop — and an `auto-reading` or `auto-default` question for every decision taken in your place |
+| **Stops when** | the spec has not passed stage 7; the preflight fails; a problem no decision resolves (the stop display names it with a code); a person says "pause"; the draft pull requests are open |
+| **Run it directly** | always, and again to resume. `/hora` never starts it, but continues it on a version whose `_auto.md` reads `auto: on` |
+
+### What it does
+
+```
+0. Is stage 7 passed?              no → stop. Finish the spec through /hora-spec
+1. Is there a declaration?         no → ask it: the kind of project, the scheduler,
+                                        a date, then a ranking you correct
+2. The preflight                   every command the run needs, once, harmlessly
+3. The scheduler's own route       every question classified: a reading, a gap
+                                   leaned to the side easier to loosen, or a stop
+4. The end                         push release/<version>, open draft pull
+                                   requests into main. Never the merge
+```
+
+**It gives up the person, never the check.** Every checkpoint, verifier, audit and suite runs as it does under `/hora`, and the sweep runs at full reach.
+
+### Stopping and resuming
+
+**Every stop is shown in one shape** — a code, then why, how far it got, and how to resume. Fix what it names and run `/hora-auto` again; `/hora` resumes it the same way. "pause" stops it at the end of a checkpoint; "stop auto" turns it back into `/hora`.
+
+### What it gives up
+
+Holes in the spec are settled by the declaration instead of by you, and recorded as questions. The use cases are walked by the main session alone. A finding you might have chosen to live with is fixed or blocks its feature, because nobody is there to choose.
+
+---
+
 ## What a session actually looks like
 
 ### The first run
@@ -574,6 +611,7 @@ hora  Checkpoint 18 for #payroll. Scope: 5 features.
 |---|---|
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the parallel route, end to end | [`parallel.md`](./parallel.md) |
+| the automatic route, end to end | [`auto.md`](./auto.md) |
 | why it is shaped this way | [`architecture.md`](./architecture.md) |
 | the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |

@@ -96,6 +96,8 @@ A feature whose `target` names no frontend skips 10–17 as a whole; one that na
 
 **Never write into `specs/` from this checkpoint by any other route**, and never from an agent this checkpoint starts.
 
+**Under `auto: on`, a hole is routed nowhere.** It is one of the three kinds `/hora-auto` defines, and recorded as that kind (`../../hora-auto/SKILL.md`, "The three kinds of problem"). The same holds wherever 2, 9 and 11 would settle something with the person.
+
 ## 2. Verify the use cases can be met
 
 | | |

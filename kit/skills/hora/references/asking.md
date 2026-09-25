@@ -123,6 +123,16 @@ Ask it in prose, and say what it needs: *"this one needs a few sentences — a l
 
 ---
 
+## When nobody is there to ask
+
+**Before putting anything to a person, read `.hora/tasks/<version>/_auto.md`.** Where it reads `auto: on`, the version is running automatically and nobody is there to answer: ask nothing, and take the three kinds `/hora-auto` defines instead (`../../hora-auto/SKILL.md`, "The three kinds of problem"). Where it reads anything else, or is absent, everything in this file applies.
+
+**The file decides, never the conversation.** What a session remembers about how it was started does not survive a compacted context or a resume; the file does.
+
+**A skill that would stop on a `blocking: yes` reads it too**, since a stop is only a question asked of whoever comes next.
+
+---
+
 ## Do not economize on asking
 
 **Asking is not a cost to be minimized.** People who get asked start writing it down in advance, and the asking trains whoever writes the spec. The question tool is for making each question *cheap to answer*, not for asking fewer of them.
@@ -138,3 +148,4 @@ Ask it in prose, and say what it needs: *"this one needs a few sentences — a l
 | `../../hora-spec/references/investigation.md` | what evidence a check may be built on |
 | `../../hora-spec/SKILL.md` | the approval model a proposal passes through |
 | `../../hora-plan/SKILL.md` | the question categories, in full |
+| `../../hora-auto/SKILL.md` | the three kinds of problem a run takes when nobody is there to ask |
