@@ -327,6 +327,8 @@ whether an extension point should be left in place.
 | `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
+| `auto-reading` | an automatic run chose one reading of the spec, or took a checkpoint's judgment, against the declared ranking (`../hora-auto/SKILL.md`, "The three kinds of problem") | no |
+| `auto-default` | an automatic run filled a gap in the spec's intent by leaning to the side easier to loosen later | no, but **fail-loud** |
 
 **`no, but fail-loud` is not the same as an ordinary `blocking: no`.** State it by name, on its own, every time a closing report is written.
 
