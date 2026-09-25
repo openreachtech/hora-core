@@ -296,7 +296,7 @@ whether an extension point should be left in place.
 ```
 
 - **The file is append-only.** Existing questions are never removed, and resolved ones stay as `- [x]`
-- **If even one `blocking: yes` is unresolved, `/hora-build` is not entered.** With only `no` left, warn and continue
+- **If even one `blocking: yes` is unresolved, `/hora-build` is not entered.** With only `no` left, warn and continue. **Under `auto: on`, `/hora-auto` decides instead**: every finding is classified into its three kinds, no edit to `specs/` is proposed, and a `blocking: yes` holds back only the feature it names (`../hora-auto/SKILL.md`, "The three kinds of problem")
 - A human may also answer by editing `specs/` between runs; on re-entry, re-read `specs/` and tick what is now resolved
 
 ### Categories

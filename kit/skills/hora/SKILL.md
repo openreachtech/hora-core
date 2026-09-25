@@ -100,7 +100,11 @@ With that settled, do this every time — a fresh start and a restart alike.
    list against specs/ on every re-entry
 
 4. Does .hora/questions/<version>/open.md still hold an unresolved
-   blocking: yes?                             if so → stop. Report what to fix
+   blocking: yes?                             if so → stop. Report what to fix.
+                                              Under auto: on, /hora-auto's
+                                              step 4 instead (../hora-auto/
+                                              SKILL.md, "Deciding where you
+                                              are")
 
 5. Does .hora/tasks/<version>/_plan.md still hold an unfinished feature — an
    entry with a [ ] box that the ## Acceptance sweep entry does not already
