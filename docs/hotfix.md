@@ -75,6 +75,8 @@ Two things happen here.
 
 A test is written that **fails, and fails because of this defect**. It comes before the fix, not after.
 
+**No cause is named until one command has run that test and failed.** The record keeps that command as `reproduced-by:`.
+
 Some defects cannot be caught by a test — a slow query, or a bug that only appears with production data. Then the record says `reproduced: no` with the reason, and carries a measurement instead: the number before, the number after.
 
 ### H3 — Fix
