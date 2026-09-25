@@ -106,9 +106,10 @@ With that settled, do this every time — a fresh start and a restart alike.
                                                       first one that is ready
 
 6. No [ ] entry remains that the ## Acceptance sweep entry does not close, and
-   _sweep.md's newest block does not read reach: full with a passing verdict
-   and a version-criteria: line accounting for every criterion the version
-   declared                                   → /hora-accept, whole-version
+   _sweep.md's newest block does not read reach: full with a passing verdict,
+   a version-criteria: line accounting for every criterion the version
+   declared, and a tips: line every declared row's release/<version> still
+   points at                                  → /hora-accept, whole-version
 
 6a. It does, and entries that sweep closes still stand [ ]
                                               → /hora-plan again, to set them
@@ -117,9 +118,10 @@ With that settled, do this every time — a fresh start and a restart alike.
                                                 SKILL.md, "collapses to one
                                                 sweep")
 
-7. _sweep.md's newest block reads reach: full with a passing verdict and a
+7. _sweep.md's newest block reads reach: full with a passing verdict, a
    version-criteria: line accounting for every criterion the version
-   declared, and every entry in _plan.md is [x]
+   declared, and a tips: line every declared row's release/<version> still
+   points at, and every entry in _plan.md is [x]
                                               → merge (references/commits.md,
                                                 "Merge order into main";
                                                 references/done-criteria.md,
@@ -145,7 +147,9 @@ With that settled, do this every time — a fresh start and a restart alike.
 
 **They read `version-criteria:` beside `reach:`, for the same reason one level up.** `reach: full` says the run reached every feature acceptance could reach; the version's own criteria reach no feature's gate at all (`references/spec-format.md`, "15. Version acceptance criteria").
 
-**Keyed that way the two steps leave no gap.** Whatever fails step 7's test — no record, `reach: scoped`, a `failed` verdict, a short `version-criteria:` line — satisfies step 6's predicate, so the run goes back to `/hora-accept`.
+**They read `tips:` because a pass describes the code it drove.** Step 0's hotfix catch-up, a retake or an `update/` merge after the sweep moves a tip, and the pass no longer covers what would merge (`../hora-accept/SKILL.md`, "Recording the result").
+
+**Keyed that way the two steps leave no gap.** Whatever fails step 7's test — no record, `reach: scoped`, a `failed` verdict, a short `version-criteria:` line, a stale or missing `tips:` line — satisfies step 6's predicate, so the run goes back to `/hora-accept`.
 
 **Step 6a exists because the run that earns a collapsed version's checkboxes must also set them.** `/hora-accept` records and never writes `_plan.md`; `/hora-build` never opens those entries, which is the collapse; so `/hora-plan` is the writer, off the sweep's own record. Left to the next invocation's step 3, the merge happens first — and a released version's plan is never rewritten (`../hora-plan/SKILL.md`, "Resolve the diffs first").
 
