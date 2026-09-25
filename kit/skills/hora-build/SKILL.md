@@ -462,7 +462,7 @@ Checkpoint 18 passing is what finishes a feature. Then:
 | File | Content |
 |---|---|
 | `references/checkpoints.md` | **the eighteen checkpoints** — order, exit conditions, delegates, when each does not apply |
-| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor, how progress is reported |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor, how progress is reported, the closing report |
 | `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | branches, commit granularity, merging, hotfix catch-up |
 | `../hora/references/done-criteria.md` | what "done" means for a checkpoint, a feature and a version |
