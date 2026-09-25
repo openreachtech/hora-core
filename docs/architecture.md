@@ -47,7 +47,7 @@ This document explains the design. It is not the authority on any rule — each 
 
 In time, the spec half comes first. This document takes `/hora` first because most of the machinery is there, and because the spec half is easier to read once it is clear what reads its output.
 
-The two halves also differ in how much of your attention they need, and that is what the recommended way of running them follows. `/hora-spec` is worth sitting through, stage by stage: it is conversation from end to end, and it is where a spec stops being a list of feature names. The implementation half can be left to run — **it stops when it needs an answer instead of deciding**, which is the whole reason unattended is safe here and not in the other half. See [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
+The two halves also differ in how much of your attention they need, and that is what the recommended way of running them follows. `/hora-spec` is worth sitting through, stage by stage: it is conversation from end to end, and it is where a spec stops being a list of feature names. The implementation half can be left to run — **it stops when it needs an answer instead of deciding**, which is the whole reason unattended is safe here and not in the other half. See [`hora-boilerplate`'s `README.md`](https://github.com/openreachtech/hora-boilerplate#recommended-converse-through-the-spec-let-the-implementation-run).
 
 This document is in two parts: Part 1 is `/hora` — the layers, the eighteen checkpoints, the state, re-entrancy, git, and why it is serial. Part 2 is `/hora-spec` — reading what already exists, the seven stages, why every one of them is a conversation, and how approval works.
 
