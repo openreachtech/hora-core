@@ -352,9 +352,9 @@ Held for stage 2 — reaches past its own feature
 ### Terminology, and existing assets
 
 ```markdown
-| Term | Description |
-|---|---|
-| clock-in | the record a member of staff creates on arrival |
+| Term | Description | Not called |
+|---|---|---|
+| clock-in | the record a member of staff creates on arrival | check-in, punch |
 
 Current implementation: `acme-attendance` (visible, read-only access granted)
 Treatment: reference it — match the behavior, rewrite the implementation
@@ -365,6 +365,8 @@ Baseline: verified — every inherited feature is specified and accepted before 
 **The `Authority` line is required whenever `Current implementation` is not `none`** — leaving it out is an `existing-assets` stop (`blocking: yes`). **The `Baseline` line is required under the same rule and stops the same way**, and it is the one line a declared `Source` may never satisfy.
 
 **Terms only. No identifiers.** `/hora-plan` decides the class and table names, against the lint rules.
+
+**Ask which other words the person has heard for each term, and which one they reject.** A rejected word goes under `Not called`, and an empty cell means none was offered.
 
 ---
 

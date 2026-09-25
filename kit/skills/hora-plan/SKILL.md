@@ -385,10 +385,10 @@ A server with no consumer, and a frontend with no server to match it, are both e
 **Check names against `@openreachtech/eslint-config`'s naming rules as they are written — read them from the package itself**, under the backend row's `node_modules/@openreachtech/eslint-config/` (`../hora/references/structure.md`, "The division of labor"). Skip the check and implementation walks into lint errors, each of which invents its own local workaround name.
 
 ```markdown
-| Term | Identifier | Kind | Used in | Notes |
-|---|---|---|---|---|
-| Flow | `RpaFlow` | entity | backend / frontend | table: `rpa_flows` |
-| Random string | `RandomTextGenerator` | existing package | backend | `<the package the handbook names for it>`. Do not reimplement |
+| Term | Not called | Identifier | Kind | Used in | Notes |
+|---|---|---|---|---|---|
+| Flow | workflow, job | `RpaFlow` | entity | backend / frontend | table: `rpa_flows` |
+| Random string | | `RandomTextGenerator` | existing package | backend | `<the package the handbook names for it>`. Do not reimplement |
 
 ## Names avoided, and why
 | The naive name | Why it fails | What was used |
@@ -397,6 +397,8 @@ A server with no consumer, and a frontend with no server to match it, are both e
 ```
 
 **Recording what was avoided is the point.** Without the reason, somebody later restores the naive name and lint fails.
+
+**`Not called` is copied from the spec's Terminology, never decided here.** It holds the domain words a person rejected, and `Names avoided` holds the identifiers lint rejects, so the two tables never merge.
 
 Do not write a change log (git holds that).
 
