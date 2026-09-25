@@ -260,7 +260,7 @@ A feature with acceptance criteria but no use cases builds a set of operations t
 
 ### A block that reaches forward is a stop, not a note
 
-**Every gate that reads a feature's blocks runs at that feature's own position in the order**, so a criterion or a use case naming a feature built afterwards cannot be met wherever it is read (`../hora/references/spec-format.md`, "A criterion is checked at its own feature's gate"). **Four runs act on one anyway**: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `missingTests`, and 18 fails the feature by construction.
+**Every gate that reads a feature's blocks runs at that feature's own position in the order**, so a criterion or a use case naming a feature built afterwards cannot be met wherever it is read (`../hora/references/spec-format.md`, "A criterion is checked at its own feature's gate"). **Four runs act on one anyway**: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `specIssues`, and 18 fails the feature by construction.
 
 **Detect it by walking the order once, carrying what is built so far**, and reading each feature's two blocks against that set plus the feature itself. A `depends` on a listed feature is satisfied by the running code and orders nothing, so it counts as already built.
 

@@ -902,7 +902,7 @@ Both optional, both covered above under "Directory layout".
       observable against what #sign-up itself adds
 ```
 
-**A forward reference is a `blocking: yes` stop at `/hora-plan` (`forward-reference`), not a note**, because four separate places act on it: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `missingTests`, and 18 fails the feature by construction.
+**A forward reference is a `blocking: yes` stop at `/hora-plan` (`forward-reference`), not a note**, because four separate places act on it: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `specIssues`, and 18 fails the feature by construction.
 
 **Three places take a behavior that reaches forward, and they are tried in this order:**
 
