@@ -323,6 +323,25 @@ Q4  missing-authorization  blocking: yes
 
 ---
 
+## The closing report
+
+**Every skill closes its run with one report, and it opens with what the person must do.** A person reads the top of a report and acts on it. A blocker placed under the work that passed goes unread until the next run hits it.
+
+```
+Needs you        every blocking: yes question, then every fail-loud item
+Decided for you  every blocking: no question this run raised
+Done             one line per checkpoint or stage, in the shape above
+Next             the one command or decision that moves the run forward
+```
+
+**Fail-loud items join the first block even at `blocking: no`.** They are an `eslint-exception`, a `missingSkill` gap, and a checkpoint that ran with an empty convention list.
+
+**Keep all four blocks, and write "none" in a block with nothing to report.** An absent block cannot tell the reader whether the run found nothing or never looked.
+
+**Every question in the first two blocks is cited as "Citing a question in a report" shows.**
+
+---
+
 ## What lives in `.hora/`
 
 ```
