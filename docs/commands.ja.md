@@ -54,9 +54,10 @@
 3. 常に /hora-plan を走らせる
 4. 未解決の blocking な質問はあるか        あれば → 止まり、何を直すか伝える
 5. _plan.md に未完了の機能はあるか         あれば → 準備できた最初の1つに /hora-build
-6. 全機能が終わり、_sweep.md の最新ブロックが reach: full の合格でない
+6. 全機能が終わり、_sweep.md の最新ブロックが、どの release/<version> も
+   今なお指す tips: の上での reach: full の合格でない
                                            → /hora-accept（版全体）
-7. 最新ブロックが reach: full の合格        → main へ merge
+7. そうである                              → main へ merge
 ```
 
 作業開始前に判断を1行で報告します：*「continuing 1.0.0. 4 of 11 features done, building #payroll from checkpoint 6.」*

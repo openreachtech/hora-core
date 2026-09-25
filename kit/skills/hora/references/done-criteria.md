@@ -135,8 +135,9 @@ Where tests live, how they are named, how their order is guaranteed and which he
 2. .hora/questions/<version>/open.md has no unresolved blocking: yes
 3. the newest block of the whole-version sweep's record reads `reach: full`,
    its `version-criteria:` line accounts for every criterion the version
-   declared, and that block's verdict reads `passed`, or
-   `passed over <n> of <m> features; <k> not accepted`
+   declared, its `tips:` line matches what every declared row's
+   `release/<version>` points at now, and that block's verdict reads
+   `passed`, or `passed over <n> of <m> features; <k> not accepted`
    (.hora/acceptance/<version>/_sweep.md)
 4. lint and test pass in every declared repository and in app
 5. every contract in .hora/contracts/<version>/ matches the implementation
@@ -153,6 +154,8 @@ Where tests live, how they are named, how their order is guaranteed and which he
 **It reads `reach:` alongside the verdict.** The version's own sweep may be invoked before every feature is done, and such a run writes a truthful `passed over 8 of 20 features; 0 not accepted` over `reach: scoped`. **`reach: full` is the only line that claims the run reached everything acceptance could reach.**
 
 **It reads `version-criteria:` for the same reason, one level up.** Those criteria reach no gate at all (`spec-format.md`, "15. Version acceptance criteria"), so the sweep is the only run that checks them. **A version whose spec declared `none` is done on `none declared`.**
+
+**It reads `tips:` because a pass covers only the code it drove.** Any commit that reached `release/<version>` after the sweep began leaves the version undone until a sweep runs over it (`../../hora-accept/SKILL.md`, "Recording the result").
 
 **A listed feature does not cost the sweep its `reach: full`.** Nothing can reach a feature with no checkbox and no acceptance criteria, so a reach that counted it would leave a version impossible to finish. `reach:` answers how much of what was reachable this run reached; `<k>` and the record's `not-accepted:` line answer what nothing reached.
 

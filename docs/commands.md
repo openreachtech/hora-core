@@ -55,9 +55,10 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 3. always run /hora-plan
 4. any unresolved blocking question?          yes → stop, and say what to fix
 5. any unfinished feature in _plan.md?        yes → /hora-build on the first ready one
-6. every feature done, and _sweep.md's newest block not a reach: full pass?
+6. every feature done, and _sweep.md's newest block not a reach: full pass
+   over tips: every release/<version> still points at?
                                               → /hora-accept, whole-version
-7. newest block reads reach: full and a pass  → merge into main
+7. it is                                      → merge into main
 ```
 
 It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11 features done, building #payroll from checkpoint 6."*
