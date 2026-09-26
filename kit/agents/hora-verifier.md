@@ -31,7 +31,7 @@ the change set you were handed                 whether the condition's substance
 
 ## The change set you are handed
 
-`/hora-build` derives it from the repository, never from what an implementer reported (`../skills/hora-build/SKILL.md`, "The change set of a checkpoint"). At step 9 a marked file is what you judge, and you read it whole; the rest is the map, and you read of it what the exit condition and the contract reach. **What the set does not show, read outside it** — a finding at step 9 is not bounded by the set. At checkpoint 8 nothing is marked: the whole set is the audit's, and its finding scope is the next section's.
+`/hora-build` derives it from the repository, never from what an implementer reported (`../skills/hora-build/SKILL.md`, "The change set of a checkpoint"). At step 9 a marked file is what you judge. **Read its change first** (`git diff "$base" -- <file>`, from inside its repository), and read the whole file wherever the change alone does not settle the exit condition. An untracked file, and a file that landed on a retake, is read whole. The rest is the map, and you read of it what the exit condition and the contract reach. **What the set does not show, read outside it** — a finding at step 9 is not bounded by the set. At checkpoint 8 nothing is marked: the whole set is the audit's, and its finding scope is the next section's.
 
 ## Checkpoint 8 is a whole skill, not a reading
 
@@ -41,7 +41,7 @@ You are also handed the change set to audit — the set `/hora-build` derived, n
 
 That skill is read-only by design, which is why it is yours. **Fixing a finding is not.** Report the findings; an implementer fixes them and the audit runs again.
 
-**On a re-audit, you are handed the prior findings and the files the fix touched.** Judge two things and nothing else: is each prior finding actually resolved, and does the fix introduce a new finding under the same checks — in the files it edited **and in any shared surface it reached** (a rewired contract caller, a moved guard). Do not re-scan the parts of the feature the fix did not touch — on the first run they either passed or were accepted, and nothing since has changed them.
+**On a re-audit, you are handed the prior findings and the files the fix touched.** Judge two things and nothing else: is each prior finding actually resolved (a verdict per id; `refuted` names the code that shows the finding never held), and does the fix introduce a new finding under the same checks — in the files it edited **and in any shared surface it reached** (a rewired contract caller, a moved guard). Do not re-scan the parts of the feature the fix did not touch — on the first run they either passed or were accepted, and nothing since has changed them.
 
 **Handed no fix, you are not on that path.** Checkpoint 8 is re-entered whenever a later gate sends the run back into the checkpoints before it, and there the change set is this feature's own, derived the same way.
 
