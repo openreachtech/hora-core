@@ -109,7 +109,8 @@ met              whether the checkpoint's exit condition holds
 unmet            what falls short of it, and the grounds for that
 missingTests     acceptance criteria that exist but are not backed by a test
 weakenedTests    a test that no longer asserts what it was written to assert
-findings         for checkpoint 8: what the audit skills produced over the handed set, unedited
+findings         for checkpoint 8: what the audit skills produced over the handed set, unedited, each with an id
+verdicts         on a re-audit: one per prior finding id, resolved / open / refuted, with its evidence
 contractDrift    any place that deviates from the contract
 specIssues       a problem in specs/ that makes something unmeetable under any reading
 specAssumptions  an ambiguous criterion you resolved by assuming one reading, and what you assumed

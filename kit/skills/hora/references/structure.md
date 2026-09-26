@@ -373,6 +373,9 @@ Next             the one command or decision that moves the run forward
   acceptance/<version>/
     <feature-id>.md             every acceptance run for one feature, one appended block each
     _sweep.md                   the whole-version sweep
+  verification/<version>/
+    <feature-id>.md             every checkpoint 8 run for one feature, one appended block each:
+                                each finding's verdict and the commit it was judged at
   hotfix/<hotfix-id>.md         one urgent fix that went straight to main: what it changed,
                                 what it skipped, and whether that debt is still open.
                                 /hora-hotfix writes it; /hora-plan closes it
