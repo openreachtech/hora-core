@@ -1,3 +1,6 @@
+// A ceiling test: raise the budget before adding text, or cut text before lowering the budget, and the suite never fails.
+// Adding: the text first, then the budget. Cutting: the budget first, then the text.
+
 import {
   readFileSync,
 } from 'node:fs'
