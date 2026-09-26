@@ -235,6 +235,8 @@ git log --name-only --format= --grep="^spec: <version>#<id>$" HEAD  # landed, on
 
 plus the operations and endpoints this feature declares in `.hora/contracts/<version>/`. The third line is empty until the gate lands, so mid-gate the set is the working tree. It assumes each commit keeps its `spec:` trailer in the history; where the equipped git conventions squash, it comes back empty or wider, and either is absorbed below.
 
+**Hand `base` over with the set.** At step 9 the verifier reads `git diff "$base" -- <file>` for a marked tracked file before the file itself.
+
 **Mark the set from the reports this session holds, and hand the marks over with it.**
 
 | Mark | Files |
