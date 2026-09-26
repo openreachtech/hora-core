@@ -155,8 +155,9 @@ A checkpoint line carries a second comment at its end, holding what running the 
 | `verify-time:` | the hora-verifier share of `agent-time:` |
 | `wall-time:` | seconds of wall clock from entering the checkpoint to writing its box, or to stopping short, over every run. On 1, 2, 9 and 11 it is mostly a person answering |
 | `agent-tokens:`, `verify-tokens:` | the same split, only where the Agent tool reports tokens |
+| `at:` | each implementation repository's short `HEAD` when step 9 judged, as `backend=3f2a1c9`, with `+` where the working tree held uncommitted changes. The newest run only, never summed |
 
-**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
+**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. **`at:` tells a reader which verdict is stale**: a judged file that changed since it no longer stands behind the box. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
 
 ### Step 3 — the digest each matched skill is read through
 
