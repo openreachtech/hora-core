@@ -16,7 +16,7 @@ describe('kit/**/*.md', () => {
           rootPath: fileURLToPath(new URL('../../../kit/', import.meta.url)),
         })
         const budgetHash = JSON.parse(
-          readFileSync(new URL('./size-budget.json', import.meta.url), 'utf8')
+          readFileSync(new URL('../../kit/size-budget.json', import.meta.url), 'utf8')
         )
         const sizeBudget = KitSizeBudget.create({
           tree,
