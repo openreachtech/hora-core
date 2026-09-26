@@ -123,6 +123,9 @@
 | a sub-command invoked directly instead of `/hora` | `../SKILL.md`, "The shape of a run" |
 | one `/hora-spec-*` stage invoked alone | `../../hora-spec/references/stages.md` |
 | the parallel scheduler, chosen for a version by invoking `/hora-fast` | `../../hora-fast/SKILL.md`, "What a person says to this skill" |
+| every conversation after the spec replaced by a recorded decision, chosen by invoking `/hora-auto` | `../../hora-auto/SKILL.md`, "Where a person would have been asked" |
+| a ranking and exclusions, declared once, that decide what the spec left open | `../../hora-auto/SKILL.md`, "The declaration"; `../../hora-auto/references/priorities.md` |
+| a gap in the spec's intent leaned to the side easier to loosen later | `../../hora-auto/references/priorities.md`, "Which lean applies" |
 | an interactive checkpoint skipped on instruction, for one feature, once | `../../hora-fast/SKILL.md`, "The interactive checkpoints" |
 | a drain — the parallel run wound down to a gate's entrance | `../../hora-fast/SKILL.md`, "Switching between the two schedulers" |
 

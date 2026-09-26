@@ -95,6 +95,14 @@ spec: 1.0.0#attendance
 
 `/hora-plan`'s own output (`_plan.md`, the feature files, questions, contracts, the glossary) is committed when planning finishes, before any feature starts.
 
+**`_auto.md` is committed on its own, every time a line is added to it** — the declaration, a change to it, a stop, the end (`../../hora-auto/SKILL.md`, "The record"). A stop hands the run to whoever resumes it, and a record that lives only in the working tree is the one thing a resume cannot trust.
+
+```
+Declare the automatic run for 1.0.0
+Record the E-ENV stop of the automatic run for 1.0.0
+Record the end of the automatic run for 1.0.0
+```
+
 ---
 
 ## Merging into a trunk branch

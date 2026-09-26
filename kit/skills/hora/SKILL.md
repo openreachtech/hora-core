@@ -39,6 +39,8 @@ Read `references/structure.md` before anything else — the repository layout, w
 
 **`/hora-fast` is the other scheduler.** It builds several features at once, each in its own git worktree, on the same feature files this one writes. A person chooses it by invoking it instead of `/hora` (`../hora-fast/SKILL.md`).
 
+**`/hora-auto` runs either scheduler without a person.** Invoked once the spec has passed stage 7, it takes one declaration of what to prioritize and then decides, and records, everything this skill would have asked — up to a pushed `release/<version>` and a draft pull request into `main`, never the merge (`../hora-auto/SKILL.md`). **A run of `/hora` that finds `.hora/tasks/<version>/_auto.md` reading `auto: on` continues as `/hora-auto`.**
+
 **Inside a checkpoint, its units do run together.** Five of the eighteen divide into units whose files are exclusive — a table, a module, an operation, a component, a screen — and each gets an implementer of its own. The checkpoint stays one gate with one exit condition (`../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units").
 
 ---
@@ -98,7 +100,11 @@ With that settled, do this every time — a fresh start and a restart alike.
    list against specs/ on every re-entry
 
 4. Does .hora/questions/<version>/open.md still hold an unresolved
-   blocking: yes?                             if so → stop. Report what to fix
+   blocking: yes?                             if so → stop. Report what to fix.
+                                              Under auto: on, /hora-auto's
+                                              step 4 instead (../hora-auto/
+                                              SKILL.md, "Deciding where you
+                                              are")
 
 5. Does .hora/tasks/<version>/_plan.md still hold an unfinished feature — an
    entry with a [ ] box that the ## Acceptance sweep entry does not already
