@@ -159,6 +159,20 @@ Which folder you choose is what you would otherwise be asked, one document at a 
 
 **Binary files are fine.** A PDF, a PNG, an exported mockup — they are linked and described, never transcribed into the spec as though a drawing were a stated requirement.
 
+### A `CLAUDE.md` your repositories already carry
+
+**Each rule in it gets a decision before `/hora-setup` runs**, because `/hora-setup` reads that file as the authority for the repository. The agent proposes one of five, and you decide each:
+
+| Decision | The rule |
+|---|---|
+| retain | stays where it is, as it is |
+| rewrite | stays, in words that no longer contradict hora |
+| relocate | moves to `request/` or `annex/` for the spec, or to a package skill |
+| automate | becomes a lint rule, a test or a CI step |
+| delete | goes, because hora or a package now covers it |
+
+**Retain is the default for a rule a package skill reads**, such as a commit format. Nothing is relocated into a hora file.
+
 ### Two things that go wrong
 
 **Do not link into the implementation repositories.** `legacy-api/docs/` is gitignored, so a link into it **resolves on your disk and breaks in everybody else's clone** — and it breaks silently. Copy what you need into `specs/<version>/` instead.

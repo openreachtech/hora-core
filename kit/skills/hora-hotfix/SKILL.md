@@ -111,6 +111,8 @@ When all three hold, the migration can be applied first and the code after it, s
 
 **The test must fail, and it must fail for this defect.** A test that fails for any reason proves nothing.
 
+**Name no cause until one command has run that test and failed.** A cause named first bends the test toward it. Record it in H5 as `reproduced-by:`, beside the test it ran, never in place of it. Under `reproduced: no` it is the command that took the measurement.
+
 **Some defects cannot be caught by a test.** A performance problem, or a bug that only appears with production data. Then record `reproduced: no` with the reason, and put a measurement in the record instead — the number before and the number after.
 
 ---
@@ -168,6 +170,7 @@ Write `.hora/hotfix/<hotfix-id>.md`. **The record is what pays for everything th
 <!-- repositories: myproject-backend, myproject-frontend-employee -->
 <!-- touches: attendance, sign-in -->
 <!-- reproduced: yes -->
+<!-- reproduced-by: npm test -- tests/session-expiry.test.js -->
 <!-- suites: full -->
 <!-- security-audit: run (scoped) | not applicable (touched no auth surface) -->
 <!-- data-damage: none -->

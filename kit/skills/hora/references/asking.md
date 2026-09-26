@@ -94,7 +94,8 @@ The same standard holds for what a criterion claims, once written (`../../hora-s
 2. **Offer values, not blanks.** Not "how many users?" but `100 / 1,000 / 10,000`. A person corrects a number more readily than they produce one
 3. **Say what each option changes for the person**, and what it costs, in its description
 4. **Batch up to four.** One question per exchange turns a stage into an interrogation
-5. **"Other" is always available**, added by the tool itself, which is what makes offering a best guess safe
+5. **Ask a question whose answer decides another's options first, and never in the same batch.** Asked together, the second offers options the first answer may rule out
+6. **"Other" is always available**, added by the tool itself, which is what makes offering a best guess safe
 
 **The question text and the descriptions carry what changes. An option label stays short.**
 
