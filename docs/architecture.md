@@ -397,6 +397,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the parallel route, end to end | [`parallel.md`](./parallel.md) |
+| the automatic route, end to end | [`auto.md`](./auto.md) |
 | the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |

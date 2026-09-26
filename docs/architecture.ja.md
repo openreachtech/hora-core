@@ -395,6 +395,7 @@ git 操作はすべてメインセッションで行われます — `/hora` 自
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
 | 緊急経路を最初から最後まで | [`hotfix.ja.md`](./hotfix.ja.md) |
 | 並列経路を最初から最後まで | [`parallel.ja.md`](./parallel.ja.md) |
+| 自動経路を最初から最後まで | [`auto.ja.md`](./auto.ja.md) |
 | 関所が委譲するスキル群 | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | 既存プロジェクトへの適用 | [`adopting.ja.md`](./adopting.ja.md) |
 | 18の関所そのもの | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
