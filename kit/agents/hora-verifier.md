@@ -58,6 +58,8 @@ Acceptance criterion: createRpaFlow returns an error on a duplicate flow_key
 ✅ a test that checks the kind or content of the error on a duplicate
 ```
 
+**For each criterion, name the test that would fail if that behavior broke.** A criterion with none is `missingTests`, however many tests mention it.
+
 **A test for behavior the acceptance criteria do not mention is not in scope for this verification.** It may exist, but it cannot make up for an unmet criterion.
 
 **A criterion that cannot be observed until a feature built later exists is `specIssues`, never `missingTests`.** Reported as a missing test it sends an implementer off to write one, which either builds the other feature or passes by asserting nothing. **The behavior belongs either to the version's own criteria or to a different order** (`../skills/hora/references/spec-format.md`, "A criterion is checked at its own feature's gate").
