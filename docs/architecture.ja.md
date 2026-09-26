@@ -66,7 +66,7 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 | ステージ skill と2つの agent | 仕様書の1節、あるいは1関所ぶんのコードや判定 | 順序上の位置。git に関する一切 | `@openreachtech/hora` |
 | 4つのスキルパッケージ | **すべての手順と、すべての合否基準** | それが呼ばれる時機 | `@openreachtech/hora-skills-ort-core`・`-ort-renchan`・`-ort-furo`・`-ort-support` |
 
-**4つの層のどれにも属さない skill が1つだけあり、それは `/hora` が決して起動しない唯一の skill です — `/hora-hotfix`。** 作業の順序も、関所の終了条件も決めません。何を緊急とするかは人が決めることだからです。直接呼ばれ、release ラインではなく `main` の上で動き、その結果の上に `/hora` が開いている release ライン群を rebase します。配布元は他と同じ `@openreachtech/hora` です。[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix` と、経路全体を書いた [`hotfix.ja.md`](./hotfix.ja.md) を参照してください。
+**4つの層のどれにも属さない skill が1つあります — `/hora-hotfix`。** `/hora` はこれを決して起動しません。後に述べる2つの skill も同じです。作業の順序も、関所の終了条件も決めません。何を緊急とするかは人が決めることだからです。直接呼ばれ、release ラインではなく `main` の上で動き、その結果の上に `/hora` が開いている release ライン群を rebase します。配布元は他と同じ `@openreachtech/hora` です。[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix` と、経路全体を書いた [`hotfix.ja.md`](./hotfix.ja.md) を参照してください。
 
 **`/hora` の下ではなく、隣に立つ skill がもう1つあります — `/hora-fast`。** もう1つのスケジューラです — 同じファイル、同じ関所で、複数の機能を同時に、それぞれ専用の git worktree で建てます。`/hora` の代わりに打つことで人が選びます。経路は [`parallel.ja.md`](./parallel.ja.md) に、それが何を解決し何を支払うかは後述の「なぜ直列なのか」にあります。
 
