@@ -258,7 +258,9 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
    ran in step 8's suite. A criterion with none -> back to an implementer,
    with the shortfall named. This is the main session's own read, never an
    agent's — and where the checkpoint was split, the union of the units is
-   what the criteria are read against
+   what the criteria are read against. For each criterion, name the test that
+   would fail if that behavior broke (`../../agents/hora-verifier.md`, "A test
+   exists" is not enough to pass); a criterion with none goes back the same way
 2. Did step 8's fix loop touch any test file?
      no  -> the checkpoint is verified; write [x]. The implementer never runs
             the tests (its own file forbids it), so a suite that passed
