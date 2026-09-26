@@ -66,7 +66,7 @@ This document is in two parts: Part 1 is `/hora` — the layers, the eighteen ch
 | the stage skills and the two agents | one section of the spec, or one checkpoint's code or verdict | where they run in the order; anything about git | `@openreachtech/hora` |
 | the four skills packages | **every procedure and every pass/fail criterion** | when it is invoked | `@openreachtech/hora-skills-ort-core`, `-ort-renchan`, `-ort-furo`, `-ort-support` |
 
-**One skill sits outside all four, and it is the only one `/hora` never starts: `/hora-hotfix`.** It decides neither the order of the work nor a gate's exit condition, because whether something is an emergency is a person's call. It is invoked directly, it works on `main` rather than on a release line, and `/hora` rebases the open release lines onto what it produced. It ships in `@openreachtech/hora` like the rest. See [`commands.md`](./commands.md), `/hora-hotfix`, and [`hotfix.md`](./hotfix.md) for the whole route.
+**One skill sits outside all four: `/hora-hotfix`.** `/hora` never starts it, nor either of the two skills below. It decides neither the order of the work nor a gate's exit condition, because whether something is an emergency is a person's call. It is invoked directly, it works on `main` rather than on a release line, and `/hora` rebases the open release lines onto what it produced. It ships in `@openreachtech/hora` like the rest. See [`commands.md`](./commands.md), `/hora-hotfix`, and [`hotfix.md`](./hotfix.md) for the whole route.
 
 **A second skill sits beside `/hora` rather than under it: `/hora-fast`.** It is the other scheduler — the same files, the same checkpoints, several features at once, each in its own git worktree. A person chooses it by invoking it instead of `/hora`. [`parallel.md`](./parallel.md) has the route, and "Why it is serial", below, has what it resolves and what it pays for that.
 
@@ -397,6 +397,7 @@ Everything above rests on two lines. Both are stated in [`structure.md`](../kit/
 | what each command does, step by step | [`commands.md`](./commands.md) |
 | the emergency route, end to end | [`hotfix.md`](./hotfix.md) |
 | the parallel route, end to end | [`parallel.md`](./parallel.md) |
+| the automatic route, end to end | [`auto.md`](./auto.md) |
 | the skills the checkpoints delegate to | [`structure.md`](../kit/skills/hora/references/structure.md) |
 | putting this on a project that already exists | [`adopting.md`](./adopting.md) |
 | the eighteen checkpoints themselves | [`checkpoints.md`](../kit/skills/hora-build/references/checkpoints.md) |
