@@ -1,3 +1,6 @@
+// A ceiling test: raise the budget before adding text, or cut text before lowering the budget, and the suite never fails.
+// Adding: the text first, then the budget. Cutting: the budget first, then the text.
+
 import {
   readFileSync,
 } from 'node:fs'
@@ -16,7 +19,7 @@ describe('kit/**/*.md', () => {
           rootPath: fileURLToPath(new URL('../../../kit/', import.meta.url)),
         })
         const budgetHash = JSON.parse(
-          readFileSync(new URL('./size-budget.json', import.meta.url), 'utf8')
+          readFileSync(new URL('../../kit/size-budget.json', import.meta.url), 'utf8')
         )
         const sizeBudget = KitSizeBudget.create({
           tree,
