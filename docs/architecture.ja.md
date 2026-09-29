@@ -70,6 +70,8 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 **`/hora` の下ではなく、隣に立つ skill がもう1つあります — `/hora-fast`。** もう1つのスケジューラです — 同じファイル、同じ関所で、複数の機能を同時に、それぞれ専用の git worktree で建てます。`/hora` の代わりに打つことで人が選びます。経路は [`parallel.ja.md`](./parallel.ja.md) に、それが何を解決し何を支払うかは後述の「なぜ直列なのか」にあります。
 
+**add-on は、どの層の外からも skill に届きます。** add-on は Hora Kit の横に入れるパッケージで、skill が `[wing]` の印を付けた節だけを、add-on が効いている間だけ変えます。add-on について、すべての skill が従う決まりが `/hora-addon` で、これは `@openreachtech/hora` に入っています。add-on 自体は入っていません。どう効くか、複数の add-on がどう組み合わさるかは [`addons.ja.md`](./addons.ja.md) にあります。
+
 **4つのどれも、このリポジトリの中にはありません。** 4層すべてがパッケージとして届き、このリポジトリが持つのは仕様書と、これらの文書と、`.hora/` にある実行自身の記録です。
 
 驚かれるのは、パッケージ2つの間の分割です。 Hora Kit は resolver や migration やコンポーネントの書き方を一切持っていません。持ってはいけません — それらは独自にバージョン管理・更新されるパッケージにあります。Hora Kit 側に写しを置けば、そのパッケージが動いた瞬間に食い違い、しかも**食い違ったことを誰も知らせません。** [`structure.md`](../kit/skills/hora/references/structure.md) の "The division of labor" と [`structure.md`](../kit/skills/hora/references/structure.md) を参照してください。
@@ -146,6 +148,9 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
     _sweep.md                   版全体の掃引
   glossary.md                   追記のみ。版で分けない
 
+  wings/<skill-name>/<addon-name>/
+                                add-on の wing。add-on の installer が置く。コミットしない
+  addons/<addon-name>.json      add-on の定義。add-on の installer が置く。コミットしない
   equip-core.json               hora-core の install が置いたもの。gitignore 対象
   hora-skills-ort-core.json     各スキルパッケージの install が置いたもの。
   hora-skills-ort-furo.json     パッケージごとに1ファイル。gitignore 対象
@@ -154,14 +159,14 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 `git log .hora/` が「何が走ったか」の履歴です。他に記録している場所はなく、必要もありません。
 
-**`equip-*.json` の2つだけが例外で、そのために gitignore されています。** 各パッケージの installer が何を書いたかの記録で、次回の実行がそれだけを消してから新しくコピーするために使います。プロジェクトの状態ではなく、どの skill も読みません。
+**installer が書くものだけが例外で、コミットしません。** install のたびに作り直されるので、どれもプロジェクトの状態ではありません。installer 自身の記録 — `equip-core.json` と、パッケージごとに1つ — は gitignore されています。各 installer が何を書いたかの記録で、次回の実行がそれだけを消してから新しくコピーするために使います。どの skill も読みません。add-on の wing と定義は skill が読みますが、実行から生まれるものではなく、add-on のパッケージから来るものです。
 
 ### 誰が何を書けるか
 
 | ディレクトリ | 書くのは | それ以外 |
 |---|---|---|
 | `specs/` | **人間**、および人間に代わって書く2つの skill：`/hora-spec` は承認された1節ずつ、`/hora-plan` は承認された1編集ずつ | 読み取り専用 |
-| `.hora/` | その作業を記録する skill、自分が導いたダイジェスト1本だけを書く `hora-digester`、そして自分の `equip-*.json` だけを書く2つのパッケージ installer | 人間は読むだけ |
+| `.hora/` | その作業を記録する skill、自分が導いたダイジェスト1本だけを書く `hora-digester`、自分の記録だけを書くパッケージ installer、そして自分の wing と定義を書く各 add-on の installer | 人間は読むだけ |
 | 実装リポジトリ | 作成して値を埋める `/hora-setup`、1関所ぶん — または1単位ぶん — のコードとテストを書く `hora-implementer`、そして git 操作と集約ファイルすべてを担うメインセッション | — |
 
 **守られているのは「書き込むという行為」ではなく、人がその文言そのものを読まないまま要件が `specs/` に入らないことです。** 2つの例外はどちらもそれを守っています — `/hora-spec` は節ごと、`/hora-plan` は編集ごとに承認を取り、「はい、全部やって」は誰も読んでいないものへの承認にはなりません。粒度がなぜそこなのかは[第2部](#承認は節ごと)にあります。
