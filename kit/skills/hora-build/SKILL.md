@@ -27,9 +27,8 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 
 ```
 1. Read .hora/tasks/<version>/_plan.md
-2. Take the first feature whose entry is [ ] and whose depends are all satisfied
-   (looking back through past versions in .hora/tasks/ for a revived feature's
-   dependencies — finishing in an earlier version counts)
+2. Take the first feature "[wing] Whether a feature is ready to build", later
+   in this file, says yes to
 3. Open .hora/tasks/<version>/<feature-id>.md
 4. Take the first checkpoint that is [ ]
 5. Run it. Then the next one. Stop when the file has no [ ] left
@@ -43,11 +42,15 @@ Report the decision in one line before starting work — "building #attendance, 
 
 **A listed feature is never entered, and it has nothing to resume from.** A section carrying `<!-- baseline: inventoried -->` sits under `## Not accepted` with no checkbox, so step 2 skips it with no special case (`../hora-plan/SKILL.md`, "`_plan.md` — the order"). Its eighteen empty boxes are not a feature nobody started — the feature file's provenance header says which of the two this is, and opening one rebuilds code that is already serving users.
 
-**If no feature is ready and some are unfinished, that is a dependency cycle or a reference to an `id` that does not exist.** Raise it as a `contradiction` question (`blocking: yes`) and stop.
+**If no feature is ready and some are unfinished, and no open question holds any of them back, that is a dependency cycle or a reference to an `id` that does not exist.** Raise it as a `contradiction` question (`blocking: yes`) and stop.
 
 **A listed feature is not one of the unfinished ones.** It carries no checkbox, so a version with nothing left but listed entries is finished rather than deadlocked (`../hora/SKILL.md`, "Deciding where you are").
 
 **A `depends` naming a listed feature is satisfied by the running code, never by a checkbox.** Read it as satisfied, and read the dependent's own `Rests on: #<id> (not accepted)` line for what its pass rests on.
+
+### [wing] Whether a feature is ready to build
+
+**Yes, where its entry in `_plan.md` is `[ ]` and every one of its `depends` is satisfied**: `[x]` in this version, finished in an earlier one (look back through past versions in `.hora/tasks/` for a revived feature's dependencies), or listed. Both schedulers take their next feature from this section, `/hora` through step 2 above and `/hora-fast` through its parallel loop.
 
 ---
 
