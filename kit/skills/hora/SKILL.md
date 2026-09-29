@@ -98,7 +98,10 @@ With that settled, do this every time — a fresh start and a restart alike.
    list against specs/ on every re-entry
 
 4. Does .hora/questions/<version>/open.md still hold an unresolved
-   blocking: yes?                             if so → stop. Report what to fix
+   blocking: yes?                             if so → stop, unless the run
+                                              may go on past it (step 4,
+                                              after this list). Report what
+                                              to fix
 
 5. Does .hora/tasks/<version>/_plan.md still hold an unfinished feature — an
    entry with a [ ] box that the ## Acceptance sweep entry does not already
@@ -132,6 +135,8 @@ With that settled, do this every time — a fresh start and a restart alike.
 **Step 0 is also what catches `release/<version>` up with a `hotfix/*`.** `/hora` has no scheduler: this fetch and the one right after every merge into `release/<version>` are the only two occasions it gets to notice one landed on `main`.
 
 **An open hotfix debt is reported here, never acted on here.** Step 3's `/hora-plan` is what turns it back into work (`../hora-hotfix/SKILL.md`, "Paying the debt back").
+
+**Step 4 stops only where `[wing] Whether the run may go on past an open blocking question` (`../hora-plan/SKILL.md`) says no.** The decision lives in `/hora-plan`, beside the question file it reads, so `/hora` and `/hora-plan` never answer it differently.
 
 **`/hora` does not ask before running this check, or before acting on an ordinary result.** It stops and asks once the check turns up something it cannot resolve on its own.
 
