@@ -324,6 +324,7 @@ whether an extension point should be left in place.
 | `reinvention` | checking whether an existing package already does what is about to be written | no |
 | `upstream-defect` | a defect in a framework or a package, worked around in this project's own code rather than by editing the dependency, and what would let the workaround be removed again | no |
 | `orphan` | a file that nothing links to from `spec.md` | no |
+| `addon-precedence` | two active add-ons changed one `[wing]` section differently, nothing a person stated chose between them, and the more precise one was judged and taken (`../hora-addon/SKILL.md`) | no |
 | `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
