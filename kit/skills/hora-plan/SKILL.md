@@ -303,7 +303,9 @@ whether an extension point should be left in place.
 
 **No.** If even one `blocking: yes` is unresolved, `/hora-build` is not entered, and `/hora` stops at its step 4 with what to fix.
 
-### Categories
+### [wing] How to categorize a question
+
+**Every question takes one category from this table.**
 
 | category | Content | Default blocking |
 |---|---|---|
