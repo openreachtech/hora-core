@@ -209,7 +209,11 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 **1, 2, 9 and 11 run in the main session, one feature at a time, as `/hora-build` says.** When several features reach one together, they are taken in turn, and the person is told how many are waiting.
 
-**A person may say that 2, 9 or 11 is to be skipped for one feature.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+**A person may say that 2, 9 or 11 is to be skipped for one feature, where `[wing] Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+
+#### [wing] Whether an interactive checkpoint may be skipped
+
+**Yes, for 2, 9 and 11, once a person has asked for it for one feature.**
 
 ### What surfaces in flight
 
