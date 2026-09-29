@@ -2,6 +2,8 @@
 
 **Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, `/hora-build` and `/hora-fast` at the checkpoints that run in conversation, `/hora-accept`, and `/hora-hotfix`.
 
+**Before putting anything to a person, take `[wing] Whether a decision may be taken without asking`, later in this file.** Where it answers yes, nothing is put to anyone, and the decision is taken as `[wing] How to decide without asking` says. Everything else in this file applies where it answers no.
+
 **There are three ways to put something to a person, and they are not interchangeable.** Each one asks the person to do a different job.
 
 ---
@@ -124,6 +126,16 @@ Ask it in prose, and say what it needs: *"this one needs a few sentences — a l
 
 ---
 
+## [wing] Whether a decision may be taken without asking
+
+**No.** Whatever this file says is put to a person is put to a person.
+
+## [wing] How to decide without asking
+
+**Not reached**, since the section above answers no. An add-on that lets a decision be taken without asking says here how it is taken and where it is recorded (`../../hora-addon/SKILL.md`).
+
+---
+
 ## Do not economize on asking
 
 **Asking is not a cost to be minimized.** People who get asked start writing it down in advance, and the asking trains whoever writes the spec. The question tool is for making each question *cheap to answer*, not for asking fewer of them.
@@ -138,4 +150,5 @@ Ask it in prose, and say what it needs: *"this one needs a few sentences — a l
 | `spec-format.md` | the format every answer ends up written into |
 | `../../hora-spec/references/investigation.md` | what evidence a check may be built on |
 | `../../hora-spec/SKILL.md` | the approval model a proposal passes through |
+| `../../hora-addon/SKILL.md` | how an add-on changes the two `[wing]` sections above |
 | `../../hora-plan/SKILL.md` | the question categories, in full |
