@@ -78,10 +78,14 @@ npx --no hora-core install
 .claude/agents/*
 .claude/skills/*
 !.claude/skills/my-own-skill/
-.hora/
+.hora/*.json
+.hora/wings/
+.hora/addons/
 ```
 
 名前の接頭辞ではなくディレクトリ全体で指定するのは意図的です。本パッケージの配布物はリリースごとに変わるため、今日の名前に合わせて書いたパターンは、何も告げずに古くなります。
+
+`.hora/` のうち無視するのは、installer が書くものだけです。本パッケージのインストール内容の記録である `.hora/equip-core.json`、その横にほかの installer が置く記録、そして add-on の installer が置く wing と定義です。どれも install のたびに作り直されます。`.hora/` の残り — `.hora/tasks/`、`.hora/addon/config.json` など skill が書く記録 — はプロジェクトの状態なので、コミットします。
 
 引数なしの `npm install` はプロジェクトの `postinstall` を再実行するので、キットも追従します。パッケージをコマンドラインで名指しする更新（`npm install @openreachtech/hora@latest`）では走りません。フックを置いていないリポジトリも同じです。その場合は、同じコマンドを再実行してください。
 
