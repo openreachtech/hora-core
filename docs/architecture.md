@@ -70,6 +70,8 @@ This document is in two parts: Part 1 is `/hora` — the layers, the eighteen ch
 
 **A second skill sits beside `/hora` rather than under it: `/hora-fast`.** It is the other scheduler — the same files, the same checkpoints, several features at once, each in its own git worktree. A person chooses it by invoking it instead of `/hora`. [`parallel.md`](./parallel.md) has the route, and "Why it is serial", below, has what it resolves and what it pays for that.
 
+**Add-ons reach the skills from outside every layer.** An add-on is a package installed beside Hora Kit, and it changes a skill only where the skill has marked a section `[wing]`, only while the add-on is active. `/hora-addon` is the rule every skill follows about them, and it ships in `@openreachtech/hora`; the add-ons themselves do not. [`addons.md`](./addons.md) has how they take effect and how several combine.
+
 **Not one of the four is in this repository.** All four arrive as packages, and what this repository holds is the spec, these documents, and the run's own record under `.hora/`.
 
 The split between the two packages is the one that surprises people. Hora Kit contains no instructions for writing a resolver, a migration or a component, and it must not — those live in a package that is versioned and updated on its own. A copy inside Hora Kit would disagree with the original the first time that package moved, and nothing would announce that it had. See [`structure.md`](../kit/skills/hora/references/structure.md), "The division of labor", and [`structure.md`](../kit/skills/hora/references/structure.md).
@@ -148,6 +150,9 @@ There is no state file. **The state is `.hora/`, and its checkboxes are the stat
     _sweep.md                   the whole-version sweep
   glossary.md                   append-only, not split per version
 
+  wings/<skill-name>/<addon-name>/
+                                an add-on's wings, from its installer. Not committed
+  addons/<addon-name>.json      an add-on's definition, from its installer. Not committed
   equip-core.json               what the last hora-core install placed. Gitignored
   hora-skills-ort-core.json     what the last install of each skills package placed —
   hora-skills-ort-furo.json     one record per package. Gitignored
@@ -156,14 +161,14 @@ There is no state file. **The state is `.hora/`, and its checkboxes are the stat
 
 `git log .hora/` is the history of what ran. Nothing else records it, and nothing needs to.
 
-**The two `equip-*.json` files are the exception, and they are gitignored for it.** They record what each package's installer wrote, so the next run can remove exactly that before copying fresh. They are not state of the project and no skill reads them.
+**What the installers write is the exception: it is not committed.** Every install regenerates it, so none of it is state of the project. The installers' own records — `equip-core.json` and one per package — are gitignored. They say what each installer wrote, so the next run can remove exactly that before copying fresh, and no skill reads them. An add-on's wings and definition are read by the skills, but come from the add-on's package, not from the run.
 
 ### Who may write what
 
 | Directory | Written by | Everyone else |
 |---|---|---|
 | `specs/` | **humans**, and the two skills that write on their behalf: `/hora-spec`, one approved section at a time, and `/hora-plan`, one approved edit at a time | read-only |
-| `.hora/` | the skill whose work it records, and `hora-digester` for the one digest it derives — plus the two package installers, each writing only its own `equip-*.json` | humans read only |
+| `.hora/` | the skill whose work it records, and `hora-digester` for the one digest it derives — plus the package installers, each writing only its own record, and each add-on's installer its own wings and definition | humans read only |
 | the implementation repositories | `/hora-setup` as it creates and fills them, `hora-implementer` for one checkpoint's — or one unit's — code and tests, and the main session for every git operation and every aggregation file | — |
 
 **What is protected is not the act of writing — it is that no requirement ever enters `specs/` without a human having read the exact words first.** Both exceptions keep that: approval is per section in `/hora-spec` and per edit in `/hora-plan`, and "yes, do them all" is not approval of anything nobody read. [Part 2](#approval-is-per-section) holds why the granularity is what it is.
