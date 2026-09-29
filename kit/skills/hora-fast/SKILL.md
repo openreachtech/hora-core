@@ -186,8 +186,9 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 ## The parallel loop
 
 ```
-1. ready = every feature in _plan.md that is [ ], not in flight, and whose
-   depends are all [x] or listed
+1. ready = every feature in _plan.md that is not in flight, and that
+   "[wing] Whether a feature is ready to build" (../hora-build/SKILL.md) says
+   yes to
 2. while fewer than the limit are in flight and ready is not empty:
      start the first one at its first [ ] checkpoint
 3. each feature in flight runs /hora-build's "Running one checkpoint",
