@@ -1,6 +1,8 @@
 # What every hora skill assumes
 
-`/hora`, `/hora-fast`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept` and `/hora-hotfix` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+`/hora`, `/hora-fast`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix` and `/hora-addon` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+
+**Once a skill knows which version it is working on, it resolves the add-ons** (`../../hora-addon/SKILL.md`) — every hora skill, whatever started it, and again after a resume or a compacted context.
 
 ---
 
@@ -38,7 +40,7 @@
 
 **Stack names are the same copy too.** A boilerplate, a framework, a database, a queue — written anywhere in a hora file, even as an example — is a fact the handbook already owns, and it goes stale the same silent way. Examples in hora files use roles (`backend`, `frontend-admin`) and kinds of work, never stacks.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-fast`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-fast`, `/hora-addon`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
@@ -149,7 +151,7 @@ These three must not be broken.
 | Directory | Who writes | What a hora skill may do |
 |---|---|---|
 | `specs/` | **`/hora-spec`, `/hora-plan`, and humans** | **write, and only with approval: `/hora-spec` a section at a time, `/hora-plan` an edit at a time. Every other skill is read-only** |
-| `.hora/` | hora skills | write (humans read only) |
+| `.hora/` | hora skills — plus the installers, each writing only its own: every package's installer its record (`equip-core.json` for Hora Kit, `<package>.json` for the rest), and each add-on's installer its wings and definition | write the records (humans read only). What the installers place is never written by a skill |
 
 **Two skills may write there, and both do it the same way.**
 
@@ -368,6 +370,12 @@ Next             the one command or decision that moves the run forward
                                 rewrites the line, and a clear adds cleared: and reopened-by: to it
     _fast.md                    the parallel scheduler's record: who chose it, the limit, and the
                                 foundation with its run record. /hora-fast writes it
+    _<addon-name>.md            an add-on's record for this version: whether it is declared on,
+                                and what the add-on records about its run. The add-on writes it
+  tasks/_all/_<addon-name>.md   an add-on's declaration for every version. A version's own record
+                                overrides it. Declarations only
+  addon/config.json             which add-on comes first where two conflict. A person writes it,
+                                through /hora-addon or by hand
   contracts/<version>/          one file per server whose consumer is elsewhere
   questions/<version>/open.md   append-only. Answered by editing specs/
   acceptance/<version>/
@@ -380,6 +388,14 @@ Next             the one command or decision that moves the run forward
                                 what it skipped, and whether that debt is still open.
                                 /hora-hotfix writes it; /hora-plan closes it
   glossary.md                   append-only, not split per version
+
+  wings/<skill-name>/<addon-name>/
+                                an add-on's wings. The add-on's installer writes them
+  addons/<addon-name>.json      an add-on's definition. The add-on's installer writes it
+  equip-core.json               what each installer placed on its last run, one record
+  <package>.json                per package. Each installer writes its own
 ```
+
+**Not everything under `.hora/` is committed.** The records above the blank line are, and `git log .hora/` is their history. What the installers write below it is regenerated on every install, and is never committed.
 
 **There is no separate state file.** `git log .hora/` is the history of what ran, and the checkboxes hold what is done.
