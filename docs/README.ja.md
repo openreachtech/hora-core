@@ -18,6 +18,7 @@ Hora の仕組み — このパッケージが運ぶ手法です。ここの文�
 | [`adopting.ja.md`](./adopting.ja.md) | **既存プロジェクトへのキット適用。** 2つの適用のどちらなのか、6つの手順、注意すべきこと |
 | [`hotfix.ja.md`](./hotfix.ja.md) | **緊急経路。** `/hora-hotfix` が何を諦めるか、6つの門、負債が通常の作業として戻ってくる筋道 |
 | [`parallel.ja.md`](./parallel.ja.md) | **並列経路。** `/hora-fast` が先に建てるもの、機能ごとに worktree を持つ理由、何を諦めるか、戻り方 |
+| [`addons.ja.md`](./addons.ja.md) | **skill を広げる。** add-on が持つもの、いつ効くか、変えてよい節、複数の add-on がどう組み合わさるか |
 | [`writing-style.ja.md`](./writing-style.ja.md) | **skill がどう書かれるか。** `kit/` 配下のファイルが従う3つの規則と、決して圧縮しないもの |
 | [`document-style.ja.md`](./document-style.ja.md) | **この文書群がどう書かれるか。** 太字は何を示すか、1文1主張、日本語版は翻訳ではないこと、構造の慣習 |
 
