@@ -126,6 +126,7 @@
 | the parallel scheduler, chosen for a version by invoking `/hora-fast` | `../../hora-fast/SKILL.md`, "What a person says to this skill" |
 | an interactive checkpoint skipped on instruction, for one feature, once | `../../hora-fast/SKILL.md`, "The interactive checkpoints" |
 | a drain — the parallel run wound down to a gate's entrance | `../../hora-fast/SKILL.md`, "Switching between the two schedulers" |
+| a lever an add-on brings | the add-on's own skill, which indexes its levers itself (`../../hora-addon/SKILL.md`) |
 
 ## In `request/`
 
