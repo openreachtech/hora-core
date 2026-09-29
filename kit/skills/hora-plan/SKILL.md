@@ -296,10 +296,16 @@ whether an extension point should be left in place.
 ```
 
 - **The file is append-only.** Existing questions are never removed, and resolved ones stay as `- [x]`
-- **If even one `blocking: yes` is unresolved, `/hora-build` is not entered.** With only `no` left, warn and continue
+- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `[wing] Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
 - A human may also answer by editing `specs/` between runs; on re-entry, re-read `specs/` and tick what is now resolved
 
-### Categories
+### [wing] Whether the run may go on past an open blocking question
+
+**No.** If even one `blocking: yes` is unresolved, `/hora-build` is not entered, and `/hora` stops at its step 4 with what to fix.
+
+### [wing] How to categorize a question
+
+**Every question takes one category from this table.**
 
 | category | Content | Default blocking |
 |---|---|---|
