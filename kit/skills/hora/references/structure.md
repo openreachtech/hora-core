@@ -4,6 +4,8 @@
 
 **Once a skill knows which version it is working on, it resolves the add-ons** (`../../hora-addon/SKILL.md`) — every hora skill, whatever started it, and again after a resume or a compacted context.
 
+**The skill a person invokes begins the run as `[wing] How to begin a run`, later in this file, says, once it has resolved the add-ons.** A skill that another skill starts is inside that run, and begins none of its own.
+
 **Whenever a skill ends a run — stopped, paused or finished — it closes the run as `[wing] How to close a run`, later in this file, says.**
 
 ---
@@ -324,6 +326,12 @@ Q4  missing-authorization  blocking: yes
 ```
 
 **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only. A check, a proposal, a question and a section shown for approval keep the form `asking.md` gives them.
+
+---
+
+## [wing] How to begin a run
+
+**Nothing beyond resolving the add-ons**: the skill takes its own first step. Whatever has to be looked at before any step is taken, once per run rather than once per skill, is looked at here.
 
 ---
 
