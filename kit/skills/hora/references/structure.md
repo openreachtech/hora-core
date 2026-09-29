@@ -4,6 +4,8 @@
 
 **Once a skill knows which version it is working on, it resolves the add-ons** (`../../hora-addon/SKILL.md`) — every hora skill, whatever started it, and again after a resume or a compacted context.
 
+**Whenever a skill ends a run — stopped, paused or finished — it closes the run as `[wing] How to close a run`, later in this file, says.**
+
 ---
 
 ## The division of labor
@@ -322,6 +324,12 @@ Q4  missing-authorization  blocking: yes
 ```
 
 **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only. A check, a proposal, a question and a section shown for approval keep the form `asking.md` gives them.
+
+---
+
+## [wing] How to close a run
+
+**Close the run with the skill's own closing report**, in the shape "The closing report" gives, whether it stopped, was paused or finished. A stop is only a question put to whoever comes next, and the report is where they find it; an end is where the next run starts, and the report is how it knows.
 
 ---
 
