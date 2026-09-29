@@ -78,10 +78,14 @@ The installed kit is this package's build output rather than source of your repo
 .claude/agents/*
 .claude/skills/*
 !.claude/skills/my-own-skill/
-.hora/
+.hora/*.json
+.hora/wings/
+.hora/addons/
 ```
 
 Matching on the whole directory rather than on a name prefix is deliberate: what this package distributes changes with every release, and a pattern written against today's names goes stale without saying so.
+
+Of `.hora/`, ignore only what the installers write: `.hora/equip-core.json`, this package's record of what it installed, the record every other installer keeps beside it, and the wings and definitions an add-on's installer places. Every install regenerates them. The rest of `.hora/` — `.hora/tasks/`, `.hora/addon/config.json` and the other records the skills write — is the state of your project, and is committed.
 
 An `npm install` with no arguments re-runs your project's `postinstall`, so the kit follows along. Naming the package on the command line — `npm install @openreachtech/hora@latest` — does not, and neither does a repository without a hook. Run the command again yourself:
 
