@@ -315,7 +315,7 @@ export default class KitFrontmatterInspector {
   }
 
   /**
-   * Inspect `name` and `description`, holding a skill to the Agent Skills limits.
+   * Inspect `name`, `description` and `model`, holding a skill to the Agent Skills limits.
    *
    * @param {{
    *   kind: KitFileKind
@@ -354,6 +354,11 @@ export default class KitFrontmatterInspector {
           && key === 'description'
           && /[<>]/u.test(value),
         violation: 'description holds an angle bracket',
+      },
+      {
+        isViolated: key === 'model'
+          && !/^(?:inherit|fable|opus|sonnet|haiku|claude-[a-z0-9.-]+)$/u.test(value),
+        violation: `model is not an alias, a full model ID or inherit: ${value}`,
       },
     ]
 

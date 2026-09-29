@@ -1019,6 +1019,68 @@ describe('KitFrontmatterInspector', () => {
       })
     })
 
+    describe('should hold a model to an alias, a full model ID or inherit', () => {
+      const cases = [
+        {
+          input: {
+            kind: 'agent',
+            key: 'model',
+            value: 'sonnet',
+          },
+          expected: [],
+        },
+        {
+          input: {
+            kind: 'agent',
+            key: 'model',
+            value: 'inherit',
+          },
+          expected: [],
+        },
+        {
+          input: {
+            kind: 'skill',
+            key: 'model',
+            value: 'claude-sonnet-5',
+          },
+          expected: [],
+        },
+        {
+          input: {
+            kind: 'agent',
+            key: 'model',
+            value: 'sonet',
+          },
+          expected: [
+            'model is not an alias, a full model ID or inherit: sonet',
+          ],
+        },
+        {
+          input: {
+            kind: 'agent',
+            key: 'model',
+            value: 'Sonnet',
+          },
+          expected: [
+            'model is not an alias, a full model ID or inherit: Sonnet',
+          ],
+        },
+      ]
+
+      test.each(cases)('kind: $input.kind, value: $input.value', ({ input, expected }) => {
+        const inspector = KitFrontmatterInspector.create({
+          tree: KitMarkdownTree.create({
+            rootPath: '/tmp/acme/kit',
+          }),
+        })
+
+        const received = inspector.inspectValue(input)
+
+        expect(received)
+          .toEqual(expected)
+      })
+    })
+
     describe('should pass over any other key', () => {
       const cases = [
         {
