@@ -37,7 +37,7 @@ Runs at the root of the hora repository, like every other hora skill. Every git 
 | **H1** | Admit | the main session, in conversation | this fix has none of the properties that stop a hotfix, or a person chose a way forward. **The one sentence saying what "fixed" means is written** |
 | **H2** | Reproduce | an implementer agent | a test exists that fails, and it fails because of this defect |
 | **H3** | Fix | an implementer agent | H2's test passes, the change is the smallest one that does that, and lint passes on the files it touched |
-| **H4** | Blast radius | the main session | the unit suites pass in every repository — in full, or narrowed against a stated reason — and every step this fix's touched surface forces has run |
+| **H4** | Blast radius | the main session | the unit suites pass in every repository — in full, or narrowed against a stated reason and the fact it rests on — and every step this fix's touched surface forces has run |
 | **H5** | Record | the main session | `.hora/hotfix/<hotfix-id>.md` is written, and says what was skipped, which features were touched, and what happens to bad data already written |
 | **H6** | Land | the main session | `hotfix/<hotfix-id>` is merged into `main`, and the catch-up is handed to `/hora` |
 
@@ -156,6 +156,16 @@ Match the equipped skills covering the code being changed, and hand the work to 
 ### Narrowing the suites
 
 **`suites: partial` needs a stated reason, and it is never the default.** It is forbidden where the fix touched a shared module or a conflict-proof file. Record the reason and which suites did not run.
+
+**The reason says why those suites were not run, never why they could not fail.** That needs the one fact the skipped suites rest on, proven by a command. Name what the fix cannot reach, run the command that shows it, and record both with the result.
+
+```
+✅ no other declared row reads sessionExpiry
+     grep -rl sessionExpiry <every other declared row>   → no match
+❌ the change is small and touches no shared module
+```
+
+**A fact no command can prove is recorded as `unproven`.** The run still lands, and the debt carries the fact (H5).
 
 ---
 
