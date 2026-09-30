@@ -186,8 +186,9 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 ## The parallel loop
 
 ```
-1. ready = every feature in _plan.md that is [ ], not in flight, and whose
-   depends are all [x] or listed
+1. ready = every feature in _plan.md that is not in flight, and that
+   "[wing] Whether a feature is ready to build" (../hora-build/SKILL.md) says
+   yes to
 2. while fewer than the limit are in flight and ready is not empty:
      start the first one at its first [ ] checkpoint
 3. each feature in flight runs /hora-build's "Running one checkpoint",
@@ -209,7 +210,11 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 **1, 2, 9 and 11 run in the main session, one feature at a time, as `/hora-build` says.** When several features reach one together, they are taken in turn, and the person is told how many are waiting.
 
-**A person may say that 2, 9 or 11 is to be skipped for one feature.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+**A person may say that 2, 9 or 11 is to be skipped for one feature, where `[wing] Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+
+#### [wing] Whether an interactive checkpoint may be skipped
+
+**Yes, for 2, 9 and 11, once a person has asked for it for one feature.**
 
 ### What surfaces in flight
 
@@ -389,7 +394,7 @@ what a drain would have to finish, if /hora is to take over
 | File | Content |
 |---|---|
 | `../hora/SKILL.md` | the serial scheduler — its decision steps and its closing report |
-| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, where a lever lives, how progress is reported |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, where a lever lives, how progress is reported, the closing report |
 | `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | every branch and commit rule, unchanged here |
 | `../hora-build/SKILL.md` | how one checkpoint runs — this skill runs it in a worktree |

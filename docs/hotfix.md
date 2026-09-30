@@ -75,6 +75,8 @@ Two things happen here.
 
 A test is written that **fails, and fails because of this defect**. It comes before the fix, not after.
 
+**No cause is named until one command has run that test and failed.** The record keeps that command as `reproduced-by:`.
+
 Some defects cannot be caught by a test — a slow query, or a bug that only appears with production data. Then the record says `reproduced: no` with the reason, and carries a measurement instead: the number before, the number after.
 
 ### H3 — Fix
@@ -208,7 +210,7 @@ From there the normal route takes over. `/hora-build` picks the feature up, `/ho
 
 - **One hotfix at a time.** Two heading for `main` together make the catch-up much harder to reason about
 - **`/hora-hotfix` never writes `specs/`.** Like every skill but `/hora-spec` and `/hora-plan`, it reports a spec problem instead of fixing one
-- **Narrowing the unit suites needs a stated reason**, and is not allowed where the fix touched shared code
+- **Narrowing the unit suites needs a stated reason**, and is not allowed where the fix touched shared code. It also needs the one fact the skipped suites rest on, proven by a command, or recorded as `unproven` for the next sweep to prove
 - **A hotfix PR title containing a version in backticks will tag `main`** — the release workflow reads the title. Keep the version out of it
 
 ---

@@ -37,7 +37,7 @@ Runs at the root of the hora repository, like every other hora skill. Every git 
 | **H1** | Admit | the main session, in conversation | this fix has none of the properties that stop a hotfix, or a person chose a way forward. **The one sentence saying what "fixed" means is written** |
 | **H2** | Reproduce | an implementer agent | a test exists that fails, and it fails because of this defect |
 | **H3** | Fix | an implementer agent | H2's test passes, the change is the smallest one that does that, and lint passes on the files it touched |
-| **H4** | Blast radius | the main session | the unit suites pass in every repository — in full, or narrowed against a stated reason — and every step this fix's touched surface forces has run |
+| **H4** | Blast radius | the main session | the unit suites pass in every repository — in full, or narrowed against a stated reason and the fact it rests on — and every step this fix's touched surface forces has run |
 | **H5** | Record | the main session | `.hora/hotfix/<hotfix-id>.md` is written, and says what was skipped, which features were touched, and what happens to bad data already written |
 | **H6** | Land | the main session | `hotfix/<hotfix-id>` is merged into `main`, and the catch-up is handed to `/hora` |
 
@@ -111,6 +111,8 @@ When all three hold, the migration can be applied first and the code after it, s
 
 **The test must fail, and it must fail for this defect.** A test that fails for any reason proves nothing.
 
+**Name no cause until one command has run that test and failed.** A cause named first bends the test toward it. Record it in H5 as `reproduced-by:`, beside the test it ran, never in place of it. Under `reproduced: no` it is the command that took the measurement.
+
 **Some defects cannot be caught by a test.** A performance problem, or a bug that only appears with production data. Then record `reproduced: no` with the reason, and put a measurement in the record instead — the number before and the number after.
 
 ---
@@ -155,6 +157,16 @@ Match the equipped skills covering the code being changed, and hand the work to 
 
 **`suites: partial` needs a stated reason, and it is never the default.** It is forbidden where the fix touched a shared module or a conflict-proof file. Record the reason and which suites did not run.
 
+**The reason says why those suites were not run, never why they could not fail.** That needs the one fact the skipped suites rest on, proven by a command. Name what the fix cannot reach, run the command that shows it, and record both with the result.
+
+```
+✅ no other declared row reads sessionExpiry
+     grep -rl sessionExpiry <every other declared row>   → no match
+❌ the change is small and touches no shared module
+```
+
+**A fact no command can prove is recorded as `unproven`.** The run still lands, and the debt carries the fact (H5).
+
 ---
 
 ## H5. Record
@@ -168,6 +180,7 @@ Write `.hora/hotfix/<hotfix-id>.md`. **The record is what pays for everything th
 <!-- repositories: myproject-backend, myproject-frontend-employee -->
 <!-- touches: attendance, sign-in -->
 <!-- reproduced: yes -->
+<!-- reproduced-by: npm test -- tests/session-expiry.test.js -->
 <!-- suites: full -->
 <!-- security-audit: run (scoped) | not applicable (touched no auth surface) -->
 <!-- data-damage: none -->
@@ -187,6 +200,13 @@ Write `.hora/hotfix/<hotfix-id>.md`. **The record is what pays for everything th
 ## What was skipped
 
 This code has not been accepted. …
+```
+
+**`suites: partial` adds one line**, the fact H4 proved or could not:
+
+```markdown
+<!-- suites-rest-on: no other declared row reads sessionExpiry; grep -rl sessionExpiry → no match -->
+<!-- suites-rest-on: unproven (no caller outside the backend row reads the new column) -->
 ```
 
 **A schema change adds four more lines**, and the last one names the destructive half that was left behind:

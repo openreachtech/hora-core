@@ -194,6 +194,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 <!-- reuse: none | <the steps that reused, and what backed them> -->
 <!-- not-accepted: payroll, legacy-import | none -->
 <!-- version-criteria: 4 of 4 | not in scope (gate) | none declared -->
+<!-- tips: backend=3f2a1c9, frontend-employee=8b41d07 (a _sweep.md block only) -->
 <!-- environment: e2e/docker, seeded 2026-08-10 -->
 <!-- asked for by: <a person's name, where they widened this run> -->
 
@@ -250,6 +251,12 @@ passed over 1 of 20 features; 2 not accepted
 **`version-criteria:` is written on every block, at every reach, and it has three forms and no fourth.** A sweep writes `<checked> of <declared>`; a gate run writes `not in scope (gate)`; a version whose spec declared `none` writes `none declared`. A block with no line at all is indistinguishable from a sweep that never looked.
 
 **A sweep whose `<checked>` is short of `<declared>` has not passed.** One criterion left unchecked is recorded by name, and the run reported as partial.
+
+**A `_sweep.md` block carries one line more: `<!-- tips: backend=3f2a1c9, frontend-employee=8b41d07 -->`.** It names the commit `release/<version>` pointed at in each declared implementation repository when the run began, read with `git -C <myproject>-<row> rev-parse --short release/<version>`, and the run drives that tree.
+
+**A sweep's verdict holds only while every tip it names still stands.** A retake, an `update/` merge or a hotfix catch-up moves a tip, and the block then describes code that is gone (`../hora/SKILL.md`, "Deciding where you are", steps 6 and 7). A block with no `tips:` line names no code, so no reader takes it as a pass.
+
+**The hora repository is not listed.** Every `.hora/` commit moves it, this record's own included, and a spec change reaches the plan through `/hora-plan`'s digests.
 
 **The record names its own reach and its own gaps — `reach`, `live` and `not-accepted` are not optional lines.** A scoped, live-skipped pass over eight features and a full sweep over eleven read alike otherwise. **`not-accepted:` is written `none` where there is nothing**, because a line left out is indistinguishable from a run in which nobody considered it.
 

@@ -4,11 +4,11 @@
 
 *[日本語](./commands.ja.md)*
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), `/hora-addon` (the rule for add-ons, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below).
 
 **In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
-**Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`README.md`](../README.md#recommended-converse-through-the-spec-let-the-implementation-run).
+**Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`hora-boilerplate`'s `README.md`](https://github.com/openreachtech/hora-boilerplate#recommended-converse-through-the-spec-let-the-implementation-run).
 
 Every command runs **at the root of the hora repository** (`<myproject>-app`).
 
@@ -24,6 +24,7 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 - [/hora-accept](#hora-accept)
 - [/hora-hotfix](#hora-hotfix)
 - [/hora-fast](#hora-fast)
+- [/hora-addon](#hora-addon)
 - [What a session actually looks like](#what-a-session-actually-looks-like)
 - [Where to go next](#where-to-go-next)
 
@@ -55,9 +56,10 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 3. always run /hora-plan
 4. any unresolved blocking question?          yes → stop, and say what to fix
 5. any unfinished feature in _plan.md?        yes → /hora-build on the first ready one
-6. every feature done, and _sweep.md's newest block not a reach: full pass?
+6. every feature done, and _sweep.md's newest block not a reach: full pass
+   over tips: every release/<version> still points at?
                                               → /hora-accept, whole-version
-7. newest block reads reach: full and a pass  → merge into main
+7. it is                                      → merge into main
 ```
 
 It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11 features done, building #payroll from checkpoint 6."*
@@ -487,6 +489,31 @@ The record names the features the fix touched. On the next run, `/hora` reports 
 ### What it gives up
 
 A regression is caught at the merge instead of at the checkpoint that caused it. Screens are driven once, at the sweep, instead of at each feature's gate. Several features reach a conversation checkpoint in the same hour. Each feature in flight needs a second working copy and a second database.
+
+## `/hora-addon`
+
+**The rule for add-ons.** Every hora skill reads it as soon as it knows which version it is on, and works out which add-ons are active. You invoke it only to see them, to put one ahead of another, or to check them. [`addons.md`](./addons.md) explains add-ons; this is the summary.
+
+| | |
+|---|---|
+| **Reads** | `.hora/addons/*.json`; each add-on's record `_<addon-name>.md`, under `.hora/tasks/<version>/` or else `.hora/tasks/_all/`; `.hora/addon/config.json`; the wings under `.hora/wings/` |
+| **Writes** | `.hora/addon/config.json`, when you set the precedence. Nothing else: each add-on writes its own record |
+| **Stops when** | two active add-ons exclude each other (`exclusiveWith`): the run stops with neither applied, until the person withdraws one declaration. A definition at fault, or a wing that reaches no section, is reported and left out, and the run goes on |
+| **Run it directly** | to see the add-ons installed and active, to set which comes first, or to check every wing against the Hora Kit installed now |
+
+### What it settles
+
+```
+installed, and declared on (or "always")     → active
+the wings of the active add-ons, per section → combined
+  Whether …   (the skill OR every or) AND every and
+  How to …    replace, then overlay, then add
+two add-ons in conflict                       → the precedence set, then what the
+                                                person stated, then a judgment
+                                                recorded as a question
+```
+
+**Without an add-on, nothing here changes anything.** Every `[wing]` section says what the skill does on its own, and that is what runs.
 
 ---
 

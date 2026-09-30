@@ -690,7 +690,7 @@ Baseline: <verified (every existing feature is specified and accepted before the
 
 ### 6. Terminology and domain concepts
 
-Becomes the source of `.hora/glossary.md`. **Identifiers (class names, table names) are decided by `/hora-plan` after checking them against the lint rules**, so a term and its description are enough here.
+Becomes the source of `.hora/glossary.md`. **Identifiers (class names, table names) are decided by `/hora-plan` after checking them against the lint rules**, so a term, its description and the words rejected for it are enough here. **A rejected word is recorded because a later reader otherwise brings it back as a second name for the same concept.**
 
 ### 7. Non-functional requirements
 
@@ -902,7 +902,7 @@ Both optional, both covered above under "Directory layout".
       observable against what #sign-up itself adds
 ```
 
-**A forward reference is a `blocking: yes` stop at `/hora-plan` (`forward-reference`), not a note**, because four separate places act on it: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `missingTests`, and 18 fails the feature by construction.
+**A forward reference is a `blocking: yes` stop at `/hora-plan` (`forward-reference`), not a note**, because four separate places act on it: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `specIssues`, and 18 fails the feature by construction.
 
 **Three places take a behavior that reaches forward, and they are tried in this order:**
 

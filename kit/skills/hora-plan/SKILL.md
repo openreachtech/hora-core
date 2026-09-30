@@ -260,7 +260,7 @@ A feature with acceptance criteria but no use cases builds a set of operations t
 
 ### A block that reaches forward is a stop, not a note
 
-**Every gate that reads a feature's blocks runs at that feature's own position in the order**, so a criterion or a use case naming a feature built afterwards cannot be met wherever it is read (`../hora/references/spec-format.md`, "A criterion is checked at its own feature's gate"). **Four runs act on one anyway**: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `missingTests`, and 18 fails the feature by construction.
+**Every gate that reads a feature's blocks runs at that feature's own position in the order**, so a criterion or a use case naming a feature built afterwards cannot be met wherever it is read (`../hora/references/spec-format.md`, "A criterion is checked at its own feature's gate"). **Four runs act on one anyway**: checkpoint 1 builds from the criteria, 6 and 16 write a test for each one and run it, `hora-verifier` reports the untestable one as `specIssues`, and 18 fails the feature by construction.
 
 **Detect it by walking the order once, carrying what is built so far**, and reading each feature's two blocks against that set plus the feature itself. A `depends` on a listed feature is satisfied by the running code and orders nothing, so it counts as already built.
 
@@ -296,10 +296,16 @@ whether an extension point should be left in place.
 ```
 
 - **The file is append-only.** Existing questions are never removed, and resolved ones stay as `- [x]`
-- **If even one `blocking: yes` is unresolved, `/hora-build` is not entered.** With only `no` left, warn and continue
+- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `[wing] Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
 - A human may also answer by editing `specs/` between runs; on re-entry, re-read `specs/` and tick what is now resolved
 
-### Categories
+### [wing] Whether the run may go on past an open blocking question
+
+**No.** If even one `blocking: yes` is unresolved, `/hora-build` is not entered, and `/hora` stops at its step 4 with what to fix.
+
+### [wing] How to categorize a question
+
+**Every question takes one category from this table.**
 
 | category | Content | Default blocking |
 |---|---|---|
@@ -324,9 +330,11 @@ whether an extension point should be left in place.
 | `reinvention` | checking whether an existing package already does what is about to be written | no |
 | `upstream-defect` | a defect in a framework or a package, worked around in this project's own code rather than by editing the dependency, and what would let the workaround be removed again | no |
 | `orphan` | a file that nothing links to from `spec.md` | no |
+| `addon-precedence` | two active add-ons changed one `[wing]` section differently, nothing a person stated chose between them, and the more precise one was judged and taken (`../hora-addon/SKILL.md`) | no |
 | `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
+| `audit-finding` | a checkpoint 8 finding a person accepted instead of fixing | no, but **fail-loud** |
 
 **`no, but fail-loud` is not the same as an ordinary `blocking: no`.** State it by name, on its own, every time a closing report is written.
 
@@ -385,10 +393,10 @@ A server with no consumer, and a frontend with no server to match it, are both e
 **Check names against `@openreachtech/eslint-config`'s naming rules as they are written — read them from the package itself**, under the backend row's `node_modules/@openreachtech/eslint-config/` (`../hora/references/structure.md`, "The division of labor"). Skip the check and implementation walks into lint errors, each of which invents its own local workaround name.
 
 ```markdown
-| Term | Identifier | Kind | Used in | Notes |
-|---|---|---|---|---|
-| Flow | `RpaFlow` | entity | backend / frontend | table: `rpa_flows` |
-| Random string | `RandomTextGenerator` | existing package | backend | `<the package the handbook names for it>`. Do not reimplement |
+| Term | Not called | Identifier | Kind | Used in | Notes |
+|---|---|---|---|---|---|
+| Flow | workflow, job | `RpaFlow` | entity | backend / frontend | table: `rpa_flows` |
+| Random string | | `RandomTextGenerator` | existing package | backend | `<the package the handbook names for it>`. Do not reimplement |
 
 ## Names avoided, and why
 | The naive name | Why it fails | What was used |
@@ -397,6 +405,8 @@ A server with no consumer, and a frontend with no server to match it, are both e
 ```
 
 **Recording what was avoided is the point.** Without the reason, somebody later restores the naive name and lint fails.
+
+**`Not called` is copied from the spec's Terminology, never decided here.** It holds the domain words a person rejected, and `Names avoided` holds the identifiers lint rejects, so the two tables never merge.
 
 Do not write a change log (git holds that).
 
@@ -493,7 +503,7 @@ Twenty sections carry `built:` and three of them are listed, so seventeen entrie
 
 **Every entry under that heading stays `[ ]` until the adoption sweep passes, and then they are set together.** An entry is `[x]` only once every checkpoint of that feature is, and checkpoint 18 always stays `[ ]` here whatever `built:` says. **`_plan.md` derives its checkboxes from the checkpoints; it does not announce results ahead of them.**
 
-**This skill is what sets them, and it is a reconciliation row like every other one in section 6.** The trigger is a state, not an invocation: `.hora/acceptance/<version>/_sweep.md` exists and its **newest block** reads a passing verdict, and entries under the collapsed heading still stand `[ ]`. On finding it, **set checkpoint 18 in each of those features' files and their entries in `_plan.md` in the same write, off that one record** — 18 first, so no entry ever claims more than its own file does.
+**This skill is what sets them, and it is a reconciliation row like every other one in section 6.** The trigger is a state, not an invocation: `.hora/acceptance/<version>/_sweep.md` exists and its **newest block** reads a passing verdict over `tips:` that still stand (`../hora-accept/SKILL.md`, "Recording the result"), and entries under the collapsed heading still stand `[ ]`. On finding it, **set checkpoint 18 in each of those features' files and their entries in `_plan.md` in the same write, off that one record** — 18 first, so no entry ever claims more than its own file does.
 
 ```markdown
 - [x] 18. Acceptance (E2E and unit both)  <!-- the adoption sweep: .hora/acceptance/1.0.0/_sweep.md -->
@@ -659,7 +669,7 @@ Reconcile the set of sections in the resolved document against the feature files
 | the `Version acceptance criteria` section's digest does not match | **clear the `## Acceptance` sweep entry, and nothing else** (below). Re-derive the entry's `Version criteria:` line in the same write |
 | a section that vanished with no annotation | **do not delete anything.** The intent is unknown, so ask (`blocking: no`) |
 | a `.hora/hotfix/<hotfix-id>.md` whose `debt:` reads open | **pay it** (below), then write `debt: closed` in that record |
-| a collapsed version whose `_sweep.md` has a newest block reading a pass, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
+| a collapsed version whose `_sweep.md` has a newest block reading a pass over `tips:` that still stand, over entries still standing `[ ]` | **set checkpoint 18 in each of those features' files and their entries under `## Features — adopted as built`, off that one block** (section 5). Nothing else sets them |
 | the implementation scope carries a `Reconsider <version>'s scope when:` line naming the version being planned, whose condition now holds | **raise it once, in conversation, as a proposal to re-run stage 2** — naming the condition, what in the plan satisfies it, and the `scope` question that recorded the original decline — and **record the outcome as a question naming the line**: declined lands as `spec-proposal` (`blocking: no`, the category that exists so a declined proposal is not re-raised every run); taken hands the run to `/hora-spec` at stage 2. **The recorded question is the record that it fired** — the walk raises nothing where one already names this line |
 
 A digest only detects changes to sections an existing feature points at. **A new section has no feature pointing at it, so this reconciliation is the only way to detect one.**
@@ -734,6 +744,10 @@ for each id on the record's touches: line
                                                        ## Acceptance entry
 touches: none                                       -> the ## Acceptance entry
                                                        alone
+a suites-rest-on: line reads unproven               -> add the fact to what the
+                                                       ## Acceptance entry rests
+                                                       on. The sweep's full
+                                                       suites prove it
 a schema-contract-debt: line stands                 -> it is work this version
                                                        owes. Raise it, and have
                                                        the section written

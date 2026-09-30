@@ -31,6 +31,8 @@ A rule followed by two paragraphs on what goes wrong if it is broken is one rule
 
 Each rule has one owning file. Everywhere else is a single-line reference — `(`structure.md`, "The division of labor")`. This is the rule these files already state about procedures; it applies to their own prose too.
 
+**Make the pointer clear before you inline anything.** A pointer names the file, the heading, and what the reader finds there. Inline a rule only where that pointer still leaves the reader unable to act, and the owning file keeps the rule.
+
 **3. One sentence, one claim.**
 
 Split at every em dash that joins a second claim. Around 40 words is the ceiling.

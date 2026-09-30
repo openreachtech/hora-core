@@ -95,6 +95,8 @@ spec: 1.0.0#attendance
 
 `/hora-plan`'s own output (`_plan.md`, the feature files, questions, contracts, the glossary) is committed when planning finishes, before any feature starts.
 
+**An add-on's record, `_<addon-name>.md`, is committed on its own, every time a line is added to it** (`../../hora-addon/SKILL.md`). It is what a resumed run decides from, and a record that lives only in the working tree is the one thing a resume cannot trust.
+
 ---
 
 ## Merging into a trunk branch

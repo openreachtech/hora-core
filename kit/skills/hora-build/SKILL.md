@@ -27,9 +27,8 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 
 ```
 1. Read .hora/tasks/<version>/_plan.md
-2. Take the first feature whose entry is [ ] and whose depends are all satisfied
-   (looking back through past versions in .hora/tasks/ for a revived feature's
-   dependencies — finishing in an earlier version counts)
+2. Take the first feature "[wing] Whether a feature is ready to build", later
+   in this file, says yes to
 3. Open .hora/tasks/<version>/<feature-id>.md
 4. Take the first checkpoint that is [ ]
 5. Run it. Then the next one. Stop when the file has no [ ] left
@@ -43,11 +42,15 @@ Report the decision in one line before starting work — "building #attendance, 
 
 **A listed feature is never entered, and it has nothing to resume from.** A section carrying `<!-- baseline: inventoried -->` sits under `## Not accepted` with no checkbox, so step 2 skips it with no special case (`../hora-plan/SKILL.md`, "`_plan.md` — the order"). Its eighteen empty boxes are not a feature nobody started — the feature file's provenance header says which of the two this is, and opening one rebuilds code that is already serving users.
 
-**If no feature is ready and some are unfinished, that is a dependency cycle or a reference to an `id` that does not exist.** Raise it as a `contradiction` question (`blocking: yes`) and stop.
+**If no feature is ready and some are unfinished, and no open question holds any of them back, that is a dependency cycle or a reference to an `id` that does not exist.** Raise it as a `contradiction` question (`blocking: yes`) and stop.
 
 **A listed feature is not one of the unfinished ones.** It carries no checkbox, so a version with nothing left but listed entries is finished rather than deadlocked (`../hora/SKILL.md`, "Deciding where you are").
 
 **A `depends` naming a listed feature is satisfied by the running code, never by a checkbox.** Read it as satisfied, and read the dependent's own `Rests on: #<id> (not accepted)` line for what its pass rests on.
+
+### [wing] Whether a feature is ready to build
+
+**Yes, where its entry in `_plan.md` is `[ ]` and every one of its `depends` is satisfied**: `[x]` in this version, finished in an earlier one (look back through past versions in `.hora/tasks/` for a revived feature's dependencies), or listed. Both schedulers take their next feature from this section, `/hora` through step 2 above and `/hora-fast` through its parallel loop.
 
 ---
 
@@ -155,8 +158,9 @@ A checkpoint line carries a second comment at its end, holding what running the 
 | `verify-time:` | the hora-verifier share of `agent-time:` |
 | `wall-time:` | seconds of wall clock from entering the checkpoint to writing its box, or to stopping short, over every run. On 1, 2, 9 and 11 it is mostly a person answering |
 | `agent-tokens:`, `verify-tokens:` | the same split, only where the Agent tool reports tokens |
+| `at:` | each implementation repository's short `HEAD` when step 9 judged, as `backend=3f2a1c9`, with `+` where the working tree held uncommitted changes. The newest run only, never summed |
 
-**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
+**Add this run to it whether the checkpoint passed or not** — the moment step 9 has judged, or the moment the feature stops short of it. A checkpoint settled in conversation carries only `cleared:`, `reopened-by:` and `wall-time:`. **`at:` tells a reader which verdict is stale**: a judged file that changed since it no longer stands behind the box. The record survives whoever rewrites the line, and a clear adds to it (`../hora/references/structure.md`, "What lives in `.hora/`").
 
 ### Step 3 — the digest each matched skill is read through
 
@@ -234,6 +238,8 @@ git log --name-only --format= --grep="^spec: <version>#<id>$" HEAD  # landed, on
 
 plus the operations and endpoints this feature declares in `.hora/contracts/<version>/`. The third line is empty until the gate lands, so mid-gate the set is the working tree. It assumes each commit keeps its `spec:` trailer in the history; where the equipped git conventions squash, it comes back empty or wider, and either is absorbed below.
 
+**Hand `base` over with the set.** At step 9 the verifier reads `git diff "$base" -- <file>` for a marked tracked file before the file itself.
+
 **Mark the set from the reports this session holds, and hand the marks over with it.**
 
 | Mark | Files |
@@ -255,7 +261,9 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
    ran in step 8's suite. A criterion with none -> back to an implementer,
    with the shortfall named. This is the main session's own read, never an
    agent's — and where the checkpoint was split, the union of the units is
-   what the criteria are read against
+   what the criteria are read against. For each criterion, name the test that
+   would fail if that behavior broke (`../../agents/hora-verifier.md`, "A test
+   exists" is not enough to pass); a criterion with none goes back the same way
 2. Did step 8's fix loop touch any test file?
      no  -> the checkpoint is verified; write [x]. The implementer never runs
             the tests (its own file forbids it), so a suite that passed
@@ -300,10 +308,26 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 | `met` | writes `[x]` and moves on |
 | `unmet`, with `sendBackTo` | clears the checkpoints from `sendBackTo` on and re-enters there. **`sendBackTo` is required whenever anything is unmet**; a report missing it goes back to the verifier, never into a guess |
 | `missingTests` / `weakenedTests` | the checkpoint is not passed — back to an implementer agent, with the shortfall named |
-| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files the fix reported touching (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
+| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files changed since the prior run's `at:` (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
 | `contractDrift` | raises a `contradiction` question (`blocking: yes`). **Never edits the contract** |
 | `specIssues` | takes it to checkpoint 1's procedure, or raises a question |
 | `specAssumptions` | records each as a `spec-assumption` question (`blocking: no`) |
+
+### The verification record
+
+**Every checkpoint 8 run appends one block to `.hora/verification/<version>/<feature-id>.md`**, and no block is ever rewritten.
+
+```markdown
+## Run 2, checkpoint 8, re-audit
+<!-- at: backend=3f2a1c9 -->
+| Finding | Verdict | Evidence |
+|---|---|---|
+| F1 | resolved | `closeMonth` checks the role before the write |
+| F2 | carried | its files unchanged since Run 1 |
+| F3 | accepted | the `audit-finding` question that accepted it |
+```
+
+**`carried` is this skill's, never the verifier's.** A finding judged in an earlier run whose files `git diff --quiet <that run's at:> -- <files>` finds unchanged is carried and not handed again. **Every clear of checkpoint 8 drops every `carried`**, so the next run hands every finding. `accepted` comes only from a person answering an `audit-finding` question.
 
 ---
 
@@ -462,7 +486,7 @@ Checkpoint 18 passing is what finishes a feature. Then:
 | File | Content |
 |---|---|
 | `references/checkpoints.md` | **the eighteen checkpoints** — order, exit conditions, delegates, when each does not apply |
-| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor, how progress is reported |
+| `../hora/references/structure.md` | the layout, the invariants, where and how a command runs, the division of labor, how progress is reported, the closing report |
 | `../hora/references/asking.md` | a check, a proposal or a question, at the checkpoints that run in conversation |
 | `../hora/references/commits.md` | branches, commit granularity, merging, hotfix catch-up |
 | `../hora/references/done-criteria.md` | what "done" means for a checkpoint, a feature and a version |
