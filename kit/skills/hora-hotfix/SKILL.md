@@ -202,6 +202,13 @@ Write `.hora/hotfix/<hotfix-id>.md`. **The record is what pays for everything th
 This code has not been accepted. …
 ```
 
+**`suites: partial` adds one line**, the fact H4 proved or could not:
+
+```markdown
+<!-- suites-rest-on: no other declared row reads sessionExpiry; grep -rl sessionExpiry → no match -->
+<!-- suites-rest-on: unproven (no caller outside the backend row reads the new column) -->
+```
+
 **A schema change adds four more lines**, and the last one names the destructive half that was left behind:
 
 ```markdown
