@@ -210,7 +210,7 @@ From there the normal route takes over. `/hora-build` picks the feature up, `/ho
 
 - **One hotfix at a time.** Two heading for `main` together make the catch-up much harder to reason about
 - **`/hora-hotfix` never writes `specs/`.** Like every skill but `/hora-spec` and `/hora-plan`, it reports a spec problem instead of fixing one
-- **Narrowing the unit suites needs a stated reason**, and is not allowed where the fix touched shared code
+- **Narrowing the unit suites needs a stated reason**, and is not allowed where the fix touched shared code. It also needs the one fact the skipped suites rest on, proven by a command, or recorded as `unproven` for the next sweep to prove
 - **A hotfix PR title containing a version in backticks will tag `main`** — the release workflow reads the title. Keep the version out of it
 
 ---
