@@ -744,6 +744,10 @@ for each id on the record's touches: line
                                                        ## Acceptance entry
 touches: none                                       -> the ## Acceptance entry
                                                        alone
+a suites-rest-on: line reads unproven               -> add the fact to what the
+                                                       ## Acceptance entry rests
+                                                       on. The sweep's full
+                                                       suites prove it
 a schema-contract-debt: line stands                 -> it is work this version
                                                        owes. Raise it, and have
                                                        the section written
