@@ -57,11 +57,10 @@ Wings and definitions sit under `.hora/` rather than `.claude/`. `.claude/` hold
 A declared add-on keeps its declaration in a record named after itself: `_<addon-name>.md`, holding the line `<addon-name>: on`.
 
 ```
-.hora/tasks/1.0.0/_alpha-example-addon.md    this version's own declaration, if there is one
-.hora/tasks/_all/_alpha-example-addon.md     the declaration for every version
+.hora/tasks/1.0.0/_alpha-example-addon.md    this version's declaration
 ```
 
-A version's own record overrides the one under `_all/`. So an add-on can be on for the whole project and off for one version, or the other way round. `_all/` holds declarations only; what happens during a version's run is that version's, and is written under its own directory.
+A declaration is one version's, so an add-on can be on for one version and off for the next. There is no record for every version: an add-on that is to be on for every version says so in its definition, with `always`. What happens during a version's run is written in that version's record too.
 
 **Every hora skill works out which add-ons are active as soon as it knows which version it is on**, whatever started it. When `/hora` hands over to `/hora-plan`, `/hora-plan` works it out again for itself, and every skill does so again after a resume or a compacted context. The records decide, never the conversation: what a session remembers about how it was started does not survive either of those.
 
