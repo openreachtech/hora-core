@@ -496,7 +496,7 @@ A regression is caught at the merge instead of at the checkpoint that caused it.
 
 | | |
 |---|---|
-| **Reads** | `.hora/addons/*.json`; each add-on's record `_<addon-name>.md`, under `.hora/tasks/<version>/` or else `.hora/tasks/_all/`; `.hora/addon/config.json`; the wings under `.hora/wings/` |
+| **Reads** | `.hora/addons/*.json`; each add-on's record `_<addon-name>.md`, under `.hora/tasks/<version>/`; `.hora/addon/config.json`; the wings under `.hora/wings/` |
 | **Writes** | `.hora/addon/config.json`, when you set the precedence. Nothing else: each add-on writes its own record |
 | **Stops when** | two active add-ons exclude each other (`exclusiveWith`): the run stops with neither applied, until the person withdraws one declaration. A definition at fault, or a wing that reaches no section, is reported and left out, and the run goes on |
 | **Run it directly** | to see the add-ons installed and active, to set which comes first, or to check every wing against the Hora Kit installed now |

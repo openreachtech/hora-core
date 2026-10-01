@@ -388,8 +388,6 @@ Next             the one command or decision that moves the run forward
                                 foundation with its run record. /hora-fast writes it
     _<addon-name>.md            an add-on's record for this version: whether it is declared on,
                                 and what the add-on records about its run. The add-on writes it
-  tasks/_all/_<addon-name>.md   an add-on's declaration for every version. A version's own record
-                                overrides it. Declarations only
   addon/config.json             which add-on comes first where two conflict. A person writes it,
                                 through /hora-addon or by hand
   contracts/<version>/          one file per server whose consumer is elsewhere

@@ -69,11 +69,10 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 1. Read every .hora/addons/<addon-name>.json.
 2. For each, decide whether it is active for this version:
      activeWhen is "always"       -> active whenever it is installed
-     activeWhen is "declared"     -> find the record _<addon-name>.md
-       .hora/tasks/<version>/_<addon-name>.md exists  -> read it
-       otherwise .hora/tasks/_all/_<addon-name>.md    -> read it
-       neither exists                                  -> not active
-     active when the record read holds the line <addon-name>: on
+     activeWhen is "declared"     -> read the record
+                                     .hora/tasks/<version>/_<addon-name>.md
+       it holds the line <addon-name>: on              -> active
+       it does not, or it does not exist               -> not active
      activeWhen is missing, or anything else
                                   -> the definition is at fault: not active,
                                      and reported
@@ -91,7 +90,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 
 **The file decides, never the conversation.** A person who says an add-on is on, while its record says otherwise, has not turned it on; the add-on's own skill is what writes the record.
 
-**`.hora/tasks/_all/` holds a declaration for every version, and a version's own record overrides it.** It holds declarations only. What happens during one version's run — a stop, an end — is that version's, and is written under `<version>/`.
+**A declaration belongs to one version, and no record declares an add-on for every version.** An add-on that is to take effect for every version says so in its definition, as `"activeWhen": "always"`. What happens during one version's run — a stop, an end — is written in the same record, under `<version>/`.
 
 ### The definition file
 
@@ -99,7 +98,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 {
   "name": "alpha-example-addon",
   "activeWhen": "declared",
-  "description": "Active while it is declared on, for the version or for the whole project.",
+  "description": "Active while it is declared on for the version.",
   "horaKit": "^0.10.0"
 }
 ```

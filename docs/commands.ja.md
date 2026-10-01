@@ -491,7 +491,7 @@ hotfix を止める性質は6つ — 後方互換でないスキーマ変更、�
 
 | | |
 |---|---|
-| **読む** | `.hora/addons/*.json`。各 add-on の記録 `_<addon-name>.md`（`.hora/tasks/<version>/`、なければ `.hora/tasks/_all/`）。`.hora/addon/config.json`。`.hora/wings/` の下の wing |
+| **読む** | `.hora/addons/*.json`。各 add-on の記録 `_<addon-name>.md`（`.hora/tasks/<version>/`）。`.hora/addon/config.json`。`.hora/wings/` の下の wing |
 | **書く** | `.hora/addon/config.json`（優先順位を決めたとき）。ほかには何も書きません。各 add-on の記録は、その add-on が書きます |
 | **止まる条件** | 互いに締め出す2つの add-on（`exclusiveWith`）が両方効いているとき。どちらも効かせずに実行を止め、人がどちらかの宣言を取り下げるまで進みません。誤りのある定義や、どの節にも届かない wing は、報告して外し、実行は続けます |
 | **単独で叩く** | 入っている add-on と効いている add-on を見たいとき、どれを先にするかを決めたいとき、すべての wing を今入っている Hora Kit と突き合わせたいとき |
