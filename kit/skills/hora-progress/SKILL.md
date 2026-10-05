@@ -26,3 +26,19 @@ stage 2 passed | 4 use cases in scope, 3 deferred with a seam | -> stage 3
 - **The line opens with the checkpoint or stage it reports**, so a reader scrolling back finds every pass by its first words
 - **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only
 - **A check, a proposal, a question and a section shown for approval keep the form `../hora/references/asking.md` gives them.** None of them is progress
+
+---
+
+## Between two progress lines
+
+**What happens inside a checkpoint is not reported as it happens.** An implementer returning, a lint run, a test suite, a verifier awaited — each is a step toward the line, not a line of its own. Written as prose in the voice a pass is written in, they bury the pass, and nobody can find afterwards which checkpoints passed.
+
+**Where something has to be said while the work goes on, it is one line, indented, opening with `…`:**
+
+```
+  … checkpoint 6 | running the backend suite, second attempt
+```
+
+- **At most one such line for each step of the checkpoint** — implementing, lint, the suite, verifying. A step that needs nothing said says nothing
+- **It never says that anything passed.** "The fix holds, so checkpoint 3 passes" is a progress line, and is written as one, through this skill
+- **A pause in the output is not a reason to write.** A request to report how the work is going is answered with one such line, or with the last progress line again, never with a paragraph
