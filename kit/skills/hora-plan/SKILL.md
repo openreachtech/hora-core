@@ -384,6 +384,22 @@ RpaFlowsInput                the fields are unknown
 
 A server with no consumer, and a frontend with no server to match it, are both errors in the declaration, so ask (`blocking: no`).
 
+### Walk every use case through the contracts
+
+**Once the contracts are pinned, walk each use case through them as a sequence of calls, field by field.** `/hora-spec-review` and checkpoint 2 ask whether a step has an operation behind it. This walk asks whether the caller can make that call with what it holds at that step.
+
+| At each step | Look for |
+|---|---|
+| every input the operation requires | a value no earlier step returned, no seed row holds and the actor cannot enter |
+| the result the next step reads | a field the contract does not return |
+| a record the use case comes back to, after a filter, a status change or a deletion | a query whose input cannot select it |
+
+**A step on a server with no contract is read from the spec's API table for that server.**
+
+**A gap is `unmet-usecase` (`blocking: yes`), fixed at `/hora-spec`, stage 4.** The contract is derived from the spec, so a field added to the contract alone sets the two apart.
+
+**This walk is what lets `/hora-fast` open a dependent before its dependency is finished.** A field found missing in the middle of the dependency's backend gate reaches every dependent already built on the contract without it.
+
 ---
 
 ## 4. Write the glossary
