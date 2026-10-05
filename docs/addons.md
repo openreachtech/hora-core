@@ -186,8 +186,8 @@ Ask `/hora-addon` to check the add-ons and it compares every wing with the Hora 
 
 | | |
 |---|---|
-| the rule itself, as the skills read it | [`hora-addon/SKILL.md`](../kit/skills/hora-addon/SKILL.md) |
+| the rule itself, as the skills read it | [`hora-addon/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-addon/SKILL.md) |
 | what each command does | [`commands.md`](./commands.md) |
-| how a question is recorded, and its categories | [`hora-plan/SKILL.md`](../kit/skills/hora-plan/SKILL.md) |
-| what a skill asks a person, and how | [`asking.md`](../kit/skills/hora/references/asking.md) |
-| the layout of `.hora/` | [`structure.md`](../kit/skills/hora/references/structure.md) |
+| how a question is recorded, and its categories | [`hora-plan/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-plan/SKILL.md) |
+| what a skill asks a person, and how | [`asking.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/asking.md) |
+| the layout of `.hora/` | [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) |
