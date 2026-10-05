@@ -30,4 +30,4 @@ Hora の仕組み — このパッケージが運ぶ手法です。ここの文�
 |---|---|
 | キットで作るプロジェクトが何を持つか、どう始めるか | Web は [`hora-boilerplate`](https://github.com/openreachtech/hora-boilerplate)、ネイティブは `hora-boilerplate-mobile` |
 | このパッケージの導入方法と、同梱コマンドの働き | [`README.ja.md`](../README.ja.md) |
-| 18の関所、仕様書の書式、ブランチとコミットの規則 | それを所有する skill の隣の `references/`（[`kit/skills/`](../kit/skills) 配下） |
+| 18の関所、仕様書の書式、ブランチとコミットの規則 | それを所有する skill の隣の `references/`（[`kit/skills/`](https://github.com/openreachtech/hora-core/tree/main/kit/skills) 配下） |

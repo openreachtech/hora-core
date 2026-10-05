@@ -50,7 +50,24 @@ Report the decision in one line before starting work — "building #attendance, 
 
 ### [wing] Whether a feature is ready to build
 
-**Yes, where its entry in `_plan.md` is `[ ]` and every one of its `depends` is satisfied**: `[x]` in this version, finished in an earlier one (look back through past versions in `.hora/tasks/` for a revived feature's dependencies), or listed. Both schedulers take their next feature from this section, `/hora` through step 2 above and `/hora-fast` through its parallel loop.
+**Yes, where its entry in `_plan.md` is `[ ]` and every one of its `depends` is satisfied**: `[x]` in this version, finished in an earlier one (look back through past versions in `.hora/tasks/` for a revived feature's dependencies), or listed. `/hora` takes its next feature from this section through step 2 above. `/hora-fast` takes one from here too, and opens a gate earlier where the section below says yes.
+
+### [wing] Whether a gate may open while a dependency is unfinished
+
+**Yes, where every unfinished dependency has reached what this step waits on.** Only `/hora-fast` reads this section. `/hora` builds one feature to acceptance before the next, so a feature it picks has no unfinished dependency.
+
+| This feature's | Opens once each unfinished dependency has |
+|---|---|
+| spec gate (1, 2) and checkpoints 3 to 8 | nothing, once `/hora-fast`'s foundation is fixed |
+| checkpoint 9 | merged its backend gate into `release/<version>` |
+| frontend gate (10 to 17) | merged its frontend gate |
+| acceptance gate (18) | passed its own 18, which finishes it |
+
+**What the dependent's backend uses from its dependency is in the foundation before either opens.** The contracts, the shared tables, the master seed and every module `/hora-plan` marked `Imports:` are built there, and `/hora-plan` walked every use case through the contracts field by field. Checkpoint 9 walks the use cases as actual calls, so it is the first step that needs the dependency's running code.
+
+**A dependent's tests reach its dependency through the foundation, never through the dependency's operations.** A row they need in a dependency's table is seeded in the dependent's own band (`references/checkpoints.md`, checkpoint 5), and the call itself is walked at checkpoint 9.
+
+**A dependency's later gate that changes code a dependent built on reopens the dependent.** Clear the dependent's first checkpoint that reads the changed code, with `reopened-by: dependency`.
 
 ---
 

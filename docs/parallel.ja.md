@@ -71,6 +71,7 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 | 計画の時点で見えている依存 | 仕様書の key file map と stack handbook |
 | 全機能が読むマスター行 | seed |
 | `/hora-plan` が複数の機能ファイルに `Conflict:` の印を付けたファイル | 機能ファイル |
+| 依存先が書き、依存する機能が import するモジュール | 機能ファイルの `Imports:` の印 |
 
 土台は main の作業コピーで、`release/<version>` の上に、機能と同じ関所と同じエージェントで建てられ、最後に2つの検査で終わります。**宣言された contract・生成された型・スタブの機械的な照合**と、先端での全リポジトリのテストスイートです。照合があるのは、並列の転記が黙ったずれで失敗するからです — 3つの成果物がそれぞれ単独では正しく、互いに違っている。文章はそれを捕まえられません。
 
@@ -90,11 +91,17 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
   .worktrees/payroll/<project>-frontend-admin/  feature/payroll の frontend 側
 ```
 
-「リポジトリの中から」と言う規則はすべて、worktree をそのリポジトリとして読みます。lint、テスト、change set の導出はそこで走り、進行中の機能のコマンドを main の作業コピーで走らせるのは、[`structure.md`](../kit/skills/hora/references/structure.md) がすでに警告している「作業ディレクトリ違い」の失敗です。
+「リポジトリの中から」と言う規則はすべて、worktree をそのリポジトリとして読みます。lint、テスト、change set の導出はそこで走り、進行中の機能のコマンドを main の作業コピーで走らせるのは、[`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) がすでに警告している「作業ディレクトリ違い」の失敗です。
 
 **2つめの作業コピーには専用の依存、データベース、ポートが要り、それが何かは stack handbook の答えです。** `/hora-fast` は必要なものを述べ、実行時に読む handbook がその方法を答えます。handbook に答えが無ければ、推測せずに `lacked-environment` の質問で止まります。
 
 同時に開く機能の数は人が決める上限で、既定は3です。マシンの負荷とメインセッションの注意力を抑えるための数で、正しさはこの数に依存しません。
+
+### 機能が別の機能に依存するとき
+
+**依存する機能は、依存先が受け入れられるまで待たず、backend も依存先の backend を待ちません。** 仕様のゲートと関所3から8は、土台が固まれば開きます。関所9は依存先の backend ゲートのマージを、frontend ゲートは依存先の frontend ゲートのマージを、関所18は依存先が自分の18を通るのを待ちます。
+
+これが成り立つのは、依存する機能の backend が使うものが、どちらの機能も開く前に建っているからです。contract、共有の表、マスターのシード、依存する機能が import するすべてのモジュールは土台にあり、`/hora-plan` がすべてのユースケースを contract に沿ってフィールド単位で歩いています。依存する機能のテストは、依存先の操作を呼ばず、依存先の表の行を自分の帯で seed します。その呼び出しは、依存先の backend がマージされたあと、関所9が行います。関所9の手前で待つ機能は worktree と上限の枠を持ち続け、ゲートの手前で待つ機能はどちらも持ちません。依存先があとで、依存する機能が土台にしたコードを変えたら、依存する機能の関所を `reopened-by: dependency` で開け直します。
 
 ### マージ工程
 
@@ -108,7 +115,7 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 
 ## テストを分けておく
 
-[`hora-verifier.md`](../kit/agents/hora-verifier.md) はすでに、全機能のテストが1つのデータベースに対して、任意の順序で一緒に走っても耐えることを要求しています。`/hora-fast` はこの要求に何も足しません。効き始める時点を関所18から関所1に早めるだけです。N 個の機能のテストを分けておくのは、次の4つです。
+[`hora-verifier.md`](https://github.com/openreachtech/hora-core/blob/main/kit/agents/hora-verifier.md) はすでに、全機能のテストが1つのデータベースに対して、任意の順序で一緒に走っても耐えることを要求しています。`/hora-fast` はこの要求に何も足しません。効き始める時点を関所18から関所1に早めるだけです。N 個の機能のテストを分けておくのは、次の4つです。
 
 | | |
 |---|---|
@@ -152,6 +159,7 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 | 諦めるもの | 代わりに立つもの |
 |---|---|
 | 回帰を、起こした関所で拾うこと | マージ工程で拾い、マージした機能の排他なファイルから持ち主を特定する |
+| 依存する機能を、完了した依存先の上に建てること | マージ済みのゲートの上に建てる。あとの変更は依存する機能を開け直す |
 | 機能の画面を、その機能のゲートで動かすこと | 機能ごとの静的なゲート実行。全画面は掃引で一度だけ動かす |
 | 人との対話が版全体に散らばること | まとまる。複数の機能が同じ時間帯に関所9へ到達する |
 | 機能をまたぐ指摘が1つずつ来ること | 掃引でまとめて来て、それぞれが retake の worktree を開く |
@@ -176,8 +184,8 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 
 | | |
 |---|---|
-| skill 本体 | [`SKILL.md`](../kit/skills/hora-fast/SKILL.md) |
+| skill 本体 | [`SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-fast/SKILL.md) |
 | なぜ直列経路が既定なのか | [`architecture.ja.md`](./architecture.ja.md) の「なぜ直列なのか」 |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
-| worktree が従うブランチ規約 | [`commits.md`](../kit/skills/hora/references/commits.md) |
-| ゲート実行と掃引 | [`hora-accept/SKILL.md`](../kit/skills/hora-accept/SKILL.md) |
+| worktree が従うブランチ規約 | [`commits.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/commits.md) |
+| ゲート実行と掃引 | [`hora-accept/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-accept/SKILL.md) |

@@ -126,8 +126,8 @@ Then `/hora` again. Only `1.0.0` ships the three directories, so for a later ver
 
 | | |
 |---|---|
-| the format `spec.md` is written in, and what each section is for | [`spec-format.md`](../kit/skills/hora/references/spec-format.md) |
-| what stage 0 reads, and how it puts something to you | [`investigation.md`](../kit/skills/hora-spec/references/investigation.md) |
+| the format `spec.md` is written in, and what each section is for | [`spec-format.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/spec-format.md) |
+| what stage 0 reads, and how it puts something to you | [`investigation.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-spec/references/investigation.md) |
 | what each command does, and where a run stops | [`commands.md`](./commands.md) |
 | putting the kit on a project that already holds working code | [`adopting.md`](./adopting.md) |
 | how the whole thing is shaped, and why | [`architecture.md`](./architecture.md) |

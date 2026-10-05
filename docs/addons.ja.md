@@ -98,6 +98,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-plan` | `[wing] Whether the run may go on past an open blocking question` | いいえ。`/hora-build` には入らず、`/hora` は手順4で止まる |
 | `/hora-plan` | `[wing] How to categorize a question` | 質問の分類の表 |
 | `/hora-build` | `[wing] Whether a feature is ready to build` | はい。`_plan.md` の項目が `[ ]` で、`depends` がすべて満たされていれば。`/hora` も `/hora-fast` も、次の機能をここから選ぶ |
+| `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | はい。未完了の依存先がすべて、その段階が待つものに達していれば。関所9より前は何も待たず、9からは対応するゲートのマージを待つ。読むのは `/hora-fast` だけ |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
@@ -185,8 +186,8 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 
 | | |
 |---|---|
-| skill が読む形の、決まりそのもの | [`hora-addon/SKILL.md`](../kit/skills/hora-addon/SKILL.md) |
+| skill が読む形の、決まりそのもの | [`hora-addon/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-addon/SKILL.md) |
 | 各コマンドが何をするか | [`commands.ja.md`](./commands.ja.md) |
-| 質問の記録の仕方と、その分類 | [`hora-plan/SKILL.md`](../kit/skills/hora-plan/SKILL.md) |
-| skill が人に何を、どう尋ねるか | [`asking.md`](../kit/skills/hora/references/asking.md) |
-| `.hora/` の配置 | [`structure.md`](../kit/skills/hora/references/structure.md) |
+| 質問の記録の仕方と、その分類 | [`hora-plan/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-plan/SKILL.md) |
+| skill が人に何を、どう尋ねるか | [`asking.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/asking.md) |
+| `.hora/` の配置 | [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) |

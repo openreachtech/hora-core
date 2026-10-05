@@ -98,6 +98,7 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-plan` | `[wing] Whether the run may go on past an open blocking question` | no: `/hora-build` is not entered, and `/hora` stops at its step 4 |
 | `/hora-plan` | `[wing] How to categorize a question` | the table of question categories |
 | `/hora-build` | `[wing] Whether a feature is ready to build` | yes, where its entry is `[ ]` and every `depends` is satisfied. `/hora` and `/hora-fast` both take their next feature from it |
+| `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | yes, where every unfinished dependency has reached what the step waits on, which is nothing before checkpoint 9 and the matching gate's merge from 9 on. Only `/hora-fast` reads it |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | yes, for checkpoints 2, 9 and 11, once a person asks for it |
 | the skill a person invokes (`structure.md`) | `[wing] How to begin a run` | nothing beyond resolving the add-ons |
 | every skill (`structure.md`) | `[wing] How to close a run` | the skill's own closing report, whether the run stopped, was paused or finished |
@@ -185,8 +186,8 @@ Ask `/hora-addon` to check the add-ons and it compares every wing with the Hora 
 
 | | |
 |---|---|
-| the rule itself, as the skills read it | [`hora-addon/SKILL.md`](../kit/skills/hora-addon/SKILL.md) |
+| the rule itself, as the skills read it | [`hora-addon/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-addon/SKILL.md) |
 | what each command does | [`commands.md`](./commands.md) |
-| how a question is recorded, and its categories | [`hora-plan/SKILL.md`](../kit/skills/hora-plan/SKILL.md) |
-| what a skill asks a person, and how | [`asking.md`](../kit/skills/hora/references/asking.md) |
-| the layout of `.hora/` | [`structure.md`](../kit/skills/hora/references/structure.md) |
+| how a question is recorded, and its categories | [`hora-plan/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-plan/SKILL.md) |
+| what a skill asks a person, and how | [`asking.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/asking.md) |
+| the layout of `.hora/` | [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) |

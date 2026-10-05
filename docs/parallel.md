@@ -71,6 +71,7 @@ A checkpoint runs exactly as `/hora-build` runs it — the same skills match, th
 | a dependency the plan can already see | the spec's key file map and the stack handbook |
 | the master rows every feature reads | the seed |
 | any file `/hora-plan` marked `Conflict:` in more than one feature | the feature files |
+| a module a dependency writes and a dependent imports | the `Imports:` marks in the feature files |
 
 It is built in the main working copy, on `release/<version>`, through the same checkpoints and the same agents a feature gets, and it ends with two checks: **a mechanical comparison of the declared contract, the generated types and the stubs**, and every repository's suite on the tip. The comparison exists because parallel transcription fails by silent divergence — three artefacts each correct alone and different from each other — and prose does not catch that.
 
@@ -90,11 +91,17 @@ It is built in the main working copy, on `release/<version>`, through the same c
   .worktrees/payroll/<project>-frontend-admin/  feature/payroll, in the frontend row
 ```
 
-Every rule that says "from inside the repository" reads the worktree as the repository. Lint, tests and the change-set derivation run there, and a command run in the main working copy for a feature in flight is the wrong-directory failure [`structure.md`](../kit/skills/hora/references/structure.md) already warns about.
+Every rule that says "from inside the repository" reads the worktree as the repository. Lint, tests and the change-set derivation run there, and a command run in the main working copy for a feature in flight is the wrong-directory failure [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) already warns about.
 
 **A second working copy needs its own dependencies, its own database and its own ports, and what those are is the stack handbook's answer.** `/hora-fast` states the need; the handbook, read at run time, says how. Where the handbook has no answer, the run stops with a `lacked-environment` question rather than guessing.
 
 The number of features open at once is a limit a person sets, three by default. It bounds machine load and the main session's attention; correctness does not depend on it.
+
+### When a feature depends on another
+
+**A dependent does not wait for its dependency to be accepted, and its backend does not wait for the dependency's backend.** Its spec gate and checkpoints 3 to 8 open once the foundation is fixed. Checkpoint 9 waits for the dependency's backend gate to merge, its frontend gate for the dependency's frontend gate, and its checkpoint 18 for the dependency to pass its own.
+
+This holds because what the dependent's backend uses is built before either feature opens. The contracts, the shared tables, the master seed and every module a dependent imports are in the foundation, and `/hora-plan` has walked every use case through the contracts field by field. The dependent's tests seed the dependency's rows in their own band rather than call its operations, and checkpoint 9 makes those calls once the dependency's backend has merged. A feature waiting at checkpoint 9 keeps its worktree and its place under the limit; one waiting at a gate holds neither. Where the dependency later changes code the dependent built on, the dependent's checkpoint is cleared with `reopened-by: dependency`.
 
 ### The merge step
 
@@ -108,7 +115,7 @@ When a feature's gate ends — checkpoint 9 for the backend, 17 for a frontend �
 
 ## Keeping the tests apart
 
-[`hora-verifier.md`](../kit/agents/hora-verifier.md) already requires every feature's tests to survive running together, in any order, against one database. `/hora-fast` adds nothing to that requirement; it makes it bite from the first checkpoint instead of the eighteenth. Four things keep N features' tests apart:
+[`hora-verifier.md`](https://github.com/openreachtech/hora-core/blob/main/kit/agents/hora-verifier.md) already requires every feature's tests to survive running together, in any order, against one database. `/hora-fast` adds nothing to that requirement; it makes it bite from the first checkpoint instead of the eighteenth. Four things keep N features' tests apart:
 
 | | |
 |---|---|
@@ -152,6 +159,7 @@ The serial route catches a regression in the run that caused it, one commit old,
 | Given up | What stands in its place |
 |---|---|
 | a regression caught at the checkpoint that caused it | caught at the merge step, attributed by the merged feature's exclusive files |
+| a dependent built on a dependency that is finished | built on its merged gate; a later change reopens the dependent |
 | a feature's screens driven at its own gate | the static gate run per feature; every screen driven once, at the sweep |
 | the person's conversations spread over the version | batched: several features reach checkpoint 9 in the same hour |
 | cross-feature findings arriving one at a time | arriving together at the sweep, each opening a retake worktree |
@@ -176,8 +184,8 @@ The serial route catches a regression in the run that caused it, one commit old,
 
 | | |
 |---|---|
-| the skill itself | [`SKILL.md`](../kit/skills/hora-fast/SKILL.md) |
+| the skill itself | [`SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-fast/SKILL.md) |
 | why the serial route is the default | [`architecture.md`](./architecture.md), "Why it is serial" |
 | what each command does | [`commands.md`](./commands.md) |
-| the branch rules the worktrees follow | [`commits.md`](../kit/skills/hora/references/commits.md) |
-| the gate run and the sweep | [`hora-accept/SKILL.md`](../kit/skills/hora-accept/SKILL.md) |
+| the branch rules the worktrees follow | [`commits.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/commits.md) |
+| the gate run and the sweep | [`hora-accept/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-accept/SKILL.md) |

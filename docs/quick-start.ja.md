@@ -126,8 +126,8 @@ $EDITOR specs/1.1.0/request/csv-export.md   # 「管理者が1ヶ月分の勤怠
 
 | | |
 |---|---|
-| `spec.md` の書式と、各セクションが何のためのものか | [`spec-format.md`](../kit/skills/hora/references/spec-format.md) |
-| ステージ0 が何を読み、どう問いを立てるか | [`investigation.md`](../kit/skills/hora-spec/references/investigation.md) |
+| `spec.md` の書式と、各セクションが何のためのものか | [`spec-format.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/spec-format.md) |
+| ステージ0 が何を読み、どう問いを立てるか | [`investigation.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-spec/references/investigation.md) |
 | 各コマンドが何をし、どこで止まるか | [`commands.ja.md`](./commands.ja.md) |
 | 既に動くコードを持つプロジェクトへのキット適用 | [`adopting.ja.md`](./adopting.ja.md) |
 | 全体がなぜこの形なのか | [`architecture.ja.md`](./architecture.ja.md) |

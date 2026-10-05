@@ -218,7 +218,7 @@ H6  着地      main へマージし、追従を /hora に渡す
 
 | | |
 |---|---|
-| 門の全文（skill 本体） | [`SKILL.md`](../kit/skills/hora-hotfix/SKILL.md) |
+| 門の全文（skill 本体） | [`SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-hotfix/SKILL.md) |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
-| ブランチ規約と、`release/<version>` の追従 | [`commits.md`](../kit/skills/hora/references/commits.md) |
+| ブランチ規約と、`release/<version>` の追従 | [`commits.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/commits.md) |
 | 全体がなぜこの形なのか | [`architecture.ja.md`](./architecture.ja.md) |
