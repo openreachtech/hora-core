@@ -96,6 +96,12 @@ Every rule that says "from inside the repository" reads the worktree as the repo
 
 The number of features open at once is a limit a person sets, three by default. It bounds machine load and the main session's attention; correctness does not depend on it.
 
+### When a feature depends on another
+
+**A dependent does not wait for its dependency to be accepted. Each of its gates waits for the matching gate of the dependency to merge.** Its spec and backend gates open once the dependency's backend gate has merged, its frontend gate once the dependency's frontend gate has, and its checkpoint 18 once the dependency has passed its own.
+
+This holds because what the dependent reads is fixed before either feature opens. The contracts, the shared tables and the master seed are in the foundation, and `/hora-plan` has walked every use case through the contracts field by field. A feature waiting at a gate holds no worktree and no place under the limit. Where the dependency later changes code the dependent built on, the dependent's checkpoint is cleared with `reopened-by: dependency`.
+
 ### The merge step
 
 When a feature's gate ends — checkpoint 9 for the backend, 17 for a frontend — its branch merges into `release/<version>` as always. Because other features are in flight, three things follow:
@@ -152,6 +158,7 @@ The serial route catches a regression in the run that caused it, one commit old,
 | Given up | What stands in its place |
 |---|---|
 | a regression caught at the checkpoint that caused it | caught at the merge step, attributed by the merged feature's exclusive files |
+| a dependent built on a dependency that is finished | built on its merged gate; a later change reopens the dependent |
 | a feature's screens driven at its own gate | the static gate run per feature; every screen driven once, at the sweep |
 | the person's conversations spread over the version | batched: several features reach checkpoint 9 in the same hour |
 | cross-feature findings arriving one at a time | arriving together at the sweep, each opening a retake worktree |
