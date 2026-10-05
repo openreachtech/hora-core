@@ -102,6 +102,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 | a dependency the plan can already see | the spec's key file map and the stack handbook. One that surfaces during implementation is handled in flight (below) |
 | shared seed data — master rows every feature reads | the manual verification section and the use cases |
 | every file `/hora-plan` marked `Conflict:` in more than one feature file | `../hora-plan/SKILL.md`, "Mark what overlaps" |
+| every module a dependency writes and a dependent imports | the `Imports:` marks, from the same section |
 
 **An aggregation file is derived, so it is regenerated at every merge rather than built here.**
 
@@ -225,6 +226,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 | A feature reports | This skill does |
 |---|---|
 | `dependencies`, `conflictProof` | as `/hora-build`: an `install/` or `update/` branch into `release/<version>`, in the main working copy. The reporting feature rebases at once; every other worktree rebases at its next merge |
+| a module its dependency writes that the foundation lacks | the feature stops at that checkpoint and waits for the dependency's backend gate to merge, keeping its worktree and its place. Record the miss under the foundation in `_fast.md` |
 | everything else | as `/hora-build`, "What an implementer agent may not do" and "What the verifier's report drives" — in that feature's worktree, against that feature's file |
 
 ---
