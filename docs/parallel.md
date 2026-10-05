@@ -91,7 +91,7 @@ It is built in the main working copy, on `release/<version>`, through the same c
   .worktrees/payroll/<project>-frontend-admin/  feature/payroll, in the frontend row
 ```
 
-Every rule that says "from inside the repository" reads the worktree as the repository. Lint, tests and the change-set derivation run there, and a command run in the main working copy for a feature in flight is the wrong-directory failure [`structure.md`](../kit/skills/hora/references/structure.md) already warns about.
+Every rule that says "from inside the repository" reads the worktree as the repository. Lint, tests and the change-set derivation run there, and a command run in the main working copy for a feature in flight is the wrong-directory failure [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) already warns about.
 
 **A second working copy needs its own dependencies, its own database and its own ports, and what those are is the stack handbook's answer.** `/hora-fast` states the need; the handbook, read at run time, says how. Where the handbook has no answer, the run stops with a `lacked-environment` question rather than guessing.
 
@@ -115,7 +115,7 @@ When a feature's gate ends â€” checkpoint 9 for the backend, 17 for a frontend â
 
 ## Keeping the tests apart
 
-[`hora-verifier.md`](../kit/agents/hora-verifier.md) already requires every feature's tests to survive running together, in any order, against one database. `/hora-fast` adds nothing to that requirement; it makes it bite from the first checkpoint instead of the eighteenth. Four things keep N features' tests apart:
+[`hora-verifier.md`](https://github.com/openreachtech/hora-core/blob/main/kit/agents/hora-verifier.md) already requires every feature's tests to survive running together, in any order, against one database. `/hora-fast` adds nothing to that requirement; it makes it bite from the first checkpoint instead of the eighteenth. Four things keep N features' tests apart:
 
 | | |
 |---|---|
@@ -184,8 +184,8 @@ The serial route catches a regression in the run that caused it, one commit old,
 
 | | |
 |---|---|
-| the skill itself | [`SKILL.md`](../kit/skills/hora-fast/SKILL.md) |
+| the skill itself | [`SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-fast/SKILL.md) |
 | why the serial route is the default | [`architecture.md`](./architecture.md), "Why it is serial" |
 | what each command does | [`commands.md`](./commands.md) |
-| the branch rules the worktrees follow | [`commits.md`](../kit/skills/hora/references/commits.md) |
-| the gate run and the sweep | [`hora-accept/SKILL.md`](../kit/skills/hora-accept/SKILL.md) |
+| the branch rules the worktrees follow | [`commits.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/commits.md) |
+| the gate run and the sweep | [`hora-accept/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-accept/SKILL.md) |
