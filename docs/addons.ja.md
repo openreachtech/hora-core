@@ -186,8 +186,8 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 
 | | |
 |---|---|
-| skill が読む形の、決まりそのもの | [`hora-addon/SKILL.md`](../kit/skills/hora-addon/SKILL.md) |
+| skill が読む形の、決まりそのもの | [`hora-addon/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-addon/SKILL.md) |
 | 各コマンドが何をするか | [`commands.ja.md`](./commands.ja.md) |
-| 質問の記録の仕方と、その分類 | [`hora-plan/SKILL.md`](../kit/skills/hora-plan/SKILL.md) |
-| skill が人に何を、どう尋ねるか | [`asking.md`](../kit/skills/hora/references/asking.md) |
-| `.hora/` の配置 | [`structure.md`](../kit/skills/hora/references/structure.md) |
+| 質問の記録の仕方と、その分類 | [`hora-plan/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-plan/SKILL.md) |
+| skill が人に何を、どう尋ねるか | [`asking.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/asking.md) |
+| `.hora/` の配置 | [`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) |

@@ -91,7 +91,7 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
   .worktrees/payroll/<project>-frontend-admin/  feature/payroll の frontend 側
 ```
 
-「リポジトリの中から」と言う規則はすべて、worktree をそのリポジトリとして読みます。lint、テスト、change set の導出はそこで走り、進行中の機能のコマンドを main の作業コピーで走らせるのは、[`structure.md`](../kit/skills/hora/references/structure.md) がすでに警告している「作業ディレクトリ違い」の失敗です。
+「リポジトリの中から」と言う規則はすべて、worktree をそのリポジトリとして読みます。lint、テスト、change set の導出はそこで走り、進行中の機能のコマンドを main の作業コピーで走らせるのは、[`structure.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/structure.md) がすでに警告している「作業ディレクトリ違い」の失敗です。
 
 **2つめの作業コピーには専用の依存、データベース、ポートが要り、それが何かは stack handbook の答えです。** `/hora-fast` は必要なものを述べ、実行時に読む handbook がその方法を答えます。handbook に答えが無ければ、推測せずに `lacked-environment` の質問で止まります。
 
@@ -115,7 +115,7 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 
 ## テストを分けておく
 
-[`hora-verifier.md`](../kit/agents/hora-verifier.md) はすでに、全機能のテストが1つのデータベースに対して、任意の順序で一緒に走っても耐えることを要求しています。`/hora-fast` はこの要求に何も足しません。効き始める時点を関所18から関所1に早めるだけです。N 個の機能のテストを分けておくのは、次の4つです。
+[`hora-verifier.md`](https://github.com/openreachtech/hora-core/blob/main/kit/agents/hora-verifier.md) はすでに、全機能のテストが1つのデータベースに対して、任意の順序で一緒に走っても耐えることを要求しています。`/hora-fast` はこの要求に何も足しません。効き始める時点を関所18から関所1に早めるだけです。N 個の機能のテストを分けておくのは、次の4つです。
 
 | | |
 |---|---|
@@ -184,8 +184,8 @@ skill は何よりも先に試算をします。実測した機能1つあたり�
 
 | | |
 |---|---|
-| skill 本体 | [`SKILL.md`](../kit/skills/hora-fast/SKILL.md) |
+| skill 本体 | [`SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-fast/SKILL.md) |
 | なぜ直列経路が既定なのか | [`architecture.ja.md`](./architecture.ja.md) の「なぜ直列なのか」 |
 | 各コマンドが何をしているか | [`commands.ja.md`](./commands.ja.md) |
-| worktree が従うブランチ規約 | [`commits.md`](../kit/skills/hora/references/commits.md) |
-| ゲート実行と掃引 | [`hora-accept/SKILL.md`](../kit/skills/hora-accept/SKILL.md) |
+| worktree が従うブランチ規約 | [`commits.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora/references/commits.md) |
+| ゲート実行と掃引 | [`hora-accept/SKILL.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-accept/SKILL.md) |
