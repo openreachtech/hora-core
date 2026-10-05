@@ -71,6 +71,7 @@ A checkpoint runs exactly as `/hora-build` runs it — the same skills match, th
 | a dependency the plan can already see | the spec's key file map and the stack handbook |
 | the master rows every feature reads | the seed |
 | any file `/hora-plan` marked `Conflict:` in more than one feature | the feature files |
+| a module a dependency writes and a dependent imports | the `Imports:` marks in the feature files |
 
 It is built in the main working copy, on `release/<version>`, through the same checkpoints and the same agents a feature gets, and it ends with two checks: **a mechanical comparison of the declared contract, the generated types and the stubs**, and every repository's suite on the tip. The comparison exists because parallel transcription fails by silent divergence — three artefacts each correct alone and different from each other — and prose does not catch that.
 
@@ -98,9 +99,9 @@ The number of features open at once is a limit a person sets, three by default. 
 
 ### When a feature depends on another
 
-**A dependent does not wait for its dependency to be accepted. Each of its gates waits for the matching gate of the dependency to merge.** Its spec and backend gates open once the dependency's backend gate has merged, its frontend gate once the dependency's frontend gate has, and its checkpoint 18 once the dependency has passed its own.
+**A dependent does not wait for its dependency to be accepted, and its backend does not wait for the dependency's backend.** Its spec gate and checkpoints 3 to 8 open once the foundation is fixed. Checkpoint 9 waits for the dependency's backend gate to merge, its frontend gate for the dependency's frontend gate, and its checkpoint 18 for the dependency to pass its own.
 
-This holds because what the dependent reads is fixed before either feature opens. The contracts, the shared tables and the master seed are in the foundation, and `/hora-plan` has walked every use case through the contracts field by field. A feature waiting at a gate holds no worktree and no place under the limit. Where the dependency later changes code the dependent built on, the dependent's checkpoint is cleared with `reopened-by: dependency`.
+This holds because what the dependent's backend uses is built before either feature opens. The contracts, the shared tables, the master seed and every module a dependent imports are in the foundation, and `/hora-plan` has walked every use case through the contracts field by field. The dependent's tests seed the dependency's rows in their own band rather than call its operations, and checkpoint 9 makes those calls once the dependency's backend has merged. A feature waiting at checkpoint 9 keeps its worktree and its place under the limit; one waiting at a gate holds neither. Where the dependency later changes code the dependent built on, the dependent's checkpoint is cleared with `reopened-by: dependency`.
 
 ### The merge step
 

@@ -102,6 +102,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 | a dependency the plan can already see | the spec's key file map and the stack handbook. One that surfaces during implementation is handled in flight (below) |
 | shared seed data — master rows every feature reads | the manual verification section and the use cases |
 | every file `/hora-plan` marked `Conflict:` in more than one feature file | `../hora-plan/SKILL.md`, "Mark what overlaps" |
+| every module a dependency writes and a dependent imports | the `Imports:` marks, from the same section |
 
 **An aggregation file is derived, so it is regenerated at every merge rather than built here.**
 
@@ -197,6 +198,9 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
    implementing and auditing checkpoints, the same units, the same skills
    match, the same run record. Step 4's "cut the branch" is "open the
    worktree"
+   A feature whose next checkpoint is 9 waits there until its dependencies
+   have merged their backend gates. It keeps its worktree and its place
+   under the limit, because its database stays up
 4. at checkpoint 9 and at 17, its branch merges ("The merge step"). A
    feature whose next gate may not open yet leaves the flight there: its
    worktree is closed, it holds no place under the limit, and step 1 takes
@@ -225,6 +229,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 | A feature reports | This skill does |
 |---|---|
 | `dependencies`, `conflictProof` | as `/hora-build`: an `install/` or `update/` branch into `release/<version>`, in the main working copy. The reporting feature rebases at once; every other worktree rebases at its next merge |
+| a module its dependency writes that the foundation lacks | the feature stops at that checkpoint and waits for the dependency's backend gate to merge, keeping its worktree and its place. Record the miss under the foundation in `_fast.md` |
 | everything else | as `/hora-build`, "What an implementer agent may not do" and "What the verifier's report drives" — in that feature's worktree, against that feature's file |
 
 ---
@@ -329,7 +334,7 @@ After a drain, every feature is at a gate's entrance and every main working copy
 | Given up | What stands in its place |
 |---|---|
 | a regression caught at the checkpoint that caused it | caught at the merge step, attributed by the merged feature's exclusive files |
-| a dependent built on a dependency that is finished | built on its merged gate; a later change reopens the dependent with `reopened-by: dependency` |
+| a dependent built on a dependency that is finished | built on the foundation and walked against the dependency's merged backend at 9; a later change reopens the dependent with `reopened-by: dependency` |
 | a feature's screens driven at its own gate | the static gate run per feature; every screen driven once, at the sweep |
 | the person's conversations spread over the version | batched: several features reach checkpoint 9 in the same hour |
 | cross-feature findings arriving one at a time | arriving together at the sweep, each opening a retake worktree |
