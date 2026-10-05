@@ -70,7 +70,7 @@ its share on 1, 2, 9, 11    what neither scheduler shortens
 5.   Is the foundation built and fixed?
                                    if not -> build it ("The foundation")
 
-6.   Are there features still [ ] whose depends are satisfied?
+6.   Are there features still [ ] whose next gate may open?
                                    if so -> run them, up to the limit ("The
                                             parallel loop"). A feature whose
                                             only open checkpoint is 18 gets
@@ -186,9 +186,10 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 ## The parallel loop
 
 ```
-1. ready = every feature in _plan.md that is not in flight, and that
-   "[wing] Whether a feature is ready to build" (../hora-build/SKILL.md) says
-   yes to
+1. ready = every feature in _plan.md that is not in flight, and whose next
+   gate may open: "[wing] Whether a feature is ready to build" says yes to
+   the feature, or "[wing] Whether a gate may open while a dependency is
+   unfinished" says yes to that gate (both ../hora-build/SKILL.md)
 2. while fewer than the limit are in flight and ready is not empty:
      start the first one at its first [ ] checkpoint
 3. each feature in flight runs /hora-build's "Running one checkpoint",
@@ -196,7 +197,10 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
    implementing and auditing checkpoints, the same units, the same skills
    match, the same run record. Step 4's "cut the branch" is "open the
    worktree"
-4. at checkpoint 9 and at 17, its branch merges ("The merge step")
+4. at checkpoint 9 and at 17, its branch merges ("The merge step"). A
+   feature whose next gate may not open yet leaves the flight there: its
+   worktree is closed, it holds no place under the limit, and step 1 takes
+   it up again
 5. once its last gate has merged, checkpoint 18 runs ("Checkpoint 18, and
    the sweep") and its entry in _plan.md is set, as /hora-build sets it
 6. back to 1
@@ -325,6 +329,7 @@ After a drain, every feature is at a gate's entrance and every main working copy
 | Given up | What stands in its place |
 |---|---|
 | a regression caught at the checkpoint that caused it | caught at the merge step, attributed by the merged feature's exclusive files |
+| a dependent built on a dependency that is finished | built on its merged gate; a later change reopens the dependent with `reopened-by: dependency` |
 | a feature's screens driven at its own gate | the static gate run per feature; every screen driven once, at the sweep |
 | the person's conversations spread over the version | batched: several features reach checkpoint 9 in the same hour |
 | cross-feature findings arriving one at a time | arriving together at the sweep, each opening a retake worktree |

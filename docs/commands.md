@@ -247,7 +247,7 @@ vendoring the boilerplate, keeping an upstream remote, making it a submodule, `n
 ```
 1. Fix the version being implemented
 2. Verify the spec for holes and contradictions — and resolve them in conversation
-3. Derive the contracts, per server
+3. Derive the contracts, per server, and walk every use case through them
 4. Write the glossary
 5. Write the plan and one file per feature
 6. On re-entry, reconcile specs/ against what is already there
