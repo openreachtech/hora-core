@@ -104,6 +104,13 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
+| `/hora-spec`（`stages.md`） | `[wing] Whether stage 5 may pass by carry-over` | はい。その版が画面を足さず、変えもしないとき |
+| `/hora`（`spec-format.md`） | `[wing] How to write the repository layout` | リポジトリごとに1行、この節の列で書き、それ以上は書かない |
+| `/hora`（`spec-format.md`） | `[wing] How to write manual verification` | ミドルウェアの表だけ |
+| `/hora-build`（`checkpoints.md`） | `[wing] Whether a row runs the frontend gate` | はい。リポジトリ構成がその行にフロントエンドの origin を与えているとき |
+| `/hora-build`（`checkpoints.md`） | `[wing] How to stand up the local test environment` | ローカルの E2E コンテナ環境を、それを扱う skill で組み立てる |
+| `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | いいえ。実装の関所はそれぞれ自分の実行と自分の検証を持つ |
+| `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` と理由を書き、前後の測定値を記録する |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
 
