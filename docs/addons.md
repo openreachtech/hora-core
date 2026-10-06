@@ -95,21 +95,21 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 |---|---|---|
 | `/hora` (`asking.md`) | `[wing] Whether a decision may be taken without asking` | no: whatever is to be put to a person is put to a person |
 | `/hora` (`asking.md`) | `[wing] How to decide without asking` | not reached, since the section above says no |
+| `/hora` (`spec-format.md`) | `[wing] How to write the repository layout` | one row per repository, in the section's columns, and nothing more about a row |
+| `/hora` (`spec-format.md`) | `[wing] How to write manual verification` | the middleware table, and nothing else |
+| `/hora-spec` (`stages.md`) | `[wing] Whether stage 5 may pass by carry-over` | yes, where the version adds no screen and changes none |
 | `/hora-plan` | `[wing] Whether the run may go on past an open blocking question` | no: `/hora-build` is not entered, and `/hora` stops at its step 4 |
 | `/hora-plan` | `[wing] How to categorize a question` | the table of question categories |
 | `/hora-build` | `[wing] Whether a feature is ready to build` | yes, where its entry is `[ ]` and every `depends` is satisfied. `/hora` and `/hora-fast` both take their next feature from it |
 | `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | yes, where every unfinished dependency has reached what the step waits on, which is nothing before checkpoint 9 and the matching gate's merge from 9 on. Only `/hora-fast` reads it |
+| `/hora-build` (`checkpoints.md`) | `[wing] Whether a row runs the frontend gate` | yes, where the repository layout gives the row a frontend origin |
+| `/hora-build` (`checkpoints.md`) | `[wing] How to stand up the local test environment` | the local end-to-end container stack, built through the skills covering it |
+| `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | no: each implementing checkpoint gets its own runs and its own verification |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | yes, for checkpoints 2, 9 and 11, once a person asks for it |
 | `/hora-progress` | `[wing] How to report progress` | one line for each checkpoint or stage that passes, in the shape `<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>`, with no emoji in front |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | yes, where a person asks for it in the run or the run pays a listed feature's deferred acceptance. The sweep always drives |
 | `/hora-accept` | `[wing] How to confirm the environment` | the local end-to-end container stack, brought up through the skills covering it |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | yes, where a person asks for it in the run. The sweep always takes it |
-| `/hora-spec` (`stages.md`) | `[wing] Whether stage 5 may pass by carry-over` | yes, where the version adds no screen and changes none |
-| `/hora` (`spec-format.md`) | `[wing] How to write the repository layout` | one row per repository, in the section's columns, and nothing more about a row |
-| `/hora` (`spec-format.md`) | `[wing] How to write manual verification` | the middleware table, and nothing else |
-| `/hora-build` (`checkpoints.md`) | `[wing] Whether a row runs the frontend gate` | yes, where the repository layout gives the row a frontend origin |
-| `/hora-build` (`checkpoints.md`) | `[wing] How to stand up the local test environment` | the local end-to-end container stack, built through the skills covering it |
-| `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | no: each implementing checkpoint gets its own runs and its own verification |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` with the reason, and a measurement before and after |
 | the skill a person invokes (`structure.md`) | `[wing] How to begin a run` | nothing beyond resolving the add-ons |
 | every skill (`structure.md`) | `[wing] How to close a run` | the skill's own closing report, whether the run stopped, was paused or finished |
