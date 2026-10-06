@@ -38,6 +38,8 @@ A checkpoint is **a gate with one exit condition**. Passing it is not "I did som
 
 **No checkpoint may be entered until every earlier one is `[x]`.** There is no exception and no fast path — several of them look independent and are not.
 
+**Waiting for an agent is not time to enter the next checkpoint.** While an implementer, the verifier or the audit at 8 runs, the checkpoint it serves is not `[x]`, so the next one is not entered — not to prepare it either: nothing is implemented, nothing verified, no use case called against the API. What the main session may do meanwhile changes nothing and checks nothing: reading the skills and digests the next checkpoint will use, taking a digest, keeping the records. **Anything checked before the earlier checkpoint passes is checked against code that may still change.** A fix its agent's report sends back rewrites what was checked, and a check nobody runs again lets the next checkpoint pass on code that is gone.
+
 **Inside one checkpoint, its units do run at once** (`../SKILL.md`, "Step 5 — splitting a checkpoint into units"). Five of the checkpoints below divide into units — a table, a module, an operation, a component, a screen — and one agent takes each. The checkpoint remains one gate with one exit condition.
 
 ### Four checkpoints can send the run backwards
