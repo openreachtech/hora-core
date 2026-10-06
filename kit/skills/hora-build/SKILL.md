@@ -89,7 +89,9 @@ Report the decision in one line before starting work — "building #attendance, 
        -> hora-implementer, one agent per unit of this checkpoint's work,
           started together (below), each given that checkpoint's exit
           condition, the skill names and digest paths from step 3, and this
-          feature's row-id prefix
+          feature's row-id prefix. One agent takes several consecutive
+          checkpoints only where "[wing] Whether consecutive checkpoints
+          may go to one implementer" says yes
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
           AND the change set to audit ("The change set of a checkpoint",
@@ -237,6 +239,10 @@ A checkpoint line carries a second comment at its end, holding what running the 
 **A checkpoint holding one table, one module, one operation or one component runs as a single agent.**
 
 **Why this parallelism holds where feature-level and checkpoint-level parallelism do not.** Two tasks running at once in one working tree each need their own commit, and an aggregation file rewritten by the later one lands in the earlier one's commit. Units of a checkpoint share one commit — the gate's — and the aggregation file belongs to the main session. **Two features, and two checkpoints, still never run alongside each other.**
+
+#### [wing] Whether consecutive checkpoints may go to one implementer
+
+**No.** Each implementing checkpoint gets its own implementer runs, and step 9 verifies each one on its own evidence. Where an add-on says yes, the main session still verifies every exit condition and ticks every box separately.
 
 ### Step 8 — output that survives the run, and the run that dies
 

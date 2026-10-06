@@ -46,12 +46,12 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 | Invoked as | Unit suites (step 2) | Review scope (steps 3–6) | Written to |
 |---|---|---|---|
-| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review is **skipped unless explicitly requested, or unless this run is paying a listed feature's deferred acceptance** (below) | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
+| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review runs **where "[wing] Whether a feature gate drives the product live", below, says yes** | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
 
 **Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
 
-**"Explicitly requested" means a person asked for it, in the run.** That is the only widening there is, and the run records it with the requester named. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
+**"Explicitly requested" means a person asked for it, in the run.** That is the only widening this skill makes on its own, and the run records it with the requester named. An add-on may widen a gate through the two `[wing]` sections that decide it, and the run then names the add-on. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
 
 **A widening changes the reach and nothing else — least of all where the record lands.** A gate run asked to reach every done feature is still that feature's acceptance, so it appends a block to that feature's own file and says `reach: full` inside it. **There is no third kind of run and no third path.**
 
@@ -93,6 +93,10 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **The regression net at a feature gate is the unit suites plus the review's own static checks, and it is cumulative by construction.** The suites run whole repositories, so a feature that breaks an earlier one fails here, in the run that broke it. What a gate run gives up is driving every earlier feature's screens end to end; that is the sweep's job, and the record says which reach its verdict was reached at.
 
+### [wing] Whether a feature gate drives the product live
+
+**Yes, where a person asked for it in the run, or where this run is paying a listed feature's deferred acceptance** (both above). Otherwise the gate keeps the static checks and gives up the driven ones. The sweep always drives, so this section never reaches it.
+
 ---
 
 ## The order to run in
@@ -101,10 +105,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ```
 1. Confirm the environment — when the live sweep is going to run
-     the skills covering the local end-to-end container stack
-     The application must run together with every service behind it, each
-     role must be able to sign in, and there must be reviewable data or a
-     command that produces it.
+     as "[wing] How to confirm the environment", below, says
      Not satisfied -> stop. Report `lacked-environment` (blocking: yes).
                       Do not review a frontend served on its own, and do not
                       "work around" a missing service
@@ -140,7 +141,8 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      At a sweep, the version's own acceptance criteria are judged here, one
      by one, and the record says how many held
 
-5. UX findings — at the sweep, or on explicit request; a gate run skips this
+5. UX findings — at the sweep, or at a gate where "[wing] Whether a feature
+   gate takes the UX findings step", below, says yes
      the skills covering the UI/UX audit, against the context the shared
      UI/UX context skills produced
 
@@ -156,6 +158,14 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 ```
 
 **Step 1 is a gate for any run that drives the product, not a warm-up.** A live review signs in as each role, completes flows to their success condition, and stops dependencies on purpose to watch what the screen says. None of that means anything against a stub. What a gate run does instead is not a weaker version of the same claim: it keeps the static checks, gives up the driven-browser ones, and its capability note bounds every claim it makes.
+
+### [wing] How to confirm the environment
+
+**Match the skills covering the local end-to-end container stack, and bring it up through them.** The application must run together with every service behind it, each role must be able to sign in, and there must be reviewable data or a command that produces it.
+
+### [wing] Whether a feature gate takes the UX findings step
+
+**Yes, where a person asked for it in the run.** Otherwise the gate skips step 5, and the sweep takes it over every done feature.
 
 **Step 2 comes before the review on purpose.** A unit suite is cheap and its failures are precise.
 

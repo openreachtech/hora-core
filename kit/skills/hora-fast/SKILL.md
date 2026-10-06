@@ -142,7 +142,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 <project>-app/                                  cwd, as always
   <project>-backend/                            the main working copy. Stays on release/<version>
   .worktrees/<feature-id>/<project>-backend/    feature/<feature-id>, this feature only
-  .worktrees/<feature-id>/<project>-frontend-*/ the same, per frontend row the feature touches
+  .worktrees/<feature-id>/<project>-frontend-*/ the same, per row the feature touches that the frontend gate takes
 ```
 
 **`.worktrees/` is ignored by the hora repository, like the nested rows.** Add the line to its `.gitignore` when it is missing.
@@ -153,7 +153,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 
 ```
 open   on entering the gate's first checkpoint — 3 for the backend row, 10
-       for a frontend row — where /hora-build cuts the branch:
+       for a row the frontend gate takes — where /hora-build cuts the branch:
          git -C <repository> worktree add ../.worktrees/<feature-id>/<repository> \
              -b feature/<feature-id> release/<version>
          then what the handbook says a second copy needs, run inside it
@@ -250,7 +250,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 ## The merge step
 
-At checkpoint 9 for the backend row and 17 for a frontend row, as `commits.md` says. What this skill adds, because other features are in flight:
+At checkpoint 9 for the backend row and 17 for a row the frontend gate takes, as `commits.md` says. What this skill adds, because other features are in flight:
 
 ```
 1. install/ and update/ branches waiting to merge go first (commits.md)

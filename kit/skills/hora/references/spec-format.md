@@ -282,7 +282,7 @@ A reference from `.hora/tasks/` takes the form `<!-- spec: <id> -->`. **No file 
 | `app` | `<myproject>-app`. Something that spans several repositories |
 | `none` | no feature is generated from this section |
 
-**`target` decides which checkpoints a feature runs through.** A feature whose `target` is `backend` alone skips the frontend gate; one that names a frontend row runs it. One feature is one file whatever it touches, so getting `target` wrong changes what gets built, not where a line is filed.
+**`target` decides which checkpoints a feature runs through.** A feature whose `target` is `backend` alone skips the frontend gate; one that names a row the frontend gate takes runs it (`../../hora-build/references/checkpoints.md`, "[wing] Whether a row runs the frontend gate"). One feature is one file whatever it touches, so getting `target` wrong changes what gets built, not where a line is filed.
 
 **Make it match the `Repository` column** of the repository layout section — not its `Directory` column. `/hora` stops with a question on a mismatch.
 
@@ -589,6 +589,10 @@ The skeleton's sections 9 onward are **examples of feature sections, not a fixed
 - **`<myproject>-app` is not written here** — it always exists
 - **`target`'s value is this table's repository name with `<myproject>-` removed**
 
+#### [wing] How to write the repository layout
+
+**One row per repository, in the columns this section names, and nothing more about a row.** What a repository is called, where it comes from and what it does is the whole of its entry.
+
 #### `Directory` — for a repository that already exists under another name
 
 **A fifth column, optional, and only ever needed when adopting Hora Kit onto a project that already exists.**
@@ -709,6 +713,10 @@ Produces no feature of its own, **but becomes a design constraint on every one o
 **Start from the stack handbook's default middleware table** (`docs/stack/middleware.md`) and declare what this project actually uses. This is what `/hora-setup` uses to decide which optional local services get turned on.
 
 **Write the server's version.** An npm dependency does not indicate the server's version. **A middleware the handbook marks as required by another declaration — the queue's store, in a project with any background job — cannot be dropped.**
+
+#### [wing] How to write manual verification
+
+**Declare the middleware table above, and nothing else.** It is the whole of what a person stands up by hand to verify the version.
 
 ### 9 onward — the feature sections
 

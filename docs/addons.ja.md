@@ -95,12 +95,22 @@ add-ons active for 1.0.0: alpha-example-addon
 |---|---|---|
 | `/hora`（`asking.md`） | `[wing] Whether a decision may be taken without asking` | いいえ。人に尋ねることは、人に尋ねる |
 | `/hora`（`asking.md`） | `[wing] How to decide without asking` | 上の節がいいえなので、ここには来ない |
+| `/hora`（`spec-format.md`） | `[wing] How to write the repository layout` | リポジトリごとに1行、この節の列で書き、それ以上は書かない |
+| `/hora`（`spec-format.md`） | `[wing] How to write manual verification` | ミドルウェアの表だけ |
+| `/hora-spec`（`stages.md`） | `[wing] Whether stage 5 may pass by carry-over` | はい。その版が画面を足さず、変えもしないとき |
 | `/hora-plan` | `[wing] Whether the run may go on past an open blocking question` | いいえ。`/hora-build` には入らず、`/hora` は手順4で止まる |
 | `/hora-plan` | `[wing] How to categorize a question` | 質問の分類の表 |
 | `/hora-build` | `[wing] Whether a feature is ready to build` | はい。`_plan.md` の項目が `[ ]` で、`depends` がすべて満たされていれば。`/hora` も `/hora-fast` も、次の機能をここから選ぶ |
 | `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | はい。未完了の依存先がすべて、その段階が待つものに達していれば。関所9より前は何も待たず、9からは対応するゲートのマージを待つ。読むのは `/hora-fast` だけ |
+| `/hora-build`（`checkpoints.md`） | `[wing] Whether a row runs the frontend gate` | はい。リポジトリ構成がその行にフロントエンドの origin を与えているとき |
+| `/hora-build`（`checkpoints.md`） | `[wing] How to stand up the local test environment` | ローカルの E2E コンテナ環境を、それを扱う skill で組み立てる |
+| `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | いいえ。実装の関所はそれぞれ自分の実行と自分の検証を持つ |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
 | `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、行頭に絵文字は付けない |
+| `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
+| `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
+| `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
+| `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` と理由を書き、前後の測定値を記録する |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
 
