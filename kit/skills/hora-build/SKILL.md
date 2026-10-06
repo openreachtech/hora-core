@@ -238,6 +238,10 @@ A checkpoint line carries a second comment at its end, holding what running the 
 
 **Why this parallelism holds where feature-level and checkpoint-level parallelism do not.** Two tasks running at once in one working tree each need their own commit, and an aggregation file rewritten by the later one lands in the earlier one's commit. Units of a checkpoint share one commit — the gate's — and the aggregation file belongs to the main session. **Two features, and two checkpoints, still never run alongside each other.**
 
+#### [wing] Whether consecutive checkpoints may go to one implementer
+
+**No.** Each implementing checkpoint gets its own implementer runs, and step 9 verifies each one on its own evidence. Where an add-on says yes, the main session still verifies every exit condition and ticks every box separately.
+
 ### Step 8 — output that survives the run, and the run that dies
 
 **Capture test output in a file, and read the file.** Output collected behind a pipe lives in memory until the run ends, and a suite can end by taking the whole machine down. Written to a file as it is produced, the output survives to the line where the run stopped.
