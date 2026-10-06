@@ -100,6 +100,7 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-build` | `[wing] Whether a feature is ready to build` | yes, where its entry is `[ ]` and every `depends` is satisfied. `/hora` and `/hora-fast` both take their next feature from it |
 | `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | yes, where every unfinished dependency has reached what the step waits on, which is nothing before checkpoint 9 and the matching gate's merge from 9 on. Only `/hora-fast` reads it |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | yes, for checkpoints 2, 9 and 11, once a person asks for it |
+| `/hora-progress` | `[wing] How to report progress` | one line for each checkpoint or stage that passes, in the shape `<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>`, with no emoji in front |
 | the skill a person invokes (`structure.md`) | `[wing] How to begin a run` | nothing beyond resolving the add-ons |
 | every skill (`structure.md`) | `[wing] How to close a run` | the skill's own closing report, whether the run stopped, was paused or finished |
 
