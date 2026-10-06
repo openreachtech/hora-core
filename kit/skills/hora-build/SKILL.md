@@ -103,14 +103,10 @@ Report the decision in one line before starting work — "building #attendance, 
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
    wanted to change
-7. Lint: cd into this checkpoint's repository, then npx eslint --fix on
-   exactly the files it touched, every unit's together, then npx eslint on
-   the same files for what remains. --fix clears the mechanical violations
-   without an agent round trip; only what it cannot fix is worth one
+7. Lint, as "[wing] How to lint a checkpoint's files", below, says
      still fails -> fix it, retry (up to five attempts; see "A lint rule contradiction")
-8. Test, where the checkpoint's exit condition names tests (6, 16, 18): from
-   that same repository, npx jest on exactly the files this checkpoint wrote,
-   with the output written to a file and read from there (below)
+8. Test, where the checkpoint's exit condition names tests (6, 16, 18), as
+   "[wing] How to test a checkpoint's files", below, says
      fails, from something code could fix -> fix it, retry
      fails, from something no code change could fix (the middleware is not
        running, a network call reached nothing, the database was altered
@@ -132,6 +128,14 @@ Report the decision in one line before starting work — "building #attendance, 
 ```
 
 **Step 10's split matters.** The checkbox is written the moment the checkpoint passes, so an interrupted run resumes at the right place; the commit happens once per gate, so `git log .hora/` stays readable (`../hora/references/commits.md`, "Committing `.hora/`").
+
+### [wing] How to lint a checkpoint's files
+
+**cd into this checkpoint's repository, then `npx eslint --fix` on exactly the files it touched, every unit's together, then `npx eslint` on the same files for what remains.** `--fix` clears the mechanical violations without an agent round trip; only what it cannot fix is worth one.
+
+### [wing] How to test a checkpoint's files
+
+**From that same repository, `npx jest` on exactly the files this checkpoint wrote, with the output written to a file and read from there** (below).
 
 ### Step 3 — matching a checkpoint to the skills that cover it
 
