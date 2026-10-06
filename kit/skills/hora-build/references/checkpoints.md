@@ -65,7 +65,7 @@ A checkpoint is **a gate with one exit condition**. Passing it is not "I did som
 |---|---|---|---|
 | Spec | 1–2 | none (`specs/` and `.hora/` only) | — |
 | Backend | 3–9 | the backend row | after 9 |
-| Frontend | 10–17 | the frontend row this feature names | after 17 |
+| Frontend | 10–17 | each row this feature names that the frontend gate takes | after 17 |
 | Acceptance | 18 | none (`.hora/acceptance/` only) | — |
 
 A feature whose `target` names no frontend skips 10–17 as a whole; one that names no backend skips 3–9. **Skipping a whole gate still means marking each of its checkpoints not-applicable, with the reason.**
@@ -350,7 +350,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Exit condition** | the application runs locally **together with every service behind it**, each role can sign in, and there is reviewable data or a command that produces it |
 | **Not applicable when** | one already exists and this feature added no service, no role and no seed data it needs |
 
-**This is the live acceptance run's prerequisite, which is why it sits here and not inside checkpoint 18.** Three runs need it: the whole-version sweep, a gate run whose live sweep was explicitly requested, and a gate run paying a listed feature's deferred acceptance (`../../hora-accept/SKILL.md`, "What is in scope"). A gate run that skips the live sweep does not exercise it, but the sweep always will — so the environment is built here, while the feature that changed it is fresh.
+**This is the live acceptance run's prerequisite, which is why it sits here and not inside checkpoint 18.** The whole-version sweep needs it, and so does every gate run that drives the product (`../../hora-accept/SKILL.md`, "[wing] Whether a feature gate drives the product live"). A gate run that skips the live sweep does not exercise it, but the sweep always will — so the environment is built here, while the feature that changed it is fresh.
 
 **A feature that adds a service, a role or a fixture updates the environment here**, even when the environment as a whole already exists.
 
