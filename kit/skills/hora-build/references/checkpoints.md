@@ -38,6 +38,8 @@ A checkpoint is **a gate with one exit condition**. Passing it is not "I did som
 
 **No checkpoint may be entered until every earlier one is `[x]`.** There is no exception and no fast path — several of them look independent and are not.
 
+**Waiting for an agent is not time to enter the next checkpoint.** While an implementer, the verifier or the audit at 8 runs, the checkpoint it serves is not `[x]`, so the next one is not entered — not to prepare it either: nothing is implemented, nothing verified, no use case called against the API. What the main session may do meanwhile changes nothing and checks nothing: reading the skills and digests the next checkpoint will use, taking a digest, keeping the records. **Anything checked before the earlier checkpoint passes is checked against code that may still change.** A fix its agent's report sends back rewrites what was checked, and a check nobody runs again lets the next checkpoint pass on code that is gone.
+
 **Inside one checkpoint, its units do run at once** (`../SKILL.md`, "Step 5 — splitting a checkpoint into units"). Five of the checkpoints below divide into units — a table, a module, an operation, a component, a screen — and one agent takes each. The checkpoint remains one gate with one exit condition.
 
 ### Four checkpoints can send the run backwards
@@ -233,6 +235,8 @@ A seeder written here, or a test fixture written later, that carries an explicit
 | **Not applicable when** | never, for a feature that wrote backend code |
 
 Checkpoint 2 verified the use cases against the *spec*. This verifies them against the *thing that got built*. **Walk each use case as a sequence of actual calls** and check that each step has an operation, that it returns what the next step needs, and that the shapes line up.
+
+**Send each call the way the client that consumes this API sends it** — the same transport, the same encoding. Which that is belongs to the stack handbook, and this checkpoint takes it from there. A call sent another way passes against a backend the client cannot reach: a request format the backend stops accepting is found here only if the walk speaks that format.
 
 **Where a use case falls short, go back — usually to checkpoint 3.** Clear the checkpoints from there and say which were cleared. **Do not patch it at the edge**: adding one field on the way past is how an API drifts from its contract, which a frontend in another repository is already building against.
 

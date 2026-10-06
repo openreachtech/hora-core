@@ -100,6 +100,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build` | `[wing] Whether a feature is ready to build` | はい。`_plan.md` の項目が `[ ]` で、`depends` がすべて満たされていれば。`/hora` も `/hora-fast` も、次の機能をここから選ぶ |
 | `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | はい。未完了の依存先がすべて、その段階が待つものに達していれば。関所9より前は何も待たず、9からは対応するゲートのマージを待つ。読むのは `/hora-fast` だけ |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
+| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、行頭に絵文字は付けない |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
 

@@ -95,6 +95,8 @@ Report the decision in one line before starting work — "building #attendance, 
           AND the change set to audit ("The change set of a checkpoint",
           below). The audit skills run over that set, never the whole
           repository
+     while an agent runs, the next checkpoint is not entered, not even to
+     prepare it (references/checkpoints.md, "The order is a rule")
 6. Gather the units: regenerate every aggregation file their registrations
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
@@ -123,8 +125,8 @@ Report the decision in one line before starting work — "building #attendance, 
    and 16, where step 8's suite is itself the proof, the verifier is usually
    skipped (below). Met or not, add this run to the line's run record (below)
 10. Write [x] into the feature file. Commit at the gate boundary, not here
-11. Report the checkpoint in one line (../hora/references/structure.md,
-    "Reporting progress"), then move to the next checkpoint
+11. Invoke /hora-progress and report the checkpoint in the line it gives,
+    then move to the next checkpoint
 ```
 
 **Step 10's split matters.** The checkbox is written the moment the checkpoint passes, so an interrupted run resumes at the right place; the commit happens once per gate, so `git log .hora/` stays readable (`../hora/references/commits.md`, "Committing `.hora/`").
