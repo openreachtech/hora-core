@@ -89,7 +89,9 @@ Report the decision in one line before starting work — "building #attendance, 
        -> hora-implementer, one agent per unit of this checkpoint's work,
           started together (below), each given that checkpoint's exit
           condition, the skill names and digest paths from step 3, and this
-          feature's row-id prefix
+          feature's row-id prefix. One agent takes several consecutive
+          checkpoints only where "[wing] Whether consecutive checkpoints
+          may go to one implementer" says yes
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
           AND the change set to audit ("The change set of a checkpoint",
