@@ -105,11 +105,15 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-build` (`checkpoints.md`) | `[wing] Whether a row runs the frontend gate` | yes, where the repository layout gives the row a frontend origin |
 | `/hora-build` (`checkpoints.md`) | `[wing] How to stand up the local test environment` | the local end-to-end container stack, built through the skills covering it |
 | `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | no: each implementing checkpoint gets its own runs and its own verification |
+| `/hora-build` | `[wing] How to lint a checkpoint's files` | `npx eslint --fix`, then `npx eslint`, on exactly the files the checkpoint touched |
+| `/hora-build` | `[wing] How to test a checkpoint's files` | `npx jest` on exactly the files the checkpoint wrote, its output read from a file |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | yes, for checkpoints 2, 9 and 11, once a person asks for it |
 | `/hora-progress` | `[wing] How to report progress` | one line for each checkpoint or stage that passes, in the shape `<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>`, with no emoji in front |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | yes, where a person asks for it in the run or the run pays a listed feature's deferred acceptance. The sweep always drives |
 | `/hora-accept` | `[wing] How to confirm the environment` | the local end-to-end container stack, brought up through the skills covering it |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | yes, where a person asks for it in the run. The sweep always takes it |
+| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | yes, where a person asks for it in the run. Checkpoint 8 already audited the change set, and the sweep always takes it |
+| `/hora-accept` | `[wing] How to cite a run's evidence` | what the delegate reported, inside the finding it backs |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` with the reason, and a measurement before and after |
 | the skill a person invokes (`structure.md`) | `[wing] How to begin a run` | nothing beyond resolving the add-ons |
 | every skill (`structure.md`) | `[wing] How to close a run` | the skill's own closing report, whether the run stopped, was paused or finished |
