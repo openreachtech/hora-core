@@ -95,6 +95,8 @@ Report the decision in one line before starting work — "building #attendance, 
           AND the change set to audit ("The change set of a checkpoint",
           below). The audit skills run over that set, never the whole
           repository
+     while an agent runs, the next checkpoint is not entered, not even to
+     prepare it (references/checkpoints.md, "The order is a rule")
 6. Gather the units: regenerate every aggregation file their registrations
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
