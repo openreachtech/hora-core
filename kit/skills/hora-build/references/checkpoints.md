@@ -236,6 +236,8 @@ A seeder written here, or a test fixture written later, that carries an explicit
 
 Checkpoint 2 verified the use cases against the *spec*. This verifies them against the *thing that got built*. **Walk each use case as a sequence of actual calls** and check that each step has an operation, that it returns what the next step needs, and that the shapes line up.
 
+**Send each call the way the client that consumes this API sends it** — the same transport, the same encoding. Which that is belongs to the stack handbook, and this checkpoint takes it from there. A call sent another way passes against a backend the client cannot reach: a request format the backend stops accepting is found here only if the walk speaks that format.
+
 **Where a use case falls short, go back — usually to checkpoint 3.** Clear the checkpoints from there and say which were cleared. **Do not patch it at the edge**: adding one field on the way past is how an API drifts from its contract, which a frontend in another repository is already building against.
 
 **This is the last chance before a frontend starts consuming it.** After this checkpoint, the backend row's `feature/<id>` branch merges into `release/<version>`.
