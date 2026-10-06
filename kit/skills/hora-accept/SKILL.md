@@ -146,7 +146,8 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      the skills covering the UI/UX audit, against the context the shared
      UI/UX context skills produced
 
-6. Security audit — at the sweep, or on explicit request; a gate run skips it
+6. Security audit — at the sweep, or at a gate where "[wing] Whether a feature
+   gate takes the security audit step", below, says yes
      the skills covering a read-only security audit
      Checkpoint 8 already ran this per feature, over that feature's change
      set. The sweep points the same audit at the whole repository — what
@@ -166,6 +167,10 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 ### [wing] Whether a feature gate takes the UX findings step
 
 **Yes, where a person asked for it in the run.** Otherwise the gate skips step 5, and the sweep takes it over every done feature.
+
+### [wing] Whether a feature gate takes the security audit step
+
+**Yes, where a person asked for it in the run.** Otherwise the gate skips step 6, because checkpoint 8 already audited the feature's change set, and the sweep takes it over the whole repository.
 
 **Step 2 comes before the review on purpose.** A unit suite is cheap and its failures are precise.
 
@@ -254,9 +259,15 @@ passed over 1 of 20 features; 2 not accepted
 
 **A step that reused a recorded result says so in its `Result`, beside whatever the delegate reported as backing that reuse.** Transcribe what the tool printed — never paraphrase it, and never write counts a reused run did not report. A reuse recorded with nothing beside it is indistinguishable from a step nobody ran, which is the one thing this record exists to rule out.
 
+**Every finding cites its evidence as "[wing] How to cite a run's evidence", below, says.**
+
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
 **The record is written whether the run passed or failed.** A passing run is the evidence that a gate was cleared; a failing one is why the work that followed it happened. **Which is why the deferred-acceptance test above is a passing block and not the file**: a first gate run that failed creates the file too.
+
+#### [wing] How to cite a run's evidence
+
+**Cite what the delegate reported, inside the finding it backs**: the command and its output for a machine check, and what was done and observed for a hand check. Evidence lives in the block, so the next run reads it without opening anything else.
 
 **`version-criteria:` is written on every block, at every reach, and it has three forms and no fourth.** A sweep writes `<checked> of <declared>`; a gate run writes `not in scope (gate)`; a version whose spec declared `none` writes `none declared`. A block with no line at all is indistinguishable from a sweep that never looked.
 
