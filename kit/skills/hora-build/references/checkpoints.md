@@ -246,6 +246,10 @@ Checkpoint 2 verified the use cases against the *spec*. This verifies them again
 
 # Frontend gate
 
+### [wing] Whether a row runs the frontend gate
+
+**Yes, where the repository layout section gives the row a frontend origin.** Checkpoints 10, 11, 12 and 15 read this section through their `Not applicable when` line.
+
 ## 10. Open the frontend
 
 | | |
@@ -253,7 +257,7 @@ Checkpoint 2 verified the use cases against the *spec*. This verifies them again
 | **Delegate to** | the skills covering the frontend framework's own structure, and its environment variables |
 | **Runs in** | an implementer agent |
 | **Exit condition** | the pages and routes this feature needs exist and are reachable, and the environment variables pointing at the backend are wired |
-| **Not applicable when** | this feature's `target` names no frontend row |
+| **Not applicable when** | no row in this feature's `target` runs the frontend gate ("[wing] Whether a row runs the frontend gate", below) |
 
 ## 11. Reconfirm UI/UX and the use cases
 
@@ -262,7 +266,7 @@ Checkpoint 2 verified the use cases against the *spec*. This verifies them again
 | **Delegate to** | the skills covering the shared UI/UX project context |
 | **Runs in** | **the main session, in conversation** |
 | **Exit condition** | the shared UI/UX context file covers this feature — its users, its screens, its rules — and every use case has a path through the interface |
-| **Not applicable when** | this feature's `target` names no frontend row |
+| **Not applicable when** | no row in this feature's `target` runs the frontend gate ("[wing] Whether a row runs the frontend gate", below) |
 
 **This is the third pass over the same use cases, and it is not redundant.** 2 asked whether the spec supports them, 9 whether the API supports them, and this asks whether *a person can actually do them on a screen*.
 
@@ -277,7 +281,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Delegate to** | the skills covering how a screen is made correct by construction; **every skill covering a component that already exists**; and the skills covering what must not be built in a component |
 | **Runs in** | one implementer agent per component (`../SKILL.md`, "Step 5 — splitting a checkpoint into units") |
 | **Exit condition** | each screen is broken into components, and every component either already exists in the app's own library or has a stated reason for being new |
-| **Not applicable when** | this feature's `target` names no frontend row |
+| **Not applicable when** | no row in this feature's `target` runs the frontend gate ("[wing] Whether a row runs the frontend gate", below) |
 
 **Check the existing component skills before designing a new component.** The package ships one skill per component the library already has — buttons, dialogs, tables, selects, tabs, toasts and much else. **This is the checkpoint where matching against the equipped descriptions is worth doing exhaustively.**
 
@@ -316,7 +320,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Delegate to** | the skills covering how a screen is made correct by construction, and **every skill covering this project's CSS conventions** — writing style, layers, units, prohibitions, custom-property naming and prohibitions, property order within a selector, line height, `z-index`, spacing and margins, animation |
 | **Runs in** | one implementer agent per screen (`../SKILL.md`, "Step 5 — splitting a checkpoint into units") |
 | **Exit condition** | every screen this feature needs is built, accessible, responsive, and in its loading, empty and error states as well as its filled one |
-| **Not applicable when** | this feature's `target` names no frontend row |
+| **Not applicable when** | no row in this feature's `target` runs the frontend gate ("[wing] Whether a row runs the frontend gate", below) |
 
 **The three states other than "filled" are the ones that get skipped and the ones acceptance fails on.** **Each of the four states belongs to its screen's own unit** — splitting them across agents would give one screen four authors and none of them the whole condition.
 
@@ -341,7 +345,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 
 | | |
 |---|---|
-| **Delegate to** | the skills covering how the local end-to-end container stack is built and brought up |
+| **Delegate to** | as "[wing] How to stand up the local test environment", below, says |
 | **Runs in** | the main session |
 | **Exit condition** | the application runs locally **together with every service behind it**, each role can sign in, and there is reviewable data or a command that produces it |
 | **Not applicable when** | one already exists and this feature added no service, no role and no seed data it needs |
@@ -351,6 +355,10 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 **A feature that adds a service, a role or a fixture updates the environment here**, even when the environment as a whole already exists.
 
 **This checkpoint's changes do not go on the feature's own branch.** They get their own `update/e2e-<what>-for-<feature-id>` branch (`../../hora/references/commits.md`).
+
+### [wing] How to stand up the local test environment
+
+**Match the skills covering how the local end-to-end container stack is built and brought up, and build it through them.** The exit condition above is what the stack has to satisfy.
 
 ---
 
