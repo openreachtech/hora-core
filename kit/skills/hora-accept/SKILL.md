@@ -263,6 +263,8 @@ passed over 1 of 20 features; 2 not accepted
 
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
+**Each send-back is reported the moment it is routed**, by invoking `/hora-progress` and writing the line it gives — at a gate run and at the sweep alike. One run's findings are one send-back for each feature they reach, and its line names the earliest checkpoint they return that feature to, with every finding behind it.
+
 **The record is written whether the run passed or failed.** A passing run is the evidence that a gate was cleared; a failing one is why the work that followed it happened. **Which is why the deferred-acceptance test above is a passing block and not the file**: a first gate run that failed creates the file too.
 
 #### [wing] How to cite a run's evidence
