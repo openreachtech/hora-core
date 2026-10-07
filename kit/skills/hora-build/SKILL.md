@@ -246,7 +246,7 @@ A checkpoint line carries a second comment at its end, holding what running the 
 
 #### [wing] Whether consecutive checkpoints may go to one implementer
 
-**No.** Each implementing checkpoint gets its own implementer runs, and step 9 verifies each one on its own evidence. Where an add-on says yes, the main session still verifies every exit condition and ticks every box separately.
+**No.** Each implementing checkpoint gets its own implementer runs, and step 9 verifies each one on its own evidence.
 
 ### Step 8 — output that survives the run, and the run that dies
 
