@@ -105,6 +105,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build`（`checkpoints.md`） | `[wing] Whether a row runs the frontend gate` | はい。リポジトリ構成がその行にフロントエンドの origin を与えているとき |
 | `/hora-build`（`checkpoints.md`） | `[wing] How to stand up the local test environment` | ローカルの E2E コンテナ環境を、それを扱う skill で組み立てる |
 | `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | いいえ。実装の関所はそれぞれ自分の実行と自分の検証を持つ |
+| `/hora-build` | `[wing] Whether an audit finding may be accepted without a person` | いいえ。指摘を受け入れられるのは、その `audit-finding` の問いに人が答えたときだけ |
 | `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
 | `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
