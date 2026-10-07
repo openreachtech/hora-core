@@ -15,15 +15,16 @@ user-invocable: false
 **One line, in this shape.**
 
 ```
-<checkpoint or stage> passed | <the one fact it established> | <the blocker or decision, or -> what comes next>
+📍 <checkpoint or stage> passed | <the one fact it established> | <the blocker or decision, or -> what comes next>
 ```
 
 ```
-checkpoint 3 passed | the attendance model and its migration hold | -> checkpoint 4, the resolvers
-stage 2 passed | 4 use cases in scope, 3 deferred with a seam | -> stage 3
+📍 checkpoint 3 passed | the attendance model and its migration hold | -> checkpoint 4, the resolvers
+📍 stage 2 passed | 4 use cases in scope, 3 deferred with a seam | -> stage 3
 ```
 
-- **The line opens with the checkpoint or stage it reports**, so a reader scrolling back finds every pass by its first words
+- **The line opens with `📍` and the checkpoint or stage it reports**, so a reader scrolling back finds every pass by its mark and its first words
+- **`📍` marks a pass and nothing else.** A line between two progress lines never carries it
 - **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only
 - **A check, a proposal, a question and a section shown for approval keep the form `../hora/references/asking.md` gives them.** None of them is progress
 
