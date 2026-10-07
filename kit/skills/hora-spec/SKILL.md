@@ -233,7 +233,7 @@ hora  Stage 3. 1.0.0 fixed these, and nothing in the CSV export request
 
 **On a diff version, a stage that carried over is `[x]` with the carry-over written next to it** — `<!-- carried: ... -->`, saying what it was confirmed against.
 
-**Report a stage the moment its box is written, by invoking `/hora-progress`** and writing the line it gives.
+**Report a stage the moment its box is written, and a send-back the moment the run returns to an earlier stage, by invoking `/hora-progress`** and writing the line it gives.
 
 **"Decided in conversation, and not visible in `spec.md`" is the part worth the file.** A spec states what the product is; it does not state what it was nearly instead, and the reason a design came out this way is exactly what somebody later needs in order not to undo it.
 

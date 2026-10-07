@@ -122,6 +122,8 @@ Report the decision in one line before starting work — "building #attendance, 
    in conversation for the four gates that check against use cases. At 6
    and 16, where step 8's suite is itself the proof, the verifier is usually
    skipped (below). Met or not, add this run to the line's run record (below)
+     sent back -> invoke /hora-progress and report the send-back in the line
+       it gives, then re-enter where the verdict says
 10. Write [x] into the feature file. Commit at the gate boundary, not here
 11. Invoke /hora-progress and report the checkpoint in the line it gives,
     then move to the next checkpoint
@@ -331,6 +333,8 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 ### What the verifier's report drives
 
 `hora-verifier` returns a judgment, never a fix (`../../agents/hora-verifier.md`, "What to return").
+
+**An `unmet` and the audit's `findings` at 8 are send-backs, and each is reported as one** through `/hora-progress`. A shortfall in the tests goes back to an implementer inside the checkpoint, and is not.
 
 | It reports | This skill does |
 |---|---|

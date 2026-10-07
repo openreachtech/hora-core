@@ -108,7 +108,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
 | `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
-| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、行頭に絵文字は付けない |
+| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`📍 <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]` |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
