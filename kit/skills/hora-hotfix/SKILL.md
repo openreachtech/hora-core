@@ -113,7 +113,7 @@ When all three hold, the migration can be applied first and the code after it, s
 
 **Name no cause until one command has run that test and failed.** A cause named first bends the test toward it. Record it in H5 as `reproduced-by:`, beside the test it ran, never in place of it. Under `reproduced: no` it is the command that took the measurement.
 
-**Some defects cannot be caught by a test.** Record them as "[wing] How to record a defect no test can catch", below, says.
+**Some defects cannot be caught by a test.** Record them as "How to record a defect no test can catch", below, says.
 
 ### [wing] How to record a defect no test can catch
 
