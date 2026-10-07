@@ -105,6 +105,7 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-build` (`checkpoints.md`) | `[wing] Whether a row runs the frontend gate` | yes, where the repository layout gives the row a frontend origin |
 | `/hora-build` (`checkpoints.md`) | `[wing] How to stand up the local test environment` | the local end-to-end container stack, built through the skills covering it |
 | `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | no: each implementing checkpoint gets its own runs and its own verification |
+| `/hora-build` | `[wing] Whether an audit finding may be accepted without a person` | no: a finding is accepted only by a person answering its `audit-finding` question |
 | `/hora-build` | `[wing] How to lint a checkpoint's files` | `npx eslint --fix`, then `npx eslint`, on exactly the files the checkpoint touched |
 | `/hora-build` | `[wing] How to test a checkpoint's files` | `npx jest` on exactly the files the checkpoint wrote, its output read from a file |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | yes, for checkpoints 2, 9 and 11, once a person asks for it |
