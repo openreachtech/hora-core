@@ -46,7 +46,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 | Invoked as | Unit suites (step 2) | Review scope (steps 3–6) | Written to |
 |---|---|---|---|
-| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review runs **where "[wing] Whether a feature gate drives the product live", below, says yes** | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
+| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review runs **where "Whether a feature gate drives the product live", below, says yes** | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
 
 **Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
@@ -105,7 +105,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ```
 1. Confirm the environment — when the live sweep is going to run
-     as "[wing] How to confirm the environment", below, says
+     as "How to confirm the environment", below, says
      Not satisfied -> stop. Report `lacked-environment` (blocking: yes).
                       Do not review a frontend served on its own, and do not
                       "work around" a missing service
@@ -141,12 +141,12 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      At a sweep, the version's own acceptance criteria are judged here, one
      by one, and the record says how many held
 
-5. UX findings — at the sweep, or at a gate where "[wing] Whether a feature
+5. UX findings — at the sweep, or at a gate where "Whether a feature
    gate takes the UX findings step", below, says yes
      the skills covering the UI/UX audit, against the context the shared
      UI/UX context skills produced
 
-6. Security audit — at the sweep, or at a gate where "[wing] Whether a feature
+6. Security audit — at the sweep, or at a gate where "Whether a feature
    gate takes the security audit step", below, says yes
      the skills covering a read-only security audit
      Checkpoint 8 already ran this per feature, over that feature's change
@@ -259,7 +259,7 @@ passed over 1 of 20 features; 2 not accepted
 
 **A step that reused a recorded result says so in its `Result`, beside whatever the delegate reported as backing that reuse.** Transcribe what the tool printed — never paraphrase it, and never write counts a reused run did not report. A reuse recorded with nothing beside it is indistinguishable from a step nobody ran, which is the one thing this record exists to rule out.
 
-**Every finding cites its evidence as "[wing] How to cite a run's evidence", below, says.**
+**Every finding cites its evidence as "How to cite a run's evidence", below, says.**
 
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 

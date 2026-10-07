@@ -282,7 +282,7 @@ A reference from `.hora/tasks/` takes the form `<!-- spec: <id> -->`. **No file 
 | `app` | `<myproject>-app`. Something that spans several repositories |
 | `none` | no feature is generated from this section |
 
-**`target` decides which checkpoints a feature runs through.** A feature whose `target` is `backend` alone skips the frontend gate; one that names a row the frontend gate takes runs it (`../../hora-build/references/checkpoints.md`, "[wing] Whether a row runs the frontend gate"). One feature is one file whatever it touches, so getting `target` wrong changes what gets built, not where a line is filed.
+**`target` decides which checkpoints a feature runs through.** A feature whose `target` is `backend` alone skips the frontend gate; one that names a row the frontend gate takes runs it (`../../hora-build/references/checkpoints.md`, "Whether a row runs the frontend gate"). One feature is one file whatever it touches, so getting `target` wrong changes what gets built, not where a line is filed.
 
 **Make it match the `Repository` column** of the repository layout section — not its `Directory` column. `/hora` stops with a question on a mismatch.
 

@@ -296,7 +296,7 @@ whether an extension point should be left in place.
 ```
 
 - **The file is append-only.** Existing questions are never removed, and resolved ones stay as `- [x]`
-- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `[wing] Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
+- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
 - A human may also answer by editing `specs/` between runs; on re-entry, re-read `specs/` and tick what is now resolved
 
 ### [wing] Whether the run may go on past an open blocking question

@@ -27,7 +27,7 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 
 ```
 1. Read .hora/tasks/<version>/_plan.md
-2. Take the first feature "[wing] Whether a feature is ready to build", later
+2. Take the first feature "Whether a feature is ready to build", later
    in this file, says yes to
 3. Open .hora/tasks/<version>/<feature-id>.md
 4. Take the first checkpoint that is [ ]
@@ -90,7 +90,7 @@ Report the decision in one line before starting work — "building #attendance, 
           started together (below), each given that checkpoint's exit
           condition, the skill names and digest paths from step 3, and this
           feature's row-id prefix. One agent takes several consecutive
-          checkpoints only where "[wing] Whether consecutive checkpoints
+          checkpoints only where "Whether consecutive checkpoints
           may go to one implementer" says yes
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
@@ -103,10 +103,10 @@ Report the decision in one line before starting work — "building #attendance, 
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
    wanted to change
-7. Lint, as "[wing] How to lint a checkpoint's files", below, says
+7. Lint, as "How to lint a checkpoint's files", below, says
      still fails -> fix it, retry (up to five attempts; see "A lint rule contradiction")
 8. Test, where the checkpoint's exit condition names tests (6, 16, 18), as
-   "[wing] How to test a checkpoint's files", below, says
+   "How to test a checkpoint's files", below, says
      fails, from something code could fix -> fix it, retry
      fails, from something no code change could fix (the middleware is not
        running, a network call reached nothing, the database was altered

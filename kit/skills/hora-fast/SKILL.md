@@ -188,8 +188,8 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 ```
 1. ready = every feature in _plan.md that is not in flight, and whose next
-   gate may open: "[wing] Whether a feature is ready to build" says yes to
-   the feature, or "[wing] Whether a gate may open while a dependency is
+   gate may open: "Whether a feature is ready to build" says yes to
+   the feature, or "Whether a gate may open while a dependency is
    unfinished" says yes to that gate (both ../hora-build/SKILL.md)
 2. while fewer than the limit are in flight and ready is not empty:
      start the first one at its first [ ] checkpoint
@@ -218,7 +218,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 **1, 2, 9 and 11 run in the main session, one feature at a time, as `/hora-build` says.** When several features reach one together, they are taken in turn, and the person is told how many are waiting.
 
-**A person may say that 2, 9 or 11 is to be skipped for one feature, where `[wing] Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+**A person may say that 2, 9 or 11 is to be skipped for one feature, where `Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
 
 #### [wing] Whether an interactive checkpoint may be skipped
 

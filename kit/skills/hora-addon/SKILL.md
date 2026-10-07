@@ -132,7 +132,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 ```
 
 - **Naming it on one side is enough.** An add-on built later states the relation without the earlier one being changed.
-- **Found at resolving, the pair stops the run, with neither add-on's wings applied**, reported as `../hora/references/structure.md`, "[wing] How to close a run", says. The way on is to take one declaration back. Which one is a decision about what the project is building, so it is the person's: no precedence set in `.hora/addon/config.json` and no judgment decides it.
+- **Found at resolving, the pair stops the run, with neither add-on's wings applied**, reported as `../hora/references/structure.md`, "How to close a run", says. The way on is to take one declaration back. Which one is a decision about what the project is building, so it is the person's: no precedence set in `.hora/addon/config.json` and no judgment decides it.
 - **The add-on's own skill refuses first.** It does not record a declaration while an add-on it excludes, or one that excludes it, is active for the version. Resolving is the guard behind it.
 - **`exclusiveWith` may be left out**, unlike `activeWhen`. Its absence means no exclusion, which is true of most add-ons, and forgetting it grants nothing stronger than what the add-on already had.
 
@@ -147,7 +147,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 ## [wing] How to decide without asking
 ```
 
-**The marker is `[wing]`, in the skill's own files, on a heading of any level.** Where the skill's text depends on the section, it calls it by its full heading, marker included — "stop, unless `[wing] Whether the run may go on past an open blocking question` says yes". **A reader of the calling line can then see that what follows may be changed by an add-on.**
+**The marker is `[wing]`, in the skill's own files, on a heading of any level.** Where the skill's text depends on the section, it calls it by its heading text, with the `#` signs and the marker left out — "stop, unless `Whether the run may go on past an open blocking question` says yes". **Removing the marker from a heading then leaves every line that calls it as it was.**
 
 **A marked section is a decision the skill has taken out of its text.** Where the text would have said *if even one `blocking: yes` is unresolved, stop*, it says *stop as the section says*, and the condition lives in the section. An add-on then changes the condition without touching the sentence that uses it — the way a method called by name can be redefined while its caller stays the same.
 
@@ -225,7 +225,7 @@ the skill's section
 **A judgment taken under 3 is recorded as a question**, in the question file and in its format (`../hora-plan/SKILL.md`), so a person can see it and overrule it, and so a resumed run does not take it again differently.
 
 ```markdown
-## Q12. Two add-ons decide differently at "[wing] How to decide without asking"
+## Q12. Two add-ons decide differently at "How to decide without asking"
 <!-- blocking: no -->
 <!-- category: addon-precedence -->
 
