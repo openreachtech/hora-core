@@ -51,7 +51,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
 
-**"Explicitly requested" means a person asked for it, in the run.** That is the only widening this skill makes on its own, and the run records it with the requester named. An add-on may widen a gate through the two `[wing]` sections that decide it, and the run then names the add-on. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
+**"Explicitly requested" means a person asked for it, in the run.** That is the only widening there is, and the run records it with the requester named. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
 
 **A widening changes the reach and nothing else — least of all where the record lands.** A gate run asked to reach every done feature is still that feature's acceptance, so it appends a block to that feature's own file and says `reach: full` inside it. **There is no third kind of run and no third path.**
 
