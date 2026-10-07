@@ -248,7 +248,7 @@ Checkpoint 2 verified the use cases against the *spec*. This verifies them again
 
 ### [wing] Whether a row runs the frontend gate
 
-**Yes, where the repository layout section gives the row a frontend origin.** Checkpoints 10, 11, 12 and 15 read this section through their `Not applicable when` line.
+**Yes, where the repository layout section gives the row a frontend origin.**
 
 ## 10. Open the frontend
 

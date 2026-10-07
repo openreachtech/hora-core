@@ -105,11 +105,15 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build`（`checkpoints.md`） | `[wing] Whether a row runs the frontend gate` | はい。リポジトリ構成がその行にフロントエンドの origin を与えているとき |
 | `/hora-build`（`checkpoints.md`） | `[wing] How to stand up the local test environment` | ローカルの E2E コンテナ環境を、それを扱う skill で組み立てる |
 | `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | いいえ。実装の関所はそれぞれ自分の実行と自分の検証を持つ |
+| `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
+| `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
 | `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、行頭に絵文字は付けない |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
+| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | はい。その実行の中で人が頼んだとき。関所8が変更の集合をすでに監査しており、全体スイープは常に行う |
+| `/hora-accept` | `[wing] How to cite a run's evidence` | 委任先が報告したものを、それが支える所見の中に |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` と理由を書き、前後の測定値を記録する |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
