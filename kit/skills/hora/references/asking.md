@@ -2,7 +2,7 @@
 
 **Every skill that talks to a person stands on this file** — `/hora-spec` and its stage skills, `/hora-plan`, `/hora-build` and `/hora-fast` at the checkpoints that run in conversation, `/hora-accept`, and `/hora-hotfix`.
 
-**Before putting anything to a person, take `[wing] Whether a decision may be taken without asking`, later in this file.** Where it answers yes, nothing is put to anyone, and the decision is taken as `[wing] How to decide without asking` says. Everything else in this file applies where it answers no.
+**Before putting anything to a person, take `Whether a decision may be taken without asking`, later in this file.** Where it answers yes, nothing is put to anyone, and the decision is taken as `How to decide without asking` says. Everything else in this file applies where it answers no.
 
 **There are three ways to put something to a person, and they are not interchangeable.** Each one asks the person to do a different job.
 

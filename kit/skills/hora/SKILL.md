@@ -136,7 +136,7 @@ With that settled, do this every time — a fresh start and a restart alike.
 
 **An open hotfix debt is reported here, never acted on here.** Step 3's `/hora-plan` is what turns it back into work (`../hora-hotfix/SKILL.md`, "Paying the debt back").
 
-**Step 4 stops only where `[wing] Whether the run may go on past an open blocking question` (`../hora-plan/SKILL.md`) says no.** The decision lives in `/hora-plan`, beside the question file it reads, so `/hora` and `/hora-plan` never answer it differently.
+**Step 4 stops only where `Whether the run may go on past an open blocking question` (`../hora-plan/SKILL.md`) says no.** The decision lives in `/hora-plan`, beside the question file it reads, so `/hora` and `/hora-plan` never answer it differently.
 
 **`/hora` does not ask before running this check, or before acting on an ordinary result.** It stops and asks once the check turns up something it cannot resolve on its own.
 

@@ -92,7 +92,7 @@
 | one row-id prefix allocated per feature and handed to every unit | `../../hora-build/SKILL.md`, "Step 5 — splitting a checkpoint into units" |
 | `eslint --fix` before an agent round trip, and the fix loop's limit | `../../hora-build/SKILL.md`, "Running one checkpoint" |
 | a retry abandoned on a failure no retry can fix | `../../hora-build/SKILL.md`, "Running one checkpoint", step 8 |
-| `blocking: no` — the run continues with the question open | `../../hora-plan/SKILL.md`, "[wing] How to categorize a question" |
+| `blocking: no` — the run continues with the question open | `../../hora-plan/SKILL.md`, "How to categorize a question" |
 | `missingSkill` — a step ran without the skill that owns it | `../../hora-build/SKILL.md`, "Step 3 — matching a checkpoint to the skills that cover it"; `../../hora-accept/SKILL.md`, "No name appears above, and none may" |
 | `target` / `depends` inferred rather than asked | `structure.md`, invariant 2 |
 | a `##` with no `id` — coarser task granularity | `spec-format.md`, "The folder name becomes the `id`" |
