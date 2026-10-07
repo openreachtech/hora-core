@@ -1,6 +1,6 @@
 ---
 name: hora-progress
-description: Report that a checkpoint or a stage passed, or that a verdict sent the run back, in the one line hora's progress takes. Invoked by /hora-build each time a checkpoint passes or is sent back, by /hora-accept each time a finding sends the run back, and by /hora-spec each time a stage passes — never by a person. Questions, proposals, stop displays and the closing report are not this skill's.
+description: Report that a checkpoint or a stage passed, or that a verdict sent the run back, in the one line hora's progress takes. Invoked by /hora-build each time a checkpoint passes or is sent back, by /hora-accept each time a finding sends the run back, and by /hora-spec each time a stage passes or is sent back — never by a person. Questions, proposals, stop displays and the closing report are not this skill's.
 user-invocable: false
 ---
 
@@ -32,15 +32,17 @@ user-invocable: false
 
 ```
 ⏳️ [<n>] <feature> <what sent it back> sent back to checkpoint <k> | <the findings by number and severity, or the shortfall> | -> <what comes next>
+⏳️ [<n>] stage <s> sent back to stage <t> | <the shortfall> | -> <what comes next>
 ```
 
 ```
 ⏳️ [3] #attendance checkpoint 8 sent back to checkpoint 6 | N5, N6 (MEDIUM) | -> a per-account limit on sign-in
 ⏳️ [1] #payroll checkpoint 18 sent back to checkpoint 15 | the month total ignores a reopened month | -> the summary screen
+⏳️ [1] stage 7 sent back to stage 1 | a use case nobody stated: reopening a locked month | -> stage 1
 ```
 
-- **Every verdict that re-enters a checkpoint takes it**, whatever gave the verdict: a verifier's `unmet`, the audit's findings at checkpoint 8, a failed gate at 2, 9, 11 or 18, and a finding at the version sweep
-- **`n` counts the send-backs one checkpoint has made on one feature**, this one included. Checkpoint 8's audits on `#attendance` count `[1]`, `[2]`, `[3]`; a verifier's `unmet` at checkpoint 6 on the same feature counts on its own
+- **Every verdict that re-enters a checkpoint or a stage takes it**, whatever gave the verdict: a verifier's `unmet`, the audit's findings at checkpoint 8, a failed gate at 2, 9, 11 or 18, a finding at the version sweep, and a stage that finds a shortfall an earlier stage owns
+- **`n` counts the send-backs one checkpoint has made on one feature**, this one included. Checkpoint 8's audits on `#attendance` count `[1]`, `[2]`, `[3]`; a verifier's `unmet` at checkpoint 6 on the same feature counts on its own. A stage counts its send-backs the same way, per stage
 - **A retry that re-enters nothing prints nothing.** A lint rerun or a suite fixed inside the checkpoint is a step toward the line, said as one below
 
 ---
