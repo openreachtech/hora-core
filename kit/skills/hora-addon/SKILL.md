@@ -34,13 +34,13 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 **Every add-on states the range of `@openreachtech/hora` it was built against, as `horaKit` in its definition, whatever it carries — skills, wings or both.** Its definition is read by Hora Kit's resolving, and its wings find their sections by heading. A heading exists in some versions of Hora Kit and not in others, so the range is what says which headings the add-on relies on.
 
 ```json
-"horaKit": "^0.10.0"
+"horaKit": "^1.0.0"
 ```
 
 - **A condition on the consuming repository, never a dependency.** The add-on uses nothing of Hora Kit; Hora Kit's skills read the add-on. As a peer dependency, npm would install Hora Kit into the add-on's own repository as well, where nothing uses it. As a dependency, each add-on could install a Hora Kit of its own, and its wings would be checked against a copy the project never runs.
 - **The field is never left out.** A forgotten range is not read as *any*: that would place wings beside a Hora Kit that may carry none of their sections.
 - **The range is the one source.** Nothing else restates it.
-- **The lower bound is the first Hora Kit release carrying every `[wing]` section the add-on's wings extend, and the caret stays.** Renaming or removing a `[wing]` section is a breaking release ("The `[wing]` sections", below), so every version the caret admits still carries them.
+- **The lower bound is the first Hora Kit release carrying every `[wing]` section the add-on's wings extend, and the caret stays.** Renaming or removing a `[wing]` section is a breaking release ("The `[wing]` sections", below), so every version the caret admits still carries them. **While Hora Kit is in beta (`0.x.x`), a range such as `>=0.10.0 <1.0.0` is allowed as an exception**, since a caret there stops at the next minor; any `0.x` minor may then rename a section the wings extend.
 - **The add-on's installer checks the installed Hora Kit against it, before placing anything, and changes nothing** where the definition declares no range, or one `semver` does not read, where no Hora Kit is installed, or where the one installed is outside the range. It resolves `@openreachtech/hora/package.json` from the consuming repository as Node would, reads its version, and holds it against the range with the `semver` package. npm never reads the field, so this check is the only one, and a wing installed against headings that are not there does nothing at all, without a word. The cheapest place to stop that is before anything is copied. `uninstall` checks nothing.
 
 ### A wing overlays, it never copies
@@ -99,7 +99,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
   "name": "alpha-example-addon",
   "activeWhen": "declared",
   "description": "Active while it is declared on for the version.",
-  "horaKit": "^0.10.0"
+  "horaKit": "^1.0.0"
 }
 ```
 
@@ -127,7 +127,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
   "activeWhen": "declared",
   "exclusiveWith": ["alpha-example-addon"],
   "description": "…",
-  "horaKit": "^0.10.0"
+  "horaKit": "^1.0.0"
 }
 ```
 
