@@ -119,7 +119,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
 
-**これらの見出しは、契約です。** add-on は見出しで節を見つけるので、見出しを変えたり消したりするのは Hora Kit の破壊的な変更です。1.0.0 未満ではしません。1.0.0 以降はメジャーバージョンとして出します。節を足すことは何も壊しません。見出しを保ったまま、節の中身を直すことも同じです。
+**これらの見出しは、契約です。** add-on は見出しで節を見つけるので、見出しを変えたり消したりするのは Hora Kit の破壊的な変更で、そのように出します。節を足すことは何も壊しません。見出しを保ったまま、節の中身を直すことも同じです。
 
 ---
 
@@ -190,7 +190,7 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 | | |
 |---|---|
 | **パッケージ名** | `@openreachtech/hora-addon-<name>`。中身が何であっても、この形で、`<name>` が add-on の名前になる。1つのパッケージは1つの add-on で、中身によって名前が変わるなら、skill を足した日にパッケージの名前を変えることになる |
-| **前提にする Hora Kit** | `@openreachtech/hora` の範囲を、定義の `horaKit` に書く（例 `">=0.10.0 <1.0.0"`）。中身が何であっても、どの add-on も書く。add-on の定義は Hora Kit の解決の手順が読むから。このフィールドは省かない。下限は、その add-on の wing が広げる `[wing]` 節をすべて持つ最初の Hora Kit のリリースにする。上限は、それを壊しうる次のリリースにする。Hora Kit が 1.0.0 未満のあいだは `<1.0.0` で、`^` はそこで次のマイナーに止まるから。1.0.0 からは `^` を使う。これは利用側のリポジトリに課す条件で、dependency でも peer dependency でもない。add-on は Hora Kit の何も使わず、Hora Kit のスキルの側が add-on を読む。peer dependency にすると、何も使わない add-on のリポジトリにまで npm が Hora Kit を入れてしまうから |
+| **前提にする Hora Kit** | `@openreachtech/hora` の範囲を、定義の `horaKit` に書く（例 `"^1.0.0"`）。中身が何であっても、どの add-on も書く。add-on の定義は Hora Kit の解決の手順が読むから。このフィールドは省かない。下限は、その add-on の wing が広げる `[wing]` 節をすべて持つ最初の Hora Kit のリリースにして、`^` は残す。`[wing]` 節の改名や削除は、破壊的なリリースになるから。Hora Kit がβ版（`0.x.x`）のあいだに限り、例外として `>=0.10.0 <1.0.0` のような範囲も書ける。そこでは `^` が次のマイナーで止まるから。ただし `0.x` のマイナーでも、wing が広げる節が改名されることはある。これは利用側のリポジトリに課す条件で、dependency でも peer dependency でもない。add-on は Hora Kit の何も使わず、Hora Kit のスキルの側が add-on を読む。peer dependency にすると、何も使わない add-on のリポジトリにまで npm が Hora Kit を入れてしまうから |
 | **installer** | パッケージ自身の `bin` で、`hora-addon-<name> install` として走る。何かを置く前に、利用側のリポジトリから Node と同じ解決で `@openreachtech/hora/package.json` を探して version を読み、`semver` パッケージで `horaKit` と突き合わせる。定義が範囲を宣言していないとき、`semver` が読めない範囲のとき、Hora Kit が入っていないとき、入っているものが範囲の外にあるときは、何も変えない。npm はこのフィールドを読まないので確かめるのはここだけで、見出しのない Hora Kit に入った wing は、黙って何もしなくなるから。`uninstall` は何も確かめない。add-on が複数あるプロジェクトでは、まずすべての add-on の skill の回（`install --only skills`）を走らせ、次にすべての add-on の wing の回（`install --only wings`）を走らせる |
 | **定義** | パッケージの `kit/addon.json`。`activeWhen`、`description`、`horaKit`、必要なら `exclusiveWith` を持ち、`name` は持たない。installer がパッケージ名から名前を読み取り、`.hora/addons/<addon-name>.json` の最初の項目として書き込む。置くのは wing の回で、`--only` なしの `install` も置く。wing を持たない add-on でも同じ。wing の部分の uninstall で消え、`--only skills` だけの回では触れない |
 | **`wings/` に置くもの** | Hora Kit の `[wing]` 節を広げるファイルだけを、同じ相対パスに置く。add-on が自分で足すものは、add-on の skill に置く |
