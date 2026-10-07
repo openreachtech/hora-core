@@ -341,7 +341,7 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 | `met` | writes `[x]` and moves on |
 | `unmet`, with `sendBackTo` | clears the checkpoints from `sendBackTo` on and re-enters there. **`sendBackTo` is required whenever anything is unmet**; a report missing it goes back to the verifier, never into a guess |
 | `missingTests` / `weakenedTests` | the checkpoint is not passed — back to an implementer agent, with the shortfall named |
-| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files changed since the prior run's `at:` (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
+| `findings` (checkpoint 8) | an implementer fixes each one not accepted ("Whether an audit finding may be accepted without a person", below), then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files changed since the prior run's `at:` (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
 | `contractDrift` | raises a `contradiction` question (`blocking: yes`). **Never edits the contract** |
 | `specIssues` | takes it to checkpoint 1's procedure, or raises a question |
 | `specAssumptions` | records each as a `spec-assumption` question (`blocking: no`) |
@@ -360,7 +360,11 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 | F3 | accepted | the `audit-finding` question that accepted it |
 ```
 
-**`carried` is this skill's, never the verifier's.** A finding judged in an earlier run whose files `git diff --quiet <that run's at:> -- <files>` finds unchanged is carried and not handed again. **Every clear of checkpoint 8 drops every `carried`**, so the next run hands every finding. `accepted` comes only from a person answering an `audit-finding` question.
+**`carried` is this skill's, never the verifier's.** A finding judged in an earlier run whose files `git diff --quiet <that run's at:> -- <files>` finds unchanged is carried and not handed again. **Every clear of checkpoint 8 drops every `carried`**, so the next run hands every finding. `accepted` comes only from an `audit-finding` question, and only as the section below allows.
+
+#### [wing] Whether an audit finding may be accepted without a person
+
+**No.** A finding is accepted only by a person answering its `audit-finding` question, with what living with it costs in front of them. Every finding nobody accepted is fixed, and the audit runs again until none is left.
 
 ---
 
