@@ -27,7 +27,7 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 
 ```
 1. Read .hora/tasks/<version>/_plan.md
-2. Take the first feature "[wing] Whether a feature is ready to build", later
+2. Take the first feature "Whether a feature is ready to build", later
    in this file, says yes to
 3. Open .hora/tasks/<version>/<feature-id>.md
 4. Take the first checkpoint that is [ ]
@@ -89,7 +89,9 @@ Report the decision in one line before starting work — "building #attendance, 
        -> hora-implementer, one agent per unit of this checkpoint's work,
           started together (below), each given that checkpoint's exit
           condition, the skill names and digest paths from step 3, and this
-          feature's row-id prefix
+          feature's row-id prefix. One agent takes several consecutive
+          checkpoints only where "Whether consecutive checkpoints
+          may go to one implementer" says yes
      an auditing checkpoint (8)
        -> hora-verifier, read-only, given the skill names to invoke in full
           AND the change set to audit ("The change set of a checkpoint",
@@ -101,14 +103,10 @@ Report the decision in one line before starting work — "building #attendance, 
    name, then handle whatever else they reported that is not code (below) —
    a dependency, a conflict-proof change, a new identifier, a contract one
    wanted to change
-7. Lint: cd into this checkpoint's repository, then npx eslint --fix on
-   exactly the files it touched, every unit's together, then npx eslint on
-   the same files for what remains. --fix clears the mechanical violations
-   without an agent round trip; only what it cannot fix is worth one
+7. Lint, as "How to lint a checkpoint's files", below, says
      still fails -> fix it, retry (up to five attempts; see "A lint rule contradiction")
-8. Test, where the checkpoint's exit condition names tests (6, 16, 18): from
-   that same repository, npx jest on exactly the files this checkpoint wrote,
-   with the output written to a file and read from there (below)
+8. Test, where the checkpoint's exit condition names tests (6, 16, 18), as
+   "How to test a checkpoint's files", below, says
      fails, from something code could fix -> fix it, retry
      fails, from something no code change could fix (the middleware is not
        running, a network call reached nothing, the database was altered
@@ -124,12 +122,22 @@ Report the decision in one line before starting work — "building #attendance, 
    in conversation for the four gates that check against use cases. At 6
    and 16, where step 8's suite is itself the proof, the verifier is usually
    skipped (below). Met or not, add this run to the line's run record (below)
+     sent back -> invoke /hora-progress and report the send-back in the line
+       it gives, then re-enter where the verdict says
 10. Write [x] into the feature file. Commit at the gate boundary, not here
 11. Invoke /hora-progress and report the checkpoint in the line it gives,
     then move to the next checkpoint
 ```
 
 **Step 10's split matters.** The checkbox is written the moment the checkpoint passes, so an interrupted run resumes at the right place; the commit happens once per gate, so `git log .hora/` stays readable (`../hora/references/commits.md`, "Committing `.hora/`").
+
+### [wing] How to lint a checkpoint's files
+
+**cd into this checkpoint's repository, then `npx eslint --fix` on exactly the files it touched, every unit's together, then `npx eslint` on the same files for what remains.** `--fix` clears the mechanical violations without an agent round trip; only what it cannot fix is worth one.
+
+### [wing] How to test a checkpoint's files
+
+**From that same repository, `npx jest` on exactly the files this checkpoint wrote, with the output written to a file and read from there** (below).
 
 ### Step 3 — matching a checkpoint to the skills that cover it
 
@@ -238,6 +246,10 @@ A checkpoint line carries a second comment at its end, holding what running the 
 
 **Why this parallelism holds where feature-level and checkpoint-level parallelism do not.** Two tasks running at once in one working tree each need their own commit, and an aggregation file rewritten by the later one lands in the earlier one's commit. Units of a checkpoint share one commit — the gate's — and the aggregation file belongs to the main session. **Two features, and two checkpoints, still never run alongside each other.**
 
+#### [wing] Whether consecutive checkpoints may go to one implementer
+
+**No.** Each implementing checkpoint gets its own implementer runs, and step 9 verifies each one on its own evidence.
+
 ### Step 8 — output that survives the run, and the run that dies
 
 **Capture test output in a file, and read the file.** Output collected behind a pipe lives in memory until the run ends, and a suite can end by taking the whole machine down. Written to a file as it is produced, the output survives to the line where the run stopped.
@@ -322,12 +334,14 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 
 `hora-verifier` returns a judgment, never a fix (`../../agents/hora-verifier.md`, "What to return").
 
+**An `unmet` and the audit's `findings` at 8 are send-backs, and each is reported as one** through `/hora-progress`. A shortfall in the tests goes back to an implementer inside the checkpoint, and is not.
+
 | It reports | This skill does |
 |---|---|
 | `met` | writes `[x]` and moves on |
 | `unmet`, with `sendBackTo` | clears the checkpoints from `sendBackTo` on and re-enters there. **`sendBackTo` is required whenever anything is unmet**; a report missing it goes back to the verifier, never into a guess |
 | `missingTests` / `weakenedTests` | the checkpoint is not passed — back to an implementer agent, with the shortfall named |
-| `findings` (checkpoint 8) | an implementer fixes them, then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files changed since the prior run's `at:` (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
+| `findings` (checkpoint 8) | an implementer fixes each one not accepted ("Whether an audit finding may be accepted without a person", below), then the audit runs again — **scoped to the fix, never a fresh full re-scan**: confirm each prior finding is resolved, and re-audit the files changed since the prior run's `at:` (the same set step 7 lints and step 8 tests), **together with any shared surface that fix reached** — a contract caller it rewired, a guard it moved — since those can carry a new finding into a file the fix did not itself edit. An accepted finding is recorded as a question, never left as a silent pass |
 | `contractDrift` | raises a `contradiction` question (`blocking: yes`). **Never edits the contract** |
 | `specIssues` | takes it to checkpoint 1's procedure, or raises a question |
 | `specAssumptions` | records each as a `spec-assumption` question (`blocking: no`) |
@@ -346,7 +360,11 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 | F3 | accepted | the `audit-finding` question that accepted it |
 ```
 
-**`carried` is this skill's, never the verifier's.** A finding judged in an earlier run whose files `git diff --quiet <that run's at:> -- <files>` finds unchanged is carried and not handed again. **Every clear of checkpoint 8 drops every `carried`**, so the next run hands every finding. `accepted` comes only from a person answering an `audit-finding` question.
+**`carried` is this skill's, never the verifier's.** A finding judged in an earlier run whose files `git diff --quiet <that run's at:> -- <files>` finds unchanged is carried and not handed again. **Every clear of checkpoint 8 drops every `carried`**, so the next run hands every finding. `accepted` comes only from an `audit-finding` question, and only as the section below allows.
+
+#### [wing] Whether an audit finding may be accepted without a person
+
+**No.** A finding is accepted only by a person answering its `audit-finding` question, with what living with it costs in front of them. Every finding nobody accepted is fixed, and the audit runs again until none is left.
 
 ---
 

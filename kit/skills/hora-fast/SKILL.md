@@ -142,7 +142,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 <project>-app/                                  cwd, as always
   <project>-backend/                            the main working copy. Stays on release/<version>
   .worktrees/<feature-id>/<project>-backend/    feature/<feature-id>, this feature only
-  .worktrees/<feature-id>/<project>-frontend-*/ the same, per frontend row the feature touches
+  .worktrees/<feature-id>/<project>-frontend-*/ the same, per row the feature touches that the frontend gate takes
 ```
 
 **`.worktrees/` is ignored by the hora repository, like the nested rows.** Add the line to its `.gitignore` when it is missing.
@@ -153,7 +153,7 @@ Report the decision in one line before starting — "continuing 1.0.0 in paralle
 
 ```
 open   on entering the gate's first checkpoint — 3 for the backend row, 10
-       for a frontend row — where /hora-build cuts the branch:
+       for a row the frontend gate takes — where /hora-build cuts the branch:
          git -C <repository> worktree add ../.worktrees/<feature-id>/<repository> \
              -b feature/<feature-id> release/<version>
          then what the handbook says a second copy needs, run inside it
@@ -188,8 +188,8 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 ```
 1. ready = every feature in _plan.md that is not in flight, and whose next
-   gate may open: "[wing] Whether a feature is ready to build" says yes to
-   the feature, or "[wing] Whether a gate may open while a dependency is
+   gate may open: "Whether a feature is ready to build" says yes to
+   the feature, or "Whether a gate may open while a dependency is
    unfinished" says yes to that gate (both ../hora-build/SKILL.md)
 2. while fewer than the limit are in flight and ready is not empty:
      start the first one at its first [ ] checkpoint
@@ -218,7 +218,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 **1, 2, 9 and 11 run in the main session, one feature at a time, as `/hora-build` says.** When several features reach one together, they are taken in turn, and the person is told how many are waiting.
 
-**A person may say that 2, 9 or 11 is to be skipped for one feature, where `[wing] Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
+**A person may say that 2, 9 or 11 is to be skipped for one feature, where `Whether an interactive checkpoint may be skipped`, later in this file, says yes.** It goes on that checkpoint's line — `<!-- skipped: asked for by … -->` — and into the closing report. **Checkpoint 1 cannot be skipped while the spec is missing**: skipping a check gives up a verification; skipping the spec invents one (`../hora/references/structure.md`, invariant 2).
 
 #### [wing] Whether an interactive checkpoint may be skipped
 
@@ -250,7 +250,7 @@ git -C ../.worktrees/<feature-id>/<repository> stash pop
 
 ## The merge step
 
-At checkpoint 9 for the backend row and 17 for a frontend row, as `commits.md` says. What this skill adds, because other features are in flight:
+At checkpoint 9 for the backend row and 17 for a row the frontend gate takes, as `commits.md` says. What this skill adds, because other features are in flight:
 
 ```
 1. install/ and update/ branches waiting to merge go first (commits.md)

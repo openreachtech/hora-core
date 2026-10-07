@@ -4,7 +4,7 @@
 
 *[日本語](./commands.ja.md)*
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), `/hora-addon` (the rule for add-ons, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below). `/hora-progress` is not among them: `/hora-build` and `/hora-spec` invoke it to write the one line that reports each checkpoint or stage passed, and a person never does.
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), `/hora-addon` (the rule for add-ons, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below). `/hora-progress` is not among them: `/hora-build` and `/hora-spec` invoke it to write the one line that reports each checkpoint or stage passed or sent back, and a person never does.
 
 **In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
@@ -114,7 +114,7 @@ It reports the decision in one line before starting: *"continuing 1.0.0. 4 of 11
 
 **Going back is normal.** Stage 7 exists to send the run back into whichever stage owns a shortfall — and so does checkpoint 2, 9, 11 or 18 when what it finds turns out to be the spec rather than the code.
 
-Each stage that passes is reported in one line, such as *"stage 3 passed | 200 staff now, 5,000 within two years | -> stage 4"*.
+Each stage that passes is reported in one line, such as *"📍 stage 3 passed | 200 staff now, 5,000 within two years | -> stage 4"*. A stage sent back is one line too, opening with `⏳️ [n]`, such as *"⏳️ [1] stage 7 sent back to stage 1 | a use case nobody stated: reopening a locked month | -> stage 1"*.
 
 **Stage 0 is what stops a running product from having to be dictated.** It reads the repositories and the documents, drafts what they show, and hands it back for you to correct. On a project with nothing to read it records that and moves on ([`investigation.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-spec/references/investigation.md)).
 
@@ -342,7 +342,7 @@ The sweep entry carries the version's own criteria — how many, the section's `
 4. Repeat. Commit .hora/ at each gate boundary
 ```
 
-It reports in one line before starting: *"building #attendance, from checkpoint 6 of 18."* After each checkpoint that passes, it reports one more line, such as *"6 passed | every criterion #attendance covers has a passing test | -> 7"*.
+It reports in one line before starting: *"building #attendance, from checkpoint 6 of 18."* After each checkpoint that passes, it reports one more line, such as *"📍 checkpoint 6 passed | every criterion #attendance covers has a passing test | -> checkpoint 7"*. A verdict that sends the feature back to an earlier checkpoint is one line too, opening with `⏳️ [n]`, where `n` counts the send-backs that checkpoint has made on the feature: *"⏳️ [3] #attendance checkpoint 8 sent back to checkpoint 6 | N5, N6 (MEDIUM) | -> a per-account limit on sign-in"*.
 
 ### The eighteen, in four gates
 

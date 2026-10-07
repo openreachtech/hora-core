@@ -34,13 +34,13 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 **Every add-on states the range of `@openreachtech/hora` it was built against, as `horaKit` in its definition, whatever it carries — skills, wings or both.** Its definition is read by Hora Kit's resolving, and its wings find their sections by heading. A heading exists in some versions of Hora Kit and not in others, so the range is what says which headings the add-on relies on.
 
 ```json
-"horaKit": "^0.10.0"
+"horaKit": "^1.0.0"
 ```
 
 - **A condition on the consuming repository, never a dependency.** The add-on uses nothing of Hora Kit; Hora Kit's skills read the add-on. As a peer dependency, npm would install Hora Kit into the add-on's own repository as well, where nothing uses it. As a dependency, each add-on could install a Hora Kit of its own, and its wings would be checked against a copy the project never runs.
 - **The field is never left out.** A forgotten range is not read as *any*: that would place wings beside a Hora Kit that may carry none of their sections.
 - **The range is the one source.** Nothing else restates it.
-- **The lower bound is the first Hora Kit release carrying every `[wing]` section the add-on's wings extend, and the caret stays.** Renaming or removing a `[wing]` section is a breaking release ("The `[wing]` sections", below), so every version the caret admits still carries them.
+- **The lower bound is the first Hora Kit release carrying every `[wing]` section the add-on's wings extend, and the caret stays.** Renaming or removing a `[wing]` section is a breaking release ("The `[wing]` sections", below), so every version the caret admits still carries them. **While Hora Kit is in beta (`0.x.x`), a range such as `>=0.10.0 <1.0.0` is allowed as an exception**, since a caret there stops at the next minor; any `0.x` minor may then rename a section the wings extend.
 - **The add-on's installer checks the installed Hora Kit against it, before placing anything, and changes nothing** where the definition declares no range, or one `semver` does not read, where no Hora Kit is installed, or where the one installed is outside the range. It resolves `@openreachtech/hora/package.json` from the consuming repository as Node would, reads its version, and holds it against the range with the `semver` package. npm never reads the field, so this check is the only one, and a wing installed against headings that are not there does nothing at all, without a word. The cheapest place to stop that is before anything is copied. `uninstall` checks nothing.
 
 ### A wing overlays, it never copies
@@ -99,7 +99,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
   "name": "alpha-example-addon",
   "activeWhen": "declared",
   "description": "Active while it is declared on for the version.",
-  "horaKit": "^0.10.0"
+  "horaKit": "^1.0.0"
 }
 ```
 
@@ -127,12 +127,12 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
   "activeWhen": "declared",
   "exclusiveWith": ["alpha-example-addon"],
   "description": "…",
-  "horaKit": "^0.10.0"
+  "horaKit": "^1.0.0"
 }
 ```
 
 - **Naming it on one side is enough.** An add-on built later states the relation without the earlier one being changed.
-- **Found at resolving, the pair stops the run, with neither add-on's wings applied**, reported as `../hora/references/structure.md`, "[wing] How to close a run", says. The way on is to take one declaration back. Which one is a decision about what the project is building, so it is the person's: no precedence set in `.hora/addon/config.json` and no judgment decides it.
+- **Found at resolving, the pair stops the run, with neither add-on's wings applied**, reported as `../hora/references/structure.md`, "How to close a run", says. The way on is to take one declaration back. Which one is a decision about what the project is building, so it is the person's: no precedence set in `.hora/addon/config.json` and no judgment decides it.
 - **The add-on's own skill refuses first.** It does not record a declaration while an add-on it excludes, or one that excludes it, is active for the version. Resolving is the guard behind it.
 - **`exclusiveWith` may be left out**, unlike `activeWhen`. Its absence means no exclusion, which is true of most add-ons, and forgetting it grants nothing stronger than what the add-on already had.
 
@@ -147,7 +147,7 @@ description: How an add-on extends the hora skills — the Hora Kit range it is 
 ## [wing] How to decide without asking
 ```
 
-**The marker is `[wing]`, in the skill's own files, on a heading of any level.** Where the skill's text depends on the section, it calls it by its full heading, marker included — "stop, unless `[wing] Whether the run may go on past an open blocking question` says yes". **A reader of the calling line can then see that what follows may be changed by an add-on.**
+**The marker is `[wing]`, in the skill's own files, on a heading of any level.** Where the skill's text depends on the section, it calls it by its heading text, with the `#` signs and the marker left out — "stop, unless `Whether the run may go on past an open blocking question` says yes". **Removing the marker from a heading then leaves every line that calls it as it was.**
 
 **A marked section is a decision the skill has taken out of its text.** Where the text would have said *if even one `blocking: yes` is unresolved, stop*, it says *stop as the section says*, and the condition lives in the section. An add-on then changes the condition without touching the sentence that uses it — the way a method called by name can be redefined while its caller stays the same.
 
@@ -225,7 +225,7 @@ the skill's section
 **A judgment taken under 3 is recorded as a question**, in the question file and in its format (`../hora-plan/SKILL.md`), so a person can see it and overrule it, and so a resumed run does not take it again differently.
 
 ```markdown
-## Q12. Two add-ons decide differently at "[wing] How to decide without asking"
+## Q12. Two add-ons decide differently at "How to decide without asking"
 <!-- blocking: no -->
 <!-- category: addon-precedence -->
 

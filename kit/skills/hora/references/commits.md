@@ -44,7 +44,7 @@ A feature's checkpoints cross repositories. **Each repository gets its own `feat
 | | When it is cut | When it merges back |
 |---|---|---|
 | the backend row | entering checkpoint 3 (the first one that writes backend code) | **once checkpoint 9 passes** |
-| a frontend row | entering checkpoint 10 | **once checkpoint 17 passes** |
+| a row the frontend gate takes | entering checkpoint 10 | **once checkpoint 17 passes** |
 
 **A feature's branches merge at their own gate's boundary, not after acceptance.** Checkpoint 18 runs suites spanning every feature so far and can fail on any of them, so waiting for it would hold these branches open across other features' work. What acceptance turns up comes back as a `retake/` branch.
 

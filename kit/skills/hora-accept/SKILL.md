@@ -46,7 +46,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 | Invoked as | Unit suites (step 2) | Review scope (steps 3–6) | Written to |
 |---|---|---|---|
-| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review is **skipped unless explicitly requested, or unless this run is paying a listed feature's deferred acceptance** (below) | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
+| checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review runs **where "Whether a feature gate drives the product live", below, says yes** | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
 
 **Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
@@ -93,6 +93,10 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 **The regression net at a feature gate is the unit suites plus the review's own static checks, and it is cumulative by construction.** The suites run whole repositories, so a feature that breaks an earlier one fails here, in the run that broke it. What a gate run gives up is driving every earlier feature's screens end to end; that is the sweep's job, and the record says which reach its verdict was reached at.
 
+### [wing] Whether a feature gate drives the product live
+
+**Yes, where a person asked for it in the run, or where this run is paying a listed feature's deferred acceptance** (both above). Otherwise the gate keeps the static checks and gives up the driven ones. The sweep always drives, so this section never reaches it.
+
 ---
 
 ## The order to run in
@@ -101,10 +105,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ```
 1. Confirm the environment — when the live sweep is going to run
-     the skills covering the local end-to-end container stack
-     The application must run together with every service behind it, each
-     role must be able to sign in, and there must be reviewable data or a
-     command that produces it.
+     as "How to confirm the environment", below, says
      Not satisfied -> stop. Report `lacked-environment` (blocking: yes).
                       Do not review a frontend served on its own, and do not
                       "work around" a missing service
@@ -140,11 +141,13 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      At a sweep, the version's own acceptance criteria are judged here, one
      by one, and the record says how many held
 
-5. UX findings — at the sweep, or on explicit request; a gate run skips this
+5. UX findings — at the sweep, or at a gate where "Whether a feature
+   gate takes the UX findings step", below, says yes
      the skills covering the UI/UX audit, against the context the shared
      UI/UX context skills produced
 
-6. Security audit — at the sweep, or on explicit request; a gate run skips it
+6. Security audit — at the sweep, or at a gate where "Whether a feature
+   gate takes the security audit step", below, says yes
      the skills covering a read-only security audit
      Checkpoint 8 already ran this per feature, over that feature's change
      set. The sweep points the same audit at the whole repository — what
@@ -156,6 +159,18 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 ```
 
 **Step 1 is a gate for any run that drives the product, not a warm-up.** A live review signs in as each role, completes flows to their success condition, and stops dependencies on purpose to watch what the screen says. None of that means anything against a stub. What a gate run does instead is not a weaker version of the same claim: it keeps the static checks, gives up the driven-browser ones, and its capability note bounds every claim it makes.
+
+### [wing] How to confirm the environment
+
+**Match the skills covering the local end-to-end container stack, and bring it up through them.** The application must run together with every service behind it, each role must be able to sign in, and there must be reviewable data or a command that produces it.
+
+### [wing] Whether a feature gate takes the UX findings step
+
+**Yes, where a person asked for it in the run.** Otherwise the gate skips step 5, and the sweep takes it over every done feature.
+
+### [wing] Whether a feature gate takes the security audit step
+
+**Yes, where a person asked for it in the run.** Otherwise the gate skips step 6, because checkpoint 8 already audited the feature's change set, and the sweep takes it over the whole repository.
 
 **Step 2 comes before the review on purpose.** A unit suite is cheap and its failures are precise.
 
@@ -244,9 +259,17 @@ passed over 1 of 20 features; 2 not accepted
 
 **A step that reused a recorded result says so in its `Result`, beside whatever the delegate reported as backing that reuse.** Transcribe what the tool printed — never paraphrase it, and never write counts a reused run did not report. A reuse recorded with nothing beside it is indistinguishable from a step nobody ran, which is the one thing this record exists to rule out.
 
+**Every finding cites its evidence as "How to cite a run's evidence", below, says.**
+
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
+**Each send-back is reported the moment it is routed**, by invoking `/hora-progress` and writing the line it gives — at a gate run and at the sweep alike. One run's findings are one send-back for each feature they reach, and its line names the earliest checkpoint they return that feature to, with every finding behind it.
+
 **The record is written whether the run passed or failed.** A passing run is the evidence that a gate was cleared; a failing one is why the work that followed it happened. **Which is why the deferred-acceptance test above is a passing block and not the file**: a first gate run that failed creates the file too.
+
+#### [wing] How to cite a run's evidence
+
+**Cite what the delegate reported, inside the finding it backs**: the command and its output for a machine check, and what was done and observed for a hand check. Evidence lives in the block, so the next run reads it without opening anything else.
 
 **`version-criteria:` is written on every block, at every reach, and it has three forms and no fourth.** A sweep writes `<checked> of <declared>`; a gate run writes `not in scope (gate)`; a version whose spec declared `none` writes `none declared`. A block with no line at all is indistinguishable from a sweep that never looked.
 

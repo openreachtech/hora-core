@@ -95,12 +95,27 @@ add-ons active for 1.0.0: alpha-example-addon
 |---|---|---|
 | `/hora`（`asking.md`） | `[wing] Whether a decision may be taken without asking` | いいえ。人に尋ねることは、人に尋ねる |
 | `/hora`（`asking.md`） | `[wing] How to decide without asking` | 上の節がいいえなので、ここには来ない |
+| `/hora`（`spec-format.md`） | `[wing] How to write the repository layout` | リポジトリごとに1行、この節の列で書き、それ以上は書かない |
+| `/hora`（`spec-format.md`） | `[wing] How to write manual verification` | ミドルウェアの表だけ |
+| `/hora-spec`（`stages.md`） | `[wing] Whether stage 5 may pass by carry-over` | はい。その版が画面を足さず、変えもしないとき |
 | `/hora-plan` | `[wing] Whether the run may go on past an open blocking question` | いいえ。`/hora-build` には入らず、`/hora` は手順4で止まる |
 | `/hora-plan` | `[wing] How to categorize a question` | 質問の分類の表 |
 | `/hora-build` | `[wing] Whether a feature is ready to build` | はい。`_plan.md` の項目が `[ ]` で、`depends` がすべて満たされていれば。`/hora` も `/hora-fast` も、次の機能をここから選ぶ |
 | `/hora-build` | `[wing] Whether a gate may open while a dependency is unfinished` | はい。未完了の依存先がすべて、その段階が待つものに達していれば。関所9より前は何も待たず、9からは対応するゲートのマージを待つ。読むのは `/hora-fast` だけ |
+| `/hora-build`（`checkpoints.md`） | `[wing] Whether a row runs the frontend gate` | はい。リポジトリ構成がその行にフロントエンドの origin を与えているとき |
+| `/hora-build`（`checkpoints.md`） | `[wing] How to stand up the local test environment` | ローカルの E2E コンテナ環境を、それを扱う skill で組み立てる |
+| `/hora-build` | `[wing] Whether consecutive checkpoints may go to one implementer` | いいえ。実装の関所はそれぞれ自分の実行と自分の検証を持つ |
+| `/hora-build` | `[wing] Whether an audit finding may be accepted without a person` | いいえ。指摘を受け入れられるのは、その `audit-finding` の問いに人が答えたときだけ |
+| `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
+| `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
-| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`<checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、行頭に絵文字は付けない |
+| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`📍 <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]` |
+| `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
+| `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
+| `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
+| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | はい。その実行の中で人が頼んだとき。関所8が変更の集合をすでに監査しており、全体スイープは常に行う |
+| `/hora-accept` | `[wing] How to cite a run's evidence` | 委任先が報告したものを、それが支える所見の中に |
+| `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` と理由を書き、前後の測定値を記録する |
 | 人が呼んだ skill（`structure.md`） | `[wing] How to begin a run` | add-on の解決のほかは何もしない |
 | すべての skill（`structure.md`） | `[wing] How to close a run` | その skill 自身の締めの報告。止まったとき、一時停止したとき、終わったときのどれも |
 
@@ -175,7 +190,7 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 | | |
 |---|---|
 | **パッケージ名** | `@openreachtech/hora-addon-<name>`。中身が何であっても、この形で、`<name>` が add-on の名前になる。1つのパッケージは1つの add-on で、中身によって名前が変わるなら、skill を足した日にパッケージの名前を変えることになる |
-| **前提にする Hora Kit** | `@openreachtech/hora` の範囲を、定義の `horaKit` に書く（例 `"^0.10.0"`）。中身が何であっても、どの add-on も書く。add-on の定義は Hora Kit の解決の手順が読むから。このフィールドは省かない。下限は、その add-on の wing が広げる `[wing]` 節をすべて持つ最初の Hora Kit のリリースにして、`^` は残す。`[wing]` 節の改名や削除は、破壊的なリリースになるから。これは利用側のリポジトリに課す条件で、dependency でも peer dependency でもない。add-on は Hora Kit の何も使わず、Hora Kit のスキルの側が add-on を読む。peer dependency にすると、何も使わない add-on のリポジトリにまで npm が Hora Kit を入れてしまうから |
+| **前提にする Hora Kit** | `@openreachtech/hora` の範囲を、定義の `horaKit` に書く（例 `"^1.0.0"`）。中身が何であっても、どの add-on も書く。add-on の定義は Hora Kit の解決の手順が読むから。このフィールドは省かない。下限は、その add-on の wing が広げる `[wing]` 節をすべて持つ最初の Hora Kit のリリースにして、`^` は残す。`[wing]` 節の改名や削除は、破壊的なリリースになるから。Hora Kit がβ版（`0.x.x`）のあいだに限り、例外として `>=0.10.0 <1.0.0` のような範囲も書ける。そこでは `^` が次のマイナーで止まるから。ただし `0.x` のマイナーでも、wing が広げる節が改名されることはある。これは利用側のリポジトリに課す条件で、dependency でも peer dependency でもない。add-on は Hora Kit の何も使わず、Hora Kit のスキルの側が add-on を読む。peer dependency にすると、何も使わない add-on のリポジトリにまで npm が Hora Kit を入れてしまうから |
 | **installer** | パッケージ自身の `bin` で、`hora-addon-<name> install` として走る。何かを置く前に、利用側のリポジトリから Node と同じ解決で `@openreachtech/hora/package.json` を探して version を読み、`semver` パッケージで `horaKit` と突き合わせる。定義が範囲を宣言していないとき、`semver` が読めない範囲のとき、Hora Kit が入っていないとき、入っているものが範囲の外にあるときは、何も変えない。npm はこのフィールドを読まないので確かめるのはここだけで、見出しのない Hora Kit に入った wing は、黙って何もしなくなるから。`uninstall` は何も確かめない。add-on が複数あるプロジェクトでは、まずすべての add-on の skill の回（`install --only skills`）を走らせ、次にすべての add-on の wing の回（`install --only wings`）を走らせる |
 | **定義** | パッケージの `kit/addon.json`。`activeWhen`、`description`、`horaKit`、必要なら `exclusiveWith` を持ち、`name` は持たない。installer がパッケージ名から名前を読み取り、`.hora/addons/<addon-name>.json` の最初の項目として書き込む。置くのは wing の回で、`--only` なしの `install` も置く。wing を持たない add-on でも同じ。wing の部分の uninstall で消え、`--only skills` だけの回では触れない |
 | **`wings/` に置くもの** | Hora Kit の `[wing]` 節を広げるファイルだけを、同じ相対パスに置く。add-on が自分で足すものは、add-on の skill に置く |

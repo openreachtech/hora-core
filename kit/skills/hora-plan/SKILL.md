@@ -296,7 +296,7 @@ whether an extension point should be left in place.
 ```
 
 - **The file is append-only.** Existing questions are never removed, and resolved ones stay as `- [x]`
-- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `[wing] Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
+- **While a `blocking: yes` is unresolved, `/hora-build` is entered only where `Whether the run may go on past an open blocking question`, later in this file, says yes.** With only `no` left, warn and continue
 - A human may also answer by editing `specs/` between runs; on re-entry, re-read `specs/` and tick what is now resolved
 
 ### [wing] Whether the run may go on past an open blocking question
@@ -334,7 +334,7 @@ whether an extension point should be left in place.
 | `hotfix-debt` | a `/hora-hotfix` run shipped a fix to `main` without the acceptance review, and that debt is still open | no, but **fail-loud** |
 | `eslint-exception` | an `adhoc/` branch disabled one rule of a genuine rule contradiction for one file | no, but **fail-loud** |
 | `acceptance-finding` | an acceptance review found something that is not a spec defect and not yet fixed | depends |
-| `audit-finding` | a checkpoint 8 finding a person accepted instead of fixing | no, but **fail-loud** |
+| `audit-finding` | a checkpoint 8 finding accepted instead of fixed (`../hora-build/SKILL.md`, "Whether an audit finding may be accepted without a person") | no, but **fail-loud** |
 
 **`no, but fail-loud` is not the same as an ordinary `blocking: no`.** State it by name, on its own, every time a closing report is written.
 
