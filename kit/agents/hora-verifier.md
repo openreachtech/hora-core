@@ -52,10 +52,10 @@ A test **existing** for an acceptance criterion and that test **actually backing
 ```
 Acceptance criterion: createRpaFlow returns an error on a duplicate flow_key
 
-❌ a test that passes a duplicate and only checks "an exception was thrown"
+👎️ a test that passes a duplicate and only checks "an exception was thrown"
    → passes for any exception. Does not check that it is the constraint violation
 
-✅ a test that checks the kind or content of the error on a duplicate
+👍️ a test that checks the kind or content of the error on a duplicate
 ```
 
 **For each criterion, name the test that would fail if that behavior broke.** A criterion with none is `missingTests`, however many tests mention it.
@@ -71,11 +71,11 @@ Acceptance criterion: createRpaFlow returns an error on a duplicate flow_key
 Every feature's tests eventually run together, against the same database, in whatever order the run gives them. A test that looks correct in isolation can still be a defect under that condition.
 
 ```
-❌ toMatchObject({ id: xxxx })                 close to tautological, and unstable besides
-❌ expect(await Model.count()).toBe(3)         breaks the moment another feature's row lands in the same table
-❌ "the most recently created row is mine"     the same failure, in different words
+👎️ toMatchObject({ id: xxxx })                 close to tautological, and unstable besides
+👎️ expect(await Model.count()).toBe(3)         breaks the moment another feature's row lands in the same table
+👎️ "the most recently created row is mine"     the same failure, in different words
 
-✅ fetch the one row the test itself created, by that id, and assert its other fields
+👍️ fetch the one row the test itself created, by that id, and assert its other fields
 ```
 
 **Flag this as unmet, not as a nitpick.** Running under that condition is what every acceptance run does. The same applies to a fixture: bring your own, query it by whatever you tagged it with, never by "everything currently in the table".
