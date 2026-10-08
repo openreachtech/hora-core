@@ -1,12 +1,12 @@
 ---
 name: hora-progress
-description: Report that a checkpoint, a stage, a feature or the version passed, that a verdict sent the run back, or that the run waits for a person, in the one line hora's progress takes. Invoked by /hora-build each time a checkpoint passes or is sent back, by /hora-accept each time a finding sends the run back or the sweep passes, by /hora-spec each time a stage passes or is sent back, and by any skill about to ask a person — never by a person. The questions themselves, stop displays and the closing report are not this skill's.
+description: The rules behind the one line hora's progress takes — a checkpoint, a stage, a feature or the version passed, a verdict that sent the run back, and a wait for a person. /hora-build, /hora-accept, /hora-spec and the asking rules write these lines themselves, beside what each line reports, and read this skill wherever a line is in doubt — never invoked by a person. The questions themselves, stop displays and the closing report are not this skill's.
 user-invocable: false
 ---
 
 # hora-progress
 
-**Invoke this skill each time a checkpoint, a stage or the sweep passes, each time a verdict sends the run back, and each time the run is about to wait for a person, and write the line it gives.** The shape lives here rather than in a file read at the start of the run, so it is read at the moment the line is written — the fortieth checkpoint as surely as the first.
+**A progress line is written in the same reply that records what it reports** — a checkpoint's box, a stage's box, an acceptance record, a question put to a person. Each skill that records one carries the line's shape beside the step that records it, so the shape is in front of the run at the moment the line is due — the fortieth checkpoint as surely as the first — whether or not this skill is read again. **This skill holds the rules behind those shapes**, and is read wherever one of them is in doubt.
 
 ---
 
