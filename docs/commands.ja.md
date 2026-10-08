@@ -109,7 +109,7 @@
 
 **後戻りは正常です。** ステージ7は、見つかった不足をそれを所有するステージへ戻すために存在します。チェックポイント2 / 9 / 11 / 18 が「コードではなく仕様の不足」を見つけたときも、同じ表に従ってここへ戻ります。
 
-通過したステージは1行で報告します。例えば *「📍 stage 3 passed | 200 staff now, 5,000 within two years | -> stage 4」* です。差し戻されたステージも1行で、行頭は `⏳️ [n]` です。例えば *「⏳️ [1] stage 7 sent back to stage 1 | a use case nobody stated: reopening a locked month | -> stage 1」* です。
+通過したステージは1行で報告します。例えば *「✅️ stage 3 passed | 200 staff now, 5,000 within two years | -> stage 4」* です。差し戻されたステージも1行で、行頭は `⏳️ [n]` です。例えば *「⏳️ [1] stage 7 sent back to stage 1 | a use case nobody stated: reopening a locked month | -> stage 1」* です。
 
 **ステージ0 が、動いている製品を口述させずに済ませる仕組みです。** リポジトリと文書を読み、そこに現れているものを草案に起こし、あなたが訂正できる形で返します。読むものが何も無いプロジェクトでは、その旨を記録して次へ進みます（[`investigation.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-spec/references/investigation.md)）。
 
@@ -337,7 +337,7 @@ contract に現れない変更（文言の修正、内部リファクタ）は p
 4. 繰り返す。.hora/ はゲート境界でコミットする
 ```
 
-開始前に1行で報告します：*「building #attendance, from checkpoint 6 of 18.」* チェックポイントを通過するたびに、さらに1行報告します。例えば *「📍 checkpoint 6 passed | every criterion #attendance covers has a passing test | -> checkpoint 7」* です。判定が機能を前の関所へ差し戻したときも1行で、行頭は `⏳️ [n]` です。`n` は、その関所がその機能を差し戻した回数です。例えば *「⏳️ [3] #attendance checkpoint 8 sent back to checkpoint 6 | N5, N6 (MEDIUM) | -> a per-account limit on sign-in」* です。
+開始前に1行で報告します：*「building #attendance, from checkpoint 6 of 18.」* チェックポイントを通過するたびに、さらに1行報告します。例えば *「✅️ checkpoint 6 passed | every criterion #attendance covers has a passing test | -> checkpoint 7」* です。チェックポイント 18 の通過、つまり機能の受け入れは 🎯 で始まり、sweep の通過、つまり版の完成は 🏁 で始まります。実行があなたに尋ねるために止まるときは、問いの前の行が 🤔 で始まります。判定が機能を前の関所へ差し戻したときも1行で、行頭は `⏳️ [n]` です。`n` は、その関所がその機能を差し戻した回数です。例えば *「⏳️ [3] #attendance checkpoint 8 sent back to checkpoint 6 | N5, N6 (MEDIUM) | -> a per-account limit on sign-in」* です。
 
 ### 18の関所、4つのゲート
 
