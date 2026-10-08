@@ -132,8 +132,8 @@ This is the same walk checkpoints 2, 9 and 11 make, and then the acceptance revi
 Delegate to the skills covering requirement definition — they own what makes a criterion observable rather than an intention.
 
 ```
-✅  clocking in twice on one day is refused, and the screen says why
-❌  attendance is recorded reliably
+👍️  clocking in twice on one day is refused, and the screen says why
+👎️  attendance is recorded reliably
 ```
 
 **Do not write a criterion common to every feature.** That `npm run lint && npm test` passes is true of all of them, so it is written for none.

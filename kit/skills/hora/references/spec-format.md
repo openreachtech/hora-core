@@ -264,8 +264,8 @@ kebab-case. Unique within the document. **Once given, it never changes.**
 Never use a section number as an identifier. Insert one section and every number shifts, breaking every reference recorded in `.hora/tasks/`.
 
 ```
-❌  <!-- spec: §6.2 -->        becomes §6.3 the moment a section is inserted
-✅  <!-- spec: data-model -->  stays the same however the number changes
+👎️  <!-- spec: §6.2 -->        becomes §6.3 the moment a section is inserted
+👍️  <!-- spec: data-model -->  stays the same however the number changes
 ```
 
 A section number may stay on the heading for a human to read. `/hora` only looks at `id`.
@@ -904,9 +904,9 @@ Both optional, both covered above under "Directory layout".
 **What it may not do is name something built after it.**
 
 ```markdown
-❌  a user who signed up appears in the admin user list
+👎️  a user who signed up appears in the admin user list
       #sign-up's criterion, and the list is #user-admin, built later
-✅  a second sign-up with the same email is refused, and changes nothing
+👍️  a second sign-up with the same email is refused, and changes nothing
       observable against what #sign-up itself adds
 ```
 

@@ -164,9 +164,9 @@ Match the equipped skills covering the code being changed, and hand the work to 
 **The reason says why those suites were not run, never why they could not fail.** That needs the one fact the skipped suites rest on, proven by a command. Name what the fix cannot reach, run the command that shows it, and record both with the result.
 
 ```
-✅ no other declared row reads sessionExpiry
+👍️ no other declared row reads sessionExpiry
      grep -rl sessionExpiry <every other declared row>   → no match
-❌ the change is small and touches no shared module
+👎️ the change is small and touches no shared module
 ```
 
 **A fact no command can prove is recorded as `unproven`.** The run still lands, and the debt carries the fact (H5).
