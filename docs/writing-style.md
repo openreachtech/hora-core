@@ -19,8 +19,8 @@ This document is the style those files are held to. It is about wording, never a
 A rule followed by two paragraphs on what goes wrong if it is broken is one rule and two paragraphs. Keep a reason only where applying the rule correctly depends on it, and keep it to one clause.
 
 ```
-✅ Match on what a description says, never on what a name sounds like.
-❌ Match on what a description says, never on what a name sounds like. Two
+👍️ Match on what a description says, never on what a name sounds like.
+👎️ Match on what a description says, never on what a name sounds like. Two
    skills whose names differ by one word can serve different surfaces
    entirely, and a name that stops matching does not announce itself — the
    gate simply runs without its convention and reports a pass, which is the
