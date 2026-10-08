@@ -263,9 +263,21 @@ passed over 1 of 20 features; 2 not accepted
 
 **Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
-**Each send-back is reported the moment it is routed**, by invoking `/hora-progress` and writing the line it gives — at a gate run and at the sweep alike. One run's findings are one send-back for each feature they reach, and its line names the earliest checkpoint they return that feature to, with every finding behind it.
+**Each send-back is reported the moment it is routed, in the same reply that writes its destination into the record** — at a gate run and at the sweep alike:
 
-**A sweep that passes is reported the same way, the moment its block is written**, by invoking `/hora-progress` for the version's `🏁` line. A gate run that passes needs no line of its own here: it is checkpoint 18 passing, and `/hora-build` reports it.
+```
+⏳️ [<n>] <feature> <checkpoint 18, or the sweep> sent back to checkpoint <k> | <the findings by number and severity> | -> <what comes next>
+```
+
+One run's findings are one send-back for each feature they reach, and its line names the earliest checkpoint they return that feature to, with every finding behind it.
+
+**A sweep that passes is reported the same way, in the same reply that writes its block:**
+
+```
+🏁 <version> swept | <every done feature and the version criteria that hold> | -> <what comes next>
+```
+
+`/hora-progress` holds the rules behind both lines, and is read wherever one of them is in doubt. **A destination or a block with no line behind it is written up before the run moves on**, never left for the closing report. A gate run that passes needs no line of its own here: it is checkpoint 18 passing, and `/hora-build` reports it.
 
 **The record is written whether the run passed or failed.** A passing run is the evidence that a gate was cleared; a failing one is why the work that followed it happened. **Which is why the deferred-acceptance test above is a passing block and not the file**: a first gate run that failed creates the file too.
 
