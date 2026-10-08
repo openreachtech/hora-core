@@ -1,12 +1,12 @@
 ---
 name: hora-progress
-description: Report that a checkpoint or a stage passed, or that a verdict sent the run back, in the one line hora's progress takes. Invoked by /hora-build each time a checkpoint passes or is sent back, by /hora-accept each time a finding sends the run back, and by /hora-spec each time a stage passes or is sent back — never by a person. Questions, proposals, stop displays and the closing report are not this skill's.
+description: Report that a checkpoint, a stage, a feature or the version passed, or that a verdict sent the run back, in the one line hora's progress takes. Invoked by /hora-build each time a checkpoint passes or is sent back, by /hora-accept each time a finding sends the run back or the sweep passes, and by /hora-spec each time a stage passes or is sent back — never by a person. Questions, proposals, stop displays and the closing report are not this skill's.
 user-invocable: false
 ---
 
 # hora-progress
 
-**Invoke this skill each time a checkpoint or a stage passes, and each time a verdict sends the run back, and write the line it gives.** The shape lives here rather than in a file read at the start of the run, so it is read at the moment the line is written — the fortieth checkpoint as surely as the first.
+**Invoke this skill each time a checkpoint, a stage or the sweep passes, and each time a verdict sends the run back, and write the line it gives.** The shape lives here rather than in a file read at the start of the run, so it is read at the moment the line is written — the fortieth checkpoint as surely as the first.
 
 ---
 
@@ -27,6 +27,17 @@ user-invocable: false
 - **`✅️` marks a pass and nothing else.** A line between two progress lines never carries it
 - **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only
 - **A check, a proposal, a question and a section shown for approval keep the form `../hora/references/asking.md` gives them.** None of them is progress
+
+**Two passes stand above a checkpoint, and each takes a mark of its own in place of `✅️`.**
+
+```
+🎯 #attendance accepted | checkpoint 18 passed: every criterion holds, driven live | -> #payroll
+🏁 1.0.0 swept | every done feature and 4 of 4 version criteria hold | -> merge release/1.0.0
+```
+
+- **`🎯` is checkpoint 18 passed: a feature accepted.** The run moves to the next feature
+- **`🏁` is the sweep passed: the version reached its goal.** It is written once the newest `_sweep.md` block counts as a pass (`../hora/references/done-criteria.md`, "When a version is done")
+- **`✅️`, `🎯` and `🏁` are three levels**, a checkpoint, a feature and a version. Each pass takes the mark of its level and no other
 
 **A verdict that sends the run back is one line too, opening with `⏳️ [n]`.**
 
@@ -60,3 +71,4 @@ user-invocable: false
 - **At most one such line for each step of the checkpoint** — implementing, lint, the suite, verifying. A step that needs nothing said says nothing
 - **It never says that anything passed.** "The fix holds, so checkpoint 3 passes" is a progress line, and is written as one, through this skill
 - **A pause in the output is not a reason to write.** A request to report how the work is going is answered with one such line, or with the last progress line again, never with a paragraph
+
