@@ -19,8 +19,8 @@ hora の各パッケージが配る全ファイル — skill も agent も — �
 規則のあとに「破ったらどうなるか」を 2 段落続けても、規則は 1 つのままです。理由は、それがないと規則を正しく適用できない場合にだけ、1 節で残します。
 
 ```
-✅ Match on what a description says, never on what a name sounds like.
-❌ Match on what a description says, never on what a name sounds like. Two
+👍️ Match on what a description says, never on what a name sounds like.
+👎️ Match on what a description says, never on what a name sounds like. Two
    skills whose names differ by one word can serve different surfaces
    entirely, and a name that stops matching does not announce itself — the
    gate simply runs without its convention and reports a pass, which is the
