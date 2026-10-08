@@ -4,7 +4,11 @@
 
 **Before putting anything to a person, take `Whether a decision may be taken without asking`, later in this file.** Where it answers yes, nothing is put to anyone, and the decision is taken as `How to decide without asking` says. Everything else in this file applies where it answers no.
 
-**Where it answers no, invoke `/hora-progress` and write the `🤔` line it gives before putting anything to the person**, so a reader scrolling back finds every place the run waited.
+**Where it answers no, write one line before putting anything to the person**, so a reader scrolling back finds every place the run waited:
+
+```
+🤔 <checkpoint or stage> waiting | <what is asked> | -> <what the answer decides>
+```
 
 **There are three ways to put something to a person, and they are not interchangeable.** Each one asks the person to do a different job.
 
