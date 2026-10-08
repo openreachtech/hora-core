@@ -92,10 +92,10 @@ Three checkpoints name tests: 6 (the backend's units), 16 (the frontend's), 18 (
 ```
 Acceptance criterion: createRpaFlow returns an error on a duplicate flow_key
 
-❌ a test that passes a duplicate and only checks "an exception was thrown"
+👎️ a test that passes a duplicate and only checks "an exception was thrown"
    → passes for any exception. Does not check that it is the constraint violation
 
-✅ a test that checks the kind or content of the error on a duplicate
+👍️ a test that checks the kind or content of the error on a duplicate
 ```
 
 **Never weaken a test to pass a checkpoint.** No test skipped, deleted, loosened or waited out. The skills covering test execution are the authority; it is repeated here because "make the suite green" is exactly the instruction that produces a suite which no longer checks anything.
