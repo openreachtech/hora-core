@@ -319,7 +319,7 @@ Q4  missing-authorization  blocking: yes
 
 ## Reporting progress
 
-**When a checkpoint or a stage passes, or a verdict sends the run back, invoke `/hora-progress` and write the line it gives.** The line's shape, and what may be said between two lines, live in that skill, so they are read each time a line is written rather than recalled from here.
+**When a checkpoint, a stage or the sweep passes, when a verdict sends the run back, and before the run waits for a person, write the line in the same reply that records it.** Each skill carries the line's shape beside the step that records it; the rules behind the shapes, and what may be said between two lines, live in `/hora-progress`.
 
 ---
 

@@ -74,6 +74,8 @@ Report the decision in one line before starting work — "building #attendance, 
 ## Running one checkpoint
 
 ```
+0. Look back for the line of the last checkpoint marked [x]. Where it is not
+   on screen, write it now, before anything else (step 10)
 1. Read the checkpoint's entry in references/checkpoints.md — its exit
    condition, the work it delegates, and when it does not apply
 2. Decide whether it applies. If it does not, write the reason and mark it
@@ -122,12 +124,17 @@ Report the decision in one line before starting work — "building #attendance, 
    in conversation for the four gates that check against use cases. At 6
    and 16, where step 8's suite is itself the proof, the verifier is usually
    skipped (below). Met or not, add this run to the line's run record (below)
-     sent back -> invoke /hora-progress and report the send-back in the line
-       it gives, then re-enter where the verdict says
-10. Write [x] into the feature file. Commit at the gate boundary, not here
-11. Invoke /hora-progress and report the checkpoint in the line it gives,
-    then move to the next checkpoint
+     sent back -> write the send-back line, then re-enter where the verdict
+       says:
+         ⏳️ [<n>] <feature> checkpoint <k> sent back to checkpoint <j> | <the findings, or the shortfall> | -> <what comes next>
+10. Write [x] into the feature file, and in the same reply the pass line:
+         ✅️ checkpoint <k> passed | <the one fact it established> | -> <what comes next>
+         🎯 <feature> accepted | checkpoint 18 passed: <the fact> | -> <the next feature>   (at 18)
+    Commit at the gate boundary, not here
+11. Move to the next checkpoint
 ```
+
+**The line is written where the box is, so neither goes without the other.** The shapes above are all a pass or a send-back needs; `/hora-progress` holds the rules behind them — what `n` counts, what may be said between two lines — and is read wherever one of those is in doubt. **Step 0 is what catches a line that was missed**: a box with no line behind it is written up before the next checkpoint starts, never left for the closing report.
 
 **Step 10's split matters.** The checkbox is written the moment the checkpoint passes, so an interrupted run resumes at the right place; the commit happens once per gate, so `git log .hora/` stays readable (`../hora/references/commits.md`, "Committing `.hora/`").
 
@@ -334,7 +341,7 @@ The rest carry no mark. A marked file is what the verifier judges; the rest is t
 
 `hora-verifier` returns a judgment, never a fix (`../../agents/hora-verifier.md`, "What to return").
 
-**An `unmet` and the audit's `findings` at 8 are send-backs, and each is reported as one** through `/hora-progress`. A shortfall in the tests goes back to an implementer inside the checkpoint, and is not.
+**An `unmet` and the audit's `findings` at 8 are send-backs, and each is reported as one**, by step 9's line. A shortfall in the tests goes back to an implementer inside the checkpoint, and is not.
 
 | It reports | This skill does |
 |---|---|
