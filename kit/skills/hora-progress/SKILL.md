@@ -51,10 +51,10 @@ user-invocable: false
 
 **What happens inside a checkpoint is not reported as it happens.** An implementer returning, a lint run, a test suite, a verifier awaited — each is a step toward the line, not a line of its own. Written as prose in the voice a pass is written in, they bury the pass, and nobody can find afterwards which checkpoints passed.
 
-**Where something has to be said while the work goes on, it is one line, indented, opening with `…`:**
+**Where something has to be said while the work goes on, it is one line, indented, opening with `📍`:**
 
 ```
-  … checkpoint 6 | running the backend suite, second attempt
+  📍 checkpoint 6 | running the backend suite, second attempt
 ```
 
 - **At most one such line for each step of the checkpoint** — implementing, lint, the suite, verifying. A step that needs nothing said says nothing
