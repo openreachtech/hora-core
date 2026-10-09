@@ -194,6 +194,7 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 | **installer** | パッケージ自身の `bin` で、`hora-addon-<name> install` として走る。何かを置く前に、利用側のリポジトリから Node と同じ解決で `@openreachtech/hora/package.json` を探して version を読み、`semver` パッケージで `horaKit` と突き合わせる。定義が範囲を宣言していないとき、`semver` が読めない範囲のとき、Hora Kit が入っていないとき、入っているものが範囲の外にあるときは、何も変えない。npm はこのフィールドを読まないので確かめるのはここだけで、見出しのない Hora Kit に入った wing は、黙って何もしなくなるから。`uninstall` は何も確かめない。add-on が複数あるプロジェクトでは、まずすべての add-on の skill の回（`install --only skills`）を走らせ、次にすべての add-on の wing の回（`install --only wings`）を走らせる |
 | **定義** | パッケージの `kit/addon.json`。`activeWhen`、`description`、`horaKit`、必要なら `exclusiveWith` を持ち、`name` は持たない。installer がパッケージ名から名前を読み取り、`.hora/addons/<addon-name>.json` の最初の項目として書き込む。置くのは wing の回で、`--only` なしの `install` も置く。wing を持たない add-on でも同じ。wing の部分の uninstall で消え、`--only skills` だけの回では触れない |
 | **`wings/` に置くもの** | Hora Kit の `[wing]` 節を広げるファイルだけを、同じ相対パスに置く。add-on が自分で足すものは、add-on の skill に置く |
+| **add-on 自身の進捗の行** | 行が伝える内容を記録する手順の wing に、形とともに書く。行を書くべきその時に、形が実行の目の前にあるように。`How to report progress` への wing は行に迷ったときにしか読まれないので、そこに置いた行は、書くべき時に書かれない |
 | **記録** | `_<addon-name>.md`。行が増えるたびに、単独でコミットする |
 
 ---
