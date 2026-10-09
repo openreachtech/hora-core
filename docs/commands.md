@@ -487,7 +487,7 @@ R5  Hand over which file goes where, and what /hora-spec will ask
 
 ### It proposes a scope and decides nothing
 
-The scope comes in groups: move as it is, drop, improve (security), improve (experience), decide, not in scope. **Approval is per group.** Only the approved text reaches `scope.md`, headed as what a requester wants, not as a requirement.
+The scope comes in groups: move as it is, drop, improve (security), improve (experience), improve (other), decide, not in scope. **Approval is per group.** Only the approved text reaches `scope.md`, headed as what a requester wants, not as a requirement.
 
 ### Then you place three files and run `/hora-spec`
 
