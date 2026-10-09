@@ -84,7 +84,7 @@ the documents and diagrams that already exist
 
 **Write `.hora/replace/<version>/as-is-spec.md`**:
 
-- a short summary of what the system is and who uses it
+- a short summary of what the system is, who uses it, and its architecture (the parts that run and how they connect)
 - a table of capabilities, one row each. **A capability is what a person using or operating the system would name**, never a table, a class or a dependency. Columns: an id (`P1-01`), the capability, what it does in a sentence or two including the rules read (who may do it, what is checked, what it triggers), its kind (screen, request path, background, operation, integration, silent or dead, frontend and backend disagree), and its evidence as paths
 - **Cross-checks**: what a screen calls that the backend does not offer, what the backend offers that no screen uses, and anything present and apparently unused
 - **Not settled**: what the code alone cannot decide
