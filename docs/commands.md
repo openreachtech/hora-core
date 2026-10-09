@@ -476,7 +476,7 @@ R1  Place     the reference code is read-only, ignored, and its shas are recorde
 R2  Read      the capabilities of the old system, found area by area
 R3  Verify    at least two more passes, each from a different starting point, merged
 R4  Propose   a scope for a person to approve, group by group
-R5  Hand over which file goes where, and what /hora-spec will ask
+R5  Hand over which file goes where, then /hora-spec started once they are placed
 ```
 
 ### Why more than one pass
@@ -489,9 +489,9 @@ R5  Hand over which file goes where, and what /hora-spec will ask
 
 The scope comes in groups: move as it is, drop, improve (security), improve (experience), improve (other), decide, not in scope. **Approval is per group.** Only the approved text reaches `scope.md`, headed as what a requester wants, not as a requirement.
 
-### Then you place three files and run `/hora-spec`
+### Then you place three files, and it starts `/hora-spec`
 
-`reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` goes to `specs/<version>/request/`. Stage 0 reads both directories and confirms each placement with a check. [`adopting.md`](./adopting.md), "Replacing a system instead of adopting it", walks the whole path.
+`reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` goes to `specs/<version>/request/`. Tell the command when they are placed. It checks each copy and starts `/hora-spec` with the instruction that this system replaces the existing one in the reference directories. Stage 0 reads both directories and confirms each placement with a check. [`adopting.md`](./adopting.md), "Replacing a system instead of adopting it", walks the whole path.
 
 ---
 
