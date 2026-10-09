@@ -14,6 +14,7 @@ Hora Kit is usually met as a template you start from. This is the other case: th
 
 - [What adoption actually buys you](#what-adoption-actually-buys-you)
 - [First, decide which of the two adoptions this is](#first-decide-which-of-the-two-adoptions-this-is)
+- [Replacing a system instead of adopting it](#replacing-a-system-instead-of-adopting-it)
 - [Before you start](#before-you-start)
 - [The shape you are moving toward](#the-shape-you-are-moving-toward)
 - [Step 1 — Create the kit repository around them](#step-1--create-the-kit-repository-around-them)
@@ -72,6 +73,31 @@ What `inventoried` buys: starting the next piece of work without first specifyin
 What it does not buy: any confirmation that the feature works. Its inherited tests passing is the whole of the guarantee, and nothing beyond that is claimed.
 
 **Whether it pays for itself is proportional to how untested the product is.** The cost it removes is the exchange-per-feature needed to settle acceptance criteria for a feature with no tests to draft them from — where the tests are good, criteria are drafted and confirmed three or four features at a time. **On a well-tested product the declaration and the per-feature choices cost more than they save, and `verified` is the right answer.**
+
+---
+
+## Replacing a system instead of adopting it
+
+**Adoption keeps the old repositories and puts the kit around them. Replacement builds new repositories from scratch and keeps the old code only to read.** Everything above is adoption. This section covers the other case, which you declare with lines the spec already has.
+
+```markdown
+Current implementation: `reference-backend` and `reference-frontend` (read-only, in this repository)
+Treatment: reference it (match the behavior only, rewrite the implementation)
+Authority: as-built (what runs is what this version is)
+Baseline: verified
+```
+
+A feature to be fixed or improved carries `<!-- authority: to-spec -->`. The annotation is one per feature section, so a behavior changed inside a feature gets a section of its own, and a scope with many improvements splits many features.
+
+The path has five steps.
+
+1. **Put the old code beside the kit, read-only.** Name the directories `reference-backend/` and `reference-frontend/`, so the kit's `.gitignore` and `eslint.config.js` already exclude them. A name such as `reference/` matches neither list. Do not declare them as rows of the repository layout. A lint run inside them exits 0 with an "ignored" warning, so a clean lint proves nothing about them.
+2. **Describe the old system, and check the description.** `/hora-replace` reads the code area by area, then in at least two more passes that each start from something different, and writes `as-is-spec.md` ([`commands.md`](./commands.md), `/hora-replace`).
+3. **Decide the scope.** The command proposes one, group by group, and you decide which features move, which are dropped, and which are improved.
+4. **Place the files.** `reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` to `specs/<version>/request/`. A person places them, because only `/hora-spec` and `/hora-plan` write `specs/`. Then tell `/hora-replace`.
+5. **`/hora-spec` starts.** `/hora-replace` starts it once you say the files are placed, or you run it by hand. Stage 1 asks `Treatment`, `Authority` and `Baseline` with no option recommended, then asks whether the new repositories start empty or take the reference in place. For a replacement they start empty, so no feature carries `built:` and every checkpoint runs.
+
+**Whoever owns a project decides how its data leaves the old system.** The kit takes no fixed position on it.
 
 ---
 

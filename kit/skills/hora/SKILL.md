@@ -19,6 +19,8 @@ description: Implement an application from its spec. Decides where a project sta
 
 **An emergency fix is not one of the five.** `/hora-hotfix` takes one defect to `main` on its own, gives up the acceptance review, and records what it gave up as a debt. `/hora` reports that debt; `/hora-plan` turns it back into work (`../hora-hotfix/SKILL.md`).
 
+**Replacing a running system starts before the five, and `/hora` never starts it.** `/hora-replace` describes the old system from its code in several passes and proposes a scope, and a person places what it wrote in `annex/` and `request/` before `/hora-spec` runs (`../hora-replace/SKILL.md`).
+
 Read `references/structure.md` before anything else — the repository layout, where a per-repository command runs, and the three invariants all come from there. `references/commits.md` holds every git rule.
 
 ---
@@ -277,6 +279,7 @@ Remaining: #payroll #bonus #year-end
 | `../hora-build/references/checkpoints.md` | the eighteen checkpoints themselves |
 | `../hora-accept/SKILL.md` | acceptance |
 | `../hora-hotfix/SKILL.md` | one urgent defect to `main`, the six gates it runs, and the debt that pays for the acceptance it skipped |
+| `../hora-replace/SKILL.md` | describing a running system from its code, checking the description, and proposing a scope, before `/hora-spec` |
 
 **When a human asks how to write a spec, run `/hora-spec`.** `specs/1.0.0/spec.md` ships empty, and that skill reads whatever already exists at stage 0, copies the skeleton, asks its way through seven stages, and writes each section once it has been approved.
 

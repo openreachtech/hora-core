@@ -1,6 +1,6 @@
 # What every hora skill assumes
 
-`/hora`, `/hora-fast`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix` and `/hora-addon` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
+`/hora`, `/hora-fast`, `/hora-spec` (and its seven stage skills), `/hora-setup`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-replace` and `/hora-addon` all stand on this file. **It is written once here and read by all of them** — a copy in a skill is what goes stale.
 
 **Once a skill knows which version it is working on, it resolves the add-ons** (`../../hora-addon/SKILL.md`) — every hora skill, whatever started it, and again after a resume or a compacted context.
 
@@ -44,7 +44,7 @@
 
 **Stack names are the same copy too.** A boilerplate, a framework, a database, a queue — written anywhere in a hora file, even as an example — is a fact the handbook already owns, and it goes stale the same silent way. Examples in hora files use roles (`backend`, `frontend-admin`) and kinds of work, never stacks.
 
-**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-fast`, `/hora-addon`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
+**Skills Hora Kit itself ships may be named freely** — `/hora-spec`, `/hora-plan`, `/hora-build`, `/hora-accept`, `/hora-hotfix`, `/hora-replace`, `/hora-fast`, `/hora-addon`, `hora-implementer`, `hora-verifier`, `hora-digester`. They live in this repository, so a rename here is a rename everywhere.
 
 ### How the match is made
 
@@ -395,6 +395,9 @@ Next             the one command or decision that moves the run forward
   hotfix/<hotfix-id>.md         one urgent fix that went straight to main: what it changed,
                                 what it skipped, and whether that debt is still open.
                                 /hora-hotfix writes it; /hora-plan closes it
+  replace/<version>/            what /hora-replace read from a running system it is to replace:
+                                reference.md, as-is-spec.md, scope.md. /hora-replace writes them,
+                                and a person commits them and places copies in specs/<version>/annex/ and request/
   glossary.md                   append-only, not split per version
 
   wings/<skill-name>/<addon-name>/

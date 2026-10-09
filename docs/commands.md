@@ -4,9 +4,9 @@
 
 *[日本語](./commands.ja.md)*
 
-The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-fast` (the parallel route, below), `/hora-addon` (the rule for add-ons, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below). `/hora-progress` is not among them: it holds the rules behind the one line that reports each checkpoint or stage passed or sent back, which `/hora-build`, `/hora-accept` and `/hora-spec` write themselves beside what they record, and a person never invokes it.
+The six main commands, described the same way each time: what it does, what it reads, what it writes, when it stops, and when you would run it on its own. Alongside them, and also invocable directly: `/hora-hotfix` (the emergency route, below), `/hora-replace` (describing a system to be replaced, below), `/hora-fast` (the parallel route, below), `/hora-addon` (the rule for add-ons, below), and the seven stage skills `/hora-spec` runs (named under `/hora-spec`, below). `/hora-progress` is not among them: it holds the rules behind the one line that reports each checkpoint or stage passed or sent back, which `/hora-build`, `/hora-accept` and `/hora-spec` write themselves beside what they record, and a person never invokes it.
 
-**In normal use you only ever type `/hora`.** It decides which of the others to run. **Two it never starts: `/hora-hotfix` and `/hora-fast`** — whether something is an emergency, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
+**In normal use you only ever type `/hora`.** It decides which of the others to run. **Three it never starts: `/hora-hotfix`, `/hora-replace` and `/hora-fast`** — whether something is an emergency, whether a system is to be replaced, and whether a version is worth building in parallel, are a person's call. The rest are documented because you will sometimes want one directly — to redo an acceptance run, to re-plan after a spec change, to fix a setup that half-finished.
 
 **Two of them want you at the keyboard; the rest can be left to run.** `/hora-spec` is conversation from end to end, and `/hora-plan` asks about whatever the spec left undecided. `/hora-setup`, `/hora-build` and `/hora-accept` need nobody watching — **they stop and ask rather than deciding**, which is what makes leaving them alone safe. The recommendation, and what "unattended" does and does not mean, is in [`hora-boilerplate`'s `README.md`](https://github.com/openreachtech/hora-boilerplate#recommended-converse-through-the-spec-let-the-implementation-run).
 
@@ -23,6 +23,7 @@ Every command runs **at the root of the hora repository** (`<myproject>-app`).
 - [/hora-build](#hora-build)
 - [/hora-accept](#hora-accept)
 - [/hora-hotfix](#hora-hotfix)
+- [/hora-replace](#hora-replace)
 - [/hora-fast](#hora-fast)
 - [/hora-addon](#hora-addon)
 - [What a session actually looks like](#what-a-session-actually-looks-like)
@@ -454,6 +455,43 @@ One failing test, the full unit suites in every repository, lint on the files it
 The record names the features the fix touched. On the next run, `/hora` reports the open debt and `/hora-plan` clears checkpoint 18 for each of those features. From there the normal route takes over — `/hora-build` picks them up, `/hora-accept` accepts them at their real reach, and **the version cannot be done until it passes.**
 
 **Its verdict word is `landed`, never `passed`.** `/hora-accept` owns that word, and a hotfix record may not be mistaken for an acceptance.
+
+---
+
+## `/hora-replace`
+
+**Describe a running system from its code, in several passes, before anyone specifies its replacement.** Stage 0 of `/hora-spec` reads what exists in one breadth-first pass. That is enough to adopt a product in place. It is not enough to replace one, because the new system silently loses every feature the first reading missed.
+
+| | |
+|---|---|
+| **Reads** | the old system's code in `reference-backend/` and `reference-frontend/`, and every document inside them |
+| **Writes** | `.hora/replace/<version>/reference.md`, `as-is-spec.md` and `scope.md`. **`specs/` and the reference code are read-only.** A person places the files in `annex/` and `request/` |
+| **Stops when** | the reference directories are not read-only or not ignored by git and lint; the person has not agreed to the cost of the passes; a scope group has not been approved |
+| **Run it directly** | always. `/hora` never starts it, because whether a system is to be replaced is a person's call |
+
+### The five gates
+
+```
+R1  Place     the reference code is read-only, ignored, and its shas are recorded
+R2  Read      the capabilities of the old system, found area by area
+R3  Verify    at least two more passes, each from a different starting point, merged
+R4  Propose   a scope for a person to approve, group by group
+R5  Hand over which file goes where, then /hora-spec started once they are placed
+```
+
+### Why more than one pass
+
+**Repeating one reading finds the same gaps again.** So each pass in R3 starts from a point the last one never used. One works from lists a command made (every top-level entry, every process and schedule, every call a screen makes and a backend answers, every deploy and CI file). The other traces the screens a person can reach down to the data and the background work, and audits every claim of a defect against the code. In one trial of this method, run by hand on two repositories of about 72,000 lines, the first pass found 98 capabilities, the audit confirmed 20 of its 21 claims, and it added five behaviors no row had described.
+
+**The passes are expensive.** That trial took about 810,000 agent tokens. The command states the size of the reference, then waits for a yes before it starts.
+
+### It proposes a scope and decides nothing
+
+The scope comes in groups: move as it is, drop, improve (security), improve (experience), improve (other), decide, not in scope. **Approval is per group.** Only the approved text reaches `scope.md`, headed as what a requester wants, not as a requirement.
+
+### Then you place three files, and it starts `/hora-spec`
+
+`reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` goes to `specs/<version>/request/`. Tell the command when they are placed. It checks each copy and starts `/hora-spec` with the instruction that this system replaces the existing one in the reference directories. Stage 0 reads both directories and confirms each placement with a check. [`adopting.md`](./adopting.md), "Replacing a system instead of adopting it", walks the whole path.
 
 ---
 
