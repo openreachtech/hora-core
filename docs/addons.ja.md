@@ -109,7 +109,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
 | `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
-| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`✅️ <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、機能の受け入れは `🎯`、sweep の通過は `🏁` で始める。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]`。人の答えを待つ前にも 1 行で、行頭は `🤔` |
+| `/hora-progress` | `[wing] How to report progress` | 呼び出し側が書く進捗の行の、裏にある決まり。`/hora-build`、`/hora-accept`、`/hora-spec`、`asking.md` は、それぞれ行が伝える内容を記録する返信の中で、その手順の横に置かれた形から行を書き、行に迷ったときだけこの節を読む。行は次のとおり。関所か段階を通るたびに 1 行。`✅️ <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、機能の受け入れは `🎯`、sweep の通過は `🏁` で始める。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]`。人の答えを待つ前にも 1 行で、行頭は `🤔` |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
@@ -194,6 +194,7 @@ add-on の点検を頼むと、`/hora-addon` は、すべての wing を今入�
 | **installer** | パッケージ自身の `bin` で、`hora-addon-<name> install` として走る。何かを置く前に、利用側のリポジトリから Node と同じ解決で `@openreachtech/hora/package.json` を探して version を読み、`semver` パッケージで `horaKit` と突き合わせる。定義が範囲を宣言していないとき、`semver` が読めない範囲のとき、Hora Kit が入っていないとき、入っているものが範囲の外にあるときは、何も変えない。npm はこのフィールドを読まないので確かめるのはここだけで、見出しのない Hora Kit に入った wing は、黙って何もしなくなるから。`uninstall` は何も確かめない。add-on が複数あるプロジェクトでは、まずすべての add-on の skill の回（`install --only skills`）を走らせ、次にすべての add-on の wing の回（`install --only wings`）を走らせる |
 | **定義** | パッケージの `kit/addon.json`。`activeWhen`、`description`、`horaKit`、必要なら `exclusiveWith` を持ち、`name` は持たない。installer がパッケージ名から名前を読み取り、`.hora/addons/<addon-name>.json` の最初の項目として書き込む。置くのは wing の回で、`--only` なしの `install` も置く。wing を持たない add-on でも同じ。wing の部分の uninstall で消え、`--only skills` だけの回では触れない |
 | **`wings/` に置くもの** | Hora Kit の `[wing]` 節を広げるファイルだけを、同じ相対パスに置く。add-on が自分で足すものは、add-on の skill に置く |
+| **add-on 自身の進捗の行** | 行が伝える内容を記録する手順の wing に、形とともに書く。行を書くべきその時に、形が実行の目の前にあるように。`How to report progress` への wing は行に迷ったときにしか読まれないので、そこに置いた行は、書くべき時に書かれない |
 | **記録** | `_<addon-name>.md`。行が増えるたびに、単独でコミットする |
 
 ---
