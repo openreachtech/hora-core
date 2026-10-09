@@ -109,7 +109,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-build` | `[wing] How to lint a checkpoint's files` | 関所が触ったファイルだけに `npx eslint --fix`、続けて `npx eslint` |
 | `/hora-build` | `[wing] How to test a checkpoint's files` | 関所が書いたファイルだけに `npx jest`、出力はファイルに書いて読む |
 | `/hora-fast` | `[wing] Whether an interactive checkpoint may be skipped` | はい。関所2・9・11 は、人が頼めば飛ばせる |
-| `/hora-progress` | `[wing] How to report progress` | 関所か段階を通るたびに 1 行。`✅️ <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、機能の受け入れは `🎯`、sweep の通過は `🏁` で始める。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]`。人の答えを待つ前にも 1 行で、行頭は `🤔` |
+| `/hora-progress` | `[wing] How to report progress` | 呼び出し側が書く進捗の行の、裏にある決まり。`/hora-build`、`/hora-accept`、`/hora-spec`、`asking.md` は、それぞれ行が伝える内容を記録する返信の中で、その手順の横に置かれた形から行を書き、行に迷ったときだけこの節を読む。行は次のとおり。関所か段階を通るたびに 1 行。`✅️ <checkpoint or stage> passed \| <the one fact it established> \| <what comes next>` の形で、機能の受け入れは `🎯`、sweep の通過は `🏁` で始める。判定が実行を差し戻すたびにも 1 行で、行頭は `⏳️ [n]`。人の答えを待つ前にも 1 行で、行頭は `🤔` |
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
