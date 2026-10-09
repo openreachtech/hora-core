@@ -121,6 +121,7 @@ Move as it is          capabilities to carry over unchanged
 Drop (confirm each)    capabilities to leave behind, each with the reason
 Improve: security      what the audit found about who may do what
 Improve: experience    defects and gaps in what a person sees and does
+Improve: other         speed, upkeep and anything else worth changing
 Decide                 behavior nothing provides today, and what it would take
 Not in scope           what is left out unless somebody says otherwise
 ```
