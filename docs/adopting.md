@@ -94,8 +94,8 @@ The path has five steps.
 1. **Put the old code beside the kit, read-only.** Name the directories `reference-backend/` and `reference-frontend/`, so the kit's `.gitignore` and `eslint.config.js` already exclude them. A name such as `reference/` matches neither list. Do not declare them as rows of the repository layout. A lint run inside them exits 0 with an "ignored" warning, so a clean lint proves nothing about them.
 2. **Describe the old system, and check the description.** `/hora-replace` reads the code area by area, then in at least two more passes that each start from something different, and writes `as-is-spec.md` ([`commands.md`](./commands.md), `/hora-replace`).
 3. **Decide the scope.** The command proposes one, group by group, and you decide which features move, which are dropped, and which are improved.
-4. **Place the files.** `reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` to `specs/<version>/request/`. A person places them, because only `/hora-spec` and `/hora-plan` write `specs/`.
-5. **Run `/hora-spec`.** Stage 1 asks `Treatment`, `Authority` and `Baseline` with no option recommended, then asks whether the new repositories start empty or take the reference in place. For a replacement they start empty, so no feature carries `built:` and every checkpoint runs.
+4. **Place the files.** `reference.md` and `as-is-spec.md` go to `specs/<version>/annex/`, and `scope.md` to `specs/<version>/request/`. A person places them, because only `/hora-spec` and `/hora-plan` write `specs/`. Then tell `/hora-replace`.
+5. **`/hora-spec` starts.** `/hora-replace` starts it once you say the files are placed, or you run it by hand. Stage 1 asks `Treatment`, `Authority` and `Baseline` with no option recommended, then asks whether the new repositories start empty or take the reference in place. For a replacement they start empty, so no feature carries `built:` and every checkpoint runs.
 
 **Whoever owns a project decides how its data leaves the old system.** The kit takes no fixed position on it.
 
