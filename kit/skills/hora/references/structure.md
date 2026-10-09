@@ -395,6 +395,9 @@ Next             the one command or decision that moves the run forward
   hotfix/<hotfix-id>.md         one urgent fix that went straight to main: what it changed,
                                 what it skipped, and whether that debt is still open.
                                 /hora-hotfix writes it; /hora-plan closes it
+  replace/<version>/            what /hora-replace read from a running system it is to replace:
+                                reference.md, as-is-spec.md, scope.md. /hora-replace writes them,
+                                and a person commits them and places copies in specs/<version>/annex/ and request/
   glossary.md                   append-only, not split per version
 
   wings/<skill-name>/<addon-name>/
