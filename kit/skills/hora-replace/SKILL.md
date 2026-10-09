@@ -1,6 +1,6 @@
 ---
 name: hora-replace
-description: Describe a running application as it is, from its code alone, so a new system can be specified to replace it. Reads the reference code beside the kit, writes an as-is specification in several passes that each start from something different, and proposes a scope for a person to decide. Invoked directly as /hora-replace before /hora-spec when a system is to be replaced, not adopted. Writing the new system's spec belongs to /hora-spec.
+description: Describe a running application as it is, from its code alone, so a new system can be specified to replace it. Reads the reference code beside the kit, writes an as-is specification in several passes that each start from something different, and proposes a scope for a person to decide. Invoked directly as /hora-replace when a system is to be replaced, not adopted, and it starts /hora-spec once a person has placed what it wrote. Writing the new system's spec belongs to /hora-spec.
 ---
 
 # hora-replace
@@ -39,7 +39,7 @@ Runs at the root of the hora repository, like every other hora skill. It touches
 | **R2** | Read | a separate agent | `as-is-spec.md` holds the capabilities of the old system, found area by area |
 | **R3** | Verify | a separate agent per pass | at least two more passes have run, each from a different starting point, and the passes are merged into one overall specification |
 | **R4** | Propose | the main session, in conversation | a scope proposal was shown in full, and the approved text is written to `scope.md` |
-| **R5** | Hand over | the main session | the person has been told exactly which file goes where, and what `/hora-spec` will ask |
+| **R5** | Hand over | the main session | the person has been told exactly which file goes where, and `/hora-spec` has been started once they say the files are placed |
 
 **The version is the one stage 0 will run for.** Take the directory under `specs/` whose name is a semver version and that has no `spec.md` yet, or `1.0.0` on a first run, and say which one you took.
 
@@ -138,12 +138,14 @@ Not in scope           what is left out unless somebody says otherwise
 1. copy .hora/replace/<version>/reference.md and as-is-spec.md
    into specs/<version>/annex/
 2. copy .hora/replace/<version>/scope.md into specs/<version>/request/
-3. run /hora-spec
+3. tell me when that is done, and I start /hora-spec
 ```
 
-**Then say what `/hora-spec` will ask, and that this skill answered none of it.** Stage 1 asks `Treatment`, `Authority` and `Baseline` with no option recommended, and asks whether the new repositories start empty or take the reference in place (`../hora/references/spec-format.md`, "5. Existing assets").
+**Say what `/hora-spec` will ask, and that this skill answers none of it.** Stage 1 asks `Treatment`, `Authority` and `Baseline` with no option recommended, and asks whether the new repositories start empty or take the reference in place (`../hora/references/spec-format.md`, "5. Existing assets").
 
 **Say one thing about `Authority`.** The annotation is one per feature section. Where the scope marks a behavior to be fixed or improved inside a feature, stage 1 splits that behavior into a section of its own. A scope with many improvements splits many features.
+
+**Start `/hora-spec` only when the person says the files are placed.** Check first that each file in `annex/` and `request/` matches its copy under `.hora/replace/<version>/` (`cmp`), and name what is missing or different. Then start `/hora-spec` with this instruction, naming the reference directories read at R1: `This system is to replace the existing system in reference-backend/ and reference-frontend/.`
 
 ---
 
@@ -152,6 +154,7 @@ Not in scope           what is left out unless somebody says otherwise
 - **write `specs/`**, or place a file in `annex/` or `request/`. A person places them
 - **edit, tidy or annotate the reference code**, or run it, install its dependencies or use the network
 - **decide scope**, or let a proposal stand as a requirement
+- **answer a question `/hora-spec` asks.** Every answer is the person's
 - **conclude `Authority`, `Treatment` or `built:`**
 - **cite a clean lint run, or a clean test run, as evidence about the reference**
 - **commit.** `.hora/replace/` is a record, and a person decides what to keep
