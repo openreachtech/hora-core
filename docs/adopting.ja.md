@@ -94,8 +94,8 @@ Baseline: verified
 1. **古いコードを読み取り専用でキットの隣に置く。** ディレクトリ名は `reference-backend/` と `reference-frontend/` にします。こうするとキットの `.gitignore` と `eslint.config.js` が既に除外します。`reference/` のような名前はどちらの一覧にも当たりません。リポジトリ配置の行としては宣言しません。その中で lint を走らせても「無視された」という警告付きで 0 で終わるので、lint が通っても何の証拠にもなりません。
 2. **旧システムを記述し、その記述を検証する。** `/hora-replace` がコードを領域ごとに読み、出発点の違う走査をさらに2回以上行って、`as-is-spec.md` を書きます（[`commands.ja.md`](./commands.ja.md) の `/hora-replace`）。
 3. **スコープを決める。** コマンドが区分ごとに提案し、どの機能を移し、どれを捨て、どれを改善するかを人が決めます。
-4. **ファイルを置く。** `reference.md` と `as-is-spec.md` は `specs/<version>/annex/` に、`scope.md` は `specs/<version>/request/` に置きます。置くのは人です。`specs/` を書けるのは `/hora-spec` と `/hora-plan` だけだからです。
-5. **`/hora-spec` を走らせる。** ステージ1が `Treatment`、`Authority`、`Baseline` を、選択肢を勧めずに尋ね、続けて新しいリポジトリを空から始めるか参照コードをそのまま取り込むかを尋ねます。置き換えでは空から始まるので、`built:` を持つ機能はなく、すべての関所が走ります。
+4. **ファイルを置く。** `reference.md` と `as-is-spec.md` は `specs/<version>/annex/` に、`scope.md` は `specs/<version>/request/` に置きます。置くのは人です。`specs/` を書けるのは `/hora-spec` と `/hora-plan` だけだからです。置き終えたら `/hora-replace` に伝えます。
+5. **`/hora-spec` が起動する。** 置き終えたと `/hora-replace` に伝えると、`/hora-replace` が `/hora-spec` を起動します。手で走らせてもかまいません。 ステージ1が `Treatment`、`Authority`、`Baseline` を、選択肢を勧めずに尋ね、続けて新しいリポジトリを空から始めるか参照コードをそのまま取り込むかを尋ねます。置き換えでは空から始まるので、`built:` を持つ機能はなく、すべての関所が走ります。
 
 **旧システムからのデータ移行は、プロジェクトごとに、決定権を持つ人が決めます。** キットはこれについて固定の立場を取りません。
 
