@@ -68,6 +68,8 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 **4つの層のどれにも属さない skill が1つだけあり、それは `/hora` が決して起動しない唯一の skill です — `/hora-hotfix`。** 作業の順序も、関所の終了条件も決めません。何を緊急とするかは人が決めることだからです。直接呼ばれ、release ラインではなく `main` の上で動き、その結果の上に `/hora` が開いている release ライン群を rebase します。配布元は他と同じ `@openreachtech/hora` です。[`commands.ja.md`](./commands.ja.md) の `/hora-hotfix` と、経路全体を書いた [`hotfix.ja.md`](./hotfix.ja.md) を参照してください。
 
+**経路の手前に立ち、`/hora` が起動しない skill があります。`/hora-replace` です。** 動いているシステムを適用ではなく置き換えるとき、旧システムをコードから複数回に分けて記述し、スコープを提案します。書き込むのは `.hora/replace/<version>/` だけで、書かれたものを `annex/` と `request/` に置くのは人なので、`specs/` の所有関係は変わりません。[`commands.ja.md`](./commands.ja.md) の `/hora-replace` と、[`adopting.ja.md`](./adopting.ja.md) の「適用ではなく置き換える場合」を参照してください。
+
 **`/hora` の下ではなく、隣に立つ skill がもう1つあります — `/hora-fast`。** もう1つのスケジューラです — 同じファイル、同じ関所で、複数の機能を同時に、それぞれ専用の git worktree で建てます。`/hora` の代わりに打つことで人が選びます。経路は [`parallel.ja.md`](./parallel.ja.md) に、それが何を解決し何を支払うかは後述の「なぜ直列なのか」にあります。
 
 **add-on は、どの層の外からも skill に届きます。** add-on は Hora Kit の横に入れるパッケージで、skill が `[wing]` の印を付けた節だけを、add-on が効いている間だけ変えます。add-on について、すべての skill が従う決まりが `/hora-addon` で、これは `@openreachtech/hora` に入っています。add-on 自体は入っていません。どう効くか、複数の add-on がどう組み合わさるかは [`addons.ja.md`](./addons.ja.md) にあります。
