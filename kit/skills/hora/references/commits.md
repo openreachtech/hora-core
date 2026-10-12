@@ -48,7 +48,7 @@ A feature's checkpoints cross repositories. **Each repository gets its own `feat
 
 **A feature's branches merge at their own gate's boundary, not after acceptance.** Checkpoint 18 runs suites spanning every feature so far and can fail on any of them, so waiting for it would hold these branches open across other features' work. What acceptance turns up comes back as a `retake/` branch.
 
-**A repository the feature does not touch gets no branch, and neither does a row the version's `rows` leaves out.** Where a feature names several frontend rows, their branches are cut and merged one after another, since a row's gate is entered once the previous row's 17 has passed (`../../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
+**A repository the feature does not touch gets no branch, and neither does a row the version's `rows` leaves out.** Where a feature names several frontend rows, their branches are cut and merged one after another (`../../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
 
 **Checkpoint 17 falls outside this.** It extends the local end-to-end environment, which lives in the backend repository, whose `feature/` branch merged back at checkpoint 9. Its changes go on their own **`update/e2e-<what>-for-<feature-id>`** branch, one for each row's 17 that changes the environment, with `<what>` saying what that row added. An environment is shared by every feature, so a change to it is planned growth of something common.
 
