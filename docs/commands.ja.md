@@ -351,6 +351,8 @@ contract に現れない変更（文言の修正、内部リファクタ）は p
 
 各関所の終了条件・委譲先スキル・n/a 条件は [`checkpoints.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-build/references/checkpoints.md) にあります。
 
+**フロントエンド行を複数持つ機能は、行ごとにフロントエンドゲートを1回ずつ通ります。** `target` の順に進み、最後に 18 を1回だけ通ります。`rows` で、その版が触る行だけに絞れます（`spec-format.md`「`rows`」）。
+
 順序について、意図して決めた点が3つあります。
 
 - **4（stub）がフロントエンドゲートより前**にあるので、12–14 は 6 を待たずに「形の正しいもの」に対してクライアントと画面を作れます。16 で actual API に差し替えますが、stub と実装はクラス名と interface を共有しているので、これは書き直しではなくエンドポイントの切り替えです
