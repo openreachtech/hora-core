@@ -34,7 +34,9 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 5. Run it. Then the next one. Stop when the file has no [ ] left
 ```
 
-Report the decision in one line before starting work — "building #attendance, from checkpoint 6 of 18".
+Report the decision in one line before starting work, as in "building #attendance, from checkpoint 6 of 18". **Inside a frontend gate the line names its row**: "building #attendance, from checkpoint 11 (frontend-admin) of 18".
+
+**In a file that carries several frontend gates, step 4 takes the first `[ ]` in file order**, so the rows run in `target` order and 18 runs once, after the last (`references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
 
 **A feature whose only open checkpoint is 18 writes no code, and cuts no branch.** That is what a section declaring `<!-- built: frontend -->` looks like on adoption: everything up to the acceptance gate is marked not-applicable, so this skill goes straight to `/hora-accept`.
 
@@ -67,7 +69,7 @@ Report the decision in one line before starting work — "building #attendance, 
 
 **A dependent's tests reach its dependency through the foundation, never through the dependency's operations.** A row they need in a dependency's table is seeded in the dependent's own band (`references/checkpoints.md`, checkpoint 5), and the call itself is walked at checkpoint 9.
 
-**A dependency's later gate that changes code a dependent built on reopens the dependent.** Clear the dependent's first checkpoint that reads the changed code, with `reopened-by: dependency`.
+**A dependency's later gate that changes code a dependent built on reopens the dependent.** Clear the dependent's first checkpoint that reads the changed code, in every row whose code reads it, with `reopened-by: dependency`.
 
 ---
 
