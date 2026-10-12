@@ -62,7 +62,7 @@ Report the decision in one line before starting work, as in "building #attendanc
 |---|---|
 | spec gate (1, 2) and checkpoints 3 to 8 | nothing, once `/hora-fast`'s foundation is fixed |
 | checkpoint 9 | merged its backend gate into `release/<version>` |
-| frontend gate (10 to 17) | merged its frontend gate |
+| frontend gate (10 to 17), in each row | merged its frontend gate in the same row, where it has one |
 | acceptance gate (18) | passed its own 18, which finishes it |
 
 **What the dependent's backend uses from its dependency is in the foundation before either opens.** The contracts, the shared tables, the master seed and every module `/hora-plan` marked `Imports:` are built there, and `/hora-plan` walked every use case through the contracts field by field. Checkpoint 9 walks the use cases as actual calls, so it is the first step that needs the dependency's running code.
