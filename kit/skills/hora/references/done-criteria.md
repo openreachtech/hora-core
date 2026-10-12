@@ -49,14 +49,18 @@ What is common to all eighteen:
 
 **A checkpoint may be marked not-applicable only against its own "when it does not apply" line**, never against convenience. A bare `n/a` is a skipped checkpoint wearing the mark of a cleared one.
 
-**Two reasons do not come from a checkpoint's own line, and there are no others: `built before Hora Kit was adopted` and `accepted in <earlier version>`.** Both are admissible on the same condition — **the work happened, and what happened is still there to be opened**: running code in the first case, a released version's task file in the second.
+**Three reasons do not come from a checkpoint's own line, and there are no others: `built before Hora Kit was adopted`, `accepted in <earlier version>` and `target names no <frontend | backend> row`.** The third skips a whole gate that nothing was ever to run there (`spec-format.md`, "`target`"). The first two are admissible on the same condition: **the work happened, and what happened is still there to be opened**, which is running code in the first case, a released version's task file in the second.
 
 **The first is `built before Hora Kit was adopted`.** A spec section may declare `<!-- built: spec | backend | frontend -->`, and `/hora-plan` marks that many checkpoints not-applicable mechanically. **Checkpoint 18 is never one of them**, and the mark is cleared wherever acceptance later sends the run back — code that has to change was not inherited after all.
 
-**The second is `accepted in <earlier version>`:** a checkpoint whose work is recorded as passed in a released version's task file, on a feature re-scheduled **only** because a listed feature's debt was paid, where nothing about that checkpoint is being redone. `/hora-plan` writes it on checkpoints 1 to 17 of every transitive dependent it re-schedules (`../../hora-plan/SKILL.md`, "Paying a listed feature's debt").
+**The second is `accepted in <earlier version>`:** a checkpoint whose work is recorded as passed in a released version's task file, where nothing about that checkpoint is being redone. It has two causes and no third.
+
+- **A feature re-scheduled only because a listed feature's debt was paid.** `/hora-plan` writes it on checkpoints 1 to 17 of every transitive dependent it re-schedules (`../../hora-plan/SKILL.md`, "Paying a listed feature's debt").
+- **A row the version's `rows` leaves out.** `/hora-plan` writes it on every checkpoint of that row's gate, or on 3 to 9 for `backend`, and only where a released task file records that gate's last checkpoint passed: 17 for a row, 9 for `backend`. Where none does, the work never happened, so `/hora-plan` asks (`blocking: yes`). A row nobody is to build yet is left out of `target`, never out of `rows` (`spec-format.md`, "`rows`").
 
 ```markdown
 - [x] 1. Draft or confirm the specification  <!-- n/a: accepted in 1.1.0; re-accepted because #billing's debt was paid -->
+- [x] 10. Open the frontend  <!-- n/a: accepted in 1.1.0; this version's rows leave out frontend-admin -->
 ```
 
 **The mark names what re-scheduled the feature as well as where the pass came from**, so a later reader can check it against the condition above.
@@ -64,13 +68,13 @@ What is common to all eighteen:
 | | `built before Hora Kit was adopted` | `accepted in <earlier version>` |
 |---|---|---|
 | What it points at | code that existed before the kit ever read the spec | an `[x]` a released version's task file already carries, on work this version does not redo |
-| Written by | `/hora-plan`, expanding a confirmed `<!-- built: -->` | `/hora-plan`, on a dependent re-scheduled because a listed feature's debt was paid |
+| Written by | `/hora-plan`, expanding a confirmed `<!-- built: -->` | `/hora-plan`, on a dependent re-scheduled because a listed feature's debt was paid, or on a row the version's `rows` leaves out |
 | Checkpoint 18 | never | never — the re-acceptance is the entry's whole purpose |
-| Cleared when | acceptance sends the run back into that code | the same |
+| Cleared when | acceptance sends the run back into that code | the same, or the version's `rows` gains that row |
 
 **It reaches checkpoints whose own "when it does not apply" line reads `never`, which is why it is authorized here.** The mark says "this was accepted in 1.1.0 and is not being redone", not "this did not apply", and naming the version and the file is what makes it checkable.
 
-**Never use it for a checkpoint that did not run anywhere, and never for a feature re-scheduled for any other cause** — a finding from acceptance, a spec change, a contract drift, code that has to be touched at all. **And never on checkpoint 18.**
+**Never use it for a checkpoint that did not run anywhere, and never for a feature re-scheduled or a row left out for any other cause**, such as a finding from acceptance, a spec change, a contract drift, or code that has to be touched at all. **And never on checkpoint 18.**
 
 Two of the eighteen deserve particular suspicion, because both look skippable and are usually not:
 
