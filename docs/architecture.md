@@ -196,6 +196,8 @@ There is no state file. **The state is `.hora/`, and its checkboxes are the stat
 
 Three states, and only three: not passed, passed, and not-applicable-with-a-reason. A bare `n/a` is not a state — it is a skipped checkpoint wearing the mark of a cleared one. The full list, with each checkpoint's exit condition, is in [`checkpoints.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-build/references/checkpoints.md).
 
+A feature that names several frontend rows carries the frontend gate once for each, as `## Frontend gate (frontend-admin)` and `## Frontend gate (frontend-employee)`, run in `target` order with acceptance once after the last. `rows` narrows what a version runs: a row it leaves out is marked `accepted in <version>`, so a version that touches one row does not run the others again, and a `target` that gains a row reopens the feature for that row alone.
+
 ---
 
 ## Re-entrancy
