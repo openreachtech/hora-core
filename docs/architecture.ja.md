@@ -194,6 +194,8 @@ Hora Kit が仕様書をアプリケーションに変えるまで。何がど�
 
 状態は3つだけです：未通過、通過、**理由付きの n/a**。理由の無い `n/a` は状態ではありません — 飛ばした関所が、通った関所の印を被っているだけです。全一覧と各関所の終了条件は [`checkpoints.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-build/references/checkpoints.md) にあります。
 
+フロントエンド行を複数持つ機能は、行ごとにフロントエンドゲートを1つずつ持ちます（`## Frontend gate (frontend-admin)`、`## Frontend gate (frontend-employee)`）。行は `target` の順に進み、検収は最後の行の後に1回だけ通ります。`rows` は版が実行する行を絞ります。除外した行は `accepted in <version>` で印が付くので、1つの行だけを触る版が他の行を再実行することはなく、`target` に行が加わった機能は、その行の分だけ再び開きます。
+
 ---
 
 ## 再入可能性

@@ -261,7 +261,7 @@ passed over 1 of 20 features; 2 not accepted
 
 **Every finding cites its evidence as "How to cite a run's evidence", below, says.**
 
-**Every finding names the checkpoint it sends the run back to, and in which feature.** A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
+**Every finding names the checkpoint it sends the run back to, and in which feature.** A checkpoint in 10 to 17 of a feature with several frontend rows also names its row, as `#attendance checkpoint 11 (frontend-admin)`. A finding with no destination is a note; a finding with one is work. The destination may be a different feature than the one at the gate.
 
 **Each send-back is reported the moment it is routed, in the same reply that writes its destination into the record** — at a gate run and at the sweep alike:
 
@@ -335,7 +335,7 @@ failed
 
 | Kind of finding | What happens |
 |---|---|
-| the implementation falls short | the named checkpoints are cleared in the named features, and rebuilt through a `retake/` branch (`../hora/references/commits.md`) — the `feature/` branch has already merged by this point |
+| the implementation falls short | the named checkpoints are cleared in the named features and rows, and rebuilt through a `retake/` branch (`../hora/references/commits.md`); the `feature/` branch has already merged by this point |
 | the implementation falls short, **in a feature marked `built before Hora Kit was adopted`** | the same, and **the not-applicable marks it lands on are cleared too.** Code that has to change was not simply inherited |
 | the spec cannot be satisfied under any reading | a `contradiction` question (`blocking: yes`), and the spec is changed through **`/hora-spec`**, at the stage `../hora-spec/references/stages.md` names |
 | an ambiguous criterion was met under one reading | a `spec-assumption` question (`blocking: no`), naming the reading assumed |

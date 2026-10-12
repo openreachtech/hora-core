@@ -196,6 +196,8 @@ When a `##`'s `id` is forgotten, `/hora` **does not invent one.** It ties that s
 
 To change one annotation, write only the heading and that annotation.
 
+**`rows` is the one annotation that does not carry over.** It is read from the section as this version writes it and never from the resolved document, so a version that does not write `rows` runs every row `target` names (`rows`, below).
+
 **Annex material is not diffed in parts.** Prose cannot be patched, so **the version that wants to change it places the whole text.**
 
 **Past versions must not be rewritten.** Fixing 1.0.0's material for 1.1.0's sake changes what 1.0.0 meant retroactively. Place the full text on the 1.1.0 side instead.
@@ -284,6 +286,8 @@ A reference from `.hora/tasks/` takes the form `<!-- spec: <id> -->`. **No file 
 
 **`target` decides which checkpoints a feature runs through.** A feature whose `target` is `backend` alone skips the frontend gate; one that names a row the frontend gate takes runs it (`../../hora-build/references/checkpoints.md`, "Whether a row runs the frontend gate"). One feature is one file whatever it touches, so getting `target` wrong changes what gets built, not where a line is filed.
 
+**`target` is permanent.** It names every row the feature ever touches, and which of them a version runs is `rows`'s to say. A feature that names two or more rows the frontend gate takes carries that gate once for each (`../../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
+
 **Make it match the `Repository` column** of the repository layout section — not its `Directory` column. `/hora` stops with a question on a mismatch.
 
 Several values are comma-separated (`<!-- target: backend, frontend-admin -->`).
@@ -291,6 +295,23 @@ Several values are comma-separated (`<!-- target: backend, frontend-admin -->`).
 **It is not cut per server.** A repository is the unit of a write conflict and of a git branch, and that is what `target` names.
 
 **`none` does not mean "do not read".** Some sections produce no feature and must still be read — non-functional requirements, the implementation plan, terminology, future design constraints.
+
+### `rows`
+
+**Which of `target`'s rows this version runs.** Written beside `target`, and only where a version touches some rows of a feature whose other rows an earlier version accepted.
+
+```markdown
+## 3. Audit log
+<!-- id: audit -->
+<!-- target: backend, frontend-admin, frontend-employee -->
+<!-- rows: frontend-employee -->
+```
+
+- **Its values are `target`'s, and `backend` is one of them.** A value `target` does not name is a typo, so ask (`blocking: yes`).
+- **Omitted, it means every row `target` names.** A feature that needs nothing narrowed writes nothing.
+- **It is written, never derived from what the diff changed.** A version that rewrites no section of a feature can still owe it work on a new row.
+- **A row it leaves out is not run again.** Its checkpoints are marked `accepted in <version>`, and only where a released task file records that row's gate passed (`done-criteria.md`, "Not applicable is a state, and it needs a reason"). Where none does, `/hora-plan` asks.
+- **A row nobody is to build yet is left out of `target`, never out of `rows`.** `target` gains it the day it joins, and `/hora-plan` opens its gate then (`../../hora-plan/SKILL.md`, "Reconcile on re-entry").
 
 ### `depends`
 

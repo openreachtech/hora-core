@@ -64,6 +64,7 @@
 | `<!-- authority: as-built \| to-spec -->` | `spec-format.md`, "`authority`" |
 | `<!-- kicked: yes \| no -->` | `spec-format.md`, "`kicked`" |
 | `<!-- target: … -->`, and `target: none` | `spec-format.md`, "`target`" |
+| `<!-- rows: … -->` | `spec-format.md`, "`rows`" |
 | use cases written once on an H1 and inherited | `spec-format.md`, "The two blocks every feature carries" |
 | a section stating in prose that it adds no code of its own | `../../hora-plan/SKILL.md`, "Carry both kinds of \"out of scope\" as design constraints" |
 
@@ -74,6 +75,8 @@
 | a checkpoint marked not-applicable against its own line | `../../hora-build/references/checkpoints.md`; `done-criteria.md`, "Not applicable is a state, and it needs a reason" |
 | `built:` expanded into not-applicable marks, with the reason | `spec-format.md`, "`built`" |
 | a whole gate skipped because `target` names no such row | `spec-format.md`, "`target`"; `../../hora-build/references/checkpoints.md` |
+| one frontend gate per row, where `target` names several | `../../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row" |
+| a row's checkpoints marked `accepted in <version>` because `rows` leaves it out | `spec-format.md`, "`rows`"; `done-criteria.md`, "Not applicable is a state, and it needs a reason" |
 | an all-`built:` version collapsed to one adoption sweep | `../../hora-plan/SKILL.md`, "collapses to one sweep" |
 | `## Not accepted` — a listed feature's entry, no checkbox, never counted | `../../hora-plan/SKILL.md`, "`_plan.md` — the order"; `done-criteria.md`, "When a version is done" |
 | `## Withdrawn` — a withdrawn feature's entry, no checkbox, never counted | `../../hora-plan/SKILL.md`, "`_plan.md` — the order"; `done-criteria.md`, "When a feature is done" |

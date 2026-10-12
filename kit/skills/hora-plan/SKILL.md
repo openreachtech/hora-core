@@ -90,6 +90,8 @@ No `target`, no `depends`, no body. Only `kicked` is overwritten.
 
 **Deferring is expressed as "`kicked: yes` in this version, `kicked: no` in the next".** `kicked: yes` carries over through diffs.
 
+**`rows` is the one annotation that does not carry over.** Read it from the section as this version writes it, never from the resolved document: a version that does not write it runs every row `target` names, where one that inherited an earlier version's `rows` would silently skip a row nobody chose to skip.
+
 **Files of past versions are never rewritten.** Carrying bodies over works precisely because past versions are frozen.
 
 A gap in the versions (`1.0.0` → `1.5.0`) does not break the chain. **Only the versions that exist** are applied, in ascending order.
@@ -200,6 +202,7 @@ attendance-monthly/spec.md   →   id: attendance-monthly      -  separates word
 |---|---|
 | `id` | a stable identifier (kebab-case, unique in the document). **References use `id`, never a section number** |
 | `target` | **which repositories this feature touches.** The repository name with the project prefix removed (`myproject-frontend-admin` → `frontend-admin`; the backend is a single repository, so always `backend`). Also `app` and `none`. Several are comma-separated |
+| `rows` | **which of `target`'s rows this version runs.** Omitted means every row `target` names. **Never carried over from an earlier version** (below) |
 | `depends` | the `id` of the sections it depends on. State `none` explicitly when there are none |
 | `kicked` | `yes` means withdrawn. **Shown in an annotation rather than by deleting the section** |
 | `built` | how far this feature was implemented **before Hora Kit was adopted** — `spec` / `backend` / `frontend`. Absent for anything built under the kit. **Never inferred** |
@@ -208,6 +211,8 @@ attendance-monthly/spec.md   →   id: attendance-monthly      -  separates word
 Subsections inherit from their parent. State it to override.
 
 **`target` decides which checkpoints apply to a feature, and nothing else.** One feature is one file, whatever it touches. A feature whose `target` is `backend` alone skips the frontend gate entirely, so getting `target` wrong changes what gets built.
+
+**`rows` narrows a version's run and nothing else.** `target` stays the permanent classification, and a version that touches one new row of a feature names that row in `rows`, so the rows an earlier version accepted are not run again (`../hora/references/spec-format.md`, "`rows`"). **Check each value against `target`, and each row it leaves out against the released task files** (section 5).
 
 **Check `target`'s value against the repository layout declaration.** Pointing at a repository that does not exist is a typo, so ask (`blocking: yes`).
 
@@ -240,6 +245,7 @@ Work through the resolved document and check every one of these.
 | `baseline: inventoried` with `authority: to-spec` | `to-spec` runs every checkpoint against the existing code; listing says none of them runs | yes |
 | `baseline: inventoried` on a section added after the version that declared `Baseline: inventoried` | new work is not inherited code | yes |
 | **A `depends` naming the listed section**, where a feature's own tables or operations sit on those of a section carrying `<!-- baseline: inventoried -->` | the dependent gets no `Rests on:` line and stays outside the transitive set when the debt is paid | **yes** |
+| **A `rows` value that `target` does not name, or a row it leaves out that no released task file records passed** (`contradiction`) | the version would skip work that nothing accepted | **yes** |
 | A missing `target` / `depends` | it classifies content, so it can be derived | no |
 | A missing `id` on a `##` | it ties to the H1's `id`, so references hold | no |
 | An orphaned file | notice that something will not be read | no |
@@ -583,6 +589,22 @@ Conflict: appends to scalars/index.js. Two other features carry the same mark
 - [ ] 18. Acceptance (E2E and unit both)
 ```
 
+**The header's `repositories:` line is the feature's `target` as it stood when the file was last written, in stripped names, and every file carries it.** Reconciliation compares it against the resolved document's `target` (section 6). **A `rows:` line sits beside it only where the section writes `rows`**, and is compared against `rows` as the section writes it, never against the resolved document.
+
+**A feature whose `target` names two or more rows the frontend gate takes writes that gate once for each row**, in `target` order, copied from `../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row". A feature with one such row keeps the single `## Frontend gate`.
+
+**A row, or `backend`, that the version's `rows` leaves out is written in full with every checkpoint of its gate marked `accepted in <version>`.** Take the version from the released task file that records that gate's last checkpoint `[x]` (9 for `backend`, 17 for a row). **A released file written before the gate was split per row has one `## Frontend gate`, and its 17 counts for every frontend row its `repositories:` line names**, unless a note in the file says that pass was for one row only, and then ask. **Where no released file records the pass, stop and ask**, since marking it would claim work nobody did.
+
+```markdown
+## Frontend gate (frontend-admin)
+- [x] 10. Open the frontend  <!-- n/a: accepted in 1.1.0; this version's rows leave out frontend-admin -->
+                                    ← 11 to 17 the same, each with the reason
+
+## Frontend gate (frontend-employee)
+- [ ] 10. Open the frontend
+                                    ← 11 to 17 written out in full
+```
+
 **A feature carrying `built:` starts with that much already marked not applicable.**
 
 | `built` | Checkpoints written `[x] <!-- n/a: built before Hora Kit was adopted -->` |
@@ -636,7 +658,7 @@ Rests on: #billing (not accepted). Its behavior is listed, never specified — a
 
 **Digests are taken per section**, and **annotation comments are excluded from the digest** — `id`, `target`, `depends` and every other one. A section runs "from its heading to the next heading at the same level or above". Where a spec is built around a table of individually-identified requirements, the row is the unit.
 
-**So a change to `built:` or `baseline:` is invisible to a digest, and is caught by re-reading the resolved document instead** (section 6). Both change what runs rather than what is built.
+**So a change to `built:`, `baseline:`, `target` or `rows` is invisible to a digest, and is caught by re-reading the resolved document instead** (section 6). Each changes what runs rather than what is built.
 
 ### Mark what overlaps
 
@@ -682,6 +704,9 @@ Reconcile the set of sections in the resolved document against the feature files
 |---|---|
 | a section with no feature file | create one. **Append it to `_plan.md`'s end** (do not disturb the existing order). **One carrying `<!-- baseline: inventoried -->` is appended to `## Not accepted` instead, with no checkbox**, and its file gets the provenance header and all eighteen `[ ]` (section 5) |
 | a section whose digest does not match | **clear the checkpoints its change invalidates, and say which** (below) |
+| a section whose `target` gained a row, against the file's `repositories:` line | **clear that row's gate from its first checkpoint, in that feature, and checkpoint 18 with its `_plan.md` entry.** A frontend row gets a `## Frontend gate (<row>)` section of its own, written `[ ]` at its position in `target` order, and the file's single `## Frontend gate` takes the name of the row the `repositories:` line already held, with its boxes untouched. `backend` clears from 3. **Nothing else clears.** Name the row and the cleared checkpoints in the report |
+| a section whose `target` lost a row | **raise a removal task** for that row's work, as `kicked: yes` does, and drop the row's section once it is done |
+| a section whose `rows` gained a row, against the file's `rows:` line | that row's `accepted in` marks come off, its gate reopens from its first checkpoint, and checkpoint 18 clears with its `_plan.md` entry. A `rows` that lost a row is a stop (`blocking: yes`) where that row's gate holds an `[x]` that recorded a run, because no mark is ever taken off a checkpoint that ran, and otherwise goes through the check in section 2 |
 | a section that gained `kicked: yes` | move its entry to `_plan.md`'s `## Withdrawn`. **Raise a removal task** if it was implemented |
 | a section that gained `baseline: inventoried` | move its entry to `## Not accepted`, and **bring every checkpoint back to `[ ]`** — an `[x]` reading `<!-- n/a: built before Hora Kit was adopted -->` is cleared; an `[x]` recording a checkpoint that actually ran is a stop (below) |
 | a section that **lost** `baseline: inventoried` | **the debt is being paid** (below). Do not plan it for building until `built:` has been restated and confirmed, or `authority: to-spec` declared |
@@ -700,7 +725,7 @@ A digest only detects changes to sections an existing feature points at. **A new
 | a use case | checkpoint 2 — everything after it |
 | the data model, or an API's shape or kind | checkpoint 3 |
 | an acceptance criterion only | checkpoint 18 |
-| a screen or an interaction only | checkpoint 11 |
+| a screen or an interaction only | checkpoint 11, in each row whose screens changed. **In every row when that cannot be told apart** |
 | **the version's own acceptance criteria** | **the `## Acceptance` sweep entry alone — not one feature's checkpoint 18** |
 | wording, with no change to any of the above | nothing. Record the new digest and move on |
 

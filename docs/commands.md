@@ -356,6 +356,8 @@ It reports in one line before starting: *"building #attendance, from checkpoint 
 
 Each one's exit condition, delegate skill and not-applicable rule is in [`checkpoints.md`](https://github.com/openreachtech/hora-core/blob/main/kit/skills/hora-build/references/checkpoints.md).
 
+**A feature that names several frontend rows runs the Frontend gate once for each**, in `target` order, then runs 18 once. `rows` narrows a version to the rows it touches (`spec-format.md`, "`rows`").
+
 Three things about the order are deliberate:
 
 - **4 (stub) comes before the frontend gate** so that 12–14 can build a client and a screen against something real-shaped, without waiting for 6. 16 swaps them onto the actual API — a change of endpoint, not a rewrite, because the stub and the real resolver share a class name and interface
