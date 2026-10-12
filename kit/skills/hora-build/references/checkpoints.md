@@ -75,7 +75,7 @@ A feature whose `target` names no frontend skips 10–17 as a whole; one that na
 **A feature whose `target` names two or more rows the frontend gate takes carries 10–17 once for each, as `## Frontend gate (<row>)` sections in `target` order.** Gates 1 to 9 and 18 stay single. A feature with one such row keeps one `## Frontend gate` and writes no qualifier.
 
 - **A pointer into 10–17 names its row**: `#attendance checkpoint 11 (frontend-admin)`. A box, a clear, a report line and a send-back each belong to one row.
-- **The rows run one after another, in `target` order, and 18 runs once, after the last.** A row's gate is entered once the previous row's 17 is `[x]`, and its branch merges after its own 17.
+- **The rows run one after another, in `target` order, and 18 runs once, after the last.** The order rule above makes a row's gate wait for the previous row's 17, and its branch merges after its own 17.
 - **A pass or a clear in one row never marks or clears another's.** A clear that reaches back past 10 reopens every row's gate, because the backend those rows consume has changed.
 - **`rows` narrows what a version runs.** A row, or `backend`, that the version's `rows` leaves out has each of its checkpoints marked not-applicable as `accepted in <version>`, and omitting `rows` runs every row `target` names (`../../hora/references/spec-format.md`, "`rows`").
 
