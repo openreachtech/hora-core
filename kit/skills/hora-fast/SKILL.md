@@ -163,7 +163,7 @@ close  once that gate has merged — 9, or 17:
          the branch is handled as commits.md handles a merged branch
 ```
 
-**A feature that names several frontend rows opens one worktree per row, each on entering that row's 10, and a row's gate opens only after the previous row's 17** (`../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
+**A feature that names several frontend rows opens one worktree per row, each on entering that row's 10, and each gate follows the previous row's 17 under the order rule** (`../hora-build/references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
 
 **How many features are open at once is a limit a person sets; the default is three.** It bounds machine load and the main session's attention. Correctness does not depend on it.
 
