@@ -200,7 +200,7 @@ A seeder written here, or a test fixture written later, that carries an explicit
 
 **What each kind requires implementing is the stack handbook's** (`docs/stack/artifacts.md`, "At the actual implementation") — the real thing behind the operation, under the same class name and interface as its stub.
 
-**Write a test for each acceptance criterion, and run it.** Where a backend test lives, how it is named, how its run order is guaranteed, and how a failing suite is driven to green without weakening it are all the package's. **A test that is loosened, skipped or deleted to make the suite pass fails this checkpoint** — the exit condition is the criteria being backed, not the command exiting 0.
+**Write a test for each acceptance criterion, for `/hora-build` to run.** Where a backend test lives, how it is named, how its run order is guaranteed, and how a failing suite is driven to green without weakening it are all the package's. **A test that is loosened, skipped or deleted to make the suite pass fails this checkpoint.** The exit condition is the criteria being backed, not the command exiting 0.
 
 **"Each acceptance criterion" means this feature's own, and only those.** A behavior spanning several features is the version's, which no gate reads (`../../hora/references/spec-format.md`, "15. Version acceptance criteria").
 
@@ -326,14 +326,18 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 
 | | |
 |---|---|
-| **Delegate to** | the skills covering how a screen is made correct by construction, and **every skill covering this project's CSS conventions** — writing style, layers, units, prohibitions, custom-property naming and prohibitions, property order within a selector, line height, `z-index`, spacing and margins, animation |
+| **Delegate to** | the skills covering how a screen is made correct by construction, and **every skill covering this project's CSS conventions** (writing style, layers, units, prohibitions, custom-property naming and prohibitions, property order within a selector, line height, `z-index`, spacing and margins, animation). For the browser check below, the skills covering how a screen is driven in a real browser |
 | **Runs in** | one implementer agent per screen (`../SKILL.md`, "Step 5 — splitting a checkpoint into units") |
-| **Exit condition** | every screen this feature needs is built, accessible, responsive, and in its loading, empty and error states as well as its filled one |
+| **Exit condition** | every screen this feature needs is built, accessible, responsive in a real browser, and in its loading, empty and error states as well as its filled one |
 | **Not applicable when** | no row in this feature's `target` runs the frontend gate ("Whether a row runs the frontend gate", below) |
 
 **The three states other than "filled" are the ones that get skipped and the ones acceptance fails on.** **Each of the four states belongs to its screen's own unit** — splitting them across agents would give one screen four authors and none of them the whole condition.
 
 **What the screens here share is styling, and it goes to one unit.** A custom-property declaration, a layer or global stylesheet, and the place a screen's labels are written are each one already-existing file. **The CSS conventions themselves are a shared *reading*, never a shared file.**
+
+**Responsive is seen in a real browser, by the main session once every screen's unit has returned.** The frontend's unit tests compute no layout, so a screen that scrolls sideways on a narrow viewport passes every one of them. Serve the frontend against the stub, as checkpoint 14 left it, and open each screen at a narrow and a wide viewport. This needs nothing from checkpoint 17. **A screen that overflows, clips or overlaps goes back to its unit.**
+
+**A browser tool the frontend lacks is a dependency, installed on its own branch like any other.** Where no browser can launch at all, raise a `lacked-environment` question and leave this checkpoint `[ ]`.
 
 ## 16. Wire the data-fetching logic in
 
@@ -344,7 +348,7 @@ That context file is what the UI generator (checkpoints 12, 15) and the UI audit
 | **Exit condition** | the screen shows real data from the **actual** API, not the stub, its loading and error paths are driven by real responses, and the unit tests covering this feature's frontend acceptance criteria pass |
 | **Not applicable when** | this feature's screen calls no API |
 
-**Write a test for each frontend acceptance criterion, and run it.** **A test that is loosened, skipped or deleted to make the suite pass fails this checkpoint**, and **the criteria are this feature's own**, never the version's (`../../hora/references/spec-format.md`, "15. Version acceptance criteria").
+**Write a test for each frontend acceptance criterion, for `/hora-build` to run.** **A test that is loosened, skipped or deleted to make the suite pass fails this checkpoint**, and **the criteria are this feature's own**, never the version's (`../../hora/references/spec-format.md`, "15. Version acceptance criteria").
 
 **This is where the stub is left behind.** Since the stub and the real implementation share a class name and an interface, this is a change of endpoint, not a rewrite.
 
