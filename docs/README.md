@@ -15,7 +15,7 @@ How Hora works — the method this package carries. Every document here is a pai
 | [`quick-start.md`](./quick-start.md) | **the shortest route to a spec.** The three drop-off directories, what putting a file in each one says, and what `/hora` does with them |
 | [`architecture.md`](./architecture.md) | **how work gets executed.** The four layers and where each ships from, one feature through eighteen checkpoints, re-entrancy, the git model, and the seven stages a spec is written through |
 | [`commands.md`](./commands.md) | **what each command does.** Reads, writes, stops-when and run-it-directly for all six, plus what a session actually looks like |
-| [`adopting.md`](./adopting.md) | **putting the kit on a project that already exists.** Which of the two adoptions it is, the six steps, and what to watch for |
+| [`adopting.md`](./adopting.md) | **putting the kit on a project that already exists.** Which of the two adoptions it is, the six steps, what to watch for, and the other case: replacing a system |
 | [`hotfix.md`](./hotfix.md) | **the emergency route.** What `/hora-hotfix` gives up, its six gates, and how the debt comes back as ordinary work |
 | [`parallel.md`](./parallel.md) | **the parallel route.** What `/hora-fast` builds first, why each feature gets a worktree, what it gives up, and how to switch back |
 | [`addons.md`](./addons.md) | **extending the skills.** What an add-on carries, when it takes effect, the sections it may change, and how several combine |

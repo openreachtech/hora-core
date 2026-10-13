@@ -24,6 +24,7 @@ user-invocable: false
 ```
 
 - **The line opens with `✅️` and the checkpoint or stage it reports**, so a reader scrolling back finds every pass by its mark and its first words
+- **A checkpoint in 10 to 17 of a feature with several frontend rows names its row after the number**, in every line that names it: `✅️ checkpoint 15 (frontend-admin) passed`. A feature with one such row writes no row
 - **`✅️` marks a pass and nothing else.** A line between two progress lines never carries it
 - **Never restate what the feature file or `_stages.md` already records.** The line replaces narration only
 - **A check, a proposal, a question and a section shown for approval keep the form `../hora/references/asking.md` gives them.** None of them is progress; the wait before one is a `🤔` line ("Waiting for a person", below)

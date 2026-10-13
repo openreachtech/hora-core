@@ -34,7 +34,9 @@ Read `../hora/references/structure.md` (the layout, the invariants, where and ho
 5. Run it. Then the next one. Stop when the file has no [ ] left
 ```
 
-Report the decision in one line before starting work — "building #attendance, from checkpoint 6 of 18".
+Report the decision in one line before starting work, as in "building #attendance, from checkpoint 6 of 18". **Inside a frontend gate the line names its row**: "building #attendance, from checkpoint 11 (frontend-admin) of 18".
+
+**In a file that carries several frontend gates, step 4 takes the first `[ ]` in file order**, so the rows run in `target` order and 18 runs once, after the last (`references/checkpoints.md`, "A feature that names several frontend rows carries one frontend gate per row").
 
 **A feature whose only open checkpoint is 18 writes no code, and cuts no branch.** That is what a section declaring `<!-- built: frontend -->` looks like on adoption: everything up to the acceptance gate is marked not-applicable, so this skill goes straight to `/hora-accept`.
 
@@ -60,14 +62,14 @@ Report the decision in one line before starting work — "building #attendance, 
 |---|---|
 | spec gate (1, 2) and checkpoints 3 to 8 | nothing, once `/hora-fast`'s foundation is fixed |
 | checkpoint 9 | merged its backend gate into `release/<version>` |
-| frontend gate (10 to 17) | merged its frontend gate |
+| frontend gate (10 to 17), in each row | merged its frontend gate in the same row, where it has one |
 | acceptance gate (18) | passed its own 18, which finishes it |
 
 **What the dependent's backend uses from its dependency is in the foundation before either opens.** The contracts, the shared tables, the master seed and every module `/hora-plan` marked `Imports:` are built there, and `/hora-plan` walked every use case through the contracts field by field. Checkpoint 9 walks the use cases as actual calls, so it is the first step that needs the dependency's running code.
 
 **A dependent's tests reach its dependency through the foundation, never through the dependency's operations.** A row they need in a dependency's table is seeded in the dependent's own band (`references/checkpoints.md`, checkpoint 5), and the call itself is walked at checkpoint 9.
 
-**A dependency's later gate that changes code a dependent built on reopens the dependent.** Clear the dependent's first checkpoint that reads the changed code, with `reopened-by: dependency`.
+**A dependency's later gate that changes code a dependent built on reopens the dependent.** Clear the dependent's first checkpoint that reads the changed code, in every row whose code reads it, with `reopened-by: dependency`.
 
 ---
 
@@ -123,7 +125,10 @@ Report the decision in one line before starting work — "building #attendance, 
    a reading of the code can settle, handed the marked change set (below);
    in conversation for the four gates that check against use cases. At 6
    and 16, where step 8's suite is itself the proof, the verifier is usually
-   skipped (below). Met or not, add this run to the line's run record (below)
+   skipped (below). At 15, the main session also opens every screen in a
+   real browser, since no reading of the code settles a layout
+   (references/checkpoints.md, checkpoint 15). Met or not, add this run to
+   the line's run record (below)
      sent back -> write the send-back line, then re-enter where the verdict
        says:
          ⏳️ [<n>] <feature> checkpoint <k> sent back to checkpoint <j> | <the findings, or the shortfall> | -> <what comes next>
