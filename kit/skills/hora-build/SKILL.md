@@ -125,7 +125,10 @@ Report the decision in one line before starting work, as in "building #attendanc
    a reading of the code can settle, handed the marked change set (below);
    in conversation for the four gates that check against use cases. At 6
    and 16, where step 8's suite is itself the proof, the verifier is usually
-   skipped (below). Met or not, add this run to the line's run record (below)
+   skipped (below). At 15, the main session also opens every screen in a
+   real browser, since no reading of the code settles a layout
+   (references/checkpoints.md, checkpoint 15). Met or not, add this run to
+   the line's run record (below)
      sent back -> write the send-back line, then re-enter where the verdict
        says:
          ⏳️ [<n>] <feature> checkpoint <k> sent back to checkpoint <j> | <the findings, or the shortfall> | -> <what comes next>
