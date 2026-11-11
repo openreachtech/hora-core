@@ -116,6 +116,7 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | yes, where a person asks for it in the run. Checkpoint 8 already audited the change set, and the sweep always takes it |
 | `/hora-accept` | `[wing] How to cite a run's evidence` | what the delegate reported, inside the finding it backs |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` with the reason, and a measurement before and after |
+| every skill (`structure.md`) | `[wing] How to find the origin catalog` | the catalog in `docs/stack/README.md`, and each origin's document under `docs/stack/origins/` |
 | the skill a person invokes (`structure.md`) | `[wing] How to begin a run` | nothing beyond resolving the add-ons |
 | every skill (`structure.md`) | `[wing] How to close a run` | the skill's own closing report, whether the run stopped, was paused or finished |
 
