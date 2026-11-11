@@ -52,14 +52,18 @@ jobs:
           echo "node  : $(node -v)"
           echo "npm   : $(npm -v)"
 
-      # ⚠️ This gate runs before npm ci because npm audit resolves the tree from
-      # package-lock.json alone and needs no node_modules. Putting the cheapest check
-      # first keeps a vulnerable dependency tree from paying for an install and a test run.
-      - name: 🛡️ npm audit
-        run: npm audit
+      # ⚠️ The gate script ships in node_modules, so packages are fetched with their
+      # install scripts held back, and those scripts run only after the gate passes.
+      # The gate fails on every advisory IGNORED_ADVISORIES.js does not list.
+      - name: 📦 Install packages without install scripts
+        run: npm ci --ignore-scripts
 
-      - name: 📦 Install packages
-        run: npm ci
+      - name: 🛡️ npm audit
+        timeout-minutes: 10
+        run: npm run audit:npm
+
+      - name: 🔧 Run install scripts
+        run: npm rebuild
 
       - name: 🧵 ESLint
         run: npm run lint
