@@ -97,7 +97,7 @@ myproject-app/                     ← cwd. Holds specs/, .hora/ and .claude/. H
 
 **The spec declares the layout. No hora skill may assume one.**
 
-- **How many rows of each origin a layout may declare is the catalog's** (the stack handbook's entry point). **A count outside an origin's stated bounds is a stop and ask** (`blocking: yes`)
+- **How many rows of each origin a layout may declare is the catalog's** ("How to find the origin catalog", below). **A count outside an origin's stated bounds is a stop and ask** (`blocking: yes`)
 - **One backend repository holds several servers**, side by side in separate folders — an employee-facing API server, an admin API server, a Worker. **An API server and a Worker that share a DB belong in one repository**
 - **Frontends do not come in pairs, and there may be several.** Where the catalog says one repository cannot hold more than one app, repositories split along groups of screens
 - **Names read `<myproject>-<role>-<purpose>`** — `myproject-frontend-admin`, not `myproject-admin-frontend`. Role first keeps repositories of the same role adjacent and makes `app` → `backend` → `frontend-*` the order of implementation
@@ -107,6 +107,14 @@ myproject-app/                     ← cwd. Holds specs/, .hora/ and .claude/. H
 The `myproject` part is the project name. **Use the name written in the spec. Do not derive it from the directory name.** Glued onto `<role>-<purpose>`, call it the **project prefix**.
 
 The nesting is Claude Code's requirement, not git's: a session cannot write outside its cwd.
+
+---
+
+## [wing] How to find the origin catalog
+
+**Read the stack handbook's entry point, `docs/stack/README.md` at the project root, and take the origins its catalog lists**, each with its boilerplate, its role and how many rows of it a layout may declare. Each one's document is `docs/stack/origins/<origin>.md`.
+
+**The origins this finds are the catalog every other step reads.** A value it does not find is not an origin, and a missing entry point is a stop-and-ask, never a guess.
 
 ---
 
