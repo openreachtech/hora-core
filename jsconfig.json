@@ -5,6 +5,7 @@
     "module": "nodenext",
     "target": "ES2023",
     "types": [
+      "@openreachtech/mentsu-npm-audit-gate",
       "jest",
       "node"
     ]
