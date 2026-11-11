@@ -601,7 +601,7 @@ The skeleton's sections 9 onward are **examples of feature sections, not a fixed
 **`/hora-setup` reads this table to decide which repositories to clone. Without it, it stops.**
 
 - **This section belongs in the entry point.** The layout applies to the whole version
-- **`Origin` is one of the values the stack handbook's catalog lists** (`docs/stack/README.md` at the project root). A value the catalog does not list is not an origin
+- **`Origin` is one of the values the origin catalog lists** (`structure.md`, "How to find the origin catalog"). A value the catalog does not list is not an origin
 - **How many rows of each origin may be declared is also the catalog's.** A count outside an origin's stated bounds — a second backend, say — stops `/hora` with a question: it is an architectural decision, not a row to add
 - **Frontends are zero or more, freely.** Where the catalog says one repository cannot hold more than one app, repositories split along groups of screens
 - **One backend holds several servers side by side.** **The server table is the unit contracts are derived from, so it must always be written**, and its `consumer` column says which frontend looks at which contract. A `protocol` left as the default is the handbook's default API style
