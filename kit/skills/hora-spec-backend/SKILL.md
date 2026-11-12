@@ -91,7 +91,7 @@ which processing does not run inside a request, and why not
 | `worker` | — | an API server in the same repository (no contract needed) |
 ```
 
-- **`Origin` comes from the stack handbook's catalog, and so does each origin's row count.** A count outside an origin's stated bounds — a second backend, say — stops the run
+- **`Origin` comes from the origin catalog, and so does each origin's row count** (`../hora/references/structure.md`, "How to find the origin catalog"). A count outside an origin's stated bounds — a second backend, say — stops the run
 - **Frontends are zero or more.** An API-only release declares none, and stage 5 is then not applicable
 - **Names read `<myproject>-<role>-<purpose>`**, from stage 1's project name
 - **The server table is the unit contracts are cut from**, so it is always written. `consumer` decides whether a contract exists at all
