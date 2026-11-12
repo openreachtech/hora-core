@@ -52,18 +52,25 @@ jobs:
           echo "node  : $(node -v)"
           echo "npm   : $(npm -v)"
 
-      # ⚠️ The gate script ships in node_modules, so packages are fetched with their
-      # install scripts held back, and those scripts run only after the gate passes.
-      # The gate fails on every advisory IGNORED_ADVISORIES.js does not list.
-      - name: 📦 Install packages without install scripts
-        run: npm ci --ignore-scripts
+      - name: 📦 Install packages
+        run: npm ci
 
+      # ⚠️ This gate runs after npm ci and before ESLint and Jest.
+      # The script imports its own dependency from node_modules, so it cannot run before the install.
+      # What still matters is that an advisory answers before the installed files are executed,
+      # and ESLint and Jest are the steps that execute them.
+      # strict-allow-scripts in .npmrc fails npm ci on any install script that allowScripts
+      # in package.json does not list, so the install runs only the scripts pinned there.
+      #
+      # ⚠️ The script runs npm audit itself and fails on every advisory except the ones
+      # the file it is given lists, a stopgap until a release fixes them.
+      # An entry whose advisory is no longer reported fails too, so the list cannot outlive its reason.
+      #
+      # ⚠️ A 503 from the advisory service leaves npm with no report, and the script says
+      # so rather than listing advisories. npm does not retry the bulk POST
+      # (`--fetch-retries=4` still sends one request), so rerun the job.
       - name: 🛡️ npm audit
-        timeout-minutes: 10
         run: npm run audit:npm
-
-      - name: 🔧 Run install scripts
-        run: npm rebuild
 
       - name: 🧵 ESLint
         run: npm run lint
