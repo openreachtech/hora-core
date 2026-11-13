@@ -113,7 +113,7 @@ add-ons active for 1.0.0: alpha-example-addon
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | はい。その実行の中で人が頼んだとき、または一覧に載った機能の後回しにした検収を払うとき。全体スイープは常に動かす |
 | `/hora-accept` | `[wing] How to confirm the environment` | ローカルの E2E コンテナ環境を、それを扱う skill で立ち上げる |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | はい。その実行の中で人が頼んだとき。全体スイープは常に行う |
-| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | はい。その実行の中で人が頼んだとき。関所8が変更の集合をすでに監査しており、全体スイープは常に行う |
+| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | はい。その実行の中で人が頼んだとき。関所8がバックエンドの変更の集合をすでに監査しており、フロントエンドは意図して全体スイープに任せる。全体スイープは常に行う |
 | `/hora-accept` | `[wing] How to cite a run's evidence` | 委任先が報告したものを、それが支える所見の中に |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` と理由を書き、前後の測定値を記録する |
 | すべての skill（`structure.md`） | `[wing] How to find the origin catalog` | `docs/stack/README.md` のカタログと、`docs/stack/origins/` の下にある各 origin の文書 |
