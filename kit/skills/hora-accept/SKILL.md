@@ -49,7 +49,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 | checkpoint 18 of `/hora-build` or `/hora-fast` — the feature gate | every repository, in full | **the feature at the gate.** The live, browser-driven part of the review runs **where "Whether a feature gate drives the product live", below, says yes** | `.hora/acceptance/<version>/<feature-id>.md` — **a new block, whatever reach this run took** |
 | the whole-version sweep — `_plan.md`'s `## Acceptance` entry | every repository, in full | **every done feature** — for every version in ascending order, every feature whose entry in `_plan.md` is `[x]`, plus the one at the gate if any, plus — in a version the plan collapsed to one adoption sweep — every entry in that version's feature section whatever its box reads (below) | `.hora/acceptance/<version>/_sweep.md` — a new block |
 
-**Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run, because checkpoint 8 already audited that feature's change set (`../hora-build/references/checkpoints.md`, checkpoint 8).
+**Step 6 is the one step whose scope is not a feature set.** At the sweep it is pointed at the repository whole; at a gate it does not run. Checkpoint 8 already audited that feature's backend change set (`../hora-build/references/checkpoints.md`, checkpoint 8). **Its frontend code is left to the sweep on purpose**: checkpoint 8 runs before any of it is written, so no gate has audited it.
 
 **"Explicitly requested" means a person asked for it, in the run.** That is the only widening there is, and the run records it with the requester named. Nothing here upgrades a gate run on its own judgment, and nothing downgrades the sweep.
 
@@ -154,8 +154,9 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
      differs is the target, not the skill or its checks — to catch what no
      single feature's change could show: accumulated exposure, a dependency
      that decayed, an authorization two features contradict. A gate run
-     skips it; checkpoint 8 covered that feature already, scoped. Findings
-     route like any other ("What a failure does", below)
+     skips it; checkpoint 8 covered that feature's backend already, scoped,
+     and its frontend is the sweep's on purpose. Findings route like any
+     other ("What a failure does", below)
 ```
 
 **Step 1 is a gate for any run that drives the product, not a warm-up.** A live review signs in as each role, completes flows to their success condition, and stops dependencies on purpose to watch what the screen says. None of that means anything against a stub. What a gate run does instead is not a weaker version of the same claim: it keeps the static checks, gives up the driven-browser ones, and its capability note bounds every claim it makes.
@@ -170,7 +171,7 @@ Read `../hora/references/structure.md` first. **This skill is strictly read-only
 
 ### [wing] Whether a feature gate takes the security audit step
 
-**Yes, where a person asked for it in the run.** Otherwise the gate skips step 6, because checkpoint 8 already audited the feature's change set, and the sweep takes it over the whole repository.
+**Yes, where a person asked for it in the run.** Otherwise the gate skips step 6. Checkpoint 8 already audited the feature's backend change set, and **the feature's frontend code is left to the sweep on purpose** — checkpoint 8 runs before it exists, so the sweep, over the whole repository, is where it is first audited. Asking for this step at the gate is how a person audits that frontend earlier.
 
 **Step 2 comes before the review on purpose.** A unit suite is cheap and its failures are precise.
 

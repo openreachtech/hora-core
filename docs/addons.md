@@ -113,7 +113,7 @@ The wording rule is what keeps the rest simple. An add-on that lets the run thro
 | `/hora-accept` | `[wing] Whether a feature gate drives the product live` | yes, where a person asks for it in the run or the run pays a listed feature's deferred acceptance. The sweep always drives |
 | `/hora-accept` | `[wing] How to confirm the environment` | the local end-to-end container stack, brought up through the skills covering it |
 | `/hora-accept` | `[wing] Whether a feature gate takes the UX findings step` | yes, where a person asks for it in the run. The sweep always takes it |
-| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | yes, where a person asks for it in the run. Checkpoint 8 already audited the change set, and the sweep always takes it |
+| `/hora-accept` | `[wing] Whether a feature gate takes the security audit step` | yes, where a person asks for it in the run. Checkpoint 8 already audited the backend change set, the frontend is left to the sweep on purpose, and the sweep always takes it |
 | `/hora-accept` | `[wing] How to cite a run's evidence` | what the delegate reported, inside the finding it backs |
 | `/hora-hotfix` | `[wing] How to record a defect no test can catch` | `reproduced: no` with the reason, and a measurement before and after |
 | every skill (`structure.md`) | `[wing] How to find the origin catalog` | the catalog in `docs/stack/README.md`, and each origin's document under `docs/stack/origins/` |
