@@ -13,7 +13,11 @@
 3. For the rest, start hora-digester — one agent per skill, all in one
    message — and use the files they write
 4. Hand those paths to the agent, alongside the skill names
+5. List each .hora/digests/<skill-name>.md whose skill no record names, and
+   report its path to the user. Leave the file in place
 ```
+
+**An orphan digest is reported, never deleted.** A renamed or removed skill leaves its digest behind, and a reader listing the directory takes it for an equipped skill. Whether it goes is the user's call.
 
 **Nothing matched, nothing digested.** When the match came back empty, these steps are skipped whole — there is no version to read and no digest to take — and the checkpoint runs on what it stated itself.
 
