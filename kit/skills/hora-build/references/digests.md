@@ -13,13 +13,9 @@
 3. For the rest, start hora-digester — one agent per skill, all in one
    message — and use the files they write
 4. Hand those paths to the agent, alongside the skill names
-5. List each .hora/digests/<skill-name>.md whose skill no record names, and
-   report its path to the user. Leave the file in place
 ```
 
-**An orphan digest is reported, never deleted.** A renamed or removed skill leaves its digest behind, and a reader listing the directory takes it for an equipped skill. Whether it goes is the user's call.
-
-**Nothing matched, nothing digested.** When the match came back empty, these steps are skipped whole — there is no version to read and no digest to take — and the checkpoint runs on what it stated itself.
+**Nothing matched, nothing digested.** When the match came back empty, this step is skipped whole — there is no version to read and no digest to take — and the checkpoint runs on what it stated itself.
 
 **The package and version in the header are what keep a digest honest.** A digest holds only while it names what it came from, so updating one package leaves that package's digests to be rewritten before they are read again — and leaves the others alone.
 
@@ -30,3 +26,5 @@
 **A verifier at step 9 of `../SKILL.md` is handed the same digests its implementer had.** Judging a checkpoint against a fuller text than the implementer was given fails work for a convention nobody handed it.
 
 **Checkpoint 8's audit skills are invoked in full, and a digest has no part in it.** A step whose skill *is* the criteria runs that skill whole (`../../hora/references/structure.md`, "How the match is made").
+
+**Once per run, report the orphan digests, and never delete them.** An orphan is a `.hora/digests/<skill-name>.md` with no `.claude/skills/<skill-name>/` beside it, left by a renamed or removed skill, and a reader listing the directory takes it for an equipped one. Report each path to the user and leave the file, because whether it goes is the user's call.
